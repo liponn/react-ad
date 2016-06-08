@@ -16,19 +16,13 @@ import logoUrl from './logo-small.png';
 
 function Header() {
   return (
-    <div className={s.root}>
-      <div className={s.container}>
-        <Navigation className={s.nav} />
-        <Link className={s.brand} to="/">
-          <img src={logoUrl} width="38" height="38" alt="React" />
-          <span className={s.brandTxt}>Your Company</span>
-        </Link>
-        <div className={s.banner}>
-          <h1 className={s.bannerTitle}>React</h1>
-          <p className={s.bannerDesc}>Complex web apps made easy</p>
-        </div>
-      </div>
-    </div>
+    <nav className="navbar navbar-dark bg-inverse" style={{ borderRadius: 0 }}>
+      <a className="navbar-brand" href="/">运营管理后台</a>
+      <ul className="nav navbar-nav pull-sm-right">
+        <li className="nav-item "><span className="nav-link">欢迎: neil</span></li>
+        <li className="nav-item "><a className="nav-link text-info" href="http://admin-omg.wanglibao.com/logout">退出</a></li>
+      </ul>
+    </nav>  
   );
 }
 

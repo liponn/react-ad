@@ -1,0 +1,6 @@
+#left-column .list-group-item:first-child, #left-column .list-group-item:last-child {
+    border-radius:0;
+}
+html,body {height:100%;}
+#main {min-height:100%;overflow:hidden;}
+#left-column {padding-bottom:10000px;margin-bottom:-10000px;background:#fbfbfb;}

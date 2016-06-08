@@ -1,0 +1,6 @@
+{
+  "name": "BannerAddModal",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./BannerAddModal.js"
+}

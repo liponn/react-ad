@@ -11,8 +11,8 @@ import React, { Component, PropTypes } from 'react';
 import emptyFunction from 'fbjs/lib/emptyFunction';
 import s from './App.css';
 import Header from '../Header';
-import Feedback from '../Feedback';
-import Footer from '../Footer';
+import LeftList  from '../LeftList';
+import Modal from '../Modal/Modal';
 import { Provider } from 'react-redux';
 
 class App extends Component {
@@ -60,11 +60,15 @@ class App extends Component {
     const store = this.props.context.store;
     return (
       <Provider store={store}>
-        <div>
+        <div id="main">
           <Header />
-          {this.props.children}
-          <Feedback />
-          <Footer />
+          <div id="left-column" className="col-sm-2 p-x-0">
+            <LeftList />
+          </div>
+          <div className="col-sm-10 m-t-1">
+            {this.props.children}
+          </div>
+          <Modal />
         </div>
       </Provider>
     );

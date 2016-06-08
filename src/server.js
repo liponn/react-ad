@@ -18,8 +18,8 @@ import jwt from 'jsonwebtoken';
 import ReactDOM from 'react-dom/server';
 import { match } from 'universal-router';
 import PrettyError from 'pretty-error';
-import passport from './core/passport';
-import models from './data/models';
+// import passport from './core/passport';
+// import models from './data/models';
 import schema from './data/schema';
 import routes from './routes';
 import assets from './assets'; // eslint-disable-line import/no-unresolved
@@ -54,8 +54,9 @@ app.use(expressJwt({
   getToken: req => req.cookies.id_token,
   /* jscs:enable requireCamelCaseOrUpperCaseIdentifiers */
 }));
-app.use(passport.initialize());
+// app.use(passport.initialize());
 
+/*
 app.get('/login/facebook',
   passport.authenticate('facebook', { scope: ['email', 'user_location'], session: false })
 );
@@ -68,6 +69,7 @@ app.get('/login/facebook/return',
     res.redirect('/');
   }
 );
+*/
 
 //
 // Register API middleware
@@ -150,9 +152,9 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 // Launch the server
 // -----------------------------------------------------------------------------
 /* eslint-disable no-console */
-models.sync().catch(err => console.error(err.stack)).then(() => {
+// models.sync().catch(err => console.error(err.stack)).then(() => {
   app.listen(port, () => {
     console.log(`The server is running at http://localhost:${port}/`);
   });
-});
+// });
 /* eslint-enable no-console */
