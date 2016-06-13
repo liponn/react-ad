@@ -11,14 +11,14 @@ import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Home.css';
 
-const title = 'React Starter Kit';
+const title = '运营管理平台';
 
 function Home({ news }, context) {
   context.setTitle(title);
   return (
     <div className={s.root}>
       <div className={s.container}>
-        <h1 className={s.title}>React.js News</h1>
+        <h1 className={s.title}>运营管理后台</h1>
         <ul className={s.news}>
           {news.map((item, index) => (
             <li key={index} className={s.newsItem}>

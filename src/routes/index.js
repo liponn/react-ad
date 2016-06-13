@@ -19,6 +19,7 @@ import register from './register';
 import content from './content';
 import error from './error';
 import channel from './channel';
+import award from './award';
 
 export default {
 
@@ -27,6 +28,7 @@ export default {
   children: [
     activity,
     channel, 
+    award,
     
     home,
     contact,
