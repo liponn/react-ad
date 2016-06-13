@@ -2,8 +2,6 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { commonFetch } from '../../../actions/omg';
 import { ACTIVITY_ADD } from '../../../constants';
-import Link from '../../Tools/Link';
-import Input from '../../Tools/Input';
 import history from '../../../core/history';
 
 class ActivityAdd extends Component {
