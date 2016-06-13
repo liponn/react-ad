@@ -8,7 +8,7 @@
  */
 
 import React from 'react';
-import App from '../components/App';
+import App from '../components/layouts/App';
 
 // Child routes
 import activity from './activity'
@@ -18,6 +18,7 @@ import login from './login';
 import register from './register';
 import content from './content';
 import error from './error';
+import channel from './channel';
 
 export default {
 
@@ -25,6 +26,8 @@ export default {
 
   children: [
     activity,
+    channel, 
+    
     home,
     contact,
     login,
@@ -33,7 +36,7 @@ export default {
     error,
   ],
 
-  async action({ next, render, context }) {
+  async action({ next, render, context, path }) {
     const component = await next();
     if (component === undefined) return component;
     return render(

@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from '../Link';
+import Link from '../../tools/Link';
 
 function LeftList() {
   return (
@@ -15,6 +15,21 @@ function LeftList() {
       </Link>
       <Link className="list-group-item" to="/article">
         <i className="fa fa-paint-brush" aria-hidden="true"></i> 文章
+      </Link>
+      <Link className="list-group-item" to="/award">
+        <i className="fa fa-gift" aria-hidden="true"></i> 红包  
+      </Link>
+      <Link className="list-group-item" to="/award">
+        <i className="fa fa-gift" aria-hidden="true"></i> 加息券  
+      </Link>
+      <Link className="list-group-item" to="/award">
+        <i className="fa fa-gift" aria-hidden="true"></i> 体验金  
+      </Link>
+      <Link className="list-group-item" to="/award">
+        <i className="fa fa-gift" aria-hidden="true"></i> 实物奖  
+      </Link>
+      <Link className="list-group-item" to="/award">
+        <i className="fa fa-gift" aria-hidden="true"></i> 优惠券  
       </Link>
     </div>
   );

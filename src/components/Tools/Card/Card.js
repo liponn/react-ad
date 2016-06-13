@@ -1,33 +1,27 @@
 import React, { PropTypes, Component } from 'react';
 
-class Input extends Component {
+class Card extends Component {
   constructor(props) {
     super(props);
   }
   render() {
     return (
-      <div className="form-group row">
-        <label
-          className="col-sm-4 form-control-label text-xs-right"
-        >{this.props.labelName}:</label>
-        <div className="col-sm-8 col-md-6">
-          <input
-            required={this.props.required}
-            type={this.props.type}
-            name={this.props.name}
-            className="form-control"
-          />
-        </div>
+      <div className="card">
+        <div className="card-header">{this.props.title}{this.props.btn}</div>
+        {this.props.children} 
       </div>
+
     );
   }
 }
 
-Input.propTypes = {
-  name: PropTypes.string.isRequired,
-  labelName: PropTypes.string.isRequired,
-  type: PropTypes.string,
-  required: PropTypes.bool,
+Card.propTypes = {
+  title: PropTypes.string.isRequired,
 }
 
-export default Input;
+Card.defaultProps = {
+  title: '',
+  btn: false,
+}
+
+export default Card;

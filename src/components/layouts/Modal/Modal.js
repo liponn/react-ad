@@ -1,8 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { hideModal } from '../../../actions/modal';
-import BannerAddModal from '../BannerAddModal';
-import ActivityAddModal from '../ActivityAddModal';
+import { BannerAddModal, ActivityAddModal, RuleAddModal } from '../../modals'
 
 
 class Modal extends Component {
@@ -28,10 +27,13 @@ class Modal extends Component {
     console.log(this.props.modalType);
     switch (this.props.modalType) {
       case 'activityAdd':
-        modalContent = <ActivityAddModal />
+        modalContent = <ActivityAddModal data={this.props.data} />
         break;
       case 'bannerAdd':
-        modalContent = <BannerAddModal />
+        modalContent = <BannerAddModal data={this.props.data} />
+        break;
+      case 'ruleAdd':
+        modalContent = <RuleAddModal data={this.props.data} />
         break;
       default:
         modalContent = false;
@@ -47,6 +49,11 @@ Modal.propTypes = {
   dispatch: PropTypes.func.isRequired,
   showStatus: PropTypes.bool.isRequired,
   modalType: PropTypes.string.isRequired,
+  data: PropTypes.object,
+}
+
+Modal.defaultProps = {
+  data: {}
 }
 
 export default connect(state => {
@@ -54,9 +61,11 @@ export default connect(state => {
   const {
     showStatus,
     modalType,
+    data,
   } = modal;
   return {
     showStatus,
     modalType,
+    data,
   };
 })(Modal);

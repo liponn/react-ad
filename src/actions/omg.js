@@ -1,5 +1,5 @@
 import fetch from '../core/fetch';
-import getApi from '../config/omg';
+import { getApi } from '../config/omg';
 import {
   FETCH_REQUEST,
   FETCH_SUCCESS,
@@ -30,11 +30,11 @@ function fetchError(type, code, msg) {
   };
 }
 
-export function commonFetch(type, method = 'GET', formData = false) {
+export function commonFetch(type, method = 'GET', formData = false, suffix = '') {
   const requestUri = getApi(type);
   return dispatch => {
     dispatch(fetchRequest(type));
-    return fetch(requestUri, {
+    return fetch(requestUri + suffix, {
       method,
       body: formData,
     })

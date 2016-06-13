@@ -17,6 +17,7 @@ export default function modal(state = null, action) {
       return Object.assign({}, state, {
         showStatus: true,
         modalType: action.modalType,
+        data: action.data
       });
     }
     case MODAL_HIDE: {

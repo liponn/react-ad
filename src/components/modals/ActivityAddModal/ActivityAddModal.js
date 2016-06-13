@@ -1,11 +1,13 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 
-import ModalHeader from '../ModalHeader';
-import Input from '../../Tools/Input';
 import { commonFetch } from '../../../actions/omg';
 import { hideModal } from '../../../actions/modal';
-import Alert from '../../Tools/Alert';
+
+import Alert from '../../tools/Alert';
+import Input from '../../tools/Input';
+import ModalHeader from '../../tools/ModalHeader';
+
 import { ACTIVITY_GROUP_ADD, ACTIVITY_GROUP_LIST } from '../../../constants'
 
 class ActivityAddModal extends Component {

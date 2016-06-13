@@ -1,5 +1,5 @@
 import React from 'react';
-import Channel from '../../components/Channel';
+import Channel from '../../components/pages/Channel';
 
 export default {
 

@@ -9,6 +9,23 @@ import {
   ACTIVITY_OFFLINE,
   ACTIVITY_PUT,
   ACTIVITY_RELEASE,
+  ACTIVITY_RULE_LIST,
+  ACTIVITY_RULE_DEL,
+
+  ACTIVITY_RULE_ADD_BALANCE,
+  ACTIVITY_RULE_ADD_CAST,
+  ACTIVITY_RULE_ADD_CHANNEL,
+  ACTIVITY_RULE_ADD_FIRSTCAST,
+  ACTIVITY_RULE_ADD_INVITE,
+  ACTIVITY_RULE_ADD_INVITENUM,
+  ACTIVITY_RULE_ADD_REGISTER,
+  ACTIVITY_RULE_ADD_USERLEVEL,
+
+  CHANNEL_ADD,
+  CHANNEL_DEL,
+  CHANNEL_INFO,
+  CHANNEL_LIST,
+  CHANNEL_PUT,
 } from '../constants/index.js';
 
 const apiHost = 'http://api-omg.wanglibao.com';
@@ -24,12 +41,43 @@ apiList[ACTIVITY_INFO] = '/activity/info';
 apiList[ACTIVITY_OFFLINE] = '/activity/offline';
 apiList[ACTIVITY_RELEASE] = '/activity/release';
 apiList[ACTIVITY_PUT] = '/activity/put';
+apiList[ACTIVITY_RULE_LIST] = '/activity/rule-list';
+apiList[ACTIVITY_RULE_DEL] = '/activity/rule-del';
+
+
+apiList[ACTIVITY_RULE_ADD_BALANCE] = '/activity/rule-add/balance';
+apiList[ACTIVITY_RULE_ADD_CAST] = '/activity/rule-add/cast';
+apiList[ACTIVITY_RULE_ADD_CHANNEL] = '/activity/rule-add/channel';
+apiList[ACTIVITY_RULE_ADD_FIRSTCAST] = '/activity/rule-add/firstcast';
+apiList[ACTIVITY_RULE_ADD_INVITE] = '/activity/rule-add/invite';
+apiList[ACTIVITY_RULE_ADD_INVITENUM] = '/activity/rule-add/invitenum';
+apiList[ACTIVITY_RULE_ADD_REGISTER] = '/activity/rule-add/register';
+apiList[ACTIVITY_RULE_ADD_USERLEVEL] = '/activity/rule-add/userlevel';
+
+
+apiList[CHANNEL_ADD] = '/channel/add';
+apiList[CHANNEL_INFO] = '/channel/info';
+apiList[CHANNEL_LIST] = '/channel/list';
+apiList[CHANNEL_PUT] = '/channel/put';
+apiList[CHANNEL_DEL] = '/channel/del';
 
 function getApi(type) {
   return apiHost + apiList[type];
 }
 
-export default getApi;
+const typeList = {
+  channel : '渠道',
+  register : '注册',
+  invite: '邀请',
+  invitenum: '邀请用户数量',
+  userlevel: '用户等级',
+  usercredit: '用户积分',
+  balance: '用户余额',
+  cast: '投资',
+  firstcast: '首投',
+}
+
+export { getApi, typeList };
 
 
 

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { commonFetch } from '../../../actions/omg';
 import { showModal } from '../../../actions/modal';
 import { ACTIVITY_GROUP_LIST } from '../../../constants';
-import { Link }  from '../../Tools';
+import Link from '../../tools/Link';
 
 class ActivityList extends Component {
   constructor(props) {

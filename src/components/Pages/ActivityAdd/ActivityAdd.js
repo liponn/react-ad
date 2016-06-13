@@ -2,7 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { commonFetch } from '../../../actions/omg';
 import { ACTIVITY_ADD } from '../../../constants';
-import { Link, Input }  from '../../Tools';
+import Link from '../../Tools/Link';
+import Input from '../../Tools/Input';
 import history from '../../../core/history';
 
 class ActivityAdd extends Component {
@@ -90,13 +91,14 @@ class ActivityAdd extends Component {
                   <option value="2">绑卡</option>
                   <option value="3">投资</option>
                   <option value="4">邀请</option>
+                  <option value="5">实名认证</option>
                 </select>
               </div>
             </div>
             <div className="form-group row">
               <label className="col-xs-2 col-xs-2 form-control-label text-xs-right" >触发优先级:</label>
               <div className="col-xs-2">
-                <input name="trigger_index" type="number" className="form-control" />
+                <input name="trigger_index" type="number" defaultValue="0" className="form-control" />
               </div>
             </div>
             <div className="form-group row">

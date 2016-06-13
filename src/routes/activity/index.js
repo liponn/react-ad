@@ -1,6 +1,7 @@
 import React from 'react';
-import ActivityAdd from '../../components/Pages/ActivityAdd';
-import { ActivityList, Activity } from '../../components/Pages';
+import Activity from '../../components/pages/Activity';
+import ActivityList from '../../components/pages/ActivityList';
+import ActivityAdd from '../../components/pages/ActivityAdd';
 
 export default {
 
@@ -19,11 +20,11 @@ export default {
     },{
       path: '/id/:activityId',
       action(context) {
-        return <Activity id={context.params.activityId} />;
+        return <Activity activityId={context.params.activityId} />;
       }
     }
   ],
-  async action({ next }) {
+  async action({ next, path }) {
     const component = await next();
     return component;
   },

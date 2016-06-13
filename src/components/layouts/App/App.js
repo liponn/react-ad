@@ -10,10 +10,12 @@
 import React, { Component, PropTypes } from 'react';
 import emptyFunction from 'fbjs/lib/emptyFunction';
 import s from './App.css';
-import Header from '../Header';
-import LeftList  from '../LeftList';
-import Modal from '../Modal/Modal';
+
 import { Provider } from 'react-redux';
+
+import Header from '../Header';
+import LeftList from '../LeftList';
+import Modal from '../Modal';
 
 class App extends Component {
 
