@@ -33,12 +33,14 @@ class RedEnvelope extends Component {
       <Card title="红包" btn={btn}>
         <table className="table m-b-0 table-bordered">
           <thead>
-            <tr><th>id</th><th>2</th></tr>
+            <tr><th>id</th><th>名称</th><th>金额</th><td>操作</td></tr>
           </thead>
           <tbody>
-            <tr><td>1</td><td></td></tr>
+            {this.props.items.map((item) => (
+              <tr><td>{item.id}</td><td>{item.name}</td><td>{item.red_money}</td><td></td></tr>
+            ))}
           </tbody>
-        </table> 
+        </table>
       </Card>
     );
   }

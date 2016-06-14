@@ -11,7 +11,7 @@ import React from 'react';
 import App from '../components/layouts/App';
 
 // Child routes
-import activity from './activity'
+import activity from './activity';
 import home from './home';
 import content from './content';
 import error from './error';
@@ -24,9 +24,8 @@ export default {
 
   children: [
     activity,
-    channel, 
+    channel,
     award,
-    
     home,
     content,
     error,

@@ -2,9 +2,9 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { commonFetch } from '../../../actions/omg';
 import { showModal } from '../../../actions/modal';
-import { ACTIVITY_ADD, ACTIVITY_RULE_LIST, ACTIVITY_RULE_DEL } from '../../../constants';
-import Link from '../../tools/Link';
-import Input from '../../tools/Input';
+import { ACTIVITY_RULE_LIST, ACTIVITY_RULE_DEL } from '../../../constants';
+import RuleAddModal from '../../modals/RuleAddModal';
+import AwardAddModal from '../../modals/AwardAddModal';
 import Card from '../../tools/Card';
 import { typeList } from '../../../config/omg';
 
@@ -12,20 +12,23 @@ class Activity extends Component {
   constructor(props) {
     super(props);
     this.showAddRuleModal = this.showAddRuleModal.bind(this);
+    this.showAddAwardModal = this.showAddAwardModal.bind(this);
     this.freshRuleList = this.freshRuleList.bind(this);
     this.ruleDel = this.ruleDel.bind(this);
   }
-
   componentDidMount() {
     this.freshRuleList();
   }
-  
   freshRuleList() {
-    this.props.dispatch(commonFetch(ACTIVITY_RULE_LIST, 'GET', false, `/${this.props.activityId}`))
+    this.props.dispatch(commonFetch(ACTIVITY_RULE_LIST, 'GET', false, `/${this.props.activityId}`));
   }
-  
   showAddRuleModal() {
-    this.props.dispatch(showModal('ruleAdd', {activityId: this.props.activityId}));
+    const ruleAddModal = <RuleAddModal activityId={this.props.activityId} />;
+    this.props.dispatch(showModal(ruleAddModal));
+  }
+  showAddAwardModal() {
+    const ruleAddModal = <AwardAddModal activityId={this.props.activityId} />;
+    this.props.dispatch(showModal(ruleAddModal));
   }
   ruleDel(e) {
     const ruleId = $(e.target).data('id');
@@ -34,9 +37,8 @@ class Activity extends Component {
     this.props.dispatch(commonFetch(ACTIVITY_RULE_DEL, 'POST', formData))
       .then((() => (this.freshRuleList())).bind(this));
   }
-  
   render() {
-    const btn = (
+    const addRuleBtn = (
       <button
         type="button"
         onClick={this.showAddRuleModal}
@@ -44,13 +46,22 @@ class Activity extends Component {
       >
         <i className="fa fa-plus">规则</i>
       </button>
-    ); 
+    );
+    const addAwardBtn = (
+      <button
+        type="button"
+        onClick={this.showAddAwardModal}
+        className="btn btn-sm btn-info pull-right"
+      >
+        <i className="fa fa-plus">奖品</i>
+      </button>
+    )
     return (
       <div>
         <Card title="活动">
-          {this.props.id}
+          {this.props.activityId}
         </Card>
-        <Card title="活动规则" btn={btn}>
+        <Card title="活动规则" btn={addRuleBtn}>
           <table className="table m-b-0">
             <thead>
               <tr><th>规则类型</th><th>规则详情</th><th>操作</th></tr>
@@ -61,7 +72,6 @@ class Activity extends Component {
                 <tr key={rule.id}>
                   <td>{typeList[rule.rule_type]}</td>
                   <td>
-                      
                   </td>
                   <td>
                     <button
@@ -72,14 +82,13 @@ class Activity extends Component {
                     >删除</button>
                   </td>
                 </tr>
-              )  
-            })} 
+              );
+            })}
             </tbody>
-            
           </table>
         </Card>
-        <Card title="活动奖品">
-         bbb 
+        <Card title="活动奖品" btn={addAwardBtn}>
+         bbb
         </Card>
       </div>
     );
@@ -87,8 +96,9 @@ class Activity extends Component {
 }
 
 Activity.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   rules: PropTypes.array.isRequired,
-  activityId: PropTypes.string.isRequired,
+  activityId: PropTypes.number.isRequired,
 };
 
 Activity.defaultProps = {

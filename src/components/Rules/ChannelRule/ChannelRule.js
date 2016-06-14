@@ -2,8 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import Card from '../../tools/Card';
 import Alert from '../../tools/Alert';
-import {commonFetch} from '../../../actions/omg';
-import {hideModal} from '../../../actions/modal';
+import { commonFetch } from '../../../actions/omg';
+import { hideModal } from '../../../actions/modal';
 import { CHANNEL_LIST, ACTIVITY_RULE_ADD_CHANNEL, ACTIVITY_RULE_LIST } from '../../../constants';
 
 class ChannelRule extends Component {
@@ -15,13 +15,11 @@ class ChannelRule extends Component {
     this.addChannelRule = this.addChannelRule.bind(this);
     this.state = {
       channels: [],
-    }
+    };
   }
-  
   componentDidMount() {
     this.props.dispatch(commonFetch(CHANNEL_LIST));
   }
-  
   // 添加渠道到规则
   channelAdd(e) {
     const name = $(e.target).data('name').toString();
@@ -46,51 +44,50 @@ class ChannelRule extends Component {
       channels,
     });
   }
-  
   // 人工修改渠道规则
   changeChannel(e) {
     const value = $(e.target).val().toString();
     const channels = value === '' ? [] : value.split(/;+/);
     this.setState({
       channels,
-    })
+    });
   }
-  
   // 保存渠道规则
   addChannelRule(e) {
     e.preventDefault();
     const { dispatch } = this.props;
     const form = $(e.target).get(0);   
     const formData = new FormData(form);
-    const { activityId } = this.props.data
-    const _this = this;
-    this.props.dispatch( commonFetch(ACTIVITY_RULE_ADD_CHANNEL, 'POST', formData) )
+    const activityId = this.props.activityId;
+    this.props.dispatch(commonFetch(ACTIVITY_RULE_ADD_CHANNEL, 'POST', formData) )
       .then((code) => {
-        if(code === 0) {
-          _this.setState({
-            channels: []
+        if (code === 0) {
+          this.setState({
+            channels: [],
           })
           dispatch(hideModal());
           dispatch(commonFetch(ACTIVITY_RULE_LIST, 'GET', false, `/${activityId}`));
-        }else {
-          
         }
-      })
+      });
   }
-  
   render() {
     const { items } = this.props;
     const channelStr = this.state.channels.join(';');
-    console.dir(this.props);
     return (
       <div>
         <form method="post" onSubmit={this.addChannelRule}>
           <Alert msg={this.props.errorMsg} />
-          <input type="hidden" name="activity_id" value={this.props.data.activityId} />
+          <input type="hidden" name="activity_id" value={this.props.activityId} />
           <div className="form-group row">
             <label className="col-sm-2 text-xs-right">渠道:</label>
             <div className="col-sm-6">
-              <textarea required name="channels" value={channelStr} onChange={this.changeChannel} className="form-control"></textarea>
+              <textarea
+                required
+                name="channels"
+                value={channelStr}
+                onChange={this.changeChannel}
+                className="form-control"
+              ></textarea>
             </div>
           </div>
           <div className="form-group row">
@@ -105,11 +102,11 @@ class ChannelRule extends Component {
               <tr><th>名称</th><th>英文名</th><th>操作</th></tr>
             </thead>
             <tbody>
-            {items.map(item=> {
-              const {alias_name} = item;
+            {items.map(item => {
+              const { alias_name } = item;
               let added = false;
-              if(this.state.channels.find((value) => (alias_name === value))) {
-                added = true    
+              if (this.state.channels.find((value) => (alias_name === value))) {
+                added = true;
               }
               return (<tr key={item.id}>
                 <td>{item.name}</td>
@@ -130,36 +127,35 @@ class ChannelRule extends Component {
                   >删除
                   </button>
                 </td>
-              </tr>)
+              </tr>);
             })}
             </tbody>
-          </table>     
+          </table>
         </Card>
       </div>
-    )
-  }   
+    );
+  }
 }
 
 ChannelRule.propTypes = {
-  items: PropTypes.array.isRequired,  
+  items: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
   errorMsg: PropTypes.string,
+  activityId: PropTypes.number.isRequired,
 }
 
 ChannelRule.defaultProps = {
   items: [],
-  data: {activityId: ''},
   errorMsg: '',
 }
 
 
 export default connect(state => {
-  const { omg } = state;  
+  const { omg } = state;
   const data = omg[CHANNEL_LIST] || [];
   const errorMsg = omg.errorMsg[ACTIVITY_RULE_ADD_CHANNEL] || '';
- 
   return {
     items: data,
     errorMsg,
-  }
+  };
 })(ChannelRule);

@@ -20,11 +20,12 @@ export default {
     },{
       path: '/id/:activityId',
       action(context) {
-        return <Activity activityId={context.params.activityId} />;
+        const activityId = +context.params.activityId;
+        return <Activity activityId={activityId} />;
       }
     }
   ],
-  async action({ next, path }) {
+  async action({ next }) {
     const component = await next();
     return component;
   },

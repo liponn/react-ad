@@ -14,13 +14,12 @@ class RuleAddModal extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.selectRule = this.selectRule.bind(this);
     this.state = {
-      currentRule : ' ',
-    }
+      currentRule: ' ',
+    };
   }
-  
   onSubmit(e) {
     e.preventDefault();
-    const form =  $('#add-activity-form').get(0);
+    const form = e.target;
     const formData = new FormData(form);
     const { dispatch } = this.props;
     dispatch(commonFetch(ACTIVITY_GROUP_ADD, 'POST', formData))
@@ -31,53 +30,53 @@ class RuleAddModal extends Component {
         }
       });
   }
-  
   selectRule(e) {
     const ruleName = e.target.value;
-    switch(ruleName) {
+    switch (ruleName) {
       case 'channel':
         this.setState({
-          currentRule: <ChannelRule data={this.props.data} />
+          currentRule: <ChannelRule activityId={this.props.activityId} />,
         })
         break;
       default:
         this.setState({
-          currentRule: ruleName
-        })
+          currentRule: ruleName,
+        });
     }
   }
 
   render() {
+    console.log(this.props.activityId);
     return (
       <div className="modal-dialog">
         <div className="modal-content">
           <ModalHeader title="添加规则" />
           <div className="modal-body">
             <div>
-              <label class="c-input c-radio">
+              <label className="c-input c-radio">
                 <input name="rule-add" value="register" type="radio" onClick={this.selectRule} />
-                  <span class="c-indicator"></span>
-                  &nbsp;注册时间
+                <span className="c-indicator"></span>
+                &nbsp;注册时间
               </label>&nbsp;&nbsp;
-              <label class="c-input c-radio">
+              <label className="c-input c-radio">
                 <input name="rule-add" value="channel" type="radio" onClick={this.selectRule} />
-                  <span class="c-indicator"></span>
-                  &nbsp;渠道
+                <span className="c-indicator"></span>
+                &nbsp;渠道
               </label>&nbsp;&nbsp;
-              <label class="c-input c-radio">
+              <label className="c-input c-radio">
                 <input name="rule-add" value="invite" type="radio" onClick={this.selectRule} />
-                  <span class="c-indicator"></span>
-                  &nbsp;邀请
+                <span className="c-indicator"></span>
+                &nbsp;邀请
               </label>&nbsp;&nbsp;
-              <label class="c-input c-radio">
+              <label className="c-input c-radio">
                 <input name="rule-add" value="firstcast" type="radio" onClick={this.selectRule} />
-                  <span class="c-indicator"></span>
-                  &nbsp;首投
+                <span className="c-indicator"></span>
+                &nbsp;首投
               </label>&nbsp;&nbsp;
-              <label class="c-input c-radio">
+              <label className="c-input c-radio">
                 <input name="rule-add" value="cast" type="radio" onClick={this.selectRule} />
-                  <span class="c-indicator"></span>
-                  &nbsp;投资
+                <span className="c-indicator"></span>
+                &nbsp;投资
               </label>&nbsp;&nbsp;
               <hr />
               {this.state.currentRule}
@@ -90,6 +89,7 @@ class RuleAddModal extends Component {
 }
 RuleAddModal.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  activityId: PropTypes.number.isRequired,
 }
 
 export default connect(state => {
