@@ -13,9 +13,6 @@ import App from '../components/layouts/App';
 // Child routes
 import activity from './activity'
 import home from './home';
-import contact from './contact';
-import login from './login';
-import register from './register';
 import content from './content';
 import error from './error';
 import channel from './channel';
@@ -31,9 +28,6 @@ export default {
     award,
     
     home,
-    contact,
-    login,
-    register,
     content,
     error,
   ],

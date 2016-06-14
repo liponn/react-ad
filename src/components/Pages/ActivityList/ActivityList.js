@@ -4,6 +4,7 @@ import { commonFetch } from '../../../actions/omg';
 import { showModal } from '../../../actions/modal';
 import { ACTIVITY_GROUP_LIST } from '../../../constants';
 import Link from '../../tools/Link';
+import ActivityAddModal from '../../modals/ActivityAddModal'
 
 class ActivityList extends Component {
   constructor(props) {
@@ -14,10 +15,10 @@ class ActivityList extends Component {
     this.props.dispatch(commonFetch(ACTIVITY_GROUP_LIST));
   }
   showModal() {
-    this.props.dispatch(showModal('activityAdd'));
+    const modalView = <ActivityAddModal />; 
+    this.props.dispatch(showModal(modalView));
   }
   render() {
-    console.dir(this.props.items);
     const items = this.props.items;
     return (
       <div className="card">

@@ -3,10 +3,10 @@ import {
   MODAL_HIDE,
 } from '../constants/index.js';
 
-export function showModal(modalType, data = {}) {
+export function showModal(modalView, data = {}) {
   return {
     type: MODAL_SHOW,
-    modalType,
+    modalView,
     data,
   };
 }

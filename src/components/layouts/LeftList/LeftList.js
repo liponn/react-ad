@@ -16,19 +16,19 @@ function LeftList() {
       <Link className="list-group-item" to="/article">
         <i className="fa fa-paint-brush" aria-hidden="true"></i> 文章
       </Link>
-      <Link className="list-group-item" to="/award">
+      <Link className="list-group-item" to="/award/redEnvelope">
         <i className="fa fa-gift" aria-hidden="true"></i> 红包  
       </Link>
-      <Link className="list-group-item" to="/award">
+      <Link className="list-group-item" to="/award/interest">
         <i className="fa fa-gift" aria-hidden="true"></i> 加息券  
       </Link>
-      <Link className="list-group-item" to="/award">
+      <Link className="list-group-item" to="/award/experience">
         <i className="fa fa-gift" aria-hidden="true"></i> 体验金  
       </Link>
-      <Link className="list-group-item" to="/award">
+      <Link className="list-group-item" to="/award/entity">
         <i className="fa fa-gift" aria-hidden="true"></i> 实物奖  
       </Link>
-      <Link className="list-group-item" to="/award">
+      <Link className="list-group-item" to="/award/coupon">
         <i className="fa fa-gift" aria-hidden="true"></i> 优惠券  
       </Link>
     </div>

@@ -7,15 +7,22 @@ html(class="no-js", lang="")
     meta(name="description", description=description)
     meta(name="viewport", content="width=device-width, initial-scale=1")
     link(rel="apple-touch-icon", href="apple-touch-icon.png")
-    link(rel="stylesheet", type="text/css", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css")
-    link(rel="stylesheet", type="text/css", href="/font-awesome-4.6.3/css/font-awesome.min.css")
+    link(rel="stylesheet", type="text/css", href="/css/bootstrap.min.css")
+    link(rel="stylesheet", type="text/css", href="/css/font-awesome.min.css")
     link(rel="stylesheet", type="text/css", href="/css/main.css")
+    link(rel="stylesheet", type="text/css", href="/css/picker/default.css")
+    link(rel="stylesheet", type="text/css", href="/css/picker/default.date.css")
+    link(rel="stylesheet", type="text/css", href="/css/picker/default.time.css")
     style#css!= css
   body
     #app!= body
     script(src="/lib/jquery.min.js")
     script(src="/lib/tether.min.js")
     script(src="/lib/bootstrap.min.js")
+    script(src="/lib/picker/picker.js")
+    script(src="/lib/picker/picker.date.js")
+    script(src="/lib/picker/picker.time.js")
+    script(src="/lib/picker/picker.zh_cn.js")
     script#source(src=entry, data-initial-state=state)
     script.
       window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;

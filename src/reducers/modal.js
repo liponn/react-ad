@@ -9,14 +9,14 @@ export default function modal(state = null, action) {
       showStatus: false,
       title: '确认',
       initialNow: Date.now(),
-      modalType: '',
+      modalView: {},
     };
   }
   switch (action.type) {
     case MODAL_SHOW: {
       return Object.assign({}, state, {
         showStatus: true,
-        modalType: action.modalType,
+        modalView: action.modalView,
         data: action.data
       });
     }

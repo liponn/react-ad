@@ -21,6 +21,12 @@ import {
   ACTIVITY_RULE_ADD_REGISTER,
   ACTIVITY_RULE_ADD_USERLEVEL,
 
+  AWARD_LIST,
+  AWARD_ADD,
+  AWARD_UPDATE,
+  AWARD_DEL,
+  AWARD_INFO,
+
   CHANNEL_ADD,
   CHANNEL_DEL,
   CHANNEL_INFO,
@@ -54,6 +60,12 @@ apiList[ACTIVITY_RULE_ADD_INVITENUM] = '/activity/rule-add/invitenum';
 apiList[ACTIVITY_RULE_ADD_REGISTER] = '/activity/rule-add/register';
 apiList[ACTIVITY_RULE_ADD_USERLEVEL] = '/activity/rule-add/userlevel';
 
+
+apiList[AWARD_ADD] = '/award/add';
+apiList[AWARD_DEL] = '/award/delete';
+apiList[AWARD_INFO] = '/award/get-one';
+apiList[AWARD_LIST] = '/award/get-list';
+apiList[AWARD_UPDATE] = '/award/update';
 
 apiList[CHANNEL_ADD] = '/channel/add';
 apiList[CHANNEL_INFO] = '/channel/info';

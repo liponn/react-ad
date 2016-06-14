@@ -1,12 +1,15 @@
 export const SET_RUNTIME_VARIABLE = 'SET_RUNTIME_VARIABLE';
 
+//接口请求
 export const FETCH_REQUEST = 'FETCH_REQUEST';
 export const FETCH_SUCCESS = 'FETCH_SUCCESS';
 export const FETCH_ERROR = 'FETCH_ERROR';
 
+//弹窗
 export const MODAL_SHOW = 'MODAL_SHOW';
 export const MODAL_HIDE = 'MODAL_HIDE';
 
+//渠道管理
 export const CHANNEL_LIST = 'CHANNEL_LIST';
 export const CHANNEL_ADD = 'CHANNEL_ADD';
 export const CHANNEL_DEL = 'CHANNEL_DEL';
@@ -14,6 +17,7 @@ export const CHANNEL_PUT = 'CHANNEL_PUT';
 export const CHANNEL_INFO = 'CHANNEL_INFO';
 
 
+//活动
 export const ACTIVITY_ADD = 'ACTIVITY_ADD';
 export const ACTIVITY_INFO = 'ACTIVITY_INFO';
 export const ACTIVITY_INDEX = 'ACTIVITY_INDEX';
@@ -35,6 +39,13 @@ export const ACTIVITY_RULE_ADD_USERLEVEL = 'ACTIVITY_RULE_ADD_USERLEVEL';
 export const ACTIVITY_RULE_ADD_BALANCE = 'ACTIVITY_RULE_ADD_BALANCE';
 export const ACTIVITY_RULE_ADD_FIRSTCAST = 'ACTIVITY_RULE_ADD_FIRSTCAST';
 export const ACTIVITY_RULE_ADD_CAST = 'ACTIVITY_RULE_ADD_CAST';
+
+// 奖品
+export const AWARD_LIST = 'AWARD_LIST';
+export const AWARD_ADD = 'AWARD_ADD';
+export const AWARD_UPDATE = 'AWARD_UPDATE';
+export const AWARD_DEL = 'AWARD_DEL';
+export const AWARD_INFO = 'AWARD_INFO';
 
 export const ARTICLE_TYPE_LIST = 'ARTICLE_TYPE_LIST';
 export const ARTICLE_TYPE_ADD = 'ARTICLE_TYPE_ADD';

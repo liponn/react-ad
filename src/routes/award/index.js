@@ -1,5 +1,5 @@
 import React from 'react';
-import RedEnvelope from '../../components/pages/RedEnvelope';
+import RedEnvelope from '../../components/awards/RedEnvelope';
 
 export default {
 
