@@ -17,6 +17,7 @@ import content from './content';
 import error from './error';
 import channel from './channel';
 import award from './award';
+import banner from './banner';
 
 export default {
 
@@ -26,6 +27,7 @@ export default {
     activity,
     channel,
     award,
+    banner,
     home,
     content,
     error,

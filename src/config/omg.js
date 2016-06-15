@@ -36,6 +36,8 @@ import {
   CHANNEL_INFO,
   CHANNEL_LIST,
   CHANNEL_PUT,
+
+  BANNER_LIST,
 } from '../constants/index.js';
 
 const apiHost = 'http://api-omg.wanglibao.com';
@@ -79,6 +81,8 @@ apiList[CHANNEL_INFO] = '/channel/info';
 apiList[CHANNEL_LIST] = '/channel/list';
 apiList[CHANNEL_PUT] = '/channel/put';
 apiList[CHANNEL_DEL] = '/channel/del';
+
+apiList[BANNER_LIST] = '/img/banner-list';
 
 function getApi(type) {
   return apiHost + apiList[type];
