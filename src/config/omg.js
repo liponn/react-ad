@@ -5,6 +5,7 @@ import {
   ACTIVITY_GROUP_ADD,
   ACTIVITY_GROUP_INFO,
   ACTIVITY_GROUP_LIST,
+  ACTIVITY_GROUP_DEL,
   ACTIVITY_INFO,
   ACTIVITY_OFFLINE,
   ACTIVITY_PUT,
@@ -49,6 +50,7 @@ apiList[ACTIVITY_ADD] = '/activity/add';
 apiList[ACTIVITY_DEL] = '/activity/del';
 apiList[ACTIVITY_GROUP_ADD] = '/activity/group-add';
 apiList[ACTIVITY_GROUP_INFO] = '/activity/group-info';
+apiList[ACTIVITY_GROUP_DEL] = '/activity/group-del';
 apiList[ACTIVITY_INFO] = '/activity/info';
 apiList[ACTIVITY_OFFLINE] = '/activity/offline';
 apiList[ACTIVITY_RELEASE] = '/activity/release';

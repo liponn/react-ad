@@ -8,7 +8,7 @@ class Card extends Component {
     return (
       <div className="card">
         <div className="card-header">{this.props.title}{this.props.btn}</div>
-        {this.props.children} 
+        {this.props.children}
       </div>
 
     );

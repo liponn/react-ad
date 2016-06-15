@@ -2,8 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { commonFetch } from '../../../actions/omg';
 import { showModal } from '../../../actions/modal';
-import { ACTIVITY_GROUP_LIST, ACTIVITY_OFFLINE, ACTIVITY_RELEASE, ACTIVITY_DEL } from '../../../constants';
-import { Link } from '../../tools';
+import { ACTIVITY_GROUP_DEL, ACTIVITY_GROUP_LIST, ACTIVITY_OFFLINE, ACTIVITY_RELEASE, ACTIVITY_DEL } from '../../../constants';
+import { Link, Card } from '../../tools';
 import { getConfig } from '../../../config/omg';
 import ActivityAddModal from '../../modals/ActivityAddModal';
 
@@ -14,6 +14,7 @@ class ActivityList extends Component {
     this.activityRelease = this.activityRelease.bind(this);
     this.activityOffline = this.activityOffline.bind(this);
     this.activityDelete = this.activityDelete.bind(this);
+    this.groupDelete = this.groupDelete.bind(this);
   }
   componentDidMount() {
     this.props.dispatch(commonFetch(ACTIVITY_GROUP_LIST));
@@ -41,21 +42,27 @@ class ActivityList extends Component {
     const formData = new FormData;
     formData.append('id', id);
     this.props.dispatch(commonFetch(ACTIVITY_DEL, 'POST', formData))
-      .then(() => (this.props.dispatch(commonFetch(ACTIVITY_GROUP_LIST))));   
+      .then(() => (this.props.dispatch(commonFetch(ACTIVITY_GROUP_LIST))));
+  }
+  groupDelete(e) {
+    const id = $(e.target).data('id');
+    const formData = new FormData;
+    formData.append('id', id);
+    this.props.dispatch(commonFetch(ACTIVITY_GROUP_DEL, 'POST', formData))
+      .then(() => (this.props.dispatch(commonFetch(ACTIVITY_GROUP_LIST))));
   }
   render() {
     const items = this.props.items;
+    const addBtn = (
+      <button
+        type="button"
+        onClick={this.showModal}
+        className="btn btn-sm btn-info action-add pull-right"
+      >
+        <i className="fa fa-plus">活动</i>
+      </button>);
     return (
-      <div className="card">
-        <div className="card-header clearfix">活动列表
-          <button
-            type="button"
-            onClick={this.showModal}
-            className="btn btn-sm btn-info action-add pull-right"
-          >
-            <i className="fa fa-plus">活动</i>
-          </button>
-        </div>
+      <Card title="活动列表" btn={addBtn}>
         <table className="table m-b-0 table-hover">
           <thead>
             <tr>
@@ -80,6 +87,12 @@ class ActivityList extends Component {
                     <Link className="btn btn-sm btn-info-outline" to={`/activity/gid/${item.id}`}>
                       <i className="fa fa-plus"></i>子活动
                     </Link>
+                    <button
+                      hidden={item.activities > 0 ? true : false}
+                      data-id={item.id}
+                      onClick={this.groupDelete}
+                      className="btn btn-sm btn-danger-outline"
+                    >删除</button>
                   </td>
                 </tr>];
               const children = item.activities.map((activity) => (
@@ -120,7 +133,7 @@ class ActivityList extends Component {
             })}
           </tbody>
         </table>
-      </div>
+      </Card>
     );
   }
 }
