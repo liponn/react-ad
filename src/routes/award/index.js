@@ -1,14 +1,14 @@
 import React from 'react';
-import RedEnvelope from '../../components/awards/RedEnvelope';
+import Award from '../../components/pages/Award';
 
 export default {
 
   path: '/Award',
   children: [
     {
-      path: '/RedEnvelope',
-      action() {
-        return <RedEnvelope />;
+      path: '/:awardType',
+      action(context) {
+        return <Award awardType={context.params.awardType} />;
       },
     },
   ],

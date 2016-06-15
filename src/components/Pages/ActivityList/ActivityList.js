@@ -2,21 +2,46 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { commonFetch } from '../../../actions/omg';
 import { showModal } from '../../../actions/modal';
-import { ACTIVITY_GROUP_LIST } from '../../../constants';
-import Link from '../../tools/Link';
-import ActivityAddModal from '../../modals/ActivityAddModal'
+import { ACTIVITY_GROUP_LIST, ACTIVITY_OFFLINE, ACTIVITY_RELEASE, ACTIVITY_DEL } from '../../../constants';
+import { Link } from '../../tools';
+import { getConfig } from '../../../config/omg';
+import ActivityAddModal from '../../modals/ActivityAddModal';
 
 class ActivityList extends Component {
   constructor(props) {
     super(props);
     this.showModal = this.showModal.bind(this);
+    this.activityRelease = this.activityRelease.bind(this);
+    this.activityOffline = this.activityOffline.bind(this);
+    this.activityDelete = this.activityDelete.bind(this);
   }
   componentDidMount() {
     this.props.dispatch(commonFetch(ACTIVITY_GROUP_LIST));
   }
   showModal() {
-    const modalView = <ActivityAddModal />; 
+    const modalView = <ActivityAddModal />;
     this.props.dispatch(showModal(modalView));
+  }
+  activityRelease(e) {
+    const id = $(e.target).data('id');
+    const formData = new FormData;
+    formData.append('id', id);
+    this.props.dispatch(commonFetch(ACTIVITY_RELEASE, 'POST', formData))
+      .then(() => (this.props.dispatch(commonFetch(ACTIVITY_GROUP_LIST))));
+  }
+  activityOffline(e) {
+    const id = $(e.target).data('id');
+    const formData = new FormData;
+    formData.append('id', id);
+    this.props.dispatch(commonFetch(ACTIVITY_OFFLINE, 'POST', formData))
+      .then(() => (this.props.dispatch(commonFetch(ACTIVITY_GROUP_LIST))));
+  }
+  activityDelete(e) {
+    const id = $(e.target).data('id');
+    const formData = new FormData;
+    formData.append('id', id);
+    this.props.dispatch(commonFetch(ACTIVITY_DEL, 'POST', formData))
+      .then(() => (this.props.dispatch(commonFetch(ACTIVITY_GROUP_LIST))));   
   }
   render() {
     const items = this.props.items;
@@ -31,7 +56,7 @@ class ActivityList extends Component {
             <i className="fa fa-plus">活动</i>
           </button>
         </div>
-        <table className="table m-b-0">
+        <table className="table m-b-0 table-hover">
           <thead>
             <tr>
               <th>活动名称</th>
@@ -44,37 +69,53 @@ class ActivityList extends Component {
           </thead>
           <tbody >
             {items.map((item) => {
-              let trArr = [
-                <tr key={'group' + item.id}>
-                  <td>{item.name}</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+              const trArr = [
+                <tr key={`group-${item.id}`}>
+                  <td>{item.name} ({item.activities.length})</td>
+                  <td>—</td>
+                  <td>—</td>
+                  <td>—</td>
+                  <td>—</td>
                   <td>
                     <Link className="btn btn-sm btn-info-outline" to={`/activity/gid/${item.id}`}>
-                      <i className="fa fa-plus">子活动</i>
+                      <i className="fa fa-plus"></i>子活动
                     </Link>
-                    <a href="/activity/group-update/@{{group.id}}" className="btn btn-sm btn-info-outline">编辑</a>
-                    <button className="btn btn-sm btn-danger-outline">删除</button>
+                  </td>
+                </tr>];
+              const children = item.activities.map((activity) => (
+                <tr key={`activity${activity.id}`}>
+                  <td>&nbsp;&nbsp;{activity.name}</td>
+                  <td>{getConfig('activityTriggers', activity.trigger_type)}</td>
+                  <td>{activity.start_at ? activity.start_at : '—'}</td>
+                  <td>{activity.end_at ? activity.start_at : '—'}</td>
+                  <td>
+                    <span className="text-success" hidden={!activity.enable}>上线</span>
+                    <span className="text-warning" hidden={activity.enable}>下线</span></td>
+                  <td>
+                    <button
+                      data-id={activity.id}
+                      hidden={!activity.enable}
+                      onClick={this.activityOffline}
+                      className="btn btn-sm btn-warning-outline"
+                    >下线</button>
+                    <button
+                      data-id={activity.id}
+                      hidden={activity.enable}
+                      onClick={this.activityRelease}
+                      className="btn btn-sm btn-success-outline"
+                    >上线</button>
+                    <Link className="btn btn-sm btn-info-outline" to={`/activity/id/${activity.id}`}>
+                      编辑 
+                    </Link>
+                    <button
+                      data-id={activity.id}
+                      onClick={this.activityDelete}
+                      className="btn btn-sm btn-danger-outline"
+                    >删除</button>
                   </td>
                 </tr>
-              ];
-              {item.activities.map((activity) => {
-                trArr.join(
-                  <tr key={'activity' + activity.id}>
-                    <td>{activity.name}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                      <button className="btn btn-sm btn-warning-outline">下线</button>
-                      <button className="btn btn-sm btn-info-outline">上线</button>
-                      <button className="btn btn-sm btn-danger-outline">删除</button>
-                    </td>
-                  </tr>
-                )
-              })}
+              ));
+              trArr.push(children);
               return trArr;
             })}
           </tbody>
