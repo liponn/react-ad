@@ -6,7 +6,7 @@ import { commonFetch } from '../../../actions/omg';
 import { hideModal } from '../../../actions/modal';
 import { ACTIVITY_GROUP_ADD, ACTIVITY_GROUP_LIST } from '../../../constants'
 
-import ChannelRule from '../../Rules/ChannelRule';
+import ChannelRule from '../../rules/ChannelRule';
 
 class RuleAddModal extends Component {
   constructor(props) {

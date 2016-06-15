@@ -194,7 +194,7 @@ Channel.defaultProps = {
 
 export default connect(state => {
   const { omg } = state;
-  const data = omg[CHANNEL_LIST] || [];
+  const { data } = omg[CHANNEL_LIST] || [];
   return {
     items : data 
   };

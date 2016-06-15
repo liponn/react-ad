@@ -5,6 +5,7 @@ import {
   ACTIVITY_GROUP_ADD,
   ACTIVITY_GROUP_INFO,
   ACTIVITY_GROUP_LIST,
+  ACTIVITY_GROUP_DEL,
   ACTIVITY_INFO,
   ACTIVITY_OFFLINE,
   ACTIVITY_PUT,
@@ -21,6 +22,10 @@ import {
   ACTIVITY_RULE_ADD_REGISTER,
   ACTIVITY_RULE_ADD_USERLEVEL,
 
+  ACTIVITY_AWARD_ADD,
+  ACTIVITY_AWARD_DEL,
+  ACTIVITY_AWARD_LIST,
+
   AWARD_LIST,
   AWARD_ADD,
   AWARD_UPDATE,
@@ -35,6 +40,7 @@ import {
 
   ARTICLE_ADD,
   ARTICLE_TYPE_LIST,
+  BANNER_LIST,
 } from '../constants/index.js';
 
 const apiHost = 'http://api-omg.wanglibao.com';
@@ -46,6 +52,7 @@ apiList[ACTIVITY_ADD] = '/activity/add';
 apiList[ACTIVITY_DEL] = '/activity/del';
 apiList[ACTIVITY_GROUP_ADD] = '/activity/group-add';
 apiList[ACTIVITY_GROUP_INFO] = '/activity/group-info';
+apiList[ACTIVITY_GROUP_DEL] = '/activity/group-del';
 apiList[ACTIVITY_INFO] = '/activity/info';
 apiList[ACTIVITY_OFFLINE] = '/activity/offline';
 apiList[ACTIVITY_RELEASE] = '/activity/release';
@@ -62,6 +69,9 @@ apiList[ACTIVITY_RULE_ADD_INVITE] = '/activity/rule-add/invite';
 apiList[ACTIVITY_RULE_ADD_INVITENUM] = '/activity/rule-add/invitenum';
 apiList[ACTIVITY_RULE_ADD_REGISTER] = '/activity/rule-add/register';
 apiList[ACTIVITY_RULE_ADD_USERLEVEL] = '/activity/rule-add/userlevel';
+apiList[ACTIVITY_AWARD_ADD] = '/activity/award-add';
+apiList[ACTIVITY_AWARD_LIST] = '/activity/award-list';
+apiList[ACTIVITY_AWARD_DEL] = '/activity/award-delete';
 
 
 apiList[AWARD_ADD] = '/award/add';
@@ -79,14 +89,15 @@ apiList[CHANNEL_DEL] = '/channel/del';
 
 apiList[ARTICLE_ADD] = '/cms/content/add';
 apiList[ARTICLE_TYPE_LIST]='/cms/content/type-list';
+apiList[BANNER_LIST] = '/img/banner-list';
 
 function getApi(type) {
   return apiHost + apiList[type];
 }
 
 const typeList = {
-  channel : '渠道',
-  register : '注册',
+  channel: '渠道',
+  register: '注册',
   invite: '邀请',
   invitenum: '邀请用户数量',
   userlevel: '用户等级',
@@ -96,7 +107,33 @@ const typeList = {
   firstcast: '首投',
 }
 
-export { getApi, typeList };
+const activityTriggers = {
+  0: '主动',
+  1: '首投',
+  2: '绑卡',
+  3: '投资',
+  4: '邀请',
+  5: '实名',
+}
+
+const config = {
+  activityTriggers,
+}
+
+function getConfig(type, value = false) {
+  if (typeof config[type] === 'undefined') {
+    return [];
+  }
+  if (value === false) {
+    return config[type];
+  }
+  if(typeof config[type][value] === 'undefined') {
+    return value;
+  }
+  return config[type][value];
+}
+
+export { getApi, getConfig, typeList };
 
 
 

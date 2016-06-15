@@ -18,6 +18,7 @@ import error from './error';
 import channel from './channel';
 import award from './award';
 import article from './article';
+import banner from './banner';
 
 export default {
 
@@ -28,6 +29,7 @@ export default {
     channel,
     award,
     article,
+    banner,
     home,
     content,
     error,

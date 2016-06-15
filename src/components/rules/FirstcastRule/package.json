@@ -1,0 +1,6 @@
+{
+  "name": "FirstRule",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./FirstRule.js"
+}
