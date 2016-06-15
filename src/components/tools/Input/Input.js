@@ -10,7 +10,7 @@ class Input extends Component {
         <label
           className="col-sm-4 form-control-label text-xs-right"
         >{this.props.labelName}:</label>
-        <div className="col-sm-8 col-md-6">
+        <div className="col-sm-6">
           <input
             required={this.props.required}
             type={this.props.type}

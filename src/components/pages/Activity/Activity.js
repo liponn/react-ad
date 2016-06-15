@@ -1,12 +1,12 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { commonFetch } from '../../../actions/omg';
-import { showModal } from '../../../actions/modal';
-import { ACTIVITY_RULE_LIST, ACTIVITY_AWARD_LIST, ACTIVITY_RULE_DEL } from '../../../constants';
+import { showModal, hideModal } from '../../../actions/modal';
+import { ACTIVITY_RULE_LIST, ACTIVITY_AWARD_LIST, ACTIVITY_RULE_DEL, ACTIVITY_AWARD_ADD, ACTIVITY_AWARD_DEL } from '../../../constants';
 import RuleAddModal from '../../modals/RuleAddModal';
-import AwardAddModal from '../../modals/AwardAddModal';
-import { Card } from '../../tools';
-import { typeList } from '../../../config/omg';
+import Award from '../../pages/Award';
+import { Card, Modal } from '../../tools';
+import { typeList, getConfig } from '../../../config/omg';
 
 class Activity extends Component {
   constructor(props) {
@@ -15,6 +15,12 @@ class Activity extends Component {
     this.showAddAwardModal = this.showAddAwardModal.bind(this);
     this.freshRuleList = this.freshRuleList.bind(this);
     this.ruleDel = this.ruleDel.bind(this);
+    this.awardDel = this.awardDel.bind(this);
+    this.addAward = this.addAward.bind(this);
+    const awardTypes = getConfig('awardTypes');
+    this.state = {
+      awardTypes,
+    };
   }
   componentDidMount() {
     this.freshRuleList();
@@ -37,8 +43,12 @@ class Activity extends Component {
   }
   // 显示添加奖品
   showAddAwardModal() {
-    const ruleAddModal = <AwardAddModal activityId={this.props.activityId} />;
-    this.props.dispatch(showModal(ruleAddModal));
+    const awardView = (
+      <Modal title="添加奖品">
+        <Award modal addAward={this.addAward} />
+      </Modal>
+    );
+    this.props.dispatch(showModal(awardView));
   }
   // 删除规则
   ruleDel(e) {
@@ -47,6 +57,32 @@ class Activity extends Component {
     formData.append('id', ruleId);
     this.props.dispatch(commonFetch(ACTIVITY_RULE_DEL, 'POST', formData))
       .then((() => this.freshRuleList()));
+  }
+  // 删除奖品
+  awardDel(e) {
+    const ruleId = $(e.target).data('id');
+    const formData = new FormData;
+    formData.append('id', ruleId);
+    this.props.dispatch(commonFetch(ACTIVITY_AWARD_DEL, 'POST', formData))
+      .then((() => this.freshAwardList()));
+  }
+
+  // 添加奖品
+  addAward(e) {
+    const target = $(e.target);
+    const awardType = target.data('type');
+    const id = target.data('id');
+    const formDate = new FormData;
+    formDate.append('activity_id', this.props.activityId);
+    formDate.append('award_type', awardType);
+    formDate.append('award_id', id);
+    this.props.dispatch(commonFetch(ACTIVITY_AWARD_ADD, 'POST', formDate))
+      .then(({ error_code }) => {
+        if (error_code === 0) {
+          this.props.dispatch(hideModal());
+          this.freshAwardList();
+        }
+      });
   }
   render() {
     const addRuleBtn = (
@@ -99,26 +135,30 @@ class Activity extends Component {
         <Card title="活动奖品" btn={addAwardBtn}>
           <table className="table m-b-0 table-bordered">
             <thead>
-              <tr><th>奖品名</th><th>规则详情</th><th>操作</th></tr>
+              <tr><th>奖品类型</th><th>奖品ID</th><th>奖品名称</th><th>操作</th></tr>
             </thead>
             <tbody>
             {this.props.awards.map((award) => (
               <tr key={award.id}>
-                <td>{award.name}</td>
                 <td>
+                  {this.state.awardTypes[award.award_type]}
                 </td>
+                <td>
+                  {award.award_id}
+                </td>
+                <td>{award.name}</td>
                 <td>
                   <button
                     data-id={award.id}
                     type="button"
-                    onClick={this.ruleDel}
+                    onClick={this.awardDel}
                     className="btn btn-sm btn-danger-outline"
                   >删除</button>
                 </td>
               </tr>
             ))}
             </tbody>
-          </table> 
+          </table>
         </Card>
       </div>
     );

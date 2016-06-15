@@ -25,8 +25,8 @@ class AwardAddModal extends Component {
     formDate.append('award_type', awardType);
     formDate.append('award_id', id);
     this.props.dispatch(commonFetch(ACTIVITY_AWARD_ADD, 'POST', formDate))
-      .then(code => {
-        if (code === 0) {
+      .then(({ error_code }) => {
+        if (error_code === 0) {
           this.props.dispatch(hideModal());
         }
       });

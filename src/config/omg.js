@@ -111,8 +111,30 @@ const activityTriggers = {
   5: '实名',
 }
 
+const redEnvelopeTypes = {
+  1: '直抵红包',
+  2: '百分比红包',
+}
+
+const redEnvelopeTimeTypes = {
+  1: '按天数',
+  2: '按时间段',
+}
+
+const awardTypes = {
+  1: '加息券',
+  2: '红包',
+  3: '体验金',
+  4: '用户积分',
+  5: '实物',
+  6: '优惠券',
+}
+
 const config = {
   activityTriggers,
+  redEnvelopeTypes,
+  redEnvelopeTimeTypes,
+  awardTypes,
 }
 
 function getConfig(type, value = false) {

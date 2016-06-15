@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { commonFetch } from '../../../actions/omg';
 import { showModal } from '../../../actions/modal';
 import { ACTIVITY_GROUP_DEL, ACTIVITY_GROUP_LIST, ACTIVITY_OFFLINE, ACTIVITY_RELEASE, ACTIVITY_DEL } from '../../../constants';
-import { Link, Card } from '../../tools';
+import { Link, Card, Modal } from '../../tools';
 import { getConfig } from '../../../config/omg';
 import ActivityAddModal from '../../modals/ActivityAddModal';
+import ActivityAdd from '../../activity/ActivityAdd';
 
 class ActivityList extends Component {
   constructor(props) {
@@ -15,12 +16,15 @@ class ActivityList extends Component {
     this.activityOffline = this.activityOffline.bind(this);
     this.activityDelete = this.activityDelete.bind(this);
     this.groupDelete = this.groupDelete.bind(this);
+    this.showActivityAddModal = this.showActivityAddModal.bind(this);
   }
   componentDidMount() {
     this.props.dispatch(commonFetch(ACTIVITY_GROUP_LIST));
   }
   showModal() {
-    const modalView = <ActivityAddModal />;
+    const modalView = (
+      <ActivityAddModal />
+    );
     this.props.dispatch(showModal(modalView));
   }
   activityRelease(e) {
@@ -50,6 +54,15 @@ class ActivityList extends Component {
     formData.append('id', id);
     this.props.dispatch(commonFetch(ACTIVITY_GROUP_DEL, 'POST', formData))
       .then(() => (this.props.dispatch(commonFetch(ACTIVITY_GROUP_LIST))));
+  }
+  showActivityAddModal(e) {
+    const id = +$(e.target).data('id');
+    const modalView = (
+      <Modal title="添加活动">
+        <ActivityAdd groupId={id} />
+      </Modal>
+    );
+    this.props.dispatch(showModal(modalView));
   }
   render() {
     const items = this.props.items;
@@ -84,11 +97,15 @@ class ActivityList extends Component {
                   <td>—</td>
                   <td>—</td>
                   <td>
-                    <Link className="btn btn-sm btn-info-outline" to={`/activity/gid/${item.id}`}>
-                      <i className="fa fa-plus"></i>子活动
-                    </Link>
                     <button
-                      hidden={item.activities > 0 ? true : false}
+                      data-id={item.id}
+                      onClick={this.showActivityAddModal}
+                      className="btn btn-sm btn-info-outline"
+                    >
+                      <i className="fa fa-plus"></i>子活动
+                    </button>
+                    <button
+                      hidden={!item.activities}
                       data-id={item.id}
                       onClick={this.groupDelete}
                       className="btn btn-sm btn-danger-outline"

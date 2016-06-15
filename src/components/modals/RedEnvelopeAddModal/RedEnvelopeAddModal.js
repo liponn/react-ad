@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { commonFetch } from '../../../actions/omg';
 import { hideModal } from '../../../actions/modal';
 import { AWARD_ADD } from '../../../constants';
-import { Modal, Input, Submit, Select, DateTimeInput } from '../../tools';
+import { getConfig } from '../../../config/omg';
+import { Modal, Input, Submit, Select, DateTimeInput, Alert } from '../../tools';
 
 class RedEnvelopeAddModal extends Component {
   constructor(props) {
@@ -12,23 +13,14 @@ class RedEnvelopeAddModal extends Component {
     this.redTypeChange = this.redTypeChange.bind(this);
     this.effectiveTimeTypeChange = this.effectiveTimeTypeChange.bind(this);
     this.addRedEnvelope = this.addRedEnvelope.bind(this);
+    const redEnvelopeTypes = getConfig('redEnvelopeTypes');
+    const redEnvelopeTimeTypes = getConfig('redEnvelopeTimeTypes');
     this.state = {
+      errorMsg: '',
       redType: 1,
       effectiveTimeType: 1,
-      redTypeOptions: [{
-        value: 1,
-        name: '直抵红包',
-      }, {
-        value: 2,
-        name: '百分比红包',
-      }],
-      effectiveTimeTypeOptions: [{
-        value: 1,
-        name: '按天数',
-      }, {
-        value: 2,
-        name: '按时间段',
-      }],
+      redEnvelopeTypes,
+      redEnvelopeTimeTypes,
     };
   }
   static propTypes = {
@@ -44,9 +36,13 @@ class RedEnvelopeAddModal extends Component {
     const form = e.target;
     const formData = new FormData(form);
     this.props.dispatch(commonFetch(AWARD_ADD, 'POST', formData))
-      .then((code) => {
-        if (code === 0) {
-          this.dispatch(hideModal());
+      .then(json => {
+        if (json.error_code === 0) {
+          this.props.dispatch(hideModal());
+        }else{
+          this.setState({
+            errorMsg: json.data.error_msg,
+          });
         }
       });
   }
@@ -104,13 +100,14 @@ class RedEnvelopeAddModal extends Component {
     return (
       <Modal title="添加红包">
         <form method="post" onSubmit={this.addRedEnvelope}>
+          <Alert msg={this.state.errorMsg} />
           <input type="hidden" name="award_type" value="2" />
           <Input labelName="名称" name="name" />
           <div style={{ backgroundColor: '#f7f7f7' }}>
             <Select
               labelName="红包类型"
               name="red_type"
-              options={this.state.redTypeOptions}
+              options={this.state.redEnvelopeTypes}
               onChange={this.redTypeChange}
             />
             {typeFileds}
@@ -119,7 +116,7 @@ class RedEnvelopeAddModal extends Component {
             <Select
               labelName="有效期类型"
               name="effective_time_type"
-              options={this.state.effectiveTimeTypeOptions}
+              options={this.state.redEnvelopeTimeTypes}
               onChange={this.effectiveTimeTypeChange}
             />
             {timeTypeFileds}
