@@ -38,6 +38,8 @@ import {
   CHANNEL_LIST,
   CHANNEL_PUT,
 
+  ARTICLE_ADD,
+  ARTICLE_TYPE_LIST,
   BANNER_LIST,
 } from '../constants/index.js';
 
@@ -84,6 +86,9 @@ apiList[CHANNEL_LIST] = '/channel/list';
 apiList[CHANNEL_PUT] = '/channel/put';
 apiList[CHANNEL_DEL] = '/channel/del';
 
+
+apiList[ARTICLE_ADD] = '/cms/content/add';
+apiList[ARTICLE_TYPE_LIST]='/cms/content/type-list';
 apiList[BANNER_LIST] = '/img/banner-list';
 
 function getApi(type) {
