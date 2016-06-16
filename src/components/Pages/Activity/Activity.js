@@ -45,7 +45,7 @@ class Activity extends Component {
   showAddAwardModal() {
     const awardView = (
       <Modal title="添加奖品">
-        <Award modal addAward={this.addAward} />
+        <Award modal addAward={this.addAward} awardType="1" />
       </Modal>
     );
     this.props.dispatch(showModal(awardView));
@@ -118,6 +118,11 @@ class Activity extends Component {
               <tr key={rule.id}>
                 <td>{typeList[rule.rule_type]}</td>
                 <td>
+                  {Object.keys(rule.rule_info).map((key) => (
+                    <div
+                      key={`filed-${key}`}
+                    >{getConfig('ruleFileds', key)}: {rule.rule_info[key]}</div>
+                  ))}
                 </td>
                 <td>
                   <button
@@ -184,6 +189,5 @@ export default connect(state => {
   return {
     rules,
     awards,
-  }
-
+  };
 })(Activity);

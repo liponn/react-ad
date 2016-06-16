@@ -109,11 +109,12 @@ const typeList = {
 
 const activityTriggers = {
   0: '主动',
-  1: '首投',
-  2: '绑卡',
-  3: '投资',
-  4: '邀请',
-  5: '实名',
+  1: '注册',
+  2: '首投',
+  3: '绑卡',
+  4: '投资',
+  5: '邀请',
+  6: '实名',
 }
 
 const redEnvelopeTypes = {
@@ -126,6 +127,17 @@ const redEnvelopeTimeTypes = {
   2: '按时间段',
 }
 
+const interestTypes = {
+  1: '全周期',
+  2: '加息天数',
+  3: '加息时间段',
+}
+
+const interestTimeTypes = {
+  1: '有效天数',
+  2: '有效时间段',
+}
+
 const awardTypes = {
   1: '加息券',
   2: '红包',
@@ -135,11 +147,28 @@ const awardTypes = {
   6: '优惠券',
 }
 
+const ruleFileds = {
+  channels: '渠道',
+  min_time: '最小时间',
+  max_time: '最大时间',
+}
+
+const ruleTypes = {
+  register: '注册',
+  channel: '渠道',
+  cast: '投资',
+  recharge: '充值',
+}
+
 const config = {
   activityTriggers,
   redEnvelopeTypes,
   redEnvelopeTimeTypes,
   awardTypes,
+  ruleFileds,
+  ruleTypes,
+  interestTypes,
+  interestTimeTypes,
 }
 
 function getConfig(type, value = false) {

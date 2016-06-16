@@ -4,6 +4,8 @@ import history from '../../../core/history';
 import { commonFetch } from '../../../actions/omg';
 import { hideModal } from '../../../actions/modal';
 import RedEnvelope from '../../awards/RedEnvelope';
+import Interest from '../../awards/Interest';
+import { getConfig } from '../../../config/omg';
 import { ACTIVITY_GROUP_ADD, ACTIVITY_GROUP_LIST } from '../../../constants';
 
 class Award extends Component {
@@ -11,34 +13,19 @@ class Award extends Component {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
     this.selectAward = this.selectAward.bind(this);
+    console.dir(props);
 
-    const awardType = props.awardType === '' ? 'redEnvelope' : props.awardType;
+    const currentType = props.awardType;
+    const awardTypes = getConfig('awardTypes');
     this.state = {
-      awardType,
-      awardTypes: [
-        {
-          name: '红包',
-          value: 'redEnvelope',
-        }, {
-          name: '加息券',
-          value: 'interest',
-        }, {
-          name: '体验金',
-          value: 'experience',
-        }, {
-          name: '优惠券',
-          value: 'coupon',
-        }, {
-          name: '实物奖',
-          value: 'entity',
-        },
-      ],
+      currentType,
+      awardTypes,
     };
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.awardType !== '') {
       this.setState({
-        awardType: nextProps.awardType,
+        currentType: nextProps.awardType,
       });
     }
   }
@@ -56,61 +43,60 @@ class Award extends Component {
       });
   }
   selectAward(e) {
-    const ruleName = e.target.value;
+    const type = e.target.value;
     if(!this.props.modal) {
-      history.push(`/award/${ruleName}`);
+      history.push(`/award/${type}`);
     } else {
       this.setState({
-        awardType: ruleName,
+        currentType: type,
       });
     }
   }
 
   render() {
-    let currentAward = '类型未找到';
-    console.log(this.state.awardType);
-    switch (this.state.awardType) {
-      case 'redEnvelope':
-        currentAward = <RedEnvelope {...this.props}  activityId={this.props.activityId} />;
+    console.log(this.state.currentType);
+    let awardView = '类型未找到';
+    switch (this.state.currentType) {
+      case '1':
+        awardView = <Interest {...this.props}  activityId={this.props.activityId} />;
+        break;
+      case '2':
+        awardView = <RedEnvelope {...this.props}  activityId={this.props.activityId} />;
         break;
       default:
-        currentAward = this.state.awardType;
+        awardView = this.state.currentType;
     }
+    const { awardTypes, currentType} = this.state;
     return (
       <div>
-        {this.state.awardTypes.map(award => {
-          let checked = false;
-          if (this.state.awardType === award.value) {
-            checked = true;
-          }
+        {Object.keys(awardTypes).map(key => {
           return (
-            <label key={`redio-${award.value}`} className="c-input c-radio">
+            <label key={`redio-${key}`} className="c-input c-radio">
               <input
-                checked={checked}
+                checked={key === currentType}
                 name="award-add"
-                value={award.value}
+                value={key}
                 type="radio"
                 onChange={this.selectAward}
               />
               <span className="c-indicator"></span>
-              {award.name}
+              {awardTypes[key]}
             </label>
           );
         })}
         <hr />
-        {currentAward}
+        {awardView}
       </div>
     );
   }
 }
 Award.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  awardType: PropTypes.string,
+  awardType: PropTypes.string.isRequired,
 }
 
 Award.defaultProps = {
   modal: false,
-  awardType: '',
 }
 
 export default connect(state => {

@@ -105,7 +105,7 @@ class ActivityList extends Component {
                       <i className="fa fa-plus"></i>子活动
                     </button>
                     <button
-                      hidden={!item.activities}
+                      hidden={item.activities.length}
                       data-id={item.id}
                       onClick={this.groupDelete}
                       className="btn btn-sm btn-danger-outline"
@@ -135,7 +135,7 @@ class ActivityList extends Component {
                       className="btn btn-sm btn-success-outline"
                     >上线</button>
                     <Link className="btn btn-sm btn-info-outline" to={`/activity/id/${activity.id}`}>
-                      编辑 
+                      编辑
                     </Link>
                     <button
                       data-id={activity.id}

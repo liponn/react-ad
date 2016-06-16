@@ -84,6 +84,7 @@ class Channel extends Component {
               <tr>
                 <th>id</th>
                 <th>名称</th>
+                <th>前缀</th>
                 <th>英文名称</th>
                 <th>操作</th>
               </tr>
@@ -93,6 +94,7 @@ class Channel extends Component {
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.name}</td>
+                <td>{item.pre}</td>
                 <td>{item.alias_name}</td>
                 <td>
                   <button className="btn btn-danger-outline btn-sm" data-id={item.id} onClick={this.delChannel}>删除</button>
