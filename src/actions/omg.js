@@ -30,11 +30,19 @@ function fetchError(type, code, msg) {
   };
 }
 
-export function commonFetch(type, method = 'GET', formData = false, suffix = '') {
+export function commonFetch(type, method = 'GET', formData = false, suffix = '', queryObj = {}) {
   const requestUri = getApi(type);
+
+  const keys = Object.keys(queryObj);
+  const queryArr = keys.map(key => (`${key}=${queryObj[key]}`));
+  let queryString = queryArr.join('&');
+  if (queryString !== '') {
+    queryString = `?${queryString}`;
+  }
+  
   return dispatch => {
     dispatch(fetchRequest(type));
-    return fetch(requestUri + suffix, {
+    return fetch(requestUri + suffix + queryString, {
       method,
       body: formData,
     })
@@ -48,4 +56,5 @@ export function commonFetch(type, method = 'GET', formData = false, suffix = '')
         return json.error_code;
       });
   };
+
 }

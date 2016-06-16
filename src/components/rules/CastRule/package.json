@@ -1,0 +1,6 @@
+{
+  "name": "CastRule",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./CastRule.js"
+}
