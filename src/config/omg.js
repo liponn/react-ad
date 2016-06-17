@@ -151,6 +151,9 @@ const ruleFileds = {
   channels: '渠道',
   min_time: '最小时间',
   max_time: '最大时间',
+  min_cast: '最小充值',
+  max_cast: '最大充值',
+  isfirst: '首次',
 }
 
 const ruleTypes = {

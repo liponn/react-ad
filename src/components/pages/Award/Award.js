@@ -5,6 +5,7 @@ import { commonFetch } from '../../../actions/omg';
 import { hideModal } from '../../../actions/modal';
 import RedEnvelope from '../../awards/RedEnvelope';
 import Interest from '../../awards/Interest';
+import Coupon from '../../awards/Coupon';
 import { getConfig } from '../../../config/omg';
 import { ACTIVITY_GROUP_ADD, ACTIVITY_GROUP_LIST } from '../../../constants';
 
@@ -13,7 +14,6 @@ class Award extends Component {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
     this.selectAward = this.selectAward.bind(this);
-    console.dir(props);
 
     const currentType = props.awardType;
     const awardTypes = getConfig('awardTypes');
@@ -58,10 +58,13 @@ class Award extends Component {
     let awardView = '类型未找到';
     switch (this.state.currentType) {
       case '1':
-        awardView = <Interest {...this.props}  activityId={this.props.activityId} />;
+        awardView = <Interest {...this.props} activityId={this.props.activityId} />;
         break;
       case '2':
-        awardView = <RedEnvelope {...this.props}  activityId={this.props.activityId} />;
+        awardView = <RedEnvelope {...this.props} activityId={this.props.activityId} />;
+        break;
+      case '6':
+        awardView = <Coupon {...this.props} activityId={this.props.activityId} />;
         break;
       default:
         awardView = this.state.currentType;
@@ -93,6 +96,7 @@ class Award extends Component {
 Award.propTypes = {
   dispatch: PropTypes.func.isRequired,
   awardType: PropTypes.string.isRequired,
+  activityId: PropTypes.string,
 }
 
 Award.defaultProps = {

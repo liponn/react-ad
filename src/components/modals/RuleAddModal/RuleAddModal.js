@@ -9,6 +9,7 @@ import { getConfig } from '../../../config/omg'
 
 import ChannelRule from '../../rules/ChannelRule';
 import RegisterRule from '../../rules/RegisterRule';
+import CastRule from '../../rules/CastRule';
 
 class RuleAddModal extends Component {
   constructor(props) {
@@ -50,6 +51,9 @@ class RuleAddModal extends Component {
         break;
       case 'register':
         ruleView = <RegisterRule activityId={this.props.activityId} />;
+        break;
+      case 'cast':
+        ruleView = <CastRule activityId={this.props.activityId} />;
         break;
       default:
         ruleView = this.state.currentRule;
