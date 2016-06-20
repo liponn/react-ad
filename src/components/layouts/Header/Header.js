@@ -15,11 +15,11 @@ function Header() {
   return (
     <nav className="navbar navbar-dark bg-inverse" style={{ borderRadius: 0 }}>
       <a className="navbar-brand" href="/">运营管理后台</a>
-      <ul className="nav navbar-nav pull-sm-right">
+      <ul hidden className="nav navbar-nav pull-sm-right">
         <li className="nav-item "><span className="nav-link">欢迎: neil</span></li>
         <li className="nav-item "><a className="nav-link text-info" href="http://admin-omg.wanglibao.com/logout">退出</a></li>
       </ul>
-    </nav>  
+    </nav>
   );
 }
 
