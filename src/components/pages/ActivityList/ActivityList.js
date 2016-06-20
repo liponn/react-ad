@@ -119,18 +119,18 @@ class ActivityList extends Component {
                   <td>{activity.start_at ? activity.start_at : '—'}</td>
                   <td>{activity.end_at ? activity.start_at : '—'}</td>
                   <td>
-                    <span className="text-success" hidden={!activity.enable}>上线</span>
-                    <span className="text-warning" hidden={activity.enable}>下线</span></td>
+                    <span className="text-success" hidden={!+activity.enable}>上线</span>
+                    <span className="text-warning" hidden={+activity.enable}>下线</span></td>
                   <td>
                     <button
                       data-id={activity.id}
-                      hidden={!activity.enable}
+                      hidden={!+activity.enable}
                       onClick={this.activityOffline}
                       className="btn btn-sm btn-warning-outline"
                     >下线</button>
                     <button
                       data-id={activity.id}
-                      hidden={activity.enable}
+                      hidden={+activity.enable}
                       onClick={this.activityRelease}
                       className="btn btn-sm btn-success-outline"
                     >上线</button>

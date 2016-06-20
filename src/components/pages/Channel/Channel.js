@@ -37,7 +37,7 @@ class Channel extends Component {
       this.setState({ errorMsg: '别名不能为空。' });
       return;
     }
-    $.post('http://staging.api-omg.wanglibao.com/channel/add', $('#add-channel-form').serialize(), function(res){
+    $.post('http://192.168.10.36:8001/channel/add', $('#add-channel-form').serialize(), function(res){
       if (res.error_code !== 0) {
         this.setState({ errorMsg: res.data.error_msg });
       } else {
@@ -49,7 +49,7 @@ class Channel extends Component {
   delChannel(e) {
     const { dispatch } = this.props;
     const id = $(e.target).data('id');
-    $.post('http://staging.api-omg.wanglibao.com/channel/del',{id: id}, function(res){
+    $.post('http://192.168.10.36:8001/channel/del',{id: id}, function(res){
       if (res.error_code !== 0) {
         this.setState({ errorMsg: res.data.error_msg });
       } else {

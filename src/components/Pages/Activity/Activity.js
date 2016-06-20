@@ -115,7 +115,7 @@ class Activity extends Component {
       <div>
         <Card title="活动详情" >
           <Text name="活动id" value={activity.id} />
-          <Text name="状态" value={activity.enable ? '上线' : '下线'} />
+          <Text name="状态" value={+activity.enable ? '上线' : '下线'} />
           
           <Text name="活动名称" value={activity.name} />
           <Text name="活动别名" value={activity.alias_name} />

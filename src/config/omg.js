@@ -43,7 +43,7 @@ import {
   BANNER_LIST,
 } from '../constants/index.js';
 
-const apiHost = 'http://staging.api-omg.wanglibao.com';
+const apiHost = 'http://192.168.10.36:8001';
 const apiList = {}
 
 apiList[ACTIVITY_INDEX] = '/activity/index';
