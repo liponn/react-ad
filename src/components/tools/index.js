@@ -11,3 +11,4 @@ export Fieldset from './Fieldset';
 export Checkbox from './Checkbox';
 export FileInput from './FileInput';
 export Textarea from './Textarea';
+export Text from './Text';

@@ -6,7 +6,7 @@ class Card extends Component {
   }
   render() {
     return (
-      <div className="card">
+      <div className="card clearfix">
         <div className="card-header">{this.props.title}{this.props.btn}</div>
         {this.props.children}
       </div>

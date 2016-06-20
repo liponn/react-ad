@@ -2,10 +2,10 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { commonFetch } from '../../../actions/omg';
 import { showModal, hideModal } from '../../../actions/modal';
-import { ACTIVITY_RULE_LIST, ACTIVITY_AWARD_LIST, ACTIVITY_RULE_DEL, ACTIVITY_AWARD_ADD, ACTIVITY_AWARD_DEL } from '../../../constants';
+import { ACTIVITY_INFO, ACTIVITY_RULE_LIST, ACTIVITY_AWARD_LIST, ACTIVITY_RULE_DEL, ACTIVITY_AWARD_ADD, ACTIVITY_AWARD_DEL } from '../../../constants';
 import RuleAddModal from '../../modals/RuleAddModal';
 import Award from '../../pages/Award';
-import { Card, Modal } from '../../tools';
+import { Card, Modal, Text } from '../../tools';
 import { typeList, getConfig } from '../../../config/omg';
 
 class Activity extends Component {
@@ -14,6 +14,8 @@ class Activity extends Component {
     this.showAddRuleModal = this.showAddRuleModal.bind(this);
     this.showAddAwardModal = this.showAddAwardModal.bind(this);
     this.freshRuleList = this.freshRuleList.bind(this);
+    this.freshAwardList = this.freshAwardList.bind(this);
+    this.freshActivityInfo = this.freshActivityInfo.bind(this);
     this.ruleDel = this.ruleDel.bind(this);
     this.awardDel = this.awardDel.bind(this);
     this.addAward = this.addAward.bind(this);
@@ -24,7 +26,12 @@ class Activity extends Component {
   }
   componentDidMount() {
     this.freshRuleList();
+    this.freshActivityInfo();
     this.freshAwardList();
+  }
+  // 刷新活动信息
+  freshActivityInfo() {
+    this.props.dispatch(commonFetch(ACTIVITY_INFO, 'GET', false, `/${this.props.activityId}`));
   }
   // 刷新规则
   freshRuleList() {
@@ -85,6 +92,7 @@ class Activity extends Component {
       });
   }
   render() {
+    const { activity } = this.props;
     const addRuleBtn = (
       <button
         type="button"
@@ -105,8 +113,21 @@ class Activity extends Component {
     )
     return (
       <div>
-        <Card title="活动">
-          {this.props.activityId}
+        <Card title="活动详情" >
+          <Text name="活动id" value={activity.id} />
+          <Text name="状态" value={activity.enable ? '上线' : '下线'} />
+          
+          <Text name="活动名称" value={activity.name} />
+          <Text name="活动别名" value={activity.alias_name} />
+          
+          <Text name="开始时间" value={activity.created_at} />
+          <Text name="结束时间" value={activity.created_at} />
+
+          <Text name="触发类型" value={activity.trigger_type} />
+          <Text name="触发优先级" value={activity.trigger_index} />
+          
+          <Text name="创建时间" value={activity.created_at} />
+          <Text name="更新时间" value={activity.updated_at} />
         </Card>
         <Card title="活动规则" btn={addRuleBtn}>
           <table className="table m-b-0 table-bordered">
@@ -180,14 +201,17 @@ Activity.propTypes = {
 Activity.defaultProps = {
   rules: [],
   awards: [],
+  activity: {},
 }
 
 export default connect(state => {
   const { omg } = state;
-  const rules = omg[ACTIVITY_RULE_LIST] || [];
-  const awards = omg[ACTIVITY_AWARD_LIST] || [];
+  const activity = omg[ACTIVITY_INFO];
+  const rules = omg[ACTIVITY_RULE_LIST];
+  const awards = omg[ACTIVITY_AWARD_LIST];
   return {
     rules,
     awards,
+    activity,
   };
 })(Activity);
