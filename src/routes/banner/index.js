@@ -6,17 +6,18 @@ import Banner from '../../components/pages/Banner';
 
 export default {
 
-    path:'/Banner',
+  path: '/Banner',
 
-    action(){
-       return <Banner />;
+  children: [
+    {
+      path: '/:type',
+      action(context) {
+        return <Banner type={context.params.type} />;
+      },
     },
-    children: [
-        {
-            path: '/:type',
-            action() {
-                return <Banner />;
-            },
-        },
-    ],
+  ],
+  async action({ next }) {
+    const component = await next();
+    return component;
+  },
 };

@@ -43,7 +43,8 @@ import {
   BANNER_LIST,
 } from '../constants/index.js';
 
-const apiHost = 'http://192.168.10.36:8001';
+//const apiHost = 'http://192.168.10.36:8001';
+const apiHost = 'http://api-omg.wanglibao.com';
 const apiList = {}
 
 apiList[ACTIVITY_INDEX] = '/activity/index';
@@ -88,7 +89,7 @@ apiList[CHANNEL_DEL] = '/channel/del';
 
 
 apiList[ARTICLE_ADD] = '/cms/content/add';
-apiList[ARTICLE_TYPE_LIST]='/cms/content/type-list';
+apiList[ARTICLE_TYPE_LIST]= '/cms/content/type-list';
 apiList[BANNER_LIST] = '/img/banner-list';
 
 function getApi(type) {
@@ -163,6 +164,11 @@ const ruleTypes = {
   recharge: '充值',
 }
 
+const bannerTypes = {
+  1: '移动端轮播图',
+  2: 'PC端轮播图',
+}
+
 const config = {
   activityTriggers,
   redEnvelopeTypes,
@@ -172,6 +178,7 @@ const config = {
   ruleTypes,
   interestTypes,
   interestTimeTypes,
+  bannerTypes,
 }
 
 function getConfig(type, value = false) {

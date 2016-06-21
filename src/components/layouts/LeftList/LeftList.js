@@ -7,7 +7,7 @@ function LeftList() {
       <Link className="list-group-item" to="/activity">
         <i className="fa fa-angellist" aria-hidden="true"></i> 活动
       </Link>
-      <Link className="list-group-item" to="/banner">
+      <Link className="list-group-item" to="/banner/1">
         <i className="fa fa-angellist" aria-hidden="true"></i> banner图
       </Link>
       <Link className="list-group-item" to="/channel">
