@@ -1,0 +1,6 @@
+{
+  "name": "CouponAddModal",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./CouponAddModal.js"
+}

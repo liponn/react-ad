@@ -39,10 +39,26 @@ import {
   CHANNEL_PUT,
 
   ARTICLE_ADD,
+  ARTICLE_LIST,
+  ARTICLE_DEL,
+  ARTICLE_RELEASE,
+  ARTICLE_OFFLINE,
+  ARTICLE_DETAIL,
+  ARTICLE_PUT,
+  ARTICLE_UP,
+  ARTICLE_DOWN,
+
   ARTICLE_TYPE_LIST,
+  ARTICLE_TYPE_ADD,
+  ARTICLE_TYPE_DEL,
+  ARTICLE_TYPE_UP,
+  ARTICLE_TYPE_DOWN,
+
   BANNER_LIST,
+
 } from '../constants/index.js';
 
+//const apiHost = 'http://192.168.10.36:8001';
 const apiHost = 'http://api-omg.wanglibao.com';
 const apiList = {}
 
@@ -88,7 +104,22 @@ apiList[CHANNEL_DEL] = '/channel/del';
 
 
 apiList[ARTICLE_ADD] = '/cms/content/add';
+apiList[ARTICLE_TYPE_LIST]= '/cms/content/type-list';
+apiList[ARTICLE_LIST]='/cms/content/list';
+apiList[ARTICLE_DEL] = '/cms/content/del';
+apiList[ARTICLE_RELEASE]='/cms/content/release';
+apiList[ARTICLE_OFFLINE]='/cms/content/offline';
+apiList[ARTICLE_DETAIL] = '/cms/content/detail';
+apiList[ARTICLE_PUT] ='/cms/content/put';
+apiList[ARTICLE_UP] = '/cms/content/up';
+apiList[ARTICLE_DOWN] = '/cms/content/down';
+
 apiList[ARTICLE_TYPE_LIST]='/cms/content/type-list';
+apiList[ARTICLE_TYPE_ADD] = '/cms/content/type-add';
+apiList[ARTICLE_TYPE_DEL] = '/cms/content/type-del';
+apiList[ARTICLE_TYPE_UP] = '/cms/content/type-up';
+apiList[ARTICLE_TYPE_DOWN] = '/cms/content/type-down';
+
 apiList[BANNER_LIST] = '/img/banner-list';
 
 function getApi(type) {
@@ -109,15 +140,75 @@ const typeList = {
 
 const activityTriggers = {
   0: '主动',
-  1: '首投',
-  2: '绑卡',
-  3: '投资',
-  4: '邀请',
-  5: '实名',
+  1: '注册',
+  2: '首投',
+  3: '绑卡',
+  4: '投资',
+  5: '邀请',
+  6: '实名',
+}
+
+const redEnvelopeTypes = {
+  1: '直抵红包',
+  2: '百分比红包',
+}
+
+const redEnvelopeTimeTypes = {
+  1: '按天数',
+  2: '按时间段',
+}
+
+const interestTypes = {
+  1: '全周期',
+  2: '加息天数',
+  3: '加息时间段',
+}
+
+const interestTimeTypes = {
+  1: '有效天数',
+  2: '有效时间段',
+}
+
+const awardTypes = {
+  1: '加息券',
+  2: '红包',
+  3: '体验金',
+  4: '用户积分',
+  5: '实物',
+  6: '优惠券',
+}
+
+const ruleFileds = {
+  channels: '渠道',
+  min_time: '最小时间',
+  max_time: '最大时间',
+  min_cast: '最小充值',
+  max_cast: '最大充值',
+  isfirst: '首次',
+}
+
+const ruleTypes = {
+  register: '注册',
+  channel: '渠道',
+  cast: '投资',
+  recharge: '充值',
+}
+
+const bannerTypes = {
+  1: '移动端轮播图',
+  2: 'PC端轮播图',
 }
 
 const config = {
   activityTriggers,
+  redEnvelopeTypes,
+  redEnvelopeTimeTypes,
+  awardTypes,
+  ruleFileds,
+  ruleTypes,
+  interestTypes,
+  interestTimeTypes,
+  bannerTypes,
 }
 
 function getConfig(type, value = false) {

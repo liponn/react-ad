@@ -5,16 +5,21 @@ import ModalHeader from '../../tools/ModalHeader';
 import { commonFetch } from '../../../actions/omg';
 import { hideModal } from '../../../actions/modal';
 import { ACTIVITY_GROUP_ADD, ACTIVITY_GROUP_LIST } from '../../../constants'
+import { getConfig } from '../../../config/omg'
 
 import ChannelRule from '../../rules/ChannelRule';
+import RegisterRule from '../../rules/RegisterRule';
+import CastRule from '../../rules/CastRule';
 
 class RuleAddModal extends Component {
   constructor(props) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
     this.selectRule = this.selectRule.bind(this);
+    const ruleTypes = getConfig('ruleTypes');
     this.state = {
-      currentRule: ' ',
+      currentRule: 'register',
+      ruleTypes,
     };
   }
   onSubmit(e) {
@@ -23,63 +28,52 @@ class RuleAddModal extends Component {
     const formData = new FormData(form);
     const { dispatch } = this.props;
     dispatch(commonFetch(ACTIVITY_GROUP_ADD, 'POST', formData))
-      .then(code => {
-        if (code === 0) {
+      .then(({ error_code }) => {
+        if (error_code === 0) {
           dispatch(hideModal());
-          dispatch(commonFetch(ACTIVITY_GROUP_LIST))
+          dispatch(commonFetch(ACTIVITY_GROUP_LIST));
         }
       });
   }
   selectRule(e) {
     const ruleName = e.target.value;
-    switch (ruleName) {
-      case 'channel':
-        this.setState({
-          currentRule: <ChannelRule activityId={this.props.activityId} />,
-        })
-        break;
-      default:
-        this.setState({
-          currentRule: ruleName,
-        });
-    }
+    this.setState({
+      currentRule: ruleName,
+    });
   }
 
   render() {
-    console.log(this.props.activityId);
+    const { ruleTypes } = this.state;
+    let ruleView = '';
+    switch(this.state.currentRule) {
+      case 'channel':
+        ruleView = <ChannelRule activityId={this.props.activityId} />;
+        break;
+      case 'register':
+        ruleView = <RegisterRule activityId={this.props.activityId} />;
+        break;
+      case 'cast':
+        ruleView = <CastRule activityId={this.props.activityId} />;
+        break;
+      default:
+        ruleView = this.state.currentRule;
+    }
+
     return (
       <div className="modal-dialog">
         <div className="modal-content">
           <ModalHeader title="添加规则" />
           <div className="modal-body">
             <div>
-              <label className="c-input c-radio">
-                <input name="rule-add" value="register" type="radio" onClick={this.selectRule} />
-                <span className="c-indicator"></span>
-                &nbsp;注册时间
-              </label>&nbsp;&nbsp;
-              <label className="c-input c-radio">
-                <input name="rule-add" value="channel" type="radio" onClick={this.selectRule} />
-                <span className="c-indicator"></span>
-                &nbsp;渠道
-              </label>&nbsp;&nbsp;
-              <label className="c-input c-radio">
-                <input name="rule-add" value="invite" type="radio" onClick={this.selectRule} />
-                <span className="c-indicator"></span>
-                &nbsp;邀请
-              </label>&nbsp;&nbsp;
-              <label className="c-input c-radio">
-                <input name="rule-add" value="firstcast" type="radio" onClick={this.selectRule} />
-                <span className="c-indicator"></span>
-                &nbsp;首投
-              </label>&nbsp;&nbsp;
-              <label className="c-input c-radio">
-                <input name="rule-add" value="cast" type="radio" onClick={this.selectRule} />
-                <span className="c-indicator"></span>
-                &nbsp;投资
-              </label>&nbsp;&nbsp;
+              {Object.keys(ruleTypes).map(key => (
+                <label key={key} className="c-input c-radio">
+                  <input name="rule-add" checked={key === this.state.currentRule} value={key} type="radio" onChange={this.selectRule} />
+                  <span className="c-indicator"></span>
+                  {ruleTypes[key]}
+                </label>
+              ))}
               <hr />
-              {this.state.currentRule}
+              {ruleView}
             </div>
           </div>
         </div>

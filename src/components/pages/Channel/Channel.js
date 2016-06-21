@@ -37,7 +37,7 @@ class Channel extends Component {
       this.setState({ errorMsg: '别名不能为空。' });
       return;
     }
-    $.post('http://api-omg.wanglibao.com/channel/add', $('#add-channel-form').serialize(), function(res){
+    $.post('http://192.168.10.36:8001/channel/add', $('#add-channel-form').serialize(), function(res){
       if (res.error_code !== 0) {
         this.setState({ errorMsg: res.data.error_msg });
       } else {
@@ -49,7 +49,7 @@ class Channel extends Component {
   delChannel(e) {
     const { dispatch } = this.props;
     const id = $(e.target).data('id');
-    $.post('http://api-omg.wanglibao.com/channel/del',{id: id}, function(res){
+    $.post('http://192.168.10.36:8001/channel/del',{id: id}, function(res){
       if (res.error_code !== 0) {
         this.setState({ errorMsg: res.data.error_msg });
       } else {
@@ -84,6 +84,7 @@ class Channel extends Component {
               <tr>
                 <th>id</th>
                 <th>名称</th>
+                <th>前缀</th>
                 <th>英文名称</th>
                 <th>操作</th>
               </tr>
@@ -93,6 +94,7 @@ class Channel extends Component {
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.name}</td>
+                <td>{item.pre}</td>
                 <td>{item.alias_name}</td>
                 <td>
                   <button className="btn btn-danger-outline btn-sm" data-id={item.id} onClick={this.delChannel}>删除</button>
@@ -196,7 +198,7 @@ export default connect(state => {
   const { omg } = state;
   const { data } = omg[CHANNEL_LIST] || [];
   return {
-    items : data 
+    items: data,
   };
 })(Channel);
 

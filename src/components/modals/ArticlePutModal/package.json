@@ -1,0 +1,6 @@
+{
+  "name": "ArticlePutModal",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ArticlePutModal.js"
+}
