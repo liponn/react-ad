@@ -37,7 +37,7 @@ class ChannelRule extends Component {
     const name = $(e.target).data('name').toString();
     const { channels } = this.state;
     const index = channels.findIndex((value) => (value === name))
-    if(index > -1) {
+    if (index > -1) {
       channels.splice(index, 1);
     }
     this.setState({
@@ -60,8 +60,8 @@ class ChannelRule extends Component {
     const formData = new FormData(form);
     const activityId = this.props.activityId;
     this.props.dispatch(commonFetch(ACTIVITY_RULE_ADD_CHANNEL, 'POST', formData) )
-      .then((code) => {
-        if (code === 0) {
+      .then(({ error_code }) => {
+        if (error_code === 0) {
           this.setState({
             channels: [],
           })
@@ -152,7 +152,7 @@ ChannelRule.defaultProps = {
 
 export default connect(state => {
   const { omg } = state;
-  const data = omg[CHANNEL_LIST] || [];
+  const { data } = omg[CHANNEL_LIST] || [];
   const errorMsg = omg.errorMsg[ACTIVITY_RULE_ADD_CHANNEL] || '';
   return {
     items: data,

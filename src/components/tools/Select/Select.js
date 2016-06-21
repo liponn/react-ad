@@ -5,16 +5,17 @@ class Select extends Component {
     super(props);
   }
   render() {
-    const { onChange = false } = this.props;
+    const { options, onChange} = this.props;
+    const keys = Object.keys(options);
     return (
       <div className="form-group row">
         <label
           className="col-sm-4 form-control-label text-xs-right"
         >{this.props.labelName}:</label>
-        <div className="col-sm-8 col-md-6">
+        <div className="col-sm-6">
           <select onChange={onChange} name={this.props.name} className="form-control c-select">
-            {this.props.options.map((option) => (
-              <option key={option.value} value={option.value}>{option.name}</option>
+            {keys.map((key) => (
+              <option key={key} value={key}>{options[key]}</option>
             ))}
           </select>
         </div>
@@ -24,7 +25,7 @@ class Select extends Component {
 }
 
 Select.propTypes = {
-  options: PropTypes.array.isRequired,
+  options: PropTypes.object.isRequired,
   labelName: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.any,
@@ -32,6 +33,7 @@ Select.propTypes = {
 
 Select.defaultProps = {
   options: [],
+  onChange() {},
 }
 
 export default Select;

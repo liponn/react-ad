@@ -1,0 +1,6 @@
+{
+  "name": "Textarea",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./Textarea.js"
+}

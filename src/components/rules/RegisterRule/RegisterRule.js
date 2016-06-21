@@ -1,51 +1,50 @@
 import React, { PropTypes, Component } from 'react';
-
 import { connect } from 'react-redux';
+import { DateTimeInput, Submit, Alert } from '../../tools';
 import { commonFetch } from '../../../actions/omg';
 import { hideModal } from '../../../actions/modal';
-import { ACTIVITY_GROUP_ADD, ACTIVITY_GROUP_LIST } from '../../../constants'
+import { ACTIVITY_RULE_ADD_REGISTER, ACTIVITY_RULE_LIST } from '../../../constants';
+
 
 class RegisterRule extends Component {
   constructor(props) {
     super(props)
+    this.onSubmit = this.onSubmit.bind(this);
+    this.state = {
+      errorMsg: '',
+    };
   }
-  
+  onSubmit(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    this.props.dispatch(commonFetch(ACTIVITY_RULE_ADD_REGISTER, 'POST', formData))
+      .then((json) => {
+        if (json.error_code === 0) {
+          this.props.dispatch(hideModal());
+          this.props.dispatch(commonFetch(ACTIVITY_RULE_LIST, 'GET', false, `/${this.props.activityId}`));
+        } else {
+          this.setState({
+            errorMsg: json.data.error_msg,
+          });
+        }
+      });
+  }
   render() {
     return (
       <form id="activity-add-form" method="post" onSubmit={this.onSubmit}>
-        <input name="group_id" type="hidden" value={this.props.groupId} className="form-control" />
-        <div className="form-group row">
-          <label className="col-sm-2 form-control-label text-xs-right">开始时间:</label>
-          <div className="col-sm-3">
-            <input type="text" className="form-control datepicker" name="start_at_date"  placeholder="YYYY-MM-DD" />
-          </div>
-          <div className="col-sm-3">
-            <input type="text"  className="form-control timepicker" name="start_at_time" placeholder="hh:mm:ss" />
-          </div>
-          <div className="col-sm-4">
-            <label className="form-control-label"><input type="checkbox" name="start_at_nolimit" />不限制</label>
-          </div>
-        </div>
-        <div className="form-group row">
-          <label className="col-sm-2 form-control-label text-xs-right">结束时间:</label>
-          <div className="col-sm-3">
-            <input type="text" className="form-control datepicker" name="end_at_date" placeholder="YYYY-MM-DD" />
-          </div>
-          <div className="col-sm-3">
-            <input type="text" className="form-control timepicker" name="end_at_time" placeholder="hh:mm:ss" />
-          </div>
-          <div className="col-sm-4">
-            <label className="form-control-label"><input type="checkbox" name="end_at_nolimit" />不限制</label>
-          </div>
-        </div>
-        <div className="form-group row">
-          <div className="col-sm-offset-2 col-sm-10">
-            <input type="submit" className="btn btn-secondary" value="保存" />
-          </div>
-        </div>
+        <Alert msg={this.state.errorMsg} />
+        <input name="activity_id" type="hidden" value={this.props.activityId} />
+        <DateTimeInput required limit labelName="开始时间" name="min_time" />
+        <DateTimeInput required limit labelName="结束时间" name="max_time" />
+        <Submit />
       </form>
     );
-  }    
+  }
+}
+
+RegisterRule.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  activityId: PropTypes.number.isRequired,
 }
 
 export default connect()(RegisterRule);

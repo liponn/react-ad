@@ -36,6 +36,7 @@ class Banner extends Component{
         const id = $(e.target).data('id');
         $.post('http://api-omg.wanglibao.com/img/banner-del',{id: id}, function(res){
             if (res.error_code !== 0) {
+                console.log(res);
                 this.setState({ errorMsg: res.data.error_msg });
             } else {
                 dispatch(commonFetch(BANNER_LIST));

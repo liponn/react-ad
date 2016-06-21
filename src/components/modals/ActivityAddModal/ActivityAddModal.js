@@ -21,8 +21,8 @@ class ActivityAddModal extends Component {
     const formData = new FormData(form);
     const { dispatch } = this.props;
     dispatch(commonFetch(ACTIVITY_GROUP_ADD, 'POST', formData))
-      .then(code => {
-        if (code === 0) {
+      .then(({ error_code }) => {
+        if (error_code === 0) {
           dispatch(hideModal());
           dispatch(commonFetch(ACTIVITY_GROUP_LIST))
         }

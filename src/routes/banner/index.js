@@ -11,4 +11,12 @@ export default {
     action(){
        return <Banner />;
     },
+    children: [
+        {
+            path: '/:type',
+            action() {
+                return <Banner />;
+            },
+        },
+    ],
 };

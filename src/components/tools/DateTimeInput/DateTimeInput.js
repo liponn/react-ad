@@ -61,7 +61,7 @@ class DateTimeInput extends Component {
     }
     return (
       <div className="form-group row">
-        <input type="hidden" value={dateTime} />
+        <input type="hidden" name={this.props.name} value={dateTime} />
         <label className="col-sm-4 form-control-label text-xs-right">{this.props.labelName}:</label>
         <div className="col-sm-3">
           <input

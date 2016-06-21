@@ -58,7 +58,7 @@ import {
 
 } from '../constants/index.js';
 
-const apiHost = 'http://api-omg.wanglibao.com';
+const apiHost = 'http://192.168.10.36:8001';
 const apiList = {}
 
 apiList[ACTIVITY_INDEX] = '/activity/index';
@@ -138,15 +138,69 @@ const typeList = {
 
 const activityTriggers = {
   0: '主动',
-  1: '首投',
-  2: '绑卡',
-  3: '投资',
-  4: '邀请',
-  5: '实名',
+  1: '注册',
+  2: '首投',
+  3: '绑卡',
+  4: '投资',
+  5: '邀请',
+  6: '实名',
+}
+
+const redEnvelopeTypes = {
+  1: '直抵红包',
+  2: '百分比红包',
+}
+
+const redEnvelopeTimeTypes = {
+  1: '按天数',
+  2: '按时间段',
+}
+
+const interestTypes = {
+  1: '全周期',
+  2: '加息天数',
+  3: '加息时间段',
+}
+
+const interestTimeTypes = {
+  1: '有效天数',
+  2: '有效时间段',
+}
+
+const awardTypes = {
+  1: '加息券',
+  2: '红包',
+  3: '体验金',
+  4: '用户积分',
+  5: '实物',
+  6: '优惠券',
+}
+
+const ruleFileds = {
+  channels: '渠道',
+  min_time: '最小时间',
+  max_time: '最大时间',
+  min_cast: '最小充值',
+  max_cast: '最大充值',
+  isfirst: '首次',
+}
+
+const ruleTypes = {
+  register: '注册',
+  channel: '渠道',
+  cast: '投资',
+  recharge: '充值',
 }
 
 const config = {
   activityTriggers,
+  redEnvelopeTypes,
+  redEnvelopeTimeTypes,
+  awardTypes,
+  ruleFileds,
+  ruleTypes,
+  interestTypes,
+  interestTimeTypes,
 }
 
 function getConfig(type, value = false) {
