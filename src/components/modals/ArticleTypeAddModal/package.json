@@ -1,0 +1,6 @@
+{
+  "name": "ArticleTypeAddModal",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ArticleTypeAddModal.js"
+}
