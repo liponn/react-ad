@@ -39,8 +39,23 @@ import {
   CHANNEL_PUT,
 
   ARTICLE_ADD,
+  ARTICLE_LIST,
+  ARTICLE_DEL,
+  ARTICLE_RELEASE,
+  ARTICLE_OFFLINE,
+  ARTICLE_DETAIL,
+  ARTICLE_PUT,
+  ARTICLE_UP,
+  ARTICLE_DOWN,
+
   ARTICLE_TYPE_LIST,
+  ARTICLE_TYPE_ADD,
+  ARTICLE_TYPE_DEL,
+  ARTICLE_TYPE_UP,
+  ARTICLE_TYPE_DOWN,
+
   BANNER_LIST,
+
 } from '../constants/index.js';
 
 //const apiHost = 'http://192.168.10.36:8001';
@@ -90,6 +105,21 @@ apiList[CHANNEL_DEL] = '/channel/del';
 
 apiList[ARTICLE_ADD] = '/cms/content/add';
 apiList[ARTICLE_TYPE_LIST]= '/cms/content/type-list';
+apiList[ARTICLE_LIST]='/cms/content/list';
+apiList[ARTICLE_DEL] = '/cms/content/del';
+apiList[ARTICLE_RELEASE]='/cms/content/release';
+apiList[ARTICLE_OFFLINE]='/cms/content/offline';
+apiList[ARTICLE_DETAIL] = '/cms/content/detail';
+apiList[ARTICLE_PUT] ='/cms/content/put';
+apiList[ARTICLE_UP] = '/cms/content/up';
+apiList[ARTICLE_DOWN] = '/cms/content/down';
+
+apiList[ARTICLE_TYPE_LIST]='/cms/content/type-list';
+apiList[ARTICLE_TYPE_ADD] = '/cms/content/type-add';
+apiList[ARTICLE_TYPE_DEL] = '/cms/content/type-del';
+apiList[ARTICLE_TYPE_UP] = '/cms/content/type-up';
+apiList[ARTICLE_TYPE_DOWN] = '/cms/content/type-down';
+
 apiList[BANNER_LIST] = '/img/banner-list';
 
 function getApi(type) {
