@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 
-import { commonFetch } from '../../../actions/omg';
+import { commonFetch,fetchAction} from '../../../actions/omg';
 import { hideModal } from '../../../actions/modal';
 
 import Alert from '../../tools/Alert';
@@ -26,11 +26,12 @@ class ArticleAddModal extends Component {
     const { dispatch } = this.props;
     dispatch(commonFetch(ARTICLE_ADD, 'POST', formData))
       .then(code => {
-        if (code === 0) {
-          alert("添加成功");
+        //if (code === 0) {
+          //alert("添加成功");
           dispatch(hideModal());
-          dispatch(commonFetch(ARTICLE_LIST))
-        }
+          const type_id = this.props.type_id;
+          dispatch(fetchAction({type:ARTICLE_LIST,method:'GET',suffix: '/'+type_id+'/10',key:'articleList'}));
+        //}
       });
   }
 

@@ -34,17 +34,17 @@ class ArticleType extends Component {
     const formData = new FormData;
     formData.append('id', id);
     this.props.dispatch(commonFetch(ARTICLE_TYPE_DEL, 'POST', formData))
-      .then(() => (this.props.dispatch(commonFetch(ARTICLE_TYPE_LIST))));
+      .then(() => (this.props.dispatch(fetchAction({type:ARTICLE_TYPE_LIST,method:'GET',suffix:'/0',key:"articleType"}))));
   }
   upType(e){
     const id =$(e.target).data('id');
     this.props.dispatch(commonFetch(ARTICLE_TYPE_UP, 'GET',false ,"/"+id))
-      .then(() => (this.props.dispatch(commonFetch(ARTICLE_LIST))));
+      .then(() => (this.props.dispatch(fetchAction({type:ARTICLE_TYPE_LIST,method:'GET',suffix:'/0',key:"articleType"}))));
   }
   downType(e){
     const id =$(e.target).data('id');
     this.props.dispatch(commonFetch(ARTICLE_TYPE_DOWN, 'GET',false ,"/"+id))
-      .then(() => (this.props.dispatch(commonFetch(ARTICLE_LIST))));
+      .then(() => (this.props.dispatch(fetchAction({type:ARTICLE_TYPE_LIST,method:'GET',suffix:'/0',key:"articleType"}))));
   }
   render() {
     const items = this.props.items['articleType']||[];

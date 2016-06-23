@@ -46,33 +46,38 @@ class Article extends Component {
     const id = $(e.target).data('id');
     const formData = new FormData;
     formData.append('id', id);
+    const type_id = $('.focus').data('id');
     this.props.dispatch(commonFetch(ARTICLE_DEL, 'POST', formData))
-      .then(() => (this.props.dispatch(commonFetch(ARTICLE_LIST))));
+      .then(() => (this.props.dispatch(fetchAction({type:ARTICLE_LIST,method:'GET',suffix: '/'+type_id+'/10',key:'articleList'}))));
   }
   releaseArticle(e){
     const id =$(e.target).data('id');
     const formData = new FormData;
     formData.append('id',id);
+    const type_id = $('.focus').data('id');
     this.props.dispatch(commonFetch(ARTICLE_RELEASE, 'POST', formData))
-      .then(() => (this.props.dispatch(commonFetch(ARTICLE_LIST))));
+      .then(() => (this.props.dispatch(fetchAction({type:ARTICLE_LIST,method:'GET',suffix: '/'+type_id+'/10',key:'articleList'}))));
   }
   offLineArticle(e){
     const id =$(e.target).data('id');
     const formData = new FormData;
     formData.append('id',id);
+    const type_id = $('.focus').data('id');
     this.props.dispatch(commonFetch(ARTICLE_OFFLINE, 'POST', formData))
-      .then(() => (this.props.dispatch(commonFetch(ARTICLE_LIST))));
+      .then(() => (this.props.dispatch(fetchAction({type:ARTICLE_LIST,method:'GET',suffix: '/'+type_id+'/10',key:'articleList'}))));
   }
 
   upArticle(e){
     const id =$(e.target).data('id');
+    const type_id = $('.focus').data('id');
     this.props.dispatch(commonFetch(ARTICLE_UP, 'GET',false ,"/"+id))
-      .then(() => (this.props.dispatch(commonFetch(ARTICLE_LIST))));
+      .then(() => (this.props.dispatch(fetchAction({type:ARTICLE_LIST,method:'GET',suffix: '/'+type_id+'/10',key:'articleList'}))));
   }
   downArticle(e){
     const id =$(e.target).data('id');
+    const type_id = $('.focus').data('id');
     this.props.dispatch(commonFetch(ARTICLE_DOWN, 'GET',false ,"/"+id))
-      .then(() => (this.props.dispatch(commonFetch(ARTICLE_LIST))));
+      .then(() => (this.props.dispatch(fetchAction({type:ARTICLE_LIST,method:'GET',suffix: '/'+type_id+'/10',key:'articleList'}))));
   }
   articleByType(e){
     const self = $(e.target);
