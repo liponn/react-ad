@@ -16,7 +16,6 @@ class ArticleAddModal extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
   componentDidMount(){
-      this.props.dispatch(commonFetch(ARTICLE_TYPE_LIST,'GET', false, '/0'));
   }
   onSubmit(e) {
     e.preventDefault();
@@ -37,22 +36,14 @@ class ArticleAddModal extends Component {
 
   render() {
     var items = this.props.items;
+    var type_id = this.props.type_id;
     return (
       <div className="modal-dialog">
         <div className="modal-content">
           <ModalHeader title="添加文章" />
           <div className="modal-body">
             <form　id="add-article-form"　method="post"　onSubmit={this.onSubmit}>
-                <div className="form-group row">
-                  <label className="col-sm-4 form-control-label text-xs-right">文章类型:</label>
-                  <div className="col-sm-8 col-md-6">
-                    <select name="type_id" className="form-control c-select">
-                      {items.map((item) => (
-                      <option value={item.id}>{item.name}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
+                <input hidden name="type_id" value={type_id}/>
                 <Input labelName="文章名称" name="title"  />
                 <Input labelName="封面" name="cover" />
                 <Input labelName="原文地址" name="source"/>

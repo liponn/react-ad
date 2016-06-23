@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { commonFetch } from '../../actions/omg';
+import { commonFetch,fetchAction} from '../../actions/omg';
 import { showModal, hideModal } from '../../actions/modal';
 import {ARTICLE_TYPE_LIST,ARTICLE_TYPE_DEL,ARTICLE_TYPE_UP,ARTICLE_TYPE_DOWN} from'../../constants';
 import ArticleTypeAddModal from'../modals/ArticleTypeAddModal';
@@ -15,7 +15,7 @@ class ArticleType extends Component {
     this.showAddSubtypeModal = this.showAddSubtypeModal.bind(this);
   }
   componentDidMount() {
-    this.props.dispatch(commonFetch(ARTICLE_TYPE_LIST,'GET', false, '/0'));
+    this.props.dispatch(fetchAction({type:ARTICLE_TYPE_LIST,method:'GET',suffix:'/0',key:"articleType"}));
   }
   showModal() {
     const modalView = <ArticleTypeAddModal Parent_id={0} />;
@@ -47,7 +47,7 @@ class ArticleType extends Component {
       .then(() => (this.props.dispatch(commonFetch(ARTICLE_LIST))));
   }
   render() {
-    const items = this.props.items;
+    const items = this.props.items['articleType']||[];
     return (
       <div>
         <div className="card">

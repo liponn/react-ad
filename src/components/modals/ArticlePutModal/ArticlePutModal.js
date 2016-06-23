@@ -20,7 +20,6 @@ class ArticlePutModal extends Component {
   }
   componentDidMount(){
     const id = this.props.articleId;
-    this.props.dispatch(commonFetch(ARTICLE_TYPE_LIST,'GET', false, '/0'));
     this.props.dispatch(commonFetch(ARTICLE_DETAIL,'GET',false,'/'+id));
   }
   onSubmit(e) {
@@ -48,16 +47,7 @@ class ArticlePutModal extends Component {
           <ModalHeader title="修改文章" />
           <div className="modal-body">
             <form　id="put-article-form"　method="post"　onSubmit={this.onSubmit}>
-              <div className="form-group row">
-                <label className="col-sm-4 form-control-label text-xs-right">文章类型:</label>
-                <div className="col-sm-8 col-md-6">
-                  <select name="type_id" className="form-control c-select">
-                    {items.map((item) => (
-                      <option value={item.id}>{item.name}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
+              <input hidden name="type_id" value={ArticleDetail.type_id}/>
               <input name="id" hidden value={ArticleDetail.id}/>
               <Input labelName="文章名称" name="title"  value={ArticleDetail.title}/>
               <Input labelName="封面" name="cover" value={ArticleDetail.cover}/>
