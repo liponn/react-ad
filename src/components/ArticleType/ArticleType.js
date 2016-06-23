@@ -71,22 +71,48 @@ class ArticleType extends Component {
             </tr>
             </thead>
             <tbody>
-            {items.map((item) => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.name}</td>
-                <td>{item.alias_name}</td>
-                <td>
-                  <button className="btn btn-sm btn-info-outline" data-id={item.id} onClick={this.showAddSubtypeModal}>
-                    <i className="fa fa-plus" ></i>子类型
-                  </button>
-                  <button className="btn btn-danger-outline btn-sm" data-id={item.id} onClick={this.delType}>删除</button>
-                  <button className="btn btn-primary-outline btn-sm" data-id={item.id} onClick={this.putType}>修改</button>
-                  <button className="btn btn-success-outline btn-sm" data-id={item.id} onClick={this.upType}>上移</button>
-                  <button className="btn btn-success-outline btn-sm" data-id={item.id} onClick={this.downType}>下移</button>
-                </td>
-              </tr>
-            ))}
+            {items.map((item) => {
+              const trArr = [
+                <tr key={item.id}>
+                  <td>{item.id}</td>
+                  <td>{item.name}</td>
+                  <td>{item.alias_name}</td>
+                  <td>
+                    <button className="btn btn-sm btn-info-outline" data-id={item.id}
+                            onClick={this.showAddSubtypeModal}>
+                      <i className="fa fa-plus"></i>子类型
+                    </button>
+                    <button className="btn btn-danger-outline btn-sm" data-id={item.id} onClick={this.delType}>删除
+                    </button>
+                    <button className="btn btn-primary-outline btn-sm" data-id={item.id} onClick={this.putType}>修改
+                    </button>
+                    <button className="btn btn-success-outline btn-sm" data-id={item.id} onClick={this.upType}>上移
+                    </button>
+                    <button className="btn btn-success-outline btn-sm" data-id={item.id} onClick={this.downType}>下移
+                    </button>
+                  </td>
+                </tr>
+              ];
+              const children = item.childrens.map((subType)=> (
+                <tr key={subType.id}>
+                  <td style={{textAlign:"center"}}>{subType.id}</td>
+                  <td>{subType.name}</td>
+                  <td>{subType.alias_name}</td>
+                  <td>
+                    <button className="btn btn-danger-outline btn-sm" data-id={subType.id} onClick={this.delType}>删除
+                    </button>
+                    <button className="btn btn-primary-outline btn-sm" data-id={subType.id} onClick={this.putType}>修改
+                    </button>
+                    <button className="btn btn-success-outline btn-sm" data-id={subType.id} onClick={this.upType}>上移
+                    </button>
+                    <button className="btn btn-success-outline btn-sm" data-id={subType.id} onClick={this.downType}>下移
+                    </button>
+                  </td>
+                </tr>
+              ))
+              trArr.push(children);
+              return trArr;
+            })}
             </tbody>
           </table>
         </div>
