@@ -9,7 +9,7 @@ class Input extends Component {
     };
   }
 
-  componentWillReceiveProps(props) {
+   componentWillReceiveProps(props) {
     this.setState({
       value: props.value,
     });

@@ -13,7 +13,7 @@ class Select extends Component {
           className="col-sm-4 form-control-label text-xs-right"
         >{this.props.labelName}:</label>
         <div className="col-sm-6">
-          <select onChange={onChange} name={this.props.name} className="form-control c-select">
+          <select onChange={onChange} name={this.props.name} className="form-control c-select" value={this.props.value}>
             {keys.map((key) => (
               <option key={key} value={key}>{options[key]}</option>
             ))}

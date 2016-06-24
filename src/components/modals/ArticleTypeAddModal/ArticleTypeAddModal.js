@@ -4,7 +4,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 
-import { commonFetch } from '../../../actions/omg';
+import { commonFetch,f} from '../../../actions/omg';
 import { hideModal } from '../../../actions/modal';
 
 import Alert from '../../tools/Alert';
@@ -27,11 +27,11 @@ class ArticleTypeAddModal extends Component {
     const { dispatch } = this.props;
     dispatch(commonFetch(ARTICLE_TYPE_ADD, 'POST', formData))
       .then(code => {
-        if (code === 0) {
-          alert("添加成功");
+        //if (code === 0) {
+          //alert("添加成功");
           dispatch(hideModal());
-          dispatch(commonFetch(ARTICLE_TYPE_LIST))
-        }
+          dispatch(fetchAction({type:ARTICLE_TYPE_LIST,method:'GET',suffix:'/0',key:"articleType"}));
+        //}
       });
   }
 

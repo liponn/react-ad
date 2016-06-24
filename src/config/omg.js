@@ -53,6 +53,8 @@ import {
   ARTICLE_TYPE_DEL,
   ARTICLE_TYPE_UP,
   ARTICLE_TYPE_DOWN,
+  ARTICLE_TYPE_INFO,
+  ARTICLE_TYPE_PUT,
 
   BANNER_LIST,
   BANNER_DEL,
@@ -125,6 +127,8 @@ apiList[ARTICLE_TYPE_ADD] = '/cms/content/type-add';
 apiList[ARTICLE_TYPE_DEL] = '/cms/content/type-del';
 apiList[ARTICLE_TYPE_UP] = '/cms/content/type-up';
 apiList[ARTICLE_TYPE_DOWN] = '/cms/content/type-down';
+apiList[ARTICLE_TYPE_INFO]='/cms/content/type-info';
+apiList[ARTICLE_TYPE_PUT] ='/cms/content/type-put';
 
 apiList[BANNER_LIST] = '/img/banner-list';
 apiList[BANNER_DEL] = '/img/banner-del';
@@ -212,6 +216,17 @@ const bannerTypes = {
   test: '测试',
 }
 
+const platform={
+  0:'全平台',
+  1:'PC端',
+  2:'移动端'
+}
+
+const release = {
+  0:'发布并保存',
+  1:"保存"
+}
+
 const config = {
   activityTriggers,
   redEnvelopeTypes,
@@ -222,6 +237,8 @@ const config = {
   interestTypes,
   interestTimeTypes,
   bannerTypes,
+  platform,
+  release
 }
 
 function getConfig(type, value = false) {

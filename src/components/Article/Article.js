@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { commonFetch ,fetchAction} from '../../actions/omg';
+import { getConfig } from '../../config/omg';
 import { Link, Card } from '../tools';
 import { showModal, hideModal } from '../../actions/modal';
 import ArticleAddModal from '../modals/ArticleAddModal';
@@ -18,6 +19,8 @@ class Article extends Component {
     this.upArticle = this.upArticle.bind(this);
     this.downArticle = this.downArticle.bind(this);
     this.articleByType = this.articleByType.bind(this);
+    const releaseTypes = getConfig("release");
+    const platformTypes = getConfig("platform");
   }
   componentDidMount() {
     this.props.dispatch(fetchAction({type:ARTICLE_TYPE_LIST,method:'GET',suffix:'/0',key:'0'}))
@@ -46,33 +49,38 @@ class Article extends Component {
     const id = $(e.target).data('id');
     const formData = new FormData;
     formData.append('id', id);
+    const type_id = $('.focus').data('id');
     this.props.dispatch(commonFetch(ARTICLE_DEL, 'POST', formData))
-      .then(() => (this.props.dispatch(commonFetch(ARTICLE_LIST))));
+      .then(() => (this.props.dispatch(fetchAction({type:ARTICLE_LIST,method:'GET',suffix: '/'+type_id+'/10',key:'articleList'}))));
   }
   releaseArticle(e){
     const id =$(e.target).data('id');
     const formData = new FormData;
     formData.append('id',id);
+    const type_id = $('.focus').data('id');
     this.props.dispatch(commonFetch(ARTICLE_RELEASE, 'POST', formData))
-      .then(() => (this.props.dispatch(commonFetch(ARTICLE_LIST))));
+      .then(() => (this.props.dispatch(fetchAction({type:ARTICLE_LIST,method:'GET',suffix: '/'+type_id+'/10',key:'articleList'}))));
   }
   offLineArticle(e){
     const id =$(e.target).data('id');
     const formData = new FormData;
     formData.append('id',id);
+    const type_id = $('.focus').data('id');
     this.props.dispatch(commonFetch(ARTICLE_OFFLINE, 'POST', formData))
-      .then(() => (this.props.dispatch(commonFetch(ARTICLE_LIST))));
+      .then(() => (this.props.dispatch(fetchAction({type:ARTICLE_LIST,method:'GET',suffix: '/'+type_id+'/10',key:'articleList'}))));
   }
 
   upArticle(e){
     const id =$(e.target).data('id');
+    const type_id = $('.focus').data('id');
     this.props.dispatch(commonFetch(ARTICLE_UP, 'GET',false ,"/"+id))
-      .then(() => (this.props.dispatch(commonFetch(ARTICLE_LIST))));
+      .then(() => (this.props.dispatch(fetchAction({type:ARTICLE_LIST,method:'GET',suffix: '/'+type_id+'/10',key:'articleList'}))));
   }
   downArticle(e){
     const id =$(e.target).data('id');
+    const type_id = $('.focus').data('id');
     this.props.dispatch(commonFetch(ARTICLE_DOWN, 'GET',false ,"/"+id))
-      .then(() => (this.props.dispatch(commonFetch(ARTICLE_LIST))));
+      .then(() => (this.props.dispatch(fetchAction({type:ARTICLE_LIST,method:'GET',suffix: '/'+type_id+'/10',key:'articleList'}))));
   }
   articleByType(e){
     const self = $(e.target);
@@ -143,8 +151,8 @@ class Article extends Component {
                 <td>{item.title}</td>
                 <td>{item.cover}</td>
                 <td>{item.content}</td>
-                <td>{(item.release==1)?"未发布":"发布"}</td>
-                <td>{item.platform}</td>
+                <td>{getConfig('release', item.release)}</td>
+                <td>{getConfig('release',item.platform)}</td>
                 <td>{item.source}</td>
                 <td>
                   <button className="btn btn-primary-outline btn-sm" hidden={item.release==0} data-id={item.id} onClick={this.releaseArticle}>发布</button>
