@@ -8,7 +8,7 @@ import {
 
 function fetchRequest(type) {
   return {
-    type: type,
+    type,
     status: FETCH_REQUEST,
   };
 }
@@ -67,6 +67,8 @@ export function fetchAction({
 }
 
 export function commonFetch(type, method = 'GET', formData = false, suffix = '', queryObj = {}) {
+  console.log('commonFetch方法不建议使用,请使用fetchAction方法');
+  
   const requestUri = getApi(type);
 
   const keys = Object.keys(queryObj);

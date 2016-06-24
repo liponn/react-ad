@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import Card from '../../tools/Card';
 import { AWARD_LIST } from '../../../constants';
-import { commonFetch } from '../../../actions/omg';
+import { fetchAction } from '../../../actions/omg';
 import CouponAddModal from '../../modals/CouponAddModal';
 import { showModal } from '../../../actions/modal';
 
@@ -18,7 +18,12 @@ class Coupon extends Component {
   componentDidMount() {
     const formData = new FormData;
     formData.append('award_type', this.state.awardType);
-    this.props.dispatch(commonFetch(AWARD_LIST, 'POST', formData));
+    this.props.dispatch(fetchAction({
+      type: AWARD_LIST,
+      method: 'POST',
+      formData,
+      key: this.state.awardType,
+    }));
   }
 
   showAddModal() {
@@ -35,6 +40,11 @@ class Coupon extends Component {
     );
     const { modal, addAward = false } = this.props;
     const { awardType } = this.state;
+    const { awards } = this.props;
+    if (typeof awards[awardType] === 'undefined') {
+      awards[awardType] = {};
+    }
+    const { data = [] } = awards[awardType];
     return (
       <Card title="优惠券" btn={btn}>
         <table className="table m-b-0 table-bordered">
@@ -42,7 +52,7 @@ class Coupon extends Component {
           <tr><th>id</th><th>名称</th><th>金额</th><td>操作</td></tr>
           </thead>
           <tbody>
-          {this.props.items.map((item) => {
+          {data.map((item) => {
             let addAwardBtn = false;
             if (modal) {
               addAwardBtn = (
@@ -73,20 +83,20 @@ class Coupon extends Component {
 
 Coupon.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  items: PropTypes.array.isRequired,
+  awards: PropTypes.object.isRequired,
   modal: PropTypes.bool,
   addAward: PropTypes.func,
 }
 
 Coupon.defaultProps = {
-  items: [],
+  awards: {},
   modal: false,
 }
 
 export default connect( state => {
   const { omg } = state;
-  const { data } = omg[AWARD_LIST] || [];
+  const awards = omg[AWARD_LIST];
   return {
-    items: data,
+    awards,
   };
 })(Coupon);

@@ -12,3 +12,5 @@ export Checkbox from './Checkbox';
 export FileInput from './FileInput';
 export Textarea from './Textarea';
 export Text from './Text';
+export AttachmentInput from './AttachmentInput';
+export ImgBox from './ImgBox';

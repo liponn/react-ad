@@ -5,3 +5,21 @@ html,body {height:100%;}
 #main {min-height:100%;overflow:hidden;}
 #left-column {padding-bottom:10000px;margin-bottom:-10000px;background:#fbfbfb;}
 .btn { margin-right: .25rem;}
+
+.btn-file {
+    position: relative;
+    overflow:hidden;
+    display:inline-block;
+}
+
+.btn-file input{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    opacity: 0;
+    -ms-filter: 'alpha(opacity=0)';
+    font-size: 200px !important;
+    direction: ltr;
+    cursor: pointer;
+}

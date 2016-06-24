@@ -1,8 +1,10 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import Card from '../../tools/Card';
-import { fetchAction, commonFetch } from '../../../actions/omg';
+import { ImgBox, Card } from '../../tools';
+import { showModal } from '../../../actions/modal';
+import { fetchAction } from '../../../actions/omg';
 import { BANNER_LIST } from '../../../constants';
+import BannerAddModal from '../../modals/BannerAddModal';
 import { getConfig } from '../../../config/omg';
 import hisotry from '../../../core/history';
 
@@ -10,15 +12,13 @@ import hisotry from '../../../core/history';
 class Banner extends Component {
   constructor(props) {
     super(props);
+    this.showAddModal = this.showAddModal.bind(this);
     this.releaseBanner = this.releaseBanner.bind(this);
     this.putBanner = this.putBanner.bind(this);
-    this.delBanner = this.delBanner.bind(this);
-    
+    this.freshData = this.freshData.bind(this);
     const bannerTypes = getConfig('bannerTypes');
-    
     this.state = {
       bannerTypes,
-      currentType: 1,
     };
   }
   componentDidMount() {
@@ -26,20 +26,22 @@ class Banner extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.type !== nextProps.type) {
+    if (this.props.type !== nextProps.type) {
       this.freshData(nextProps.type);
     }
   }
-  
   freshData(type) {
-    const queryObj = { position: type}
+    const queryObj = { position: type };
     this.props.dispatch(fetchAction({
       type: BANNER_LIST,
       key: type,
       queryObj,
     }));
   }
-  
+  showAddModal() {
+    const modalView = <BannerAddModal type={this.props.type} callback={this.freshData} />;
+    this.props.dispatch(showModal(modalView));
+  }
   releaseBanner(e) {
     const { dispatch } = $this.props;
     const id = $(e.target).data('id');
@@ -47,38 +49,23 @@ class Banner extends Component {
 
   putBanner(e) {
     const { dispatch } = this.props;
-    dispatch()
   }
 
-  delBanner(e) {
-    const { dispatch } = this.props;
-    const id = $(e.target).data('id');
-    $.post('http://api-omg.wanglibao.com/img/banner-del',{id: id}, function(res){
-      if (res.error_code !== 0) {
-        console.log(res);
-        this.setState({ errorMsg: res.data.error_msg });
-      } else {
-        dispatch(commonFetch(BANNER_LIST));
-      }
-    }.bind(this));
-  }
   selectChange(e) {
     const value = e.target.value;
     hisotry.push(`/banner/${value}`);
   }
   render() {
-    const { items, type } = this.props;
-    const { bannerTypes, currentType } = this.state;
+    const { banners, type } = this.props;
+    const { bannerTypes } = this.state;
     const btn = (
       <button
         className="btn btn-info btn-sm pull-xs-right"
+        onClick={this.showAddModal}
       >添加</button>
     );
-    
-    if (typeof items[type] === 'undefined') {
-      items[type] = [];
-    }
-    
+    const banner = banners[type] || {};
+    const items = banner.data || [];
     return (
       <div>
         <div>
@@ -100,27 +87,23 @@ class Banner extends Component {
         <Card title="banner图" btn={btn}>
           <table className="table m-b-0 table-bordered">
             <thead>
-            <tr>
-              <th>ID</th>
-              <th>位置</th>
-              <th>名称</th>
-              <th>跳转URL</th>
-              <th>状态</th>
-              <th>介绍</th>
-              <th>开始时间</th>
-              <th>结束时间</th>
-              <th>操作</th>
-            </tr>
+              <tr>
+                <th>ID</th>
+                <th>跳转URL</th>
+                <th>图片预览</th>
+                <th>状态</th>
+                <th>开始时间</th>
+                <th>结束时间</th>
+                <th>操作</th>
+              </tr>
             </thead>
             <tbody>
-            {items[type].map((item)=>(
+            {items.map((item)=>(
               <tr key={item.id}>
                 <td>{item.id}</td>
-                <td>{item.position}</td>
-                <td>{item.name}</td>
-                <td>{item.img_url}</td>
+                <td><a title={item.img_url} href={item.img_url} target="_blank">查看</a></td>
+                <td><ImgBox src={item.img_path} /></td>
                 <td>{item.can_use}</td>
-                <td>{item.desc}</td>
                 <td>{item.start}</td>
                 <td>{item.end}</td>
                 <td>
@@ -139,19 +122,18 @@ class Banner extends Component {
 }
 
 Banner.propTypes = {
-  items: PropTypes.array.isRequired,
+  banners: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
 }
 
 Banner.defaultProps = {
-  items: [],
 }
 
 export default connect(state => {
   const { omg } = state;
-  const data = omg[BANNER_LIST] || [];
+  const banners = omg[BANNER_LIST] || {};
   return {
-    items: data,
-  }
+    banners,
+  };
 })(Banner);

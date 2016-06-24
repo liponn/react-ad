@@ -11,8 +11,9 @@ export function showModal(modalView, data = {}) {
   };
 }
 
-export function hideModal() {
+export function hideModal(isClear = false) {
   return {
     type: MODAL_HIDE,
+    isClear,
   };
 }
