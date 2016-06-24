@@ -4,6 +4,7 @@ import { commonFetch,fetchAction} from '../../actions/omg';
 import { showModal, hideModal } from '../../actions/modal';
 import {ARTICLE_TYPE_LIST,ARTICLE_TYPE_DEL,ARTICLE_TYPE_UP,ARTICLE_TYPE_DOWN} from'../../constants';
 import ArticleTypeAddModal from'../modals/ArticleTypeAddModal';
+import ArticleTypePutModal from '../modals/ArticleTypePutModal';
 
 class ArticleType extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class ArticleType extends Component {
     this.upType = this.upType.bind(this);
     this.downType = this.downType.bind(this);
     this.showAddSubtypeModal = this.showAddSubtypeModal.bind(this);
+    this.showPutTypeModal = this.showPutTypeModal.bind(this);
   }
   componentDidMount() {
     this.props.dispatch(fetchAction({type:ARTICLE_TYPE_LIST,method:'GET',suffix:'/0',key:"articleType"}));
@@ -24,6 +26,11 @@ class ArticleType extends Component {
   showAddSubtypeModal(e){
     const id = $(e.target).data('id');
     const modalView = <ArticleTypeAddModal Parent_id={id} />
+    this.props.dispatch(showModal(modalView));
+  }
+  showPutTypeModal(e){
+    const id = $(e.target).data('id');
+    const modalView = <ArticleTypePutModal TypeId={id} />
     this.props.dispatch(showModal(modalView));
   }
   hideModal() {
@@ -84,7 +91,7 @@ class ArticleType extends Component {
                     </button>
                     <button className="btn btn-danger-outline btn-sm" data-id={item.id} onClick={this.delType}>删除
                     </button>
-                    <button className="btn btn-primary-outline btn-sm" data-id={item.id} onClick={this.putType}>修改
+                    <button className="btn btn-primary-outline btn-sm" data-id={item.id} onClick={this.showPutTypeModal}>修改
                     </button>
                     <button className="btn btn-success-outline btn-sm" data-id={item.id} onClick={this.upType}>上移
                     </button>
@@ -101,7 +108,7 @@ class ArticleType extends Component {
                   <td>
                     <button className="btn btn-danger-outline btn-sm" data-id={subType.id} onClick={this.delType}>删除
                     </button>
-                    <button className="btn btn-primary-outline btn-sm" data-id={subType.id} onClick={this.putType}>修改
+                    <button className="btn btn-primary-outline btn-sm" data-id={subType.id} onClick={this.showPutTypeModal}>修改
                     </button>
                     <button className="btn btn-success-outline btn-sm" data-id={subType.id} onClick={this.upType}>上移
                     </button>

@@ -9,13 +9,13 @@ class Input extends Component {
     }
   }
 
-  componentWillReceiveProps(props) {
+   componentWillReceiveProps(props) {
     this.setState({
       value: props.value,
     })
   }
 
-  component
+    component
   valueChange(e) {
     const value = e.target.value;
     this.setState({
