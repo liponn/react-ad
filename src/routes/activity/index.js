@@ -11,19 +11,19 @@ export default {
       path: '/',
       action() {
         return <ActivityList />;
-      }
-    },{
+      },
+    }, {
       path: '/gid/:groupId',
       action(context) {
         return <ActivityAdd groupId={context.params.groupId} />;
-      }
-    },{
+      },
+    }, {
       path: '/id/:activityId',
       action(context) {
         const activityId = +context.params.activityId;
         return <Activity activityId={activityId} />;
-      }
-    }
+      },
+    },
   ],
   async action({ next }) {
     const component = await next();

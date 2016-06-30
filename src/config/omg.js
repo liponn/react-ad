@@ -66,8 +66,8 @@ import {
 
 } from '../constants/index.js';
 
-// const apiHost = 'http://192.168.10.36:8001';
-const apiHost = 'http://api-omg.wanglibao.com';
+const apiHost = 'http://192.168.10.36:8001';
+// const apiHost = 'http://api-omg.wanglibao.com';
 const apiList = {}
 
 apiList[ACTIVITY_INDEX] = '/activity/index';
