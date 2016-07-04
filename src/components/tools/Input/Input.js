@@ -6,22 +6,20 @@ class Input extends Component {
     this.valueChange = this.valueChange.bind(this);
     this.state = {
       value: props.value,
-    }
+    };
   }
 
-  componentWillReceiveProps(props) {
+   componentWillReceiveProps(props) {
     this.setState({
       value: props.value,
-    })
+    });
   }
 
-  component
   valueChange(e) {
     const value = e.target.value;
     this.setState({
       value,
-    })
-
+    });
   }
   render() {
     return (
@@ -35,9 +33,9 @@ class Input extends Component {
             type={this.props.type}
             name={this.props.name}
             className="form-control"
-            value={this.state.value}
+            defaultValue={this.state.value}
             onChange={this.valueChange}
-         />
+          />
         </div>
       </div>
     );

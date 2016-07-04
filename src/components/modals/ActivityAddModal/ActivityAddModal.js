@@ -17,14 +17,17 @@ class ActivityAddModal extends Component {
   }
   onSubmit(e) {
     e.preventDefault();
-    const form =  $('#add-activity-form').get(0);
-    const formData = new FormData(form);
+    const formData = new FormData(e.target);
     const { dispatch } = this.props;
     dispatch(commonFetch(ACTIVITY_GROUP_ADD, 'POST', formData))
       .then(({ error_code }) => {
         if (error_code === 0) {
           dispatch(hideModal());
           dispatch(commonFetch(ACTIVITY_GROUP_LIST))
+        } else {
+          this.setState({
+            errorMsg: json.data.error_msg,
+          });
         }
       });
   }

@@ -6,9 +6,11 @@ import { connect } from 'react-redux';
 
 import { commonFetch } from '../../../actions/omg';
 import { hideModal } from '../../../actions/modal';
-
+import { getConfig } from '../../../config/omg';
 import Alert from '../../tools/Alert';
 import Input from '../../tools/Input';
+import Select from '../../tools/Select';
+import Textarea from '../../tools/Textarea'
 import ModalHeader from '../../tools/ModalHeader';
 
 import { ARTICLE_ADD, ARTICLE_LIST,ARTICLE_TYPE_LIST ,ARTICLE_DETAIL,ARTICLE_PUT} from '../../../constants'
@@ -17,11 +19,49 @@ class ArticlePutModal extends Component {
   constructor(props) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
+    const releaseTypes = getConfig("release");
+    const platformTypes = getConfig("platform");
+    this.releaseTypeChange = this.releaseTypeChange.bind(this);
+    this.platformTypeChange = this.platformTypeChange.bind(this);
+    this.state = {
+      releaseType:0,
+      platformType:0,
+      platformTypes,
+      releaseTypes,
+    }
+  }
+  releaseTypeChange(e) {
+    const value = $(e.target).val();
+    this.setState({
+      releaseType: +value,
+    });
+  }
+  platformTypeChange(e) {
+    const value = $(e.target).val();
+    this.setState({
+      platformType: +value,
+    });
   }
   componentDidMount(){
     const id = this.props.articleId;
-    this.props.dispatch(commonFetch(ARTICLE_TYPE_LIST,'GET', false, '/0'));
-    this.props.dispatch(commonFetch(ARTICLE_DETAIL,'GET',false,'/'+id));
+    this.props.dispatch(commonFetch(ARTICLE_DETAIL,'GET',false,'/'+id))
+      .then((json)=>{
+        this.setState({
+          releaseType:json.release,
+          platformType:json.platform
+        })
+      })
+  }
+  componentWillReceiveProps(nextProps){
+    if(nextProps.articleId!=this.props.articleId){
+      this.props.dispatch(commonFetch(ARTICLE_DETAIL,'GET',false,'/'+nextProps.articleId))
+        .then((json)=>{
+          this.setState({
+            releaseType:json.release,
+            platformType:json.platform
+          })
+        })
+    }
   }
   onSubmit(e) {
     e.preventDefault();
@@ -41,54 +81,33 @@ class ArticlePutModal extends Component {
   render() {
     var items = this.props.items;
     var ArticleDetail = this.props.detail;
-    console.dir(this.props.detail);
+
     return (
       <div className="modal-dialog">
         <div className="modal-content">
           <ModalHeader title="修改文章" />
           <div className="modal-body">
             <form　id="put-article-form"　method="post"　onSubmit={this.onSubmit}>
-              <div className="form-group row">
-                <label className="col-sm-4 form-control-label text-xs-right">文章类型:</label>
-                <div className="col-sm-8 col-md-6">
-                  <select name="type_id" className="form-control c-select">
-                    {items.map((item) => (
-                      <option value={item.id}>{item.name}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
+              <input hidden name="type_id" value={ArticleDetail.type_id}/>
               <input name="id" hidden value={ArticleDetail.id}/>
               <Input labelName="文章名称" name="title"  value={ArticleDetail.title}/>
               <Input labelName="封面" name="cover" value={ArticleDetail.cover}/>
               <Input labelName="原文地址" name="source" value={ArticleDetail.source}/>
-              <div className="form-group row">
-                <label className="col-sm-4 form-control-label text-xs-right">发布:</label>
-                <div className="col-sm-8 col-md-6">
-                  <select name="release" className="form-control c-select" defaultValue={ArticleDetail.release}>
-                    <option value="0">发布并保存</option>
-                    <option value="1">保存</option>
-                  </select>
-                </div>
-              </div>
-              <div className="form-group row">
-                <label className="col-sm-4 form-control-label text-xs-right">平台:</label>
-                <div className="col-sm-8 col-md-6">
-                  <select name="platform" className="form-control c-select" defaultValue={ArticleDetail.platform}>
-                    <option value="0">全平台</option>
-                    <option value="1">PC端</option>
-                    <option value="2">移动端</option>
-                  </select>
-                </div>
-              </div>
-              <div className="form-group row">
-                <label className="col-sm-4 form-control-label text-xs-right">内容:</label>
-                <div className="col-sm-8 col-md-6">
-                  <textarea name="content" className="form-control" defaultValue={ArticleDetail.content} >
-
-                  </textarea>
-                </div>
-              </div>
+              <Select
+                labelName="发布"
+                name="release"
+                options={this.state.releaseTypes}
+                value={this.state.releaseType}
+                onChange={this.releaseTypeChange}
+              />
+              <Select
+                labelName="平台"
+                name="platform"
+                options={this.state.platformTypes}
+                value={this.state.platformType}
+                onChange={this.platformTypeChange}
+              />
+              <Textarea name="content" value={ArticleDetail.content}/>
 
               <div className="form-group row">
                 <div className="col-sm-offset-4 col-sm-8">

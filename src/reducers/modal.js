@@ -21,6 +21,13 @@ export default function modal(state = null, action) {
       });
     }
     case MODAL_HIDE: {
+      if (action.isClear) {
+        return Object.assign({}, state, {
+          showStatus: false,
+          modalView: false,
+        });
+      }
+      
       return Object.assign({}, state, {
         showStatus: false,
       });

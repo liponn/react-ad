@@ -53,13 +53,21 @@ import {
   ARTICLE_TYPE_DEL,
   ARTICLE_TYPE_UP,
   ARTICLE_TYPE_DOWN,
+  ARTICLE_TYPE_INFO,
+  ARTICLE_TYPE_PUT,
 
   BANNER_LIST,
+  BANNER_DEL,
+  BANNER_ADD,
+  BANNER_PUT,
+
+  ATTACHMENT_ADD,
+  ATTACHMENT_LIST,
 
 } from '../constants/index.js';
 
-//const apiHost = 'http://192.168.10.36:8001';
-const apiHost = 'http://api-omg.wanglibao.com';
+const apiHost = 'http://192.168.10.36:8001';
+// const apiHost = 'http://api-omg.wanglibao.com';
 const apiList = {}
 
 apiList[ACTIVITY_INDEX] = '/activity/index';
@@ -104,23 +112,31 @@ apiList[CHANNEL_DEL] = '/channel/del';
 
 
 apiList[ARTICLE_ADD] = '/cms/content/add';
-apiList[ARTICLE_TYPE_LIST]= '/cms/content/type-list';
-apiList[ARTICLE_LIST]='/cms/content/list';
+apiList[ARTICLE_TYPE_LIST] = '/cms/content/type-list';
+apiList[ARTICLE_LIST] = '/cms/content/list';
 apiList[ARTICLE_DEL] = '/cms/content/del';
-apiList[ARTICLE_RELEASE]='/cms/content/release';
-apiList[ARTICLE_OFFLINE]='/cms/content/offline';
+apiList[ARTICLE_RELEASE] = '/cms/content/release';
+apiList[ARTICLE_OFFLINE] = '/cms/content/offline';
 apiList[ARTICLE_DETAIL] = '/cms/content/detail';
-apiList[ARTICLE_PUT] ='/cms/content/put';
+apiList[ARTICLE_PUT] = '/cms/content/put';
 apiList[ARTICLE_UP] = '/cms/content/up';
 apiList[ARTICLE_DOWN] = '/cms/content/down';
 
-apiList[ARTICLE_TYPE_LIST]='/cms/content/type-list';
+apiList[ARTICLE_TYPE_LIST] = '/cms/content/type-list';
 apiList[ARTICLE_TYPE_ADD] = '/cms/content/type-add';
 apiList[ARTICLE_TYPE_DEL] = '/cms/content/type-del';
 apiList[ARTICLE_TYPE_UP] = '/cms/content/type-up';
 apiList[ARTICLE_TYPE_DOWN] = '/cms/content/type-down';
+apiList[ARTICLE_TYPE_INFO]='/cms/content/type-info';
+apiList[ARTICLE_TYPE_PUT] ='/cms/content/type-put';
 
 apiList[BANNER_LIST] = '/img/banner-list';
+apiList[BANNER_DEL] = '/img/banner-del';
+apiList[BANNER_PUT] = '/img/banner-edit';
+apiList[BANNER_ADD] = '/img/banner-add';
+apiList[ATTACHMENT_ADD] = '/img/img-add';
+apiList[ATTACHMENT_LIST] = '/img/img-list';
+
 
 function getApi(type) {
   return apiHost + apiList[type];
@@ -197,6 +213,18 @@ const ruleTypes = {
 const bannerTypes = {
   1: '移动端轮播图',
   2: 'PC端轮播图',
+  test: '测试',
+}
+
+const platform = {
+  0: '全平台',
+  1: 'PC端',
+  2: '移动端',
+}
+
+const release = {
+  0: '为发布',
+  1: '已发布',
 }
 
 const config = {
@@ -209,6 +237,8 @@ const config = {
   interestTypes,
   interestTimeTypes,
   bannerTypes,
+  platform,
+  release
 }
 
 function getConfig(type, value = false) {

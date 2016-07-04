@@ -1,6 +1,6 @@
 import React from 'react';
-import Article from '../../components/Article';
-import ArticleType from '../../components/ArticleType';
+import Article from '../../components/pages/Article';
+import ArticleType from '../../components/pages/ArticleType';
 
 export default {
 
@@ -18,6 +18,19 @@ export default {
         return <ArticleType />;
       },
     },
+    {
+      path: '/:firId',
+      action(context) {
+        return <Article firId={+context.params.firId} />;
+      },
+    },
+    {
+      path: '/:firId/:secId',
+      action(context) {
+        return <Article firId={+context.params.firId} secId={+context.params.secId} />;
+      },
+    },
+
   ],
   async action({ next }) {
     const component = await next();

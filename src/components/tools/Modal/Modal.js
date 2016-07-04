@@ -18,10 +18,10 @@ class Modal extends Component {
             </button>
             <h4 className="modal-title">{this.props.title}</h4>
           </div>
-          <div className="modal-body">  
-            {this.props.children}               
-          </div>  
-        </div> 
+          <div className="modal-body">
+            {this.props.children}
+          </div>
+        </div>
       </div>
     );
   }

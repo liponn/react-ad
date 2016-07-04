@@ -8,14 +8,14 @@
  */
 
 import React from 'react';
-import Login from './Login';
+import Login from '../../components/layouts/Login';
 
 export default {
 
-  path: '/login',
+  path: '/Login',
 
   action() {
-    return <Login />;
+    return 'login';
   },
 
 };

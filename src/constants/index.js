@@ -76,3 +76,9 @@ export const ARTICLE_UP = 'ARTICLE_UP';
 export const ARTICLE_DOWN = 'ARTICLE_DOWN';
 
 export const BANNER_LIST = 'BANNER_LIST';
+export const BANNER_ADD = 'BANNER_ADD';
+export const BANNER_PUT = 'BANNER_PUT';
+export const BANNER_DEL = 'BANNER_DEL';
+
+export const ATTACHMENT_ADD = 'ATTACHMENT_ADD';
+export const ATTACHMENT_LIST = 'ATTACHMENT_LIST';

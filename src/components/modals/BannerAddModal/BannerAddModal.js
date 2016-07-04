@@ -1,78 +1,59 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { articleTypeAddFetch } from '../../../actions/article';
+import { fetchAction } from '../../../actions/omg';
+import { hideModal } from '../../../actions/modal'
+import { BANNER_ADD } from '../../../constants'
+import { Modal, Alert, Input, Textarea, Submit, DateTimeInput, AttachmentInput } from '../../tools';
 
 class BannerAddModal extends Component {
   constructor(props) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
+    this.state = {
+      errorMsg: '',
+    };
   }
   onSubmit(e) {
     e.preventDefault();
-    const form =  $('#add-article-type-form').get(0);
-    const formData = new FormData(form);
-    this.props.dispatch(articleTypeAddFetch(formData));
+    const formData = new FormData(e.target);
+    this.props.dispatch(fetchAction({
+      type: BANNER_ADD,
+      method: 'POST',
+      formData,
+    })).then((json) => {
+      if (json.error_code === 0) {
+        this.props.dispatch(hideModal(true));
+        this.props.callback(this.props.type);
+      } else {
+        this.setState({
+          errorMsg: json.data.error_msg,
+        });
+      }
+    });
   }
   render() {
     return (
-      <div className="modal-dialog">
-        <div className="modal-content modal-sm">
-          <div className="modal-header">
-            <button
-              type="button"
-              className="close"
-              data-dismiss="modal"
-            >
-              <span>&times;</span>
-            </button>
-            <h4 className="modal-title">添加渠道</h4>
-          </div>
-          <div className="modal-body">
-            <form
-              id="add-article-type-form"
-              method="post"
-              onSubmit={this.onSubmit}
-            >
-              <div className="row" role="alert">
-                <div className="col-sm-12">
-                </div>
-              </div>
-              <div className="form-group row">
-                <input type="hidden" name="parent_id" value="0" />
-                <label
-                  required
-                  className="col-sm-4 form-control-label text-xs-right"
-                >中文名称:</label>
-                <div className="col-sm-8">
-                  <input type="text" name="name" className="form-control" />
-                </div>
-              </div>
-              <div className="form-group row">
-                <label className="col-sm-4 form-control-label text-xs-right">英文别名:</label>
-                <div className="col-sm-8">
-                  <input type="text" name="alias_name" className="form-control" />
-                </div>
-              </div>
-              <div className="form-group row">
-                <label className="col-sm-4 form-control-label text-xs-right">优先级:</label>
-                <div className="col-sm-8">
-                  <input type="number" defaultValue="0" name="sort" className="form-control" />
-                </div>
-              </div>
-              <div className="form-group row">
-                <div className="col-sm-offset-4 col-sm-8">
-                  <button type="submit" className="btn btn-primary" >保存</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+      <Modal title="添加banner">
+        <form method="post" ref="addForm" onSubmit={this.onSubmit}>
+          <Alert msg={this.state.errorMsg} />
+          <input type="hidden" name="position" value={this.props.type} />
+          <Input labelName="图片名称" name="name" />
+          <AttachmentInput labelName="banner图片" name="img_path" />
+          <Input labelName="图片跳转链接" name="img_url" />
+          <Input type="number" labelName="排序" name="sort" />
+          <DateTimeInput labelName="开始时间" name="start" />
+          <DateTimeInput labelName="结束时间" name="end" />
+          <Textarea labelName="图片描述" name="desc" />
+          <Submit />
+        </form>
+      </Modal>
     );
   }
 }
 BannerAddModal.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  callback: PropTypes.func.isRequired,
+  type: PropTypes.string.isRequired,
 }
 
 export default connect(state => ({}))(BannerAddModal);

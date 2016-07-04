@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { commonFetch } from '../../../actions/omg';
 import { showModal } from '../../../actions/modal';
 import { ACTIVITY_GROUP_DEL, ACTIVITY_GROUP_LIST, ACTIVITY_OFFLINE, ACTIVITY_RELEASE, ACTIVITY_DEL } from '../../../constants';
-import { Link, Card, Modal } from '../../tools';
+import { Link, Card, Modal, Editor } from '../../tools';
 import { getConfig } from '../../../config/omg';
 import ActivityAddModal from '../../modals/ActivityAddModal';
 import ActivityAdd from '../../activity/ActivityAdd';
