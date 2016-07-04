@@ -216,15 +216,15 @@ const bannerTypes = {
   test: '测试',
 }
 
-const platform={
-  0:'全平台',
-  1:'PC端',
-  2:'移动端'
+const platform = {
+  0: '全平台',
+  1: 'PC端',
+  2: '移动端',
 }
 
 const release = {
-  0:'发布并保存',
-  1:"保存"
+  0: '为发布',
+  1: '已发布',
 }
 
 const config = {

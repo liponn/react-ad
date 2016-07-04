@@ -22,7 +22,7 @@ export default function omg(state = null, action) {
       const nextState = {};
       nextState.isFetching = Object.assign({}, state.isFetching, { [action.type]: false });
       nextState.errorMsg = Object.assign({}, state.error_msg, { [action.type]: '' });
-      if (action.key) {
+      if (action.key !== false) {
         if (typeof state[action.type] === 'undefined') {
           nextState[action.type] = { [action.key]: action.data };
         } else {

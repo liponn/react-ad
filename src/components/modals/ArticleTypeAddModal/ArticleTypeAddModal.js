@@ -4,7 +4,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 
-import { commonFetch,f} from '../../../actions/omg';
+import { commonFetch, fetchAction } from '../../../actions/omg';
 import { hideModal } from '../../../actions/modal';
 
 import Alert from '../../tools/Alert';

@@ -1,10 +1,10 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { commonFetch,fetchAction} from '../../actions/omg';
-import { showModal, hideModal } from '../../actions/modal';
-import {ARTICLE_TYPE_LIST,ARTICLE_TYPE_DEL,ARTICLE_TYPE_UP,ARTICLE_TYPE_DOWN} from'../../constants';
-import ArticleTypeAddModal from'../modals/ArticleTypeAddModal';
-import ArticleTypePutModal from '../modals/ArticleTypePutModal';
+import { commonFetch, fetchAction } from '../../../actions/omg';
+import { showModal, hideModal } from '../../../actions/modal';
+import { ARTICLE_TYPE_LIST, ARTICLE_TYPE_DEL, ARTICLE_TYPE_UP, ARTICLE_TYPE_DOWN } from '../../../constants';
+import ArticleTypeAddModal from '../../modals/ArticleTypeAddModal';
+import ArticleTypePutModal from '../../modals/ArticleTypePutModal';
 
 class ArticleType extends Component {
   constructor(props) {

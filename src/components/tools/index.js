@@ -14,3 +14,7 @@ export Textarea from './Textarea';
 export Text from './Text';
 export AttachmentInput from './AttachmentInput';
 export ImgBox from './ImgBox';
+export Editor from './Editor';
+export Radio from './Radio';
+export Status from './Status';
+export Popover from './Popover';
