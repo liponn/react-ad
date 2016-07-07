@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { commonFetch, fetchAction } from '../../../actions/omg';
 import { hideModal } from '../../../actions/modal';
 
-import { Input, Editor, AttachmentInput, Alert } from '../../tools';
+import { Input, Editor, AttachmentInput, Alert, Submit } from '../../tools';
 import ModalHeader from '../../tools/ModalHeader';
 
-import { ARTICLE_ADD, ARTICLE_LIST,ARTICLE_TYPE_LIST } from '../../../constants'
+import { ARTICLE_ADD, ARTICLE_LIST, ARTICLE_TYPE_LIST } from '../../../constants'
 
 class ArticleAddModal extends Component {
   constructor(props) {
@@ -48,14 +48,12 @@ class ArticleAddModal extends Component {
             <form id="add-article-form" method="post" onSubmit={this.onSubmit}>
               <Alert msg={this.state.errorMsg} />
               <input hidden name="type_id" defaultValue={this.props.typeId} />
-              <Input labelName="名称" name="title" />
+              <Input labelName="标题" name="title" />
               <Editor name="content" />
-              <AttachmentInput labelName="封面" name="cover" />
-              <div className="form-group row">
-                <div className="col-sm-offset-4 col-sm-8">
-                  <button type="submit" className="btn btn-primary" >保存</button>
-                </div>
+              <div hidden>
+                <AttachmentInput labelName="封面" name="cover" />
               </div>
+              <Submit />
             </form>
           </div>
         </div>

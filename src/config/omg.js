@@ -64,9 +64,13 @@ import {
   ATTACHMENT_ADD,
   ATTACHMENT_LIST,
 
+  ACCOUNT_LOGIN,
+  ACCOUNT_PROFILE,
+  ACCOUNT_LOGOUT,
+
 } from '../constants/index.js';
 
-const apiHost = 'http://192.168.10.36:8001';
+const apiHost = 'http://api-omg.wanglibao.com';
 // const apiHost = 'http://api-omg.wanglibao.com';
 const apiList = {}
 
@@ -137,6 +141,10 @@ apiList[BANNER_ADD] = '/img/banner-add';
 apiList[ATTACHMENT_ADD] = '/img/img-add';
 apiList[ATTACHMENT_LIST] = '/img/img-list';
 
+apiList[ACCOUNT_LOGIN] = '/account/login';
+apiList[ACCOUNT_PROFILE] = '/account/profile';
+apiList[ACCOUNT_LOGOUT] = '/account/logout';
+
 
 function getApi(type) {
   return apiHost + apiList[type];
@@ -189,8 +197,8 @@ const awardTypes = {
   1: '加息券',
   2: '红包',
   3: '体验金',
-  4: '用户积分',
-  5: '实物',
+  //4: '用户积分',
+  //5: '实物',
   6: '优惠券',
 }
 

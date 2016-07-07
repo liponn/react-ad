@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { ImgBox, Card } from '../../tools';
 import { showModal } from '../../../actions/modal';
 import { fetchAction } from '../../../actions/omg';
-import { BANNER_LIST } from '../../../constants';
+import { BANNER_LIST, BANNER_DEL } from '../../../constants';
 import BannerAddModal from '../../modals/BannerAddModal';
 import { getConfig } from '../../../config/omg';
 import hisotry from '../../../core/history';
@@ -16,6 +16,7 @@ class Banner extends Component {
     this.releaseBanner = this.releaseBanner.bind(this);
     this.putBanner = this.putBanner.bind(this);
     this.freshData = this.freshData.bind(this);
+    this.del = this.del.bind(this);
     const bannerTypes = getConfig('bannerTypes');
     this.state = {
       bannerTypes,
@@ -49,6 +50,17 @@ class Banner extends Component {
 
   putBanner(e) {
     const { dispatch } = this.props;
+  }
+  
+  del(e) {
+    const id = $(e.target).data('id');
+    const formData = new FormData;
+    formData.append('id', id);
+    this.props.dispatch(fetchAction({
+      type: BANNER_DEL,
+      method: 'POST',
+      formData,
+    })).then(() => (this.freshData(this.props.type)));
   }
 
   selectChange(e) {
@@ -107,9 +119,7 @@ class Banner extends Component {
                 <td>{item.start}</td>
                 <td>{item.end}</td>
                 <td>
-                  <button className="btn btn-success-outline" data-id={item.id} onClick={this.releaseBanner}>发布</button>
-                  <button className="btn btn-warning-outline" data-id={item.id} onClick={this.putBanner}>修改</button>
-                  <button className="btn btn-danger-outline" data-id={item.id} onClick={this.delBanner}>删除</button>
+                  <button className="btn btn-sm btn-danger-outline" data-id={item.id} onClick={this.del}>删除</button>
                 </td>
               </tr>
             )) }
