@@ -79,6 +79,10 @@ export const BANNER_LIST = 'BANNER_LIST';
 export const BANNER_ADD = 'BANNER_ADD';
 export const BANNER_PUT = 'BANNER_PUT';
 export const BANNER_DEL = 'BANNER_DEL';
+export const BANNER_ENABLE = 'BANNER_ENABLE';
+export const BANNER_DISABLE = 'BANNER_DISABLE';
+export const BANNER_UP = 'BANNER_UP';
+export const BANNER_DOWN = 'BANNER_DOWN';
 
 export const ATTACHMENT_ADD = 'ATTACHMENT_ADD';
 export const ATTACHMENT_LIST = 'ATTACHMENT_LIST';
@@ -86,3 +90,14 @@ export const ATTACHMENT_LIST = 'ATTACHMENT_LIST';
 export const ACCOUNT_LOGIN = 'ACCOUNT_LOGIN';
 export const ACCOUNT_PROFILE = 'ACCOUNT_PROFILE';
 export const ACCOUNT_LOGOUT = 'ACCOUNT_LOGOUT';
+
+export const STARTUP_LIST = 'STARTUP_LIST';
+export const STARTUP_ADD = 'STARTUP_ADD';
+export const STARTUP_ENABLE = 'STARTUP_ENABLE';
+export const STARTUP_DISABLE = 'STARTUP_DISABLE';
+export const STARTUP_PUT = 'STARTUP_PUT';
+export const STARTUP_INFO = 'STARTUP_INFO';
+export const STARTUP_DEL = 'STARTUP_DEL';
+export const STARTUP_UP = 'STARTUP_UP';
+export const STARTUP_DOWN = 'STARTUP_DOWN';
+

@@ -60,6 +60,10 @@ import {
   BANNER_DEL,
   BANNER_ADD,
   BANNER_PUT,
+  BANNER_ENABLE,
+  BANNER_DISABLE,
+  BANNER_UP,
+  BANNER_DOWN,
 
   ATTACHMENT_ADD,
   ATTACHMENT_LIST,
@@ -68,10 +72,20 @@ import {
   ACCOUNT_PROFILE,
   ACCOUNT_LOGOUT,
 
+  STARTUP_ADD,
+  STARTUP_DISABLE,
+  STARTUP_ENABLE,
+  STARTUP_INFO,
+  STARTUP_LIST,
+  STARTUP_PUT,
+  STARTUP_DEL,
+  STARTUP_UP,
+  STARTUP_DOWN,
+
 } from '../constants/index.js';
 
+// const apiHost = 'http://yunying.dev.wanglibao.com';
 const apiHost = 'http://api-omg.wanglibao.com';
-// const apiHost = 'http://api-omg.wanglibao.com';
 const apiList = {}
 
 apiList[ACTIVITY_INDEX] = '/activity/index';
@@ -131,19 +145,34 @@ apiList[ARTICLE_TYPE_ADD] = '/cms/content/type-add';
 apiList[ARTICLE_TYPE_DEL] = '/cms/content/type-del';
 apiList[ARTICLE_TYPE_UP] = '/cms/content/type-up';
 apiList[ARTICLE_TYPE_DOWN] = '/cms/content/type-down';
-apiList[ARTICLE_TYPE_INFO]='/cms/content/type-info';
-apiList[ARTICLE_TYPE_PUT] ='/cms/content/type-put';
+apiList[ARTICLE_TYPE_INFO] = '/cms/content/type-info';
+apiList[ARTICLE_TYPE_PUT] = '/cms/content/type-put';
 
 apiList[BANNER_LIST] = '/img/banner-list';
 apiList[BANNER_DEL] = '/img/banner-del';
 apiList[BANNER_PUT] = '/img/banner-edit';
 apiList[BANNER_ADD] = '/img/banner-add';
+apiList[BANNER_UP] = '/img/sort-up';
+apiList[BANNER_DOWN] = '/img/sort-down';
+apiList[BANNER_ENABLE] = '/img/banner-release';
+apiList[BANNER_DISABLE] = '/img/banner-offline';
+
 apiList[ATTACHMENT_ADD] = '/img/img-add';
 apiList[ATTACHMENT_LIST] = '/img/img-list';
 
 apiList[ACCOUNT_LOGIN] = '/account/login';
 apiList[ACCOUNT_PROFILE] = '/account/profile';
 apiList[ACCOUNT_LOGOUT] = '/account/logout';
+
+apiList[STARTUP_ADD] = '/img/app-add';
+apiList[STARTUP_DISABLE] = '/img/app-offline';
+apiList[STARTUP_ENABLE] = '/img/app-online';
+apiList[STARTUP_INFO] = '/img/app-info';
+apiList[STARTUP_LIST] = '/img/app-info-pid';
+apiList[STARTUP_PUT] = '/img/app-put';
+apiList[STARTUP_DEL] = '/img/app-del';
+apiList[STARTUP_UP] = '/img/app-up';
+apiList[STARTUP_DOWN] = '/img/app-down';
 
 
 function getApi(type) {
@@ -160,6 +189,24 @@ const typeList = {
   balance: '用户余额',
   cast: '投资',
   firstcast: '首投',
+}
+
+const activityTypes = {
+  1: '常规活动',
+  2: '渠道活动',
+  3: '节日活动',
+  4: '加急活动',
+}
+
+const sendAwardTypes = {
+  0: '全部发放',
+  1: '概率发放',
+}
+
+const frequencyTypes = {
+  0: '不限制',
+  1: '一天一次',
+  2: '仅一次',
 }
 
 const activityTriggers = {
@@ -219,15 +266,33 @@ const ruleTypes = {
 }
 
 const bannerTypes = {
-  1: '移动端轮播图',
-  2: 'PC端轮播图',
-  test: '测试',
+  mobile: '移动端轮播图',
+  pc: 'PC端轮播图',
+  pop: '活动弹窗',
+  discover: '发现页',
+  memorabilia: '大事记',
+  appzichan: 'app资产页',
 }
+
+// 启动页类型
+const startupTypes = {
+  1: 'IOS',
+  2: 'Android',
+}
+
 
 const platform = {
   0: '全平台',
-  1: 'PC端',
-  2: '移动端',
+  1: '移动端',
+  2: 'H5',
+  3: 'PC端',
+}
+
+const platformTypes = {
+  0: '全平台',
+  1: '移动端',
+  2: 'h5',
+  3: 'pc端',
 }
 
 const release = {
@@ -246,17 +311,22 @@ const config = {
   interestTimeTypes,
   bannerTypes,
   platform,
-  release
+  release,
+  activityTypes,
+  frequencyTypes,
+  platformTypes,
+  sendAwardTypes,
+  startupTypes,
 }
 
 function getConfig(type, value = false) {
   if (typeof config[type] === 'undefined') {
-    return [];
+    return {};
   }
   if (value === false) {
     return config[type];
   }
-  if(typeof config[type][value] === 'undefined') {
+  if (typeof config[type][value] === 'undefined') {
     return value;
   }
   return config[type][value];

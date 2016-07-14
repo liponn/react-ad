@@ -15,40 +15,49 @@ class ArticleType extends Component {
     this.downType = this.downType.bind(this);
     this.showAddSubtypeModal = this.showAddSubtypeModal.bind(this);
     this.showPutTypeModal = this.showPutTypeModal.bind(this);
+    this.freshData = this.freshData.bind(this);
   }
   componentDidMount() {
-    this.props.dispatch(fetchAction({type:ARTICLE_TYPE_LIST,method:'GET',suffix:'/0',key:"articleType"}));
+    this.freshData();
+  }
+  freshData() {
+    this.props.dispatch(fetchAction({
+      type: ARTICLE_TYPE_LIST,
+      method: 'GET',
+      suffix: '/0',
+      key: 'articleType',
+    }));
   }
   showModal() {
     const modalView = <ArticleTypeAddModal Parent_id={0} />;
     this.props.dispatch(showModal(modalView));
   }
-  showAddSubtypeModal(e){
+  showAddSubtypeModal(e) {
     const id = $(e.target).data('id');
-    const modalView = <ArticleTypeAddModal Parent_id={id} />
+    const modalView = <ArticleTypeAddModal callback={this.freshData} parentId={id} />
     this.props.dispatch(showModal(modalView));
   }
-  showPutTypeModal(e){
+  showPutTypeModal(e) {
     const id = $(e.target).data('id');
-    const modalView = <ArticleTypePutModal TypeId={id} />
+    const modalView = <ArticleTypePutModal callback={this.freshData} id={id} />
     this.props.dispatch(showModal(modalView));
   }
   hideModal() {
     this.props.dispatch(hideModal());
   }
-  delType(e){
+  delType(e) {
     const id = $(e.target).data('id');
     const formData = new FormData;
     formData.append('id', id);
     this.props.dispatch(commonFetch(ARTICLE_TYPE_DEL, 'POST', formData))
       .then(() => (this.props.dispatch(fetchAction({type:ARTICLE_TYPE_LIST,method:'GET',suffix:'/0',key:"articleType"}))));
   }
-  upType(e){
+  upType(e) {
     const id =$(e.target).data('id');
     this.props.dispatch(commonFetch(ARTICLE_TYPE_UP, 'GET',false ,"/"+id))
       .then(() => (this.props.dispatch(fetchAction({type:ARTICLE_TYPE_LIST,method:'GET',suffix:'/0',key:"articleType"}))));
   }
-  downType(e){
+  downType(e) {
     const id =$(e.target).data('id');
     this.props.dispatch(commonFetch(ARTICLE_TYPE_DOWN, 'GET',false ,"/"+id))
       .then(() => (this.props.dispatch(fetchAction({type:ARTICLE_TYPE_LIST,method:'GET',suffix:'/0',key:"articleType"}))));
@@ -70,12 +79,12 @@ class ArticleType extends Component {
           </div>
           <table className="table table-bordered m-b-0 table-hover">
             <thead>
-            <tr>
-              <th>id</th>
-              <th>分类名称</th>
-              <th>别名</th>
-              <th>操作</th>
-            </tr>
+              <tr>
+                <th>id</th>
+                <th>分类名称</th>
+                <th>别名</th>
+                <th>操作</th>
+              </tr>
             </thead>
             <tbody>
             {items.map((item) => {
@@ -85,8 +94,11 @@ class ArticleType extends Component {
                   <td>{item.name}</td>
                   <td>{item.alias_name}</td>
                   <td>
-                    <button className="btn btn-sm btn-info-outline" data-id={item.id}
-                            onClick={this.showAddSubtypeModal}>
+                    <button
+                      className="btn btn-sm btn-info-outline"
+                      data-id={item.id}
+                      onClick={this.showAddSubtypeModal}
+                    >
                       <i className="fa fa-plus"></i>子类型
                     </button>
                     <button className="btn btn-danger-outline btn-sm" data-id={item.id} onClick={this.delType}>删除
@@ -98,7 +110,7 @@ class ArticleType extends Component {
                     <button className="btn btn-success-outline btn-sm" data-id={item.id} onClick={this.downType}>下移
                     </button>
                   </td>
-                </tr>
+                </tr>,
               ];
               const children = item.childrens.map((subType)=> (
                 <tr key={subType.id}>

@@ -27,7 +27,7 @@ class Experience extends Component {
       method: 'POST',
       formData,
       key: this.state.awardType,
-    }));   
+    }));
   }
 
   showAddModal() {
@@ -53,7 +53,7 @@ class Experience extends Component {
       <Card title="体验金" btn={btn}>
         <table className="table m-b-0 table-bordered">
           <thead>
-          <tr><th>id</th><th>名称</th><th>金额</th><th>有效期</th><td>操作</td></tr>
+            <tr><th>id</th><th>名称</th><th>金额</th><th>有效期</th><td>操作</td></tr>
           </thead>
           <tbody>
           {data.map((item) => {
@@ -73,7 +73,7 @@ class Experience extends Component {
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.name}</td>
-                <td>{item.experience_amount_type}</td>
+                <td>{item.experience_amount_money}</td>
                 <td>
                   <div hidden={+item.effective_time_type !== 1}>
                     {item.effective_time_day}天

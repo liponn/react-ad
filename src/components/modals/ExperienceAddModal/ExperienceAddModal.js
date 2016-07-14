@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 
 import { commonFetch } from '../../../actions/omg';
 import { hideModal } from '../../../actions/modal';
-import { AWARD_ADD, AWARD_LIST } from '../../../constants';
+import { AWARD_ADD } from '../../../constants';
 import { getConfig } from '../../../config/omg';
-import { Modal, Input, Submit, Select, DateTimeInput, Alert, Fieldset } from '../../tools';
+import { Modal, Input, Submit, Select, DateTimeInput, Alert, Fieldset, Textarea } from '../../tools';
 
 class ExperienceAddModal extends Component {
   constructor(props) {
@@ -14,6 +14,7 @@ class ExperienceAddModal extends Component {
     this.addAward = this.addAward.bind(this);
     const types = getConfig('interestTypes');
     const timeTypes = getConfig('interestTimeTypes');
+    const platformTypes = getConfig('platformTypes');
     this.state = {
       errorMsg: '',
       awardType: 3,
@@ -21,6 +22,7 @@ class ExperienceAddModal extends Component {
       timeType: 1,
       types,
       timeTypes,
+      platformTypes,
     };
   }
 
@@ -40,14 +42,12 @@ class ExperienceAddModal extends Component {
         }
       });
   }
-  
   timeTypeChange(e) {
     const value = $(e.target).val();
     this.setState({
       timeType: +value,
     });
   }
-  
   render() {
     let timeTypeFileds = false;
     // 根绝有效期类型显示相应字段
@@ -66,12 +66,12 @@ class ExperienceAddModal extends Component {
       default:
     }
     return (
-      <Modal title="添加加息券">
+      <Modal title="添加体验金">
         <form method="post" onSubmit={this.addAward}>
           <Alert msg={this.state.errorMsg} />
           <input type="hidden" name="award_type" value={this.state.awardType} />
           <Input labelName="名称" name="name" />
-          <Input labelName="体验金额" name="experience_amount_type" />
+          <Input labelName="体验金额" name="experience_amount_money" />
           <Fieldset>
             <Select
               labelName="有效期类型"
@@ -81,8 +81,8 @@ class ExperienceAddModal extends Component {
             />
             {timeTypeFileds}
           </Fieldset>
-          <input type="hidden" value="0" name="platform_type" /> 
-          <Input labelName="限制说明" name="limit_desc" />
+          <Select name="platform_type" labelName="限制平台" options={this.state.platformTypes} />
+          <Textarea labelName="限制说明" name="limit_desc" />
           <Submit />
         </form>
       </Modal>

@@ -1,15 +1,9 @@
-/**
- * Created by Administrator on 2016/6/17.
- */
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 
 import { commonFetch,fetchAction } from '../../../actions/omg';
 import { hideModal } from '../../../actions/modal';
-import { getConfig } from '../../../config/omg';
-import Alert from '../../tools/Alert';
-import Input from '../../tools/Input';
-import ModalHeader from '../../tools/ModalHeader';
+import {Input, Alert, ModalHeader} from '../../tools'
 
 import {ARTICLE_TYPE_INFO,ARTICLE_TYPE_PUT,ARTICLE_TYPE_LIST} from '../../../constants'
 
@@ -17,44 +11,56 @@ class ArticleTypePutModal extends Component {
   constructor(props) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
+    this.getTypeInfo = this.getTypeInfo.bind(this);
+    this.state = {
+      errorMsg: '',
+    };
   }
 
-  componentDidMount(){
-    const id = this.props.TypeId;
-    this.props.dispatch(fetchAction({type:ARTICLE_TYPE_INFO,method:'GET',suffix:'/'+id,key:"typeInfo"}))
+  componentDidMount() {
+    this.getTypeInfo(this.props.id);
   }
-  componentWillReceiveProps(nextProps){
-    if(nextProps.TypeId!=this.props.TypeId){
-      this.props.dispatch(fetchAction({type:ARTICLE_TYPE_INFO,method:'GET',suffix:'/'+nextProps.TypeId,key:"typeInfo"}));
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.id !== this.props.id) {
+      this.getTypeInfo(nextProps.id);
     }
   }
-
+  getTypeInfo(id) {
+    this.props.dispatch(fetchAction({
+      type: ARTICLE_TYPE_INFO,
+      method: 'GET',
+      suffix: `/${id}`,
+      key: id,
+    }));
+  }
   onSubmit(e) {
     e.preventDefault();
-    const form =  $('#put-article-type-form').get(0);
-    const formData = new FormData(form);
+    const formData = new FormData(e.target);
     const { dispatch } = this.props;
     dispatch(commonFetch(ARTICLE_TYPE_PUT, 'POST', formData))
-      .then(code => {
-        //if (code === 0) {
-          //alert("修改成功");
+      .then(json => {
+        if (json.code === 0) {
           dispatch(hideModal());
-          dispatch(fetchAction({type:ARTICLE_TYPE_LIST,method:'GET',suffix:'/0',key:"articleType"}));
-        //}
+          this.props.callback();
+        } else {
+          this.setState({
+            errorMsg: json.data.error_msg, 
+          });  
+        }
       });
   }
   render() {
-    var typeInfo = this.props.typeInfos["typeInfo"];
+    const typeInfo = this.props.typeInfoList[this.props.id] || {};
     return (
       <div className="modal-dialog">
         <div className="modal-content">
           <ModalHeader title="修改文章分类" />
           <div className="modal-body">
-            <form　id="put-article-type-form"　method="post"　onSubmit={this.onSubmit}>
-              <input hidden  name="id" value={typeInfo.id}/>
-              <input hidden  name="parent_id" value={typeInfo.parent_id}/>
-              <Input labelName="分类名称" name="name"  value={typeInfo.name}/>
-              <Input labelName="别名" name="alias_name" value={typeInfo.alias_name}/>
+            <Alert msg={this.state.errorMsg} />
+            <form method="post" onSubmit={this.onSubmit}>
+              <input hidden name="id" value={this.props.id} />
+              <Input labelName="分类名称" name="name" value={typeInfo.name} />
+              <Input labelName="别名" name="alias_name" value={typeInfo.alias_name} />
               <div className="form-group row">
                 <div className="col-sm-offset-4 col-sm-8">
                   <button type="submit" className="btn btn-primary" >保存</button>
@@ -68,17 +74,15 @@ class ArticleTypePutModal extends Component {
   }
 }
 ArticleTypePutModal.propTypes = {
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
+  callback: PropTypes.func.isRequired,
 };
-ArticleTypePutModal.defaultProps = {
-  typeInfos: {},
-};
+
 export default connect(state => {
   const { omg } = state;
-  const  errorMsg = omg.errorMsg[ARTICLE_TYPE_PUT] || '';
-  const typeInfos = omg[ARTICLE_TYPE_INFO] || {};
+  const typeInfoList = omg[ARTICLE_TYPE_INFO] || {};
   return {
-    errorMsg,
-    typeInfos,
+    typeInfoList,
   };
 })(ArticleTypePutModal);

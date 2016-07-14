@@ -21,12 +21,14 @@ import award from './award';
 import article from './article';
 import banner from './banner';
 import login from './login';
+import startup from './startup';
 
 export default {
 
   path: '/',
 
   children: [
+    startup,
     login,
     activity,
     channel,

@@ -27,7 +27,7 @@ class Textarea extends Component {
     return (
 
       <div className="form-group row">
-        <label className="col-sm-4 form-control-label text-xs-right">内容:</label>
+        <label className="col-sm-4 form-control-label text-xs-right">{this.props.labelName}:</label>
         <div className="col-sm-8 col-md-6">
           <textarea
             name={this.props.name}
@@ -50,7 +50,6 @@ Textarea.propTypes = {
 
 Textarea.defaultProps = {
   required: false,
-  type:"text"
 }
 
 export default Textarea;

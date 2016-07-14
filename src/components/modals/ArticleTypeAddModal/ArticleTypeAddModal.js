@@ -1,15 +1,11 @@
-/**
- * Created by Administrator on 2016/6/15.
- */
+
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 
 import { commonFetch, fetchAction } from '../../../actions/omg';
 import { hideModal } from '../../../actions/modal';
 
-import Alert from '../../tools/Alert';
-import Input from '../../tools/Input';
-import ModalHeader from '../../tools/ModalHeader';
+import {Alert, Input, ModalHeader} from '../../tools';
 
 import { ARTICLE_TYPE_ADD, ARTICLE_TYPE_LIST } from '../../../constants'
 
@@ -17,33 +13,38 @@ class ArticleTypeAddModal extends Component {
   constructor(props) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
+    this.state = {
+      errorMsg: '',
+    };
   }
 
   onSubmit(e) {
     e.preventDefault();
-    const form =  $('#add-articleType-form').get(0);
-    const formData = new FormData(form);
-    console.log(formData);
+    const formData = new FormData(e.target);
     const { dispatch } = this.props;
     dispatch(commonFetch(ARTICLE_TYPE_ADD, 'POST', formData))
-      .then(code => {
-        //if (code === 0) {
-          //alert("添加成功");
-          dispatch(hideModal());
-          dispatch(fetchAction({type:ARTICLE_TYPE_LIST,method:'GET',suffix:'/0',key:"articleType"}));
-        //}
+      .then(json => {
+        if (json.error_code === 0) {
+          dispatch(hideModal(true));
+          this.props.callback();
+        } else {
+          this.setState({
+            errorMsg: json.data.error_msg,
+          });
+        }
       });
   }
 
   render() {
-    const Parent_id = this.props.Parent_id;
+    const parentId = this.props.parentId;
     return (
       <div className="modal-dialog">
         <div className="modal-content">
           <ModalHeader title="添加文章分类" />
           <div className="modal-body">
-            <form　id="add-articleType-form"　method="post"　onSubmit={this.onSubmit}>
-              <input hidden name="parent_id" value={Parent_id}/>
+            <Alert msg={this.state.errorMsg} />
+            <form id="add-articleType-form" method="post" onSubmit={this.onSubmit}>
+              <input hidden name="parent_id" value={parentId}/>
               <Input labelName="分类名称" name="name"  />
               <Input labelName="别名" name="alias_name" />
               <div className="form-group row">
@@ -60,12 +61,8 @@ class ArticleTypeAddModal extends Component {
 }
 ArticleTypeAddModal.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  parentId: PropTypes.number.isRequired,
+  callback: PropTypes.func.isRequired,
 }
 
-export default connect(state => {
-  const { omg } = state;
-  const  errorMsg = omg.errorMsg[ARTICLE_TYPE_ADD] || '';
-  return {
-    errorMsg
-  };
-})(ArticleTypeAddModal);
+export default connect()(ArticleTypeAddModal);

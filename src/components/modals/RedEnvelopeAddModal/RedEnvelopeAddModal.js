@@ -92,7 +92,7 @@ class RedEnvelopeAddModal extends Component {
       case 2:
         timeTypeFileds = [
           <DateTimeInput required key="2" labelName="有效期开始时间" name="effective_time_start" />,
-          <DateTimeInput required key="3" labelName="有效期结束时间" name="effective_time_start" />,
+          <DateTimeInput required key="3" labelName="有效期结束时间" name="effective_time_end" />,
         ];
         break;
       default:
