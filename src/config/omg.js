@@ -85,7 +85,7 @@ import {
 } from '../constants/index.js';
 
 // const apiHost = 'http://yunying.dev.wanglibao.com';
-const apiHost = 'http://api-omg.wanglibao.com';
+const apiHost = 'http://yyapi.wanglibao.com';
 const apiList = {}
 
 apiList[ACTIVITY_INDEX] = '/activity/index';
@@ -199,8 +199,8 @@ const activityTypes = {
 }
 
 const sendAwardTypes = {
-  0: '全部发放',
-  1: '概率发放',
+  1: '全部发放',
+  2: '概率发放',
 }
 
 const frequencyTypes = {
