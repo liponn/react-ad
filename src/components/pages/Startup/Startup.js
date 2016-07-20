@@ -1,15 +1,15 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { ImgBox, Card, Status } from '../../tools';
+import { ImgBox, Card, Radio, Status } from '../../tools';
 import { showModal } from '../../../actions/modal';
 import { fetchAction } from '../../../actions/omg';
-import { BANNER_LIST, BANNER_DEL, BANNER_DISABLE, BANNER_ENABLE, BANNER_UP, BANNER_DOWN } from '../../../constants';
-import BannerAddModal from '../../modals/BannerAddModal';
+import { STARTUP_LIST, STARTUP_DISABLE, STARTUP_ENABLE, STARTUP_DEL, STARTUP_UP, STARTUP_DOWN} from '../../../constants';
+import StartupAddModal from '../../modals/StartupAddModal';
 import { getConfig } from '../../../config/omg';
 import hisotry from '../../../core/history';
 
 
-class Banner extends Component {
+class Startup extends Component {
   constructor(props) {
     super(props);
     this.showAddModal = this.showAddModal.bind(this);
@@ -19,9 +19,9 @@ class Banner extends Component {
     this.down = this.down.bind(this);
     this.freshData = this.freshData.bind(this);
     this.del = this.del.bind(this);
-    const bannerTypes = getConfig('bannerTypes');
+    const types = getConfig('startupTypes');
     this.state = {
-      bannerTypes,
+      types,
     };
   }
   componentDidMount() {
@@ -33,62 +33,57 @@ class Banner extends Component {
       this.freshData(nextProps.type);
     }
   }
-  freshData(type) {
-    const queryObj = { position: type };
-    this.props.dispatch(fetchAction({
-      type: BANNER_LIST,
-      key: type,
-      queryObj,
-    }));
-  }
+
   showAddModal() {
-    const modalView = <BannerAddModal type={this.props.type} callback={this.freshData} />;
+    const modalView = <StartupAddModal type={this.props.type} callback={this.freshData} />;
     this.props.dispatch(showModal(modalView));
+  }
+
+  disable(e) {
+    const id = $(e.target).data('id');    
+    const formData = new FormData;
+    formData.append('id', id);
+    this.props.dispatch(fetchAction({
+      type: STARTUP_DISABLE,
+      method: 'POST',
+      formData,
+    })).then(() => {
+      this.freshData(this.props.type);
+    });
   }
   enable(e) {
     const id = $(e.target).data('id');
     const formData = new FormData;
     formData.append('id', id);
     this.props.dispatch(fetchAction({
-      type: BANNER_ENABLE,
+      type: STARTUP_ENABLE,
       method: 'POST',
       formData,
     })).then(() => {
       this.freshData(this.props.type);
     });
   }
-  disable(e) {
-    const id = $(e.target).data('id');
-    const formData = new FormData;
-    formData.append('id', id);
+  freshData(type) {
     this.props.dispatch(fetchAction({
-      type: BANNER_DISABLE,
-      method: 'POST',
-      formData,
-    })).then(() => {
-      this.freshData(this.props.type);
-    });
+      type: STARTUP_LIST,
+      suffix: `/${type}`,
+      key: type,
+    }));
   }
   up(e) {
     const id = $(e.target).data('id');
-    const formData = new FormData;
-    formData.append('id', id);
     this.props.dispatch(fetchAction({
-      type: BANNER_UP,
-      method: 'POST',
-      formData,
+      type: STARTUP_UP,
+      suffix: `/${id}`,
     })).then(() => {
       this.freshData(this.props.type);
-    });
+    });  
   }
   down(e) {
     const id = $(e.target).data('id');
-    const formData = new FormData;
-    formData.append('id', id);
     this.props.dispatch(fetchAction({
-      type: BANNER_DOWN,
-      method: 'POST',
-      formData,
+      type: STARTUP_DOWN,
+      suffix: `/${id}`,
     })).then(() => {
       this.freshData(this.props.type);
     });
@@ -98,7 +93,7 @@ class Banner extends Component {
     const formData = new FormData;
     formData.append('id', id);
     this.props.dispatch(fetchAction({
-      type: BANNER_DEL,
+      type: STARTUP_DEL,
       method: 'POST',
       formData,
     })).then(() => (this.freshData(this.props.type)));
@@ -106,34 +101,30 @@ class Banner extends Component {
 
   selectChange(e) {
     const value = e.target.value;
-    hisotry.push(`/banner/${value}`);
+    hisotry.push(`/startup/${value}`);
   }
   render() {
-    const { banners, type } = this.props;
-    const { bannerTypes } = this.state;
+    const { startups, type } = this.props;
+    const { types } = this.state;
     const btn = (
       <button
         className="btn btn-info btn-sm pull-xs-right"
         onClick={this.showAddModal}
       >添加</button>
     );
-    const banner = banners[type] || {};
-    const items = banner.data || [];
+    const items = startups[type] || [];
     return (
       <div>
         <div>
-          {Object.keys(bannerTypes).map(key => (
-            <label key={`redio-${key}`} className="c-input c-radio">
-              <input
-                checked={key === type}
-                name="banner-type"
-                value={key}
-                type="radio"
-                onChange={this.selectChange}
-              />
-              <span className="c-indicator"></span>
-              {bannerTypes[key]}
-            </label>
+          {Object.keys(types).map(key => (
+            <Radio
+              key={`redio-${key}`}
+              checked={key === type}
+              labelName={types[key]}
+              value={key}
+              onChange={this.selectChange}
+              name="banner-type"
+            />
           ))}
         </div>
         <hr />
@@ -143,25 +134,33 @@ class Banner extends Component {
               <tr>
                 <th>ID</th>
                 <th>跳转URL</th>
-                <th>图片预览</th>
+                <th>图片1</th>
+                <th>图片2</th>
+                <th>图片3</th>
+                <th>图片4</th>
                 <th>状态</th>
                 <th>开始时间</th>
                 <th>结束时间</th>
+                <th>发布时间</th>
                 <th>操作</th>
               </tr>
             </thead>
             <tbody>
-            {items.map((item)=>(
+            {items.map((item) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
-                <td><a title={item.img_url} href={item.img_url} target="_blank">查看</a></td>
-                <td><ImgBox src={item.img_path} /></td>
-                <td><Status status={+item.can_use} /></td>
-                <td>{item.start}</td>
-                <td>{item.end}</td>
+                <td><a title={item.target_url} href={item.target_url} target="_blank">查看</a></td>
+                <td><ImgBox src={item.img1} /></td>
+                <td><ImgBox src={item.img2} /></td>
+                <td><ImgBox src={item.img3} /></td>
+                <td><ImgBox src={item.img4} /></td>
+                <td><Status status={+item.enable} /></td>
+                <td>{item.online_time}</td>
+                <td>{item.offline_time}</td>
+                <td>{item.release_at}</td>
                 <td>
-                  <button hidden={+item.can_use === 1} className="btn btn-sm btn-success-outline" data-id={item.id} onClick={this.enable}>上线</button>
-                  <button hidden={+item.can_use === 0} className="btn btn-sm btn-warning-outline" data-id={item.id} onClick={this.disable}>下线</button>
+                  <button hidden={+item.enable === 1} className="btn btn-sm btn-success-outline" data-id={item.id} onClick={this.enable}>上线</button>
+                  <button hidden={+item.enable === 0} className="btn btn-sm btn-warning-outline" data-id={item.id} onClick={this.disable}>下线</button>
                   <button className="btn btn-sm btn-info-outline" data-id={item.id} onClick={this.up}>上移</button>
                   <button className="btn btn-sm btn-info-outline" data-id={item.id} onClick={this.down}>下移</button>
                   <button className="btn btn-sm btn-danger-outline" data-id={item.id} onClick={this.del}>删除</button>
@@ -176,19 +175,19 @@ class Banner extends Component {
   }
 }
 
-Banner.propTypes = {
-  banners: PropTypes.object.isRequired,
+Startup.propTypes = {
+  startups: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
 }
 
-Banner.defaultProps = {
+Startup.defaultProps = {
 }
 
 export default connect(state => {
   const { omg } = state;
-  const banners = omg[BANNER_LIST] || {};
+  const startups = omg[STARTUP_LIST] || {};
   return {
-    banners,
+    startups,
   };
-})(Banner);
+})(Startup);

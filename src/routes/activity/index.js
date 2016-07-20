@@ -23,9 +23,16 @@ export default {
         const activityId = +context.params.activityId;
         return <Activity activityId={activityId} />;
       },
+    }, {
+      path: '/:typeId',
+      action(context) {
+        const typeId = +context.params.typeId;
+        return <ActivityList typeId={typeId} />;
+      },
     },
   ],
-  async action({ next }) {
+  async action({ next, context }) {
+    context.setTitle('运营后台 | 活动管理');
     const component = await next();
     return component;
   },

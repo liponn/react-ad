@@ -89,7 +89,7 @@ class Article extends Component {
     formData.append('id', id);
     const type_id = $('.focus').data('id');
     this.props.dispatch(commonFetch(ARTICLE_DEL, 'POST', formData))
-      .then(() => (this.props.dispatch(fetchAction({type:ARTICLE_LIST,method:'GET',suffix: '/'+type_id+'/10',key:'articleList'}))));
+      .then(() => (this.freshArticle()));
   }
   releaseArticle(e) {
     const id = $(e.target).data('id');
@@ -163,7 +163,7 @@ class Article extends Component {
             onChange={this.typeChange}
           />
         ))}
-        <hr />
+        <hr hidden={subItems.length === 0} />
         <div className="card">
           <div className="card-header clearfix">文章
             <button
@@ -177,21 +177,21 @@ class Article extends Component {
             </button>
             <Link
               className="btn btn-sm  btn-info pull-right"
-              to='/article/type'
+              to="/article/type"
             >
               <i className="fa fa-pencil">类型管理</i>
             </Link>
           </div>
           <table className="table table-bordered m-b-0 table-hover">
             <thead>
-            <tr>
-              <th>id</th>
-              <th>标题</th>
-              <th>内容</th>
-              <th>发布状态</th>
-              <th>发布平台</th>
-              <th>操作</th>
-            </tr>
+              <tr>
+                <th>id</th>
+                <th>标题</th>
+                <th>内容</th>
+                <th>发布状态</th>
+                <th>发布平台</th>
+                <th>操作</th>
+              </tr>
             </thead>
             <tbody>
             {articles.map((item) => (
@@ -204,10 +204,9 @@ class Article extends Component {
                 <td>
                   <button className="btn btn-primary-outline btn-sm" hidden={+item.release === 1} data-id={item.id} onClick={this.releaseArticle}>发布</button>
                   <button className="btn btn-danger-outline btn-sm" hidden={+item.release === 0} data-id={item.id} onClick={this.offLineArticle}>下线</button>
-                  <button className="btn btn-primary-outline btn-sm" data-id={item.id} onClick={this.showPutModal}>修改</button>
-                  <button className="btn btn-danger-outline btn-sm" data-id={item.id} onClick={this.delArticle}>删除</button>
                   <button className="btn btn-success-outline btn-sm" data-id={item.id} onClick={this.upArticle}>上移</button>
                   <button className="btn btn-success-outline btn-sm" data-id={item.id} onClick={this.downArticle}>下移</button>
+                  <button className="btn btn-danger-outline btn-sm" data-id={item.id} onClick={this.delArticle}>删除</button>
                 </td>
               </tr>
             ))}

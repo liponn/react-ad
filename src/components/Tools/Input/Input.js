@@ -8,13 +8,11 @@ class Input extends Component {
       value: props.value,
     };
   }
-
-   componentWillReceiveProps(props) {
+  componentWillReceiveProps(props) {
     this.setState({
       value: props.value,
     });
   }
-
   valueChange(e) {
     const value = e.target.value;
     this.setState({
@@ -33,7 +31,7 @@ class Input extends Component {
             type={this.props.type}
             name={this.props.name}
             className="form-control"
-            defaultValue={this.state.value}
+            value={this.state.value}
             onChange={this.valueChange}
           />
         </div>

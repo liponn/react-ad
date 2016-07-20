@@ -7,20 +7,58 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from 'react';
+import React, { PropTypes, Component } from 'react';
+import { connect } from 'react-redux';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Header.css';
+import { fetchAction } from '../../../actions/omg';
+import { ACCOUNT_PROFILE, ACCOUNT_LOGOUT } from '../../../constants';
+import history from '../../../core/history';
 
-function Header() {
-  return (
-    <nav className="navbar navbar-dark bg-inverse" style={{ borderRadius: 0 }}>
-      <a className="navbar-brand" href="/">运营管理后台</a>
-      <ul hidden className="nav navbar-nav pull-sm-right">
-        <li className="nav-item "><span className="nav-link">欢迎: neil</span></li>
-        <li className="nav-item "><a className="nav-link text-info" href="http://admin-omg.wanglibao.com/logout">退出</a></li>
-      </ul>
-    </nav>
-  );
+
+class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.logout = this.logout.bind(this);
+  }
+  
+  componentDidMount() {
+    this.props.dispatch(fetchAction({
+      type: ACCOUNT_PROFILE,
+    })).then(json => {
+      if (json.error_code === 1106) {
+        history.push('/login');
+      }
+    });
+  }
+  logout() {
+    this.props.dispatch(fetchAction({
+      type: ACCOUNT_LOGOUT,
+    })).then(() => {
+      history.push('/login');
+    });
+  }
+  render() {
+    return (
+      <nav className="navbar navbar-dark bg-inverse" style={{ borderRadius: 0 }}>
+        <a className="navbar-brand" href="/">运营管理后台</a>
+        <ul hidden={!this.props.profile.display_name} className="nav navbar-nav pull-sm-right">
+          <li className="nav-item "><span className="nav-link">欢迎: {this.props.profile.display_name}</span></li>
+          <li className="nav-item "><a className="nav-link text-info" href="javascript:;" onClick={this.logout}>退出</a></li>
+        </ul>
+      </nav>
+    );
+  }
 }
 
-export default withStyles(s)(Header);
+Header.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+}
+
+export default connect(state => {
+  const { omg } = state;
+  const profile = omg[ACCOUNT_PROFILE] || {};
+  return {
+    profile,
+  };
+})(withStyles(s)(Header));

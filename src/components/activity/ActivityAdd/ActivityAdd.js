@@ -12,8 +12,12 @@ class ActivityAdd extends Component {
     super(props);
     this.saveActivity = this.saveActivity.bind(this);
     const activityTriggers = getConfig('activityTriggers');
+    const frequencyTypes = getConfig('frequencyTypes');
+    const sendAwardTypes = getConfig('sendAwardTypes');
     this.state = {
       activityTriggers,
+      frequencyTypes,
+      sendAwardTypes,
     };
   }
   saveActivity(e) {
@@ -33,10 +37,12 @@ class ActivityAdd extends Component {
         <Alert msg={this.props.errorMsg} />
         <input name="group_id" type="hidden" value={this.props.groupId} className="form-control" />
         <Input required labelName="活动名称" name="name" />
-        <Input required labelName="活动别名" name="alias_name" />
+        <Input required labelName="英文别名" name="alias_name" />
         <DateTimeInput required limit labelName="开始时间" name="start_at" />
         <DateTimeInput required limit labelName="结束时间" name="end_at" />
         <Select labelName="触发条件" name="trigger_type" options={this.state.activityTriggers} />
+        <Select labelName="频次限制" name="frequency" options={this.state.frequencyTypes} />
+        <Select labelName="发奖规则" name="award_rule" options={this.state.sendAwardTypes} />
         <Input required type="number" defaultValue="0" labelName="触发优先级" name="trigger_index" />
         <div className="form-group row">
           <label className="col-sm-4 text-xs-right">说明:</label>

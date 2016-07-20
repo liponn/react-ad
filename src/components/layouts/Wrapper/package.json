@@ -1,0 +1,6 @@
+{
+  "name": "Wrapper",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./Wrapper.js"
+}

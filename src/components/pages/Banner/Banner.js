@@ -1,9 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { ImgBox, Card } from '../../tools';
+import { ImgBox, Card, Status } from '../../tools';
 import { showModal } from '../../../actions/modal';
 import { fetchAction } from '../../../actions/omg';
-import { BANNER_LIST } from '../../../constants';
+import { BANNER_LIST, BANNER_DEL, BANNER_DISABLE, BANNER_ENABLE, BANNER_UP, BANNER_DOWN } from '../../../constants';
 import BannerAddModal from '../../modals/BannerAddModal';
 import { getConfig } from '../../../config/omg';
 import hisotry from '../../../core/history';
@@ -13,9 +13,12 @@ class Banner extends Component {
   constructor(props) {
     super(props);
     this.showAddModal = this.showAddModal.bind(this);
-    this.releaseBanner = this.releaseBanner.bind(this);
-    this.putBanner = this.putBanner.bind(this);
+    this.enable = this.enable.bind(this);
+    this.disable = this.disable.bind(this);
+    this.up = this.up.bind(this);
+    this.down = this.down.bind(this);
     this.freshData = this.freshData.bind(this);
+    this.del = this.del.bind(this);
     const bannerTypes = getConfig('bannerTypes');
     this.state = {
       bannerTypes,
@@ -42,13 +45,63 @@ class Banner extends Component {
     const modalView = <BannerAddModal type={this.props.type} callback={this.freshData} />;
     this.props.dispatch(showModal(modalView));
   }
-  releaseBanner(e) {
-    const { dispatch } = $this.props;
+  enable(e) {
     const id = $(e.target).data('id');
+    const formData = new FormData;
+    formData.append('id', id);
+    this.props.dispatch(fetchAction({
+      type: BANNER_ENABLE,
+      method: 'POST',
+      formData,
+    })).then(() => {
+      this.freshData(this.props.type);
+    });
   }
-
-  putBanner(e) {
-    const { dispatch } = this.props;
+  disable(e) {
+    const id = $(e.target).data('id');
+    const formData = new FormData;
+    formData.append('id', id);
+    this.props.dispatch(fetchAction({
+      type: BANNER_DISABLE,
+      method: 'POST',
+      formData,
+    })).then(() => {
+      this.freshData(this.props.type);
+    });
+  }
+  up(e) {
+    const id = $(e.target).data('id');
+    const formData = new FormData;
+    formData.append('id', id);
+    this.props.dispatch(fetchAction({
+      type: BANNER_UP,
+      method: 'POST',
+      formData,
+    })).then(() => {
+      this.freshData(this.props.type);
+    });
+  }
+  down(e) {
+    const id = $(e.target).data('id');
+    const formData = new FormData;
+    formData.append('id', id);
+    this.props.dispatch(fetchAction({
+      type: BANNER_DOWN,
+      method: 'POST',
+      formData,
+    })).then(() => {
+      this.freshData(this.props.type);
+    });
+  }
+  del(e) {
+    const id = $(e.target).data('id');
+    const formData = new FormData;
+    formData.append('id', id);
+    this.props.dispatch(fetchAction({
+      type: BANNER_DEL,
+      method: 'POST',
+      formData,
+    })).then(() => (this.freshData(this.props.type)));
   }
 
   selectChange(e) {
@@ -103,13 +156,15 @@ class Banner extends Component {
                 <td>{item.id}</td>
                 <td><a title={item.img_url} href={item.img_url} target="_blank">查看</a></td>
                 <td><ImgBox src={item.img_path} /></td>
-                <td>{item.can_use}</td>
+                <td><Status status={+item.can_use} /></td>
                 <td>{item.start}</td>
                 <td>{item.end}</td>
                 <td>
-                  <button className="btn btn-success-outline" data-id={item.id} onClick={this.releaseBanner}>发布</button>
-                  <button className="btn btn-warning-outline" data-id={item.id} onClick={this.putBanner}>修改</button>
-                  <button className="btn btn-danger-outline" data-id={item.id} onClick={this.delBanner}>删除</button>
+                  <button hidden={+item.can_use === 1} className="btn btn-sm btn-success-outline" data-id={item.id} onClick={this.enable}>上线</button>
+                  <button hidden={+item.can_use === 0} className="btn btn-sm btn-warning-outline" data-id={item.id} onClick={this.disable}>下线</button>
+                  <button className="btn btn-sm btn-info-outline" data-id={item.id} onClick={this.up}>上移</button>
+                  <button className="btn btn-sm btn-info-outline" data-id={item.id} onClick={this.down}>下移</button>
+                  <button className="btn btn-sm btn-danger-outline" data-id={item.id} onClick={this.del}>删除</button>
                 </td>
               </tr>
             )) }

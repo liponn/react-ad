@@ -3,26 +3,26 @@ import { connect } from 'react-redux';
 
 import { commonFetch } from '../../../actions/omg';
 import { hideModal } from '../../../actions/modal';
-import { AWARD_ADD, AWARD_LIST } from '../../../constants';
+import { AWARD_ADD } from '../../../constants';
 import { getConfig } from '../../../config/omg';
-import { Modal, Input, Submit, Select, DateTimeInput, Alert, Fieldset } from '../../tools';
+import { Modal, Input, Submit, Select, DateTimeInput, Alert, Fieldset, Textarea } from '../../tools';
 
-class InterestAddModal extends Component {
+class ExperienceAddModal extends Component {
   constructor(props) {
     super(props);
-    this.typeChange = this.typeChange.bind(this);
     this.timeTypeChange = this.timeTypeChange.bind(this);
     this.addAward = this.addAward.bind(this);
     const types = getConfig('interestTypes');
     const timeTypes = getConfig('interestTimeTypes');
+    const platformTypes = getConfig('platformTypes');
     this.state = {
       errorMsg: '',
-      awardType: 1,
-      effectiveTimeType: 1,
+      awardType: 3,
       type: 1,
       timeType: 1,
       types,
       timeTypes,
+      platformTypes,
     };
   }
 
@@ -34,21 +34,13 @@ class InterestAddModal extends Component {
       .then(json => {
         if (json.error_code === 0) {
           this.props.dispatch(hideModal());
-          const formData2 = new FormData;
-          formData2.append('award_type', this.state.awardType);
-          this.props.dispatch(commonFetch(AWARD_LIST, 'POST', formData2));
-        }else{
+          this.props.callback();
+        } else {
           this.setState({
             errorMsg: json.data.error_msg,
           });
         }
       });
-  }
-  typeChange(e) {
-    const value = $(e.target).val();
-    this.setState({
-      type: +value,
-    });
   }
   timeTypeChange(e) {
     const value = $(e.target).val();
@@ -57,25 +49,7 @@ class InterestAddModal extends Component {
     });
   }
   render() {
-    let typeFileds = false;
     let timeTypeFileds = false;
-
-    // 根据红包类型显示字段
-    switch (this.state.type) {
-      case 1:
-        typeFileds = false;
-        break;
-      case 2:
-        typeFileds = [<Input required key="1" type="number" labelName="加息时长天数" name="red_money" />];
-        break;
-      case 3:
-        typeFileds = [
-          <DateTimeInput labelName="加息时长开始时间" name="rate_increases_start" />,
-          <DateTimeInput labelName="加息时长结束时间" name="rate_increases_end" />,
-        ];
-        break;
-      default:
-    }
     // 根绝有效期类型显示相应字段
     switch (this.state.timeType) {
       case 1:
@@ -92,21 +66,12 @@ class InterestAddModal extends Component {
       default:
     }
     return (
-      <Modal title="添加加息券">
+      <Modal title="添加体验金">
         <form method="post" onSubmit={this.addAward}>
           <Alert msg={this.state.errorMsg} />
           <input type="hidden" name="award_type" value={this.state.awardType} />
           <Input labelName="名称" name="name" />
-          <Input labelName="加息值" name="rate_increases" />
-          <Fieldset>
-            <Select
-              labelName="加息时长类型"
-              name="rate_increases_type"
-              options={this.state.types}
-              onChange={this.typeChange}
-            />
-            {typeFileds}
-          </Fieldset>
+          <Input labelName="体验金额" name="experience_amount_money" />
           <Fieldset>
             <Select
               labelName="有效期类型"
@@ -116,12 +81,8 @@ class InterestAddModal extends Component {
             />
             {timeTypeFileds}
           </Fieldset>
-          <Input type="number" labelName="投资门槛" name="investment_threshold" />
-          <Input labelName="项目期限类型" name="project_duration_type" />
-          <Input labelName="项目类型" name="project_type" />
-          <Input labelName="产品ID" name="product_id" />
-          <Input labelName="平台端" name="platform_type" />
-          <Input labelName="限制说明" name="limit_desc" />
+          <Select name="platform_type" labelName="限制平台" options={this.state.platformTypes} />
+          <Textarea labelName="限制说明" name="limit_desc" />
           <Submit />
         </form>
       </Modal>
@@ -129,8 +90,9 @@ class InterestAddModal extends Component {
   }
 }
 
-InterestAddModal.propTypes = {
+ExperienceAddModal.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  callback: PropTypes.func.isRequired,
 }
 
-export default connect()(InterestAddModal);
+export default connect()(ExperienceAddModal);

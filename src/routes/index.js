@@ -9,7 +9,7 @@
 
 import React from 'react';
 import App from '../components/layouts/App';
-import Login from '../components/layouts/Login'
+import Wrapper from '../components/layouts/Wrapper'
 
 // Child routes
 import activity from './activity';
@@ -21,12 +21,14 @@ import award from './award';
 import article from './article';
 import banner from './banner';
 import login from './login';
+import startup from './startup';
 
 export default {
 
   path: '/',
 
   children: [
+    startup,
     login,
     activity,
     channel,
@@ -41,20 +43,20 @@ export default {
   async action({ next, render, context, path }) {
     const component = await next();
     if (component === undefined) return component;
-    if (React.isValidElement(component)) {
-      return render(
-        <App context={context}>{component}</App>
-      );
+    let name = '';
+    if (component.type && component.type.WrappedComponent && component.type.WrappedComponent.displayName) {
+      name = component.type.WrappedComponent.displayName;
     }
-    if (component.constructor === String) {
-      switch (component) {
-        case 'login' :
-          return render(
-            <Login />
-          );
-        default:
-          break;
-      }
+    console.log(name);
+    switch (name) {
+      case 'Login':
+        return render(
+          <Wrapper context={context} >{component}</Wrapper>
+        );
+      default:
+        return render(
+          <App context={context}>{component}</App>
+        );
     }
 
   },

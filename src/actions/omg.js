@@ -53,6 +53,7 @@ export function fetchAction({
     return fetch(requestUri + suffix + queryString, {
       method,
       body: formData,
+      credentials: 'include',
     })
       .then(response => response.json())
       .then(json => {
@@ -68,7 +69,6 @@ export function fetchAction({
 
 export function commonFetch(type, method = 'GET', formData = false, suffix = '', queryObj = {}) {
   console.log('commonFetch方法不建议使用,请使用fetchAction方法');
-  
   const requestUri = getApi(type);
 
   const keys = Object.keys(queryObj);
@@ -77,7 +77,6 @@ export function commonFetch(type, method = 'GET', formData = false, suffix = '',
   if (queryString !== '') {
     queryString = `?${queryString}`;
   }
-  
   return dispatch => {
     dispatch(fetchRequest(type));
     return fetch(requestUri + suffix + queryString, {
