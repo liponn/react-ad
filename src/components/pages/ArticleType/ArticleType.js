@@ -9,11 +9,10 @@ import ArticleTypePutModal from '../../modals/ArticleTypePutModal';
 class ArticleType extends Component {
   constructor(props) {
     super(props);
-    this.showModal = this.showModal.bind(this);
     this.delType = this.delType.bind(this);
     this.upType = this.upType.bind(this);
     this.downType = this.downType.bind(this);
-    this.showAddSubtypeModal = this.showAddSubtypeModal.bind(this);
+    this.showAddModal = this.showAddModal.bind(this);
     this.showPutTypeModal = this.showPutTypeModal.bind(this);
     this.freshData = this.freshData.bind(this);
   }
@@ -28,11 +27,7 @@ class ArticleType extends Component {
       key: 'articleType',
     }));
   }
-  showModal() {
-    const modalView = <ArticleTypeAddModal Parent_id={0} />;
-    this.props.dispatch(showModal(modalView));
-  }
-  showAddSubtypeModal(e) {
+  showAddModal(e) {
     const id = $(e.target).data('id');
     const modalView = <ArticleTypeAddModal callback={this.freshData} parentId={id} />
     this.props.dispatch(showModal(modalView));
@@ -73,8 +68,9 @@ class ArticleType extends Component {
               className="btn btn-sm  btn-info pull-right"
               data-toggle="modal"
               data-target="#channel-add-modal"
+              onClick={this.showAddModal}
             >
-              <i className="fa fa-plus" data-toggle="modal" data-target="#cahnnel-add-modal" onClick={this.showModal}> 添加</i>
+              <i className="fa fa-plus" data-toggle="modal" data-id="0" data-target="#cahnnel-add-modal" > 添加</i>
             </button>
           </div>
           <table className="table table-bordered m-b-0 table-hover">
@@ -97,7 +93,7 @@ class ArticleType extends Component {
                     <button
                       className="btn btn-sm btn-info-outline"
                       data-id={item.id}
-                      onClick={this.showAddSubtypeModal}
+                      onClick={this.showAddModal}
                     >
                       <i className="fa fa-plus"></i>子类型
                     </button>

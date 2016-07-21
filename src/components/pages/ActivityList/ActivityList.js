@@ -119,6 +119,7 @@ class ActivityList extends Component {
             <thead>
               <tr>
                 <th>活动名称</th>
+                <th>活动别名</th>
                 <th>触发类型</th>
                 <th>开始时间</th>
                 <th>结束时间</th>
@@ -154,6 +155,7 @@ class ActivityList extends Component {
                 const children = item.activities.map((activity) => (
                   <tr key={`activity${activity.id}`}>
                     <td>&nbsp;&nbsp;{activity.name}</td>
+                    <td>{activity.alias_name ? activity.alias_name : '-'}</td>
                     <td>{getConfig('activityTriggers', activity.trigger_type)}</td>
                     <td>{activity.start_at ? activity.start_at : '—'}</td>
                     <td>{activity.end_at ? activity.start_at : '—'}</td>
