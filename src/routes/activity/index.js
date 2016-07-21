@@ -27,7 +27,7 @@ export default {
       path: '/:typeId',
       action(context) {
         const typeId = +context.params.typeId;
-        return <ActivityList typeId={typeId} />;
+        return <ActivityList typeId={typeId} page={+context.query.page || 1} />;
       },
     },
   ],

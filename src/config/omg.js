@@ -84,8 +84,8 @@ import {
 
 } from '../constants/index.js';
 
-// const apiHost = 'http://api-omg.wanglibao.com/yunying';
-const apiHost = 'https://php1.wanglibao.com/yunying';
+const apiHost = 'http://api-omg.wanglibao.com/yunying';
+//const apiHost = 'https://php1.wanglibao.com/yunying';
 const apiList = {}
 
 apiList[ACTIVITY_INDEX] = '/activity/index';
@@ -272,6 +272,7 @@ const bannerTypes = {
   discover: '发现页',
   memorabilia: '大事记',
   appzichan: 'app资产页',
+  ios_score: 'ios评分页',
 }
 
 // 启动页类型

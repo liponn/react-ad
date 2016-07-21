@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { commonFetch, fetchAction } from '../../../actions/omg';
 import { showModal } from '../../../actions/modal';
 import { ACTIVITY_GROUP_DEL, ACTIVITY_GROUP_LIST, ACTIVITY_OFFLINE, ACTIVITY_RELEASE, ACTIVITY_DEL } from '../../../constants';
-import { Link, Card, Modal, Radio } from '../../tools';
+import { Link, Card, Modal, Radio, Pagination } from '../../tools';
 import history from '../../../core/history';
 import { getConfig } from '../../../config/omg';
 import ActivityAddModal from '../../modals/ActivityAddModal';
@@ -21,9 +21,12 @@ class ActivityList extends Component {
     this.typeChange = this.typeChange.bind(this);
     this.getGroupList = this.getGroupList.bind(this);
     this.freshGroupList = this.freshGroupList.bind(this);
+    this.groupClick = this.groupClick.bind(this);
+    
     const types = getConfig('activityTypes');
     this.state = {
       types,
+      group: {},
     };
   }
   componentDidMount() {
@@ -36,10 +39,14 @@ class ActivityList extends Component {
     }
   }
   getGroupList(typeId) {
+    console.log(this.props.page);
     this.props.dispatch(fetchAction({
       type: ACTIVITY_GROUP_LIST,
-      queryObj: { 'data[filter][type_id]': typeId },
-      key: typeId,
+      queryObj: {
+        'data[filter][type_id]': typeId,
+        page: this.props.page,
+      },
+      key: `${typeId}_${this.props.page}`,
     }));
   }
   freshGroupList() {
@@ -89,10 +96,23 @@ class ActivityList extends Component {
     const value = e.target.value;
     history.push(`/activity/${value}`);
   }
+  groupClick(e) {
+    const id = $(e.target).data('id');
+    if (this.state.group[id]) {
+      this.setState({
+        group: Object.assign({}, this.state.group, {[id]: false}),
+      });
+    } else {
+      this.setState({
+        group: Object.assign({}, this.state.group, {[id]: true}),
+      });
+    }
+  }
   render() {
     const groupList = this.props.groupList || {};
-    const groups = groupList[this.props.typeId] || {};
-    const items = groups['data'] || [];
+    const key = `${this.props.typeId}_${this.props.page}`;
+    const groups = groupList[key] || {};
+    const items = groups.data || [];
     const addBtn = (
       <button
         type="button"
@@ -106,7 +126,7 @@ class ActivityList extends Component {
         {Object.keys(this.state.types).map(key => (
           <Radio
             name="activity-type"
-            key={key} 
+            key={key}
             checked={+key === this.props.typeId}
             labelName={this.state.types[key]}
             value={key}
@@ -131,7 +151,12 @@ class ActivityList extends Component {
               {items.map((item) => {
                 const trArr = [
                   <tr key={`group-${item.id}`}>
-                    <td>{item.name} ({item.activities.length})</td>
+                    <td onClick={this.groupClick} data-id={item.id}>
+                      <i data-id={item.id} hidden={this.state.group[item.id]} className="fa fa-plus-square-o"></i>
+                      <i data-id={item.id} hidden={!this.state.group[item.id]} className="fa fa-minus-square-o"></i>
+                      {item.name} ({item.activities.length})
+                    </td>
+                    <td>—</td>
                     <td>—</td>
                     <td>—</td>
                     <td>—</td>
@@ -153,7 +178,7 @@ class ActivityList extends Component {
                     </td>
                   </tr>];
                 const children = item.activities.map((activity) => (
-                  <tr key={`activity${activity.id}`}>
+                  <tr hidden={!this.state.group[item.id]} key={`activity${activity.id}`}>
                     <td>&nbsp;&nbsp;{activity.name}</td>
                     <td>{activity.alias_name ? activity.alias_name : '-'}</td>
                     <td>{getConfig('activityTriggers', activity.trigger_type)}</td>
@@ -192,6 +217,7 @@ class ActivityList extends Component {
             </tbody>
           </table>
         </Card>
+        <Pagination currentPage={groups.current_page} lastPage={groups.last_page} />
       </div>
     );
   }
@@ -201,6 +227,7 @@ ActivityList.propTypes = {
   dispatch: PropTypes.func.isRequired,
   typeId: PropTypes.number.isRequired,
   groupList: PropTypes.object.isRequired,
+  page: PropTypes.number,
 }
 
 ActivityList.defaultProps = {

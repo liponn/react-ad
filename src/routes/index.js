@@ -47,7 +47,6 @@ export default {
     if (component.type && component.type.WrappedComponent && component.type.WrappedComponent.displayName) {
       name = component.type.WrappedComponent.displayName;
     }
-    console.log(name);
     switch (name) {
       case 'Login':
         return render(
