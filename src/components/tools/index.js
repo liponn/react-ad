@@ -18,3 +18,4 @@ export Editor from './Editor';
 export Radio from './Radio';
 export Status from './Status';
 export Popover from './Popover';
+export Pagination from './Pagination';
