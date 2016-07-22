@@ -13,7 +13,6 @@ import Login from '../../components/pages/Login'
 export default {
 
   path: '/Login',
-
   action() {
     return <Login />;
   },

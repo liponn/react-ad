@@ -57,7 +57,6 @@ export default {
           <App context={context}>{component}</App>
         );
     }
-
   },
 
 };
