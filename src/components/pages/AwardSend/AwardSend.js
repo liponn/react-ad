@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { showModal, hideModal } from '../../../actions/modal';
-import { Modal, Card, Input, Submit } from '../../tools';
+import { Modal, Card, Input, Submit, Alert } from '../../tools';
 import { AWARD_ADD_TO_USER } from '../../../constants';
 import { fetchAction } from '../../../actions/omg';
 import Award from '../Award';
@@ -42,7 +42,13 @@ class AwardSend extends Component {
       method: 'POST',
       formData,
     })).then(json => {
-      console.dir(json);
+      if (json.error_code === 0){
+        if (!json.data) {
+          this.setState({
+            errorMsg: '添加奖品失败',
+          });
+        }
+      }
     });
   }
   render() {
@@ -50,6 +56,7 @@ class AwardSend extends Component {
       <div>
         <Card title="手动添加奖品">
           <form className="m-t-1" onSubmit={this.submit}>
+            <Alert msg={this.state.errorMsg} />
             <Input name="userId" labelName="用户ID" />
             <Input name="awardType" labelName="奖品类型Id" value={this.state.awardType} />
             <Input name="awardId" labelName="奖品Id" value={this.state.awardId} />
