@@ -30,7 +30,7 @@ export default {
     });
     */
     //const { data } = await resp.json();
-    const data = {news: []}; 
+    const data = {news: []};
     //if (!data || !data.news) throw new Error('Failed to load the news feed.');
     return <Home news={data.news} />;
   },
