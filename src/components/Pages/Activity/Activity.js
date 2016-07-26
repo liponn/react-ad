@@ -20,8 +20,16 @@ class Activity extends Component {
     this.awardDel = this.awardDel.bind(this);
     this.addAward = this.addAward.bind(this);
     const awardTypes = getConfig('awardTypes');
+    const activityTriggers = getConfig('activityTriggers');
+    const frequencyTypes = getConfig('frequencyTypes');
+    const ruleTypes = getConfig('ruleTypes');
+    const ruleFileds = getConfig('ruleFileds');
     this.state = {
       awardTypes,
+      activityTriggers,
+      frequencyTypes,
+      ruleTypes,
+      ruleFileds,
     };
   }
   componentDidMount() {
@@ -45,7 +53,7 @@ class Activity extends Component {
   }
   // 显示添加规则
   showAddRuleModal() {
-    const ruleAddModal = <RuleAddModal activityId={this.props.activityId} />;
+    const ruleAddModal = <RuleAddModal activityId={this.props.activityId} callback={this.freshRuleList} />;
     this.props.dispatch(showModal(ruleAddModal));
   }
   // 显示添加奖品
@@ -73,17 +81,16 @@ class Activity extends Component {
     this.props.dispatch(commonFetch(ACTIVITY_AWARD_DEL, 'POST', formData))
       .then((() => this.freshAwardList()));
   }
-
   // 添加奖品
   addAward(e) {
     const target = $(e.target);
     const awardType = target.data('type');
     const id = target.data('id');
-    const formDate = new FormData;
-    formDate.append('activity_id', this.props.activityId);
-    formDate.append('award_type', awardType);
-    formDate.append('award_id', id);
-    this.props.dispatch(commonFetch(ACTIVITY_AWARD_ADD, 'POST', formDate))
+    const formData = new FormData;
+    formData.append('activity_id', this.props.activityId);
+    formData.append('award_type', awardType);
+    formData.append('award_id', id);
+    this.props.dispatch(commonFetch(ACTIVITY_AWARD_ADD, 'POST', formData))
       .then(({ error_code }) => {
         if (error_code === 0) {
           this.props.dispatch(hideModal());
@@ -114,20 +121,21 @@ class Activity extends Component {
     return (
       <div>
         <Card title="活动详情" >
-          <Text name="活动id" value={activity.id} />
-          <Text name="状态" value={+activity.enable ? '上线' : '下线'} />
-          
           <Text name="活动名称" value={activity.name} />
           <Text name="活动别名" value={activity.alias_name} />
           
+          <Text name="活动id" value={activity.id} />
+          <Text name="状态" value={+activity.enable ? '上线' : '下线'} />
+
+          <Text name="触发类型" value={this.state.activityTriggers[activity.trigger_type]} />
+          <Text name="发奖频次" value={this.state.frequencyTypes[activity.frequency]} />
+          
           <Text name="开始时间" value={activity.created_at} />
           <Text name="结束时间" value={activity.created_at} />
-
-          <Text name="触发类型" value={activity.trigger_type} />
-          <Text name="触发优先级" value={activity.trigger_index} />
           
           <Text name="创建时间" value={activity.created_at} />
           <Text name="更新时间" value={activity.updated_at} />
+          <div className="m-b-1 clearfix"></div>
         </Card>
         <Card title="活动规则" btn={addRuleBtn}>
           <table className="table m-b-0 table-bordered">

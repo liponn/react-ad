@@ -55,7 +55,6 @@ class Award extends Component {
   }
 
   render() {
-    console.log(this.state.currentType);
     let awardView = '类型未找到';
     switch (this.state.currentType) {
       case '1':

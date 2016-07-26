@@ -30,23 +30,21 @@ class ActivityList extends Component {
     };
   }
   componentDidMount() {
-    this.getGroupList(this.props.typeId);
+    this.getGroupList(this.props.typeId, this.props.page);
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.typeId && nextProps.typeId !== this.props.typeId) {
-      console.log(nextProps.typeId);
-      this.getGroupList(nextProps.typeId);
+    if (nextProps.typeId !== this.props.typeId || nextProps.page !== this.props.page) {
+      this.getGroupList(nextProps.typeId, nextProps.page);
     }
   }
-  getGroupList(typeId) {
-    console.log(this.props.page);
+  getGroupList(typeId, page) {
     this.props.dispatch(fetchAction({
       type: ACTIVITY_GROUP_LIST,
       queryObj: {
         'data[filter][type_id]': typeId,
-        page: this.props.page,
+        page,
       },
-      key: `${typeId}_${this.props.page}`,
+      key: `${typeId}_${page}`,
     }));
   }
   freshGroupList() {
@@ -113,6 +111,7 @@ class ActivityList extends Component {
     const key = `${this.props.typeId}_${this.props.page}`;
     const groups = groupList[key] || {};
     const items = groups.data || [];
+    
     const addBtn = (
       <button
         type="button"
@@ -123,7 +122,7 @@ class ActivityList extends Component {
       </button>);
     return (
       <div>
-        {Object.keys(this.state.types).map(key => (
+        {Object.keys(this.state.types).map(key=> (
           <Radio
             name="activity-type"
             key={key}

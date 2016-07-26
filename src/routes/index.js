@@ -22,12 +22,14 @@ import article from './article';
 import banner from './banner';
 import login from './login';
 import startup from './startup';
+import awardsend from './awardsend';
 
 export default {
 
   path: '/',
 
   children: [
+    awardsend,
     startup,
     login,
     activity,

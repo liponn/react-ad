@@ -7,6 +7,12 @@ function LeftList() {
       <Link className="list-group-item" to="/activity/1">
         <i className="fa fa-angellist" aria-hidden="true"></i> 活动
       </Link>
+      <Link className="list-group-item" to="/award/1">
+        <i className="fa fa-gift" aria-hidden="true"></i> 奖励
+      </Link>
+      <Link className="list-group-item" to="/awardsend">
+        <i className="fa fa-gift" aria-hidden="true"></i> 手动发放奖励
+      </Link>
       <Link className="list-group-item" to="/banner/1">
         <i className="fa fa-angellist" aria-hidden="true"></i> banner图
       </Link>
@@ -19,9 +25,7 @@ function LeftList() {
       <Link className="list-group-item" to="/article">
         <i className="fa fa-paint-brush" aria-hidden="true"></i> 文章
       </Link>
-      <Link className="list-group-item" to="/award/1">
-        <i className="fa fa-gift" aria-hidden="true"></i> 奖励
-      </Link>
+      
     </div>
   );
 }
