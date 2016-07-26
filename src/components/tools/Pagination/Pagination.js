@@ -5,33 +5,54 @@ class Pagination extends Component {
   constructor(props) {
     super(props);
     this.jump = this.jump.bind(this);
+    this.state = {
+      currentPage: this.props.currentPage,
+      lastPage: this.props.lastPage,
+    };
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.currentPage) {
+      this.setState({
+        currentPage: nextProps.currentPage,
+      });
+    }
+    if (nextProps.lastPage) {
+      this.setState({
+        lastPage: nextProps.lastPage,
+      });
+    } 
   }
   jump(e) {
-    console.log('fakfal');
     const page = e.target.dataset.page;
     const location = history.getCurrentLocation();
-    console.dir(location);
-    history.push('/fafa');
-    history.push({ ...location, search: `?page=${page}` });
+    history.push({ ...location, query: Object.assign({}, location.query, { page }) });
   }
   render() {
+    if (!this.state.currentPage || !this.state.lastPage || this.state.lastPage === 1) {
+      return false;
+    }
+    const { currentPage, lastPage } = this.state;
+    const arr = [];
+    for (let i = 0; i < lastPage; i++) {
+      arr[i] = i + 1;
+    }
     return (
       <nav>
         <ul className="pagination pagination-sm">
           <li className="page-item">
-            <a className="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
+            <button className="page-link" onClick={this.jump} data-page={currentPage > 1 ? currentPage - 1 : 1} aria-label="Previous">
+              <span aria-hidden="true" data-page={currentPage > 1 ? currentPage - 1 : 1}>&laquo;</span>
               <span className="sr-only">Previous</span>
-            </a>
+            </button>
           </li>
-          <li className="page-item"><button onClick={this.jump} className="page-link" data-page="1">1</button></li>
-          <li className="page-item"><button onClick={this.jump} className="page-link" data-page="2">2</button></li>
-          <li className="page-item"><button onClick={this.jump} className="page-link" data-page="3">3</button></li>
+          {arr.map((index) => (
+            <li className={currentPage === index ? 'page-item active' : 'page-item'}><button onClick={this.jump} className="page-link" data-page={index}>{index}</button></li>
+          ))}
           <li className="page-item">
-            <a className="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
+            <button className="page-link" onClick={this.jump} data-page={currentPage < lastPage ? currentPage + 1 : lastPage} aria-label="Next">
+              <span aria-hidden="true" data-page={currentPage < lastPage ? currentPage + 1 : lastPage}>&raquo;</span>
               <span className="sr-only">Next</span>
-            </a>
+            </button>
           </li>
         </ul>
       </nav>
@@ -40,8 +61,8 @@ class Pagination extends Component {
 }
 
 Pagination.propTypes = {
-//  currentPage: PropTypes.number.isRequired,
-//  lastPage: PropTypes.number.isRequired,
+  currentPage: PropTypes.number,
+  lastPage: PropTypes.number,
 }
 
 Pagination.defaultProps = {

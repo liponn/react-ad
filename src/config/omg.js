@@ -14,6 +14,7 @@ import {
   ACTIVITY_RULE_DEL,
 
   ACTIVITY_RULE_ADD_BALANCE,
+  ACTIVITY_RULE_ADD_RECHARGE,
   ACTIVITY_RULE_ADD_CAST,
   ACTIVITY_RULE_ADD_CHANNEL,
   ACTIVITY_RULE_ADD_FIRSTCAST,
@@ -31,6 +32,7 @@ import {
   AWARD_UPDATE,
   AWARD_DEL,
   AWARD_INFO,
+  AWARD_ADD_TO_USER,
 
   CHANNEL_ADD,
   CHANNEL_DEL,
@@ -85,7 +87,7 @@ import {
 } from '../constants/index.js';
 
 const apiHost = 'http://api-omg.wanglibao.com/yunying';
-//const apiHost = 'https://php1.wanglibao.com/yunying';
+// const apiHost = 'https://php1.wanglibao.com/yunying';
 const apiList = {}
 
 apiList[ACTIVITY_INDEX] = '/activity/index';
@@ -104,6 +106,7 @@ apiList[ACTIVITY_RULE_DEL] = '/activity/rule-del';
 
 
 apiList[ACTIVITY_RULE_ADD_BALANCE] = '/activity/rule-add/balance';
+apiList[ACTIVITY_RULE_ADD_RECHARGE] = '/activity/rule-add/recharge';
 apiList[ACTIVITY_RULE_ADD_CAST] = '/activity/rule-add/cast';
 apiList[ACTIVITY_RULE_ADD_CHANNEL] = '/activity/rule-add/channel';
 apiList[ACTIVITY_RULE_ADD_FIRSTCAST] = '/activity/rule-add/firstcast';
@@ -121,6 +124,7 @@ apiList[AWARD_DEL] = '/award/delete';
 apiList[AWARD_INFO] = '/award/get-one';
 apiList[AWARD_LIST] = '/award/get-list';
 apiList[AWARD_UPDATE] = '/award/update';
+apiList[AWARD_ADD_TO_USER] = '/award/add-award-to-user';
 
 apiList[CHANNEL_ADD] = '/channel/add';
 apiList[CHANNEL_INFO] = '/channel/info';
@@ -189,6 +193,7 @@ const typeList = {
   balance: '用户余额',
   cast: '投资',
   firstcast: '首投',
+  recharge: '充值',
 }
 
 const activityTypes = {
@@ -253,14 +258,21 @@ const ruleFileds = {
   channels: '渠道',
   min_time: '最小时间',
   max_time: '最大时间',
-  min_cast: '最小充值',
-  max_cast: '最大充值',
+  min_cast: '最小投资(元)',
+  max_cast: '最大投资(元)',
   isfirst: '首次',
+  min_recharge: '最小充值(元)',
+  max_recharge: '最大充值(元)',
 }
 
 const ruleTypes = {
-  register: '注册',
   channel: '渠道',
+  register: '注册',
+  invite: '邀请',
+  invitenum: '邀请用户数量',
+  userlevel: '用户等级',
+  usercredit: '用户积分',
+  balance: '用户余额',
   cast: '投资',
   recharge: '充值',
 }

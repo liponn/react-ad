@@ -10,6 +10,7 @@ import { getConfig } from '../../../config/omg'
 import ChannelRule from '../../rules/ChannelRule';
 import RegisterRule from '../../rules/RegisterRule';
 import CastRule from '../../rules/CastRule';
+import RechargeRule from '../../rules/RechargeRule';
 
 class RuleAddModal extends Component {
   constructor(props) {
@@ -47,13 +48,16 @@ class RuleAddModal extends Component {
     let ruleView = '';
     switch(this.state.currentRule) {
       case 'channel':
-        ruleView = <ChannelRule activityId={this.props.activityId} />;
+        ruleView = <ChannelRule activityId={this.props.activityId} callback={this.props.callback} />;
         break;
       case 'register':
-        ruleView = <RegisterRule activityId={this.props.activityId} />;
+        ruleView = <RegisterRule activityId={this.props.activityId} callback={this.props.callback} />;
         break;
       case 'cast':
-        ruleView = <CastRule activityId={this.props.activityId} />;
+        ruleView = <CastRule activityId={this.props.activityId} callback={this.props.callback} />;
+        break;
+      case 'recharge':
+        ruleView = <RechargeRule activityId={this.props.activityId} callback={this.props.callback} />;
         break;
       default:
         ruleView = this.state.currentRule;
@@ -84,12 +88,13 @@ class RuleAddModal extends Component {
 RuleAddModal.propTypes = {
   dispatch: PropTypes.func.isRequired,
   activityId: PropTypes.number.isRequired,
+  callback: PropTypes.func.isRequired,
 }
 
 export default connect(state => {
   const { omg } = state;
-  const  errorMsg = omg.errorMsg[ACTIVITY_GROUP_ADD] || '';
+  const errorMsg = omg.errorMsg[ACTIVITY_GROUP_ADD] || '';
   return {
-    errorMsg
+    errorMsg,
   };
 })(RuleAddModal);
