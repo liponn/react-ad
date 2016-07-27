@@ -73,8 +73,8 @@ class RedEnvelope extends Component {
                 <tr key={item.id}>
                   <td>{item.id}</td>
                   <td>{item.name}</td>
-                  <td>{item.red_money}</td>
-                  <td>{getConfig('redEnvelopeTypes', item.red_type)}{item.red_type === 2 ? `(${item.percentage}%)` : ''}</td>
+                  <td>{item.red_money}元</td>
+                  <td>{getConfig('redEnvelopeTypes', item.red_type)}{item.red_type === 2 ? `(${(item.percentage * 100).toFixed(1)}%)` : ''}</td>
                   <td>{item.investment_threshold ? `${item.investment_threshold}元` : '不限制'}</td>
                   <td>{getConfig('projectTypes', item.project_type)}</td>
                   <td>{`${item.project_duration_type === 1 ? '' : item.project_duration_time}${getConfig('projectDurationTypes', item.project_duration_type)}`}</td>

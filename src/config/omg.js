@@ -234,9 +234,8 @@ const activityTriggers = {
   2: '首投',
   3: '绑卡',
   4: '投资',
-  5: '邀请',
+  5: '回款',
   6: '实名',
-  7: '回款',
 }
 
 const redEnvelopeTypes = {

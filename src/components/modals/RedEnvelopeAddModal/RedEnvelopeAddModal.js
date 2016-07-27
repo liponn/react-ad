@@ -85,7 +85,7 @@ class RedEnvelopeAddModal extends Component {
             type="number"
             name="red_max_money"
           />,
-          <Input key="3" required labelName="红包百分比" name="percentage" />,
+          <Input key="3" required placeholder="请输入小数,例:0.025为2.5%" labelName="红包百分比" name="percentage" />,
         ];
         break;
       default:
