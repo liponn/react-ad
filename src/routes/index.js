@@ -23,12 +23,14 @@ import banner from './banner';
 import login from './login';
 import startup from './startup';
 import awardsend from './awardsend';
+import appupdate from './appupdate';
 
 export default {
 
   path: '/',
 
   children: [
+    appupdate,
     awardsend,
     startup,
     login,

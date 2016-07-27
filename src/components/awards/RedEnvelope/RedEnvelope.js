@@ -1,21 +1,27 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import Card from '../../tools/Card';
+import {Card, Popover} from '../../tools';
 import { AWARD_LIST } from '../../../constants';
 import { fetchAction } from '../../../actions/omg';
 import { RedEnvelopeAddModal } from '../../modals';
+import { getConfig } from '../../../config/omg';
 import { showModal } from '../../../actions/modal';
 
 class RedEnvelope extends Component {
   constructor(props) {
     super(props);
     this.showAddModal = this.showAddModal.bind(this);
+    this.fresh = this.fresh.bind(this);
     this.state = {
       awardType: 2,
     };
   }
 
   componentDidMount() {
+    this.fresh();
+  }
+  
+  fresh() {
     const formData = new FormData;
     formData.append('award_type', this.state.awardType);
     this.props.dispatch(fetchAction({
@@ -27,7 +33,7 @@ class RedEnvelope extends Component {
   }
 
   showAddModal() {
-    this.props.dispatch(showModal(<RedEnvelopeAddModal />));
+    this.props.dispatch(showModal(<RedEnvelopeAddModal callback={this.fresh} />));
   }
 
   render() {
@@ -48,7 +54,7 @@ class RedEnvelope extends Component {
       <Card title="红包" btn={btn}>
         <table className="table m-b-0 table-bordered">
           <thead>
-            <tr><th>id</th><th>名称</th><th>金额</th><td>操作</td></tr>
+            <tr><th>id</th><th>名称</th><th>金额</th><th>类型</th><th>投资门槛</th><th>项目类型</th><th>项目期限</th><th>产品ID</th><th>平台限制</th><th>限制说明</th><th>操作</th></tr>
           </thead>
           <tbody>
             {data.map((item) => {
@@ -69,6 +75,13 @@ class RedEnvelope extends Component {
                   <td>{item.id}</td>
                   <td>{item.name}</td>
                   <td>{item.red_money}</td>
+                  <td>{getConfig('redEnvelopeTypes', item.red_type)}{item.red_type === 2 ? `(${item.percentage}%)` : ''}</td>
+                  <td>{item.investment_threshold ? `${item.investment_threshold}元` : '不限制'}</td>
+                  <td>{getConfig('projectTypes', item.project_type)}</td>
+                  <td>{`${item.project_duration_type === 1 ? '' : item.project_duration_time}${getConfig('projectDurationTypes', item.project_duration_type)}`}</td>
+                  <td>{item.product_id === '' ? '不限制' : item.product_id}</td>
+                  <td>{getConfig('platformTypes', item.platform_type)}</td>
+                  <td><Popover title={item.name} content={item.limit_desc === '' ? '无' : `${item.limit_desc} `} /></td>
                   <td>{addAwardBtn}</td>
                 </tr>
               );

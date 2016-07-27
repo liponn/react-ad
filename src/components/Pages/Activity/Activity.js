@@ -59,7 +59,7 @@ class Activity extends Component {
   // 显示添加奖品
   showAddAwardModal() {
     const awardView = (
-      <Modal title="添加奖品">
+      <Modal title="添加奖品" className="modal-lg">
         <Award modal addAward={this.addAward} awardType="1" />
       </Modal>
     );

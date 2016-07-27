@@ -16,6 +16,14 @@ export const CHANNEL_DEL = 'CHANNEL_DEL';
 export const CHANNEL_PUT = 'CHANNEL_PUT';
 export const CHANNEL_INFO = 'CHANNEL_INFO';
 
+// 升级
+export const APP_ADD = 'APP_ADD';
+export const APP_PUT = 'APP_PUT';
+export const APP_UPDATE_LOG = 'APP_UPDATE_LOG';
+export const APP_INFO = 'APP_INFO';
+export const APP_ENABLE = 'APP_ENABLE';
+export const APP_DISABLE = 'APP_DISABLE';
+
 
 // 活动
 export const ACTIVITY_ADD = 'ACTIVITY_ADD';

@@ -6,7 +6,7 @@ class Modal extends Component {
   }  
   render() {
     return (
-      <div className="modal-dialog">
+      <div className={this.props.className ? `modal-dialog ${this.props.className}` : `modal-dialog`}>
         <div className="modal-content">
           <div className="modal-header">
             <button
@@ -25,6 +25,10 @@ class Modal extends Component {
       </div>
     );
   }
+}
+
+Modal.propTypes = {
+  className: PropTypes.string
 }
 
 export default Modal;

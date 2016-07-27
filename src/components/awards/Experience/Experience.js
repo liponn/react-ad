@@ -1,8 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import Card from '../../tools/Card';
+import {Card, Popover } from '../../tools';
 import { AWARD_LIST } from '../../../constants';
 import { fetchAction } from '../../../actions/omg';
+import { getConfig } from '../../../config/omg';
 import ExperienceAddModal from '../../modals/ExperienceAddModal';
 import { showModal } from '../../../actions/modal';
 
@@ -53,7 +54,7 @@ class Experience extends Component {
       <Card title="体验金" btn={btn}>
         <table className="table m-b-0 table-bordered">
           <thead>
-            <tr><th>id</th><th>名称</th><th>金额</th><th>有效期</th><td>操作</td></tr>
+            <tr><th>id</th><th>名称</th><th>金额</th><th>有效期</th><th>平台限制</th><th>限制说明</th><th>操作</th></tr>
           </thead>
           <tbody>
           {data.map((item) => {
@@ -75,13 +76,10 @@ class Experience extends Component {
                 <td>{item.name}</td>
                 <td>{item.experience_amount_money}</td>
                 <td>
-                  <div hidden={+item.effective_time_type !== 1}>
-                    {item.effective_time_day}天
-                  </div>
-                  <div hidden={+item.effective_time_type !== 2}>
-                    {item.effective_time_start} 至<br />{item.effective_time_end}
-                  </div>
+                  {item.effective_time_type === 1 ? `${item.effective_time_day}天` : [`开始: ${item.effective_time_start}`, <br />, `结束: ${item.effective_time_end}`]}
                 </td>
+                <td>{getConfig('platformTypes', item.platform_type)}</td>
+                <td><Popover title={item.name} content={item.limit_desc === '' ? '无' : `${item.limit_desc} `} /></td>
                 <td>{addAwardBtn}</td>
               </tr>
             );

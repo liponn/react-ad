@@ -19,6 +19,9 @@ function LeftList() {
       <Link className="list-group-item" to="/startup/1">
         <i className="fa fa-angellist" aria-hidden="true"></i> 启动页
       </Link>
+      <Link className="list-group-item" to="/appupdate/1">
+        <i className="fa fa-angellist" aria-hidden="true"></i> 升级配置
+      </Link>
       <Link className="list-group-item" to="/channel">
         <i className="fa fa-futbol-o" aria-hidden="true"></i> 渠道
       </Link>

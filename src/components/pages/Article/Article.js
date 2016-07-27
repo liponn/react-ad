@@ -198,7 +198,7 @@ class Article extends Component {
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.title}</td>
-                <td><Popover title={item.title} content={item.content}  /></td>
+                <td><Popover title={item.title} content={item.content} /></td>
                 <td><Status status={+item.release} /></td>
                 <td>{getConfig('platform', item.platform)}</td>
                 <td>

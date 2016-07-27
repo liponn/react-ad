@@ -8,14 +8,13 @@ import Interest from '../../awards/Interest';
 import Coupon from '../../awards/Coupon';
 import Experience from '../../awards/Experience';
 import { getConfig } from '../../../config/omg';
-import { ACTIVITY_GROUP_ADD, ACTIVITY_GROUP_LIST } from '../../../constants';
+import { AWARD_LIST, ACTIVITY_GROUP_ADD, ACTIVITY_GROUP_LIST } from '../../../constants';
 
 class Award extends Component {
   constructor(props) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
     this.selectAward = this.selectAward.bind(this);
-
     const currentType = props.awardType;
     const awardTypes = getConfig('awardTypes');
     this.state = {
@@ -45,7 +44,7 @@ class Award extends Component {
   }
   selectAward(e) {
     const type = e.target.value;
-    if(!this.props.modal) {
+    if (!this.props.modal) {
       history.push(`/award/${type}`);
     } else {
       this.setState({
@@ -58,16 +57,16 @@ class Award extends Component {
     let awardView = '类型未找到';
     switch (this.state.currentType) {
       case '1':
-        awardView = <Interest {...this.props} activityId={this.props.activityId} />;
+        awardView = <Interest {...this.props} />;
         break;
       case '2':
-        awardView = <RedEnvelope {...this.props} activityId={this.props.activityId} />;
+        awardView = <RedEnvelope {...this.props} />;
         break;
       case '3':
-        awardView = <Experience {...this.props} activityId={this.props.activityId} />;
+        awardView = <Experience {...this.props} />;
         break;
       case '6':
-        awardView = <Coupon {...this.props} activityId={this.props.activityId} />;
+        awardView = <Coupon {...this.props} />;
         break;
       default:
         awardView = this.state.currentType;
@@ -99,7 +98,6 @@ class Award extends Component {
 Award.propTypes = {
   dispatch: PropTypes.func.isRequired,
   awardType: PropTypes.string.isRequired,
-  activityId: PropTypes.string,
 }
 
 Award.defaultProps = {

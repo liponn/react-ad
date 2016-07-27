@@ -9,9 +9,11 @@ class Input extends Component {
     };
   }
   componentWillReceiveProps(props) {
-    this.setState({
-      value: props.value,
-    });
+    if (typeof props.value !== 'undefined') {
+      this.setState({
+        value: props.value,
+      });
+    }
   }
   valueChange(e) {
     const value = e.target.value;
@@ -27,11 +29,13 @@ class Input extends Component {
         >{this.props.labelName}:</label>
         <div className="col-sm-6">
           <input
+            placeholder={this.props.placeholder}
             required={this.props.required}
             type={this.props.type}
             name={this.props.name}
             className="form-control"
             value={this.state.value}
+            defaultValue={this.props.defaultValue}
             onChange={this.valueChange}
           />
         </div>
@@ -45,7 +49,9 @@ Input.propTypes = {
   labelName: PropTypes.string.isRequired,
   type: PropTypes.string,
   value: PropTypes.any,
+  defaultValue: PropTypes.any,
   required: PropTypes.bool,
+  placeholder: PropTypes.string,
 }
 
 Input.defaultProps = {

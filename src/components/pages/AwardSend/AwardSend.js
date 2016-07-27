@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { showModal, hideModal } from '../../../actions/modal';
-import { Modal, Card, Input, Submit, Alert } from '../../tools';
+import { Modal, Card, Input, Submit, Alert, Success } from '../../tools';
 import { AWARD_ADD_TO_USER } from '../../../constants';
 import { fetchAction } from '../../../actions/omg';
 import Award from '../Award';
@@ -28,7 +28,7 @@ class AwardSend extends Component {
   }
   selectAward() {
     const awardView = (
-      <Modal title="添加奖品">
+      <Modal title="添加奖品" className="modal-lg">
         <Award modal addAward={this.addAward} awardType="1" />
       </Modal>
     );
@@ -43,11 +43,22 @@ class AwardSend extends Component {
       formData,
     })).then(json => {
       if (json.error_code === 0){
+        const date = new Date()
         if (!json.data) {
           this.setState({
-            errorMsg: '添加奖品失败',
+            successMsg: '',
+            errorMsg: `添加奖品失败${date.getSeconds()}`,
           });
         }
+        this.setState({
+          errorMsg: '',
+          successMsg: `${json.data} 添加成功 ${date.getSeconds()}!`,
+        })
+      } else {
+          this.setState({
+            successMsg: '',
+            errorMsg: json.data.error_msg,
+          });
       }
     });
   }
@@ -55,8 +66,11 @@ class AwardSend extends Component {
     return (
       <div>
         <Card title="手动添加奖品">
-          <form className="m-t-1" onSubmit={this.submit}>
+          <div className="p-t-1 p-x-1">
             <Alert msg={this.state.errorMsg} />
+            <Success msg={this.state.successMsg} />
+          </div>
+          <form className="m-t-1" onSubmit={this.submit}>
             <Input name="userId" labelName="用户ID" />
             <Input name="awardType" labelName="奖品类型Id" value={this.state.awardType} />
             <Input name="awardId" labelName="奖品Id" value={this.state.awardId} />

@@ -22,7 +22,6 @@ class ActivityList extends Component {
     this.getGroupList = this.getGroupList.bind(this);
     this.freshGroupList = this.freshGroupList.bind(this);
     this.groupClick = this.groupClick.bind(this);
-    
     const types = getConfig('activityTypes');
     this.state = {
       types,
@@ -48,7 +47,7 @@ class ActivityList extends Component {
     }));
   }
   freshGroupList() {
-    this.getGroupList(this.props.typeId);
+    this.getGroupList(this.props.typeId, this.props.page);
   }
   showModal() {
     this.props.dispatch(showModal(<ActivityAddModal callback={this.freshGroupList} typeId={this.props.typeId} />));

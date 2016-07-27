@@ -5,22 +5,31 @@ import { commonFetch } from '../../../actions/omg';
 import { hideModal } from '../../../actions/modal';
 import { AWARD_ADD, AWARD_LIST } from '../../../constants';
 import { getConfig } from '../../../config/omg';
-import { Modal, Input, Submit, Select, DateTimeInput, Alert, Fieldset } from '../../tools';
+import { Modal, Input, Submit, Select, DateTimeInput, Alert, Fieldset, Textarea } from '../../tools';
 
 class InterestAddModal extends Component {
   constructor(props) {
     super(props);
     this.typeChange = this.typeChange.bind(this);
     this.timeTypeChange = this.timeTypeChange.bind(this);
+    this.durationTypeChange = this.durationTypeChange.bind(this);
     this.addAward = this.addAward.bind(this);
     const types = getConfig('interestTypes');
     const timeTypes = getConfig('interestTimeTypes');
+    const projectTypes = getConfig('projectTypes');
+    const platformTypes = getConfig('platformTypes');
+    const projectDurationTypes = getConfig('projectDurationTypes');
     this.state = {
       errorMsg: '',
       awardType: 1,
       effectiveTimeType: 1,
+      
+      projectTypes,
+      platformTypes,
+      projectDurationTypes,
       type: 1,
       timeType: 1,
+      durationType: 1,
       types,
       timeTypes,
     };
@@ -34,24 +43,28 @@ class InterestAddModal extends Component {
       .then(json => {
         if (json.error_code === 0) {
           this.props.dispatch(hideModal());
-          const formData2 = new FormData;
-          formData2.append('award_type', this.state.awardType);
-          this.props.dispatch(commonFetch(AWARD_LIST, 'POST', formData2));
-        }else{
+          this.props.callback();
+        } else {
           this.setState({
             errorMsg: json.data.error_msg,
           });
         }
       });
   }
+  durationTypeChange(e) {
+    const value = e.target.value;
+    this.setState({
+      durationType: +value,
+    });
+  }
   typeChange(e) {
-    const value = $(e.target).val();
+    const value = e.target.value;
     this.setState({
       type: +value,
     });
   }
   timeTypeChange(e) {
-    const value = $(e.target).val();
+    const value = e.target.value;
     this.setState({
       timeType: +value,
     });
@@ -59,6 +72,7 @@ class InterestAddModal extends Component {
   render() {
     let typeFileds = false;
     let timeTypeFileds = false;
+    let durationTypeFileds = false;
 
     // 根据红包类型显示字段
     switch (this.state.type) {
@@ -66,13 +80,16 @@ class InterestAddModal extends Component {
         typeFileds = false;
         break;
       case 2:
-        typeFileds = [<Input required key="1" type="number" labelName="加息时长天数" name="red_money" />];
+        typeFileds = [<Input required key="1" type="number" labelName="加息天数" name="rate_increases_time" />];
         break;
       case 3:
         typeFileds = [
-          <DateTimeInput labelName="加息时长开始时间" name="rate_increases_start" />,
-          <DateTimeInput labelName="加息时长结束时间" name="rate_increases_end" />,
+          <DateTimeInput labelName="加息开始时间" name="rate_increases_start" />,
+          <DateTimeInput labelName="加息结束时间" name="rate_increases_end" />,
         ];
+        break;
+      case 4:
+        typeFileds = [<Input required key="1" type="number" labelName="加息月数" name="rate_increases_time" />];
         break;
       default:
     }
@@ -91,13 +108,16 @@ class InterestAddModal extends Component {
         break;
       default:
     }
+    if (this.state.durationType > 1) {
+      durationTypeFileds = <Input type="number" labelName="项目期限时长" name="project_duration_time" />;
+    }
     return (
       <Modal title="添加加息券">
         <form method="post" onSubmit={this.addAward}>
           <Alert msg={this.state.errorMsg} />
           <input type="hidden" name="award_type" value={this.state.awardType} />
           <Input labelName="名称" name="name" />
-          <Input labelName="加息值" name="rate_increases" />
+          <Input labelName="加息值" name="rate_increases" placeholder="例:0.025代表加息2.5%" />
           <Fieldset>
             <Select
               labelName="加息时长类型"
@@ -116,12 +136,21 @@ class InterestAddModal extends Component {
             />
             {timeTypeFileds}
           </Fieldset>
-          <Input type="number" labelName="投资门槛" name="investment_threshold" />
-          <Input labelName="项目期限类型" name="project_duration_type" />
-          <Input labelName="项目类型" name="project_type" />
-          <Input labelName="产品ID" name="product_id" />
-          <Input labelName="平台端" name="platform_type" />
-          <Input labelName="限制说明" name="limit_desc" />
+          <hr style={{ borderStyle: 'dashed' }} />
+          <Input type="number" required labelName="投资门槛" defaultValue="0" name="investment_threshold" placeholder="0为不限制" />
+          <Select labelName="项目类型" name="project_type" options={this.state.projectTypes} />
+          <Fieldset>
+            {durationTypeFileds}
+            <Select
+              labelName="项目期限类型"
+              name="project_duration_type"
+              onChange={this.durationTypeChange}
+              options={this.state.projectDurationTypes}
+            />
+          </Fieldset>
+          <Input labelName="产品ID" name="product_id" placeholder="不填则不限制" />
+          <Select labelName="平台限制" name="platform_type" options={this.state.platformTypes} />
+          <Textarea labelName="限制说明" name="limit_desc" />
           <Submit />
         </form>
       </Modal>
@@ -131,6 +160,7 @@ class InterestAddModal extends Component {
 
 InterestAddModal.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  callback: PropTypes.func.isRequired,
 }
 
 export default connect()(InterestAddModal);

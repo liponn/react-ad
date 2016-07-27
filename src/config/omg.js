@@ -27,6 +27,13 @@ import {
   ACTIVITY_AWARD_DEL,
   ACTIVITY_AWARD_LIST,
 
+  APP_ADD,
+  APP_DISABLE,
+  APP_ENABLE,
+  APP_INFO,
+  APP_PUT,
+  APP_UPDATE_LOG,
+
   AWARD_LIST,
   AWARD_ADD,
   AWARD_UPDATE,
@@ -117,6 +124,13 @@ apiList[ACTIVITY_RULE_ADD_USERLEVEL] = '/activity/rule-add/userlevel';
 apiList[ACTIVITY_AWARD_ADD] = '/activity/award-add';
 apiList[ACTIVITY_AWARD_LIST] = '/activity/award-list';
 apiList[ACTIVITY_AWARD_DEL] = '/activity/award-delete';
+
+apiList[APP_ADD] = '/app/add';
+apiList[APP_DISABLE] = '/app/close';
+apiList[APP_ENABLE] = '/app/enable';
+apiList[APP_INFO] = '/app/info';
+apiList[APP_PUT] = '/app/put';
+apiList[APP_UPDATE_LOG] = '/app/update-log';
 
 
 apiList[AWARD_ADD] = '/award/add';
@@ -222,6 +236,7 @@ const activityTriggers = {
   4: '投资',
   5: '邀请',
   6: '实名',
+  7: '回款',
 }
 
 const redEnvelopeTypes = {
@@ -234,10 +249,16 @@ const redEnvelopeTimeTypes = {
   2: '按时间段',
 }
 
+const forceTypes = {
+  0: '不强制',
+  1: '强制',
+}
+
 const interestTypes = {
   1: '全周期',
   2: '加息天数',
   3: '加息时间段',
+  4: '加息月数',
 }
 
 const interestTimeTypes = {
@@ -301,6 +322,16 @@ const platform = {
   3: 'PC端',
 }
 
+const projectDurationTypes = {
+  1: '不限',
+  2: '月标',
+  3: '月标及以上',
+  4: '月标及以下',
+  5: '日标',
+  6: '日标及以上',
+  7: '日标及以下',
+}
+
 const platformTypes = {
   0: '全平台',
   1: '移动端',
@@ -308,10 +339,25 @@ const platformTypes = {
   3: 'pc端',
 }
 
+const appUpdateTypes = {
+  1: '安卓',
+  2: 'IOS',
+}
+
 const release = {
-  0: '为发布',
+  0: '未发布',
   1: '已发布',
 }
+
+const projectTypes = {
+  0: '不限制',
+  1: '好车盈',
+  2: '艺品贷',
+  3: '产融通',
+  4: '银行优选',
+  10: '月利宝',
+}
+
 
 const config = {
   activityTriggers,
@@ -330,6 +376,10 @@ const config = {
   platformTypes,
   sendAwardTypes,
   startupTypes,
+  projectDurationTypes,
+  projectTypes,
+  forceTypes,
+  appUpdateTypes,
 }
 
 function getConfig(type, value = false) {
