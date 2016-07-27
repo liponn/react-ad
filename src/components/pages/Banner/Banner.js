@@ -157,8 +157,8 @@ class Banner extends Component {
                 <td><a title={item.img_url} href={item.img_url} target="_blank">查看</a></td>
                 <td><ImgBox src={item.img_path} /></td>
                 <td><Status status={+item.can_use} /></td>
-                <td>{item.start}</td>
-                <td>{item.end}</td>
+                <td>{item.start === null ? '不限制' : item.start}</td>
+                <td>{item.end === null ? '不限制' : item.end}</td>
                 <td>
                   <button hidden={+item.can_use === 1} className="btn btn-sm btn-success-outline" data-id={item.id} onClick={this.enable}>上线</button>
                   <button hidden={+item.can_use === 0} className="btn btn-sm btn-warning-outline" data-id={item.id} onClick={this.disable}>下线</button>

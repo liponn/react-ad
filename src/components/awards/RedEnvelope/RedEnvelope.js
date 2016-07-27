@@ -20,7 +20,6 @@ class RedEnvelope extends Component {
   componentDidMount() {
     this.fresh();
   }
-  
   fresh() {
     const formData = new FormData;
     formData.append('award_type', this.state.awardType);
@@ -81,7 +80,7 @@ class RedEnvelope extends Component {
                   <td>{`${item.project_duration_type === 1 ? '' : item.project_duration_time}${getConfig('projectDurationTypes', item.project_duration_type)}`}</td>
                   <td>{item.product_id === '' ? '不限制' : item.product_id}</td>
                   <td>{getConfig('platformTypes', item.platform_type)}</td>
-                  <td><Popover title={item.name} content={item.limit_desc === '' ? '无' : `${item.limit_desc} `} /></td>
+                  <td><Popover title="限制说明" content={item.limit_desc === '' ? '无' : `${item.limit_desc} `} /></td>
                   <td>{addAwardBtn}</td>
                 </tr>
               );
