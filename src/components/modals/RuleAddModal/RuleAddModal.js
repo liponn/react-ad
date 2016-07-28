@@ -1,44 +1,59 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 
-import ModalHeader from '../../tools/ModalHeader';
-import { commonFetch } from '../../../actions/omg';
+import { fetchAction } from '../../../actions/omg';
 import { hideModal } from '../../../actions/modal';
-import { ACTIVITY_GROUP_ADD, ACTIVITY_GROUP_LIST } from '../../../constants'
-import { getConfig } from '../../../config/omg'
+import { ACTIVITY_RULE_ADD } from '../../../constants';
+import { getConfig } from '../../../config/omg';
+import { Alert, Modal } from '../../tools';
 
 import ChannelRule from '../../rules/ChannelRule';
 import RegisterRule from '../../rules/RegisterRule';
 import CastRule from '../../rules/CastRule';
 import RechargeRule from '../../rules/RechargeRule';
+import InviteRule from '../../rules/InviteRule';
+import InviteNumRule from '../../rules/InviteNumRule';
+import UserLevelRule from '../../rules/UserLevelRule';
+import BalanceRule from '../../rules/BalanceRule';
+import PaymentRule from '../../rules/PaymentRule';
+import CastAllRule from '../../rules/CastAllRule';
+import RechargeAllRule from '../../rules/RechargeAllRule';
 
 class RuleAddModal extends Component {
   constructor(props) {
     super(props);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.submit = this.submit.bind(this);
     this.selectRule = this.selectRule.bind(this);
     const ruleTypes = getConfig('ruleTypes');
     this.state = {
       currentRule: 'register',
       ruleTypes,
+      errorMsg: '',
     };
   }
-  onSubmit(e) {
+  submit(e) {
     e.preventDefault();
-    const form = e.target;
-    const formData = new FormData(form);
-    const { dispatch } = this.props;
-    dispatch(commonFetch(ACTIVITY_GROUP_ADD, 'POST', formData))
-      .then(({ error_code }) => {
-        if (error_code === 0) {
-          dispatch(hideModal());
-          dispatch(commonFetch(ACTIVITY_GROUP_LIST));
-        }
-      });
+    const formData = new FormData(e.target);
+    this.props.dispatch(fetchAction({
+      type: ACTIVITY_RULE_ADD,
+      method: 'POST',
+      suffix: `/${this.state.currentRule.toLowerCase()}`,
+      formData,
+    })).then(json => {
+      if (json.error_code === 0) {
+        this.props.dispatch(hideModal(true));
+        this.props.callback();
+      } else {
+        this.setState({
+          errorMsg: json.data.error_msg,
+        });
+      }
+    });
   }
   selectRule(e) {
     const ruleName = e.target.value;
     this.setState({
+      errorMsg: '',
       currentRule: ruleName,
     });
   }
@@ -48,40 +63,65 @@ class RuleAddModal extends Component {
     let ruleView = '';
     switch(this.state.currentRule) {
       case 'channel':
-        ruleView = <ChannelRule activityId={this.props.activityId} callback={this.props.callback} />;
+        ruleView = <ChannelRule submit={this.submit} activityId={this.props.activityId} />;
         break;
       case 'register':
-        ruleView = <RegisterRule activityId={this.props.activityId} callback={this.props.callback} />;
+        ruleView = <RegisterRule submit={this.submit} activityId={this.props.activityId} />;
         break;
       case 'cast':
-        ruleView = <CastRule activityId={this.props.activityId} callback={this.props.callback} />;
+        ruleView = <CastRule submit={this.submit} activityId={this.props.activityId} />;
         break;
       case 'recharge':
-        ruleView = <RechargeRule activityId={this.props.activityId} callback={this.props.callback} />;
+        ruleView = <RechargeRule submit={this.submit} activityId={this.props.activityId} />;
+        break;
+      case 'invite':
+        ruleView = <InviteRule submit={this.submit} activityId={this.props.activityId} />;
+        break;
+      case 'invitenum':
+        ruleView = <InviteNumRule submit={this.submit} activityId={this.props.activityId} />;
+        break;
+      case 'userlevel':
+        ruleView = <UserLevelRule submit={this.submit} activityId={this.props.activityId} />;
+        break;
+      case 'balance':
+        ruleView = <BalanceRule submit={this.submit} activityId={this.props.activityId} />;
+        break;
+      case 'payment':
+        ruleView = <PaymentRule submit={this.submit} activityId={this.props.activityId} />;
+        break;
+      case 'castall':
+        ruleView = <CastAllRule submit={this.submit} activityId={this.props.activityId} />;
+        break;
+      case 'rechargeall':
+        ruleView = <RechargeAllRule submit={this.submit} activityId={this.props.activityId} />;
         break;
       default:
         ruleView = this.state.currentRule;
     }
 
     return (
-      <div className="modal-dialog">
-        <div className="modal-content">
-          <ModalHeader title="添加规则" />
-          <div className="modal-body">
-            <div>
-              {Object.keys(ruleTypes).map(key => (
-                <label key={key} className="c-input c-radio">
-                  <input name="rule-add" checked={key === this.state.currentRule} value={key} type="radio" onChange={this.selectRule} />
-                  <span className="c-indicator"></span>
-                  {ruleTypes[key]}
-                </label>
-              ))}
-              <hr />
-              {ruleView}
+      <Modal title="添加规则">
+        <div className="clearfix">
+          {Object.keys(ruleTypes).map(key => (
+            <div className="pull-left m-r-1">
+              <label key={key} className="c-input c-radio">
+                <input
+                  name="rule-add"
+                  checked={key === this.state.currentRule}
+                  value={key}
+                  type="radio"
+                  onChange={this.selectRule}
+                />
+                <span className="c-indicator"></span>
+                {ruleTypes[key]}
+              </label>
             </div>
-          </div>
+          ))}
         </div>
-      </div>
+        <hr />
+        <Alert msg={this.state.errorMsg} />
+        {ruleView}
+      </Modal>
     );
   }
 }
@@ -91,10 +131,4 @@ RuleAddModal.propTypes = {
   callback: PropTypes.func.isRequired,
 }
 
-export default connect(state => {
-  const { omg } = state;
-  const errorMsg = omg.errorMsg[ACTIVITY_GROUP_ADD] || '';
-  return {
-    errorMsg,
-  };
-})(RuleAddModal);
+export default connect()(RuleAddModal);

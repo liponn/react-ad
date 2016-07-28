@@ -13,15 +13,18 @@ import {
   ACTIVITY_RULE_LIST,
   ACTIVITY_RULE_DEL,
 
+
+  ACTIVITY_RULE_ADD_REGISTER,
+  ACTIVITY_RULE_ADD_CHANNEL,
   ACTIVITY_RULE_ADD_BALANCE,
   ACTIVITY_RULE_ADD_RECHARGE,
   ACTIVITY_RULE_ADD_CAST,
-  ACTIVITY_RULE_ADD_CHANNEL,
   ACTIVITY_RULE_ADD_FIRSTCAST,
   ACTIVITY_RULE_ADD_INVITE,
   ACTIVITY_RULE_ADD_INVITENUM,
-  ACTIVITY_RULE_ADD_REGISTER,
   ACTIVITY_RULE_ADD_USERLEVEL,
+
+  ACTIVITY_RULE_ADD,
 
   ACTIVITY_AWARD_ADD,
   ACTIVITY_AWARD_DEL,
@@ -121,6 +124,9 @@ apiList[ACTIVITY_RULE_ADD_INVITE] = '/activity/rule-add/invite';
 apiList[ACTIVITY_RULE_ADD_INVITENUM] = '/activity/rule-add/invitenum';
 apiList[ACTIVITY_RULE_ADD_REGISTER] = '/activity/rule-add/register';
 apiList[ACTIVITY_RULE_ADD_USERLEVEL] = '/activity/rule-add/userlevel';
+
+apiList[ACTIVITY_RULE_ADD] = '/activity/rule-add';
+
 apiList[ACTIVITY_AWARD_ADD] = '/activity/award-add';
 apiList[ACTIVITY_AWARD_LIST] = '/activity/award-list';
 apiList[ACTIVITY_AWARD_DEL] = '/activity/award-delete';
@@ -131,7 +137,6 @@ apiList[APP_ENABLE] = '/app/enable';
 apiList[APP_INFO] = '/app/info';
 apiList[APP_PUT] = '/app/put';
 apiList[APP_UPDATE_LOG] = '/app/update-log';
-
 
 apiList[AWARD_ADD] = '/award/add';
 apiList[AWARD_DEL] = '/award/delete';
@@ -145,7 +150,6 @@ apiList[CHANNEL_INFO] = '/channel/info';
 apiList[CHANNEL_LIST] = '/channel/list';
 apiList[CHANNEL_PUT] = '/channel/put';
 apiList[CHANNEL_DEL] = '/channel/del';
-
 
 apiList[ARTICLE_ADD] = '/cms/content/add';
 apiList[ARTICLE_TYPE_LIST] = '/cms/content/type-list';
@@ -198,16 +202,18 @@ function getApi(type) {
 }
 
 const typeList = {
-  channel: '渠道',
-  register: '注册',
-  invite: '邀请',
-  invitenum: '邀请用户数量',
-  userlevel: '用户等级',
-  usercredit: '用户积分',
+  register: '注册时间',
+  channel: '用户渠道',
+  invite: '是否被邀请',
+  inviteNum: '邀请人数',
+  userLevel: '用户等级',
+  userCredit: '用户积分',
   balance: '用户余额',
-  cast: '投资',
-  firstcast: '首投',
-  recharge: '充值',
+  cast: '投资金额',
+  reCharge: '充值金额',
+  payment: '回款金额',
+  castAll: '投资总金额',
+  rechargeAll: '充值总金额',
 }
 
 const activityTypes = {
@@ -231,11 +237,12 @@ const frequencyTypes = {
 const activityTriggers = {
   0: '主动',
   1: '注册',
-  2: '首投',
+  2: '充值',
   3: '绑卡',
   4: '投资',
   5: '回款',
   6: '实名',
+  7: '微信绑定',
 }
 
 const redEnvelopeTypes = {
@@ -258,6 +265,16 @@ const interestTypes = {
   2: '加息天数',
   3: '加息时间段',
   4: '加息月数',
+}
+
+const userLevels = {
+  '-1': '非会员',
+  0: 'vip',
+  1: 'vip1',
+  2: 'vip2',
+  3: 'vip3',
+  4: 'vip4',
+  5: 'vip5',
 }
 
 const interestTimeTypes = {
@@ -285,23 +302,38 @@ const ruleFileds = {
   channels: '渠道',
   min_time: '最小时间',
   max_time: '最大时间',
-  min_cast: '最小投资(元)',
-  max_cast: '最大投资(元)',
+  min_cast: '最小投资',
+  max_cast: '最大投资',
   isfirst: '首次',
-  min_recharge: '最小充值(元)',
-  max_recharge: '最大充值(元)',
+  min_recharge: '最小充值',
+  max_recharge: '最大充值',
+  is_invite: '是否被邀请',
+  invite_num: '邀请人数',
+  user_level: '用户等级',
+  min_balance: '最小余额',
+  max_balance: '最大余额',
+  min_payment: '最小回款',
+  max_payment: '最大回款',
+  start_time: '起始时间',
+  end_time: '结束时间',
+  min_recharge_all: '最小充值金额',
+  max_recharge_all: '最大充值金额',
+  min_cast_all: '最小投资金额',
+  max_cast_all: '最大投资金额',
 }
 
 const ruleTypes = {
-  channel: '渠道',
-  register: '注册',
-  invite: '邀请',
-  invitenum: '邀请用户数量',
+  register: '注册时间',
+  channel: '用户渠道',
+  invite: '是否被邀请',
+  invitenum: '邀请人数',
   userlevel: '用户等级',
-  usercredit: '用户积分',
   balance: '用户余额',
-  cast: '投资',
-  recharge: '充值',
+  cast: '投资金额',
+  recharge: '充值金额',
+  payment: '回款金额',
+  castall: '投资总金额',
+  rechargeall: '充值总金额',
 }
 
 const bannerTypes = {
@@ -392,6 +424,7 @@ const config = {
   forceTypes,
   appUpdateTypes,
   templateTypes,
+  userLevels,
 }
 
 function getConfig(type, value = false) {

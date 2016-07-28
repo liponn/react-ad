@@ -19,6 +19,7 @@ class Activity extends Component {
     this.ruleDel = this.ruleDel.bind(this);
     this.awardDel = this.awardDel.bind(this);
     this.addAward = this.addAward.bind(this);
+    this.handleRule = this.handleRule.bind(this);
     const awardTypes = getConfig('awardTypes');
     const activityTriggers = getConfig('activityTriggers');
     const frequencyTypes = getConfig('frequencyTypes');
@@ -110,6 +111,29 @@ class Activity extends Component {
       }
     });
   }
+  // 优化规则显示
+  handleRule(type, value) {
+    switch (type){
+      case 'isfirst':
+        return value === 1 ? '是' : '否';
+      case 'min_payment':
+      case 'max_payment':
+      case 'min_recharge':
+      case 'max_recharge':
+      case 'min_cast':
+      case 'max_cast':
+      case 'min_recharge_all':
+      case 'max_recharge_all':
+      case 'min_cast_all':
+      case 'max_cast_all':
+        return `${value} 元`;
+      case 'user_level':
+        return getConfig('userLevels', value);
+      default:
+        return value;
+    } 
+  }
+  
   render() {
     const activity = this.props.activityList[this.props.activityId] || {};
     const awards = this.props.awardList[this.props.activityId] || [];
@@ -165,7 +189,7 @@ class Activity extends Component {
                   {Object.keys(rule.rule_info).map((key) => (
                     <div
                       key={`filed-${key}`}
-                    >{getConfig('ruleFileds', key)}: {rule.rule_info[key]}</div>
+                    >{getConfig('ruleFileds', key)}: {this.handleRule(key, rule.rule_info[key])}</div>
                   ))}
                 </td>
                 <td>
