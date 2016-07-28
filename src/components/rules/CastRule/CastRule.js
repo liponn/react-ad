@@ -21,7 +21,7 @@ class CastRule extends Component {
       .then((json) => {
         if (json.error_code === 0) {
           this.props.dispatch(hideModal());
-          this.props.dispatch(commonFetch(ACTIVITY_RULE_LIST, 'GET', false, `/${this.props.activityId}`));
+          this.props.callback();  
         } else {
           this.setState({
             errorMsg: json.data.error_msg,

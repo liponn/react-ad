@@ -269,9 +269,16 @@ const awardTypes = {
   1: '加息券',
   2: '红包',
   3: '体验金',
-  //4: '用户积分',
-  //5: '实物',
+  // 4: '用户积分',
+  // 5: '实物',
   6: '优惠券',
+}
+
+const templateTypes = {
+  1: '恭喜你在{{sourceName}}活动中获得了{{awardName}}奖励,请在我的奖励中查看。',
+  2: '恭喜你在{{sourceName}}活动中获得了{{awardName}}奖励,请在我的奖励中查看。',
+  3: '恭喜你在{{sourceName}}活动中获得了{{awardName}}奖励,请在我的奖励中查看。',
+  6: '恭喜你在{{sourceName}}活动中获得了{{awardName}}奖励,请在我的奖励中查看。',
 }
 
 const ruleFileds = {
@@ -350,11 +357,16 @@ const release = {
 
 const projectTypes = {
   0: '不限制',
-  1: '好车盈',
-  2: '艺品贷',
-  3: '产融通',
-  4: '银行优选',
-  10: '月利宝',
+  1: '测试',
+  2: '白银',
+  3: '黄金',
+  4: '原油',
+  5: 'test',
+  6: '古董',
+  7: '专用',
+  8: '月利宝',
+  9: '房贷',
+  10: '旧机动车抵押',
 }
 
 
@@ -379,6 +391,7 @@ const config = {
   projectTypes,
   forceTypes,
   appUpdateTypes,
+  templateTypes,
 }
 
 function getConfig(type, value = false) {

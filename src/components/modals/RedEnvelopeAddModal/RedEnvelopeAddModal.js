@@ -21,6 +21,7 @@ class RedEnvelopeAddModal extends Component {
     this.state = {
       errorMsg: '',
       redType: 1,
+      type:2,
       effectiveTimeType: 1,
       projectTypes,
       platformTypes,
@@ -148,6 +149,9 @@ class RedEnvelopeAddModal extends Component {
           <Input labelName="产品ID" name="product_id" placeholder="不填则不限制" />
           <Select labelName="平台限制" name="platform_type" options={this.state.platformTypes} />
           <Textarea labelName="限制说明" name="limit_desc" />
+          <hr style={{ borderStyle: 'dashed' }} />
+          <Textarea labelName="站内信模板" defaultValue={getConfig('templateTypes', this.state.type)} name="message" />
+          <Textarea labelName="短信模板" name="mail" />
           <Submit />
         </form>
       </Modal>

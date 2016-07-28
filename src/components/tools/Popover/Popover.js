@@ -18,7 +18,7 @@ class Popover extends Component {
         title={this.props.title}
         data-content={this.props.content}
         className="btn btn-sm btn-info-outline"
-      >查看</button>
+      >{this.props.name}</button>
     );
   }
 }
@@ -26,9 +26,11 @@ class Popover extends Component {
 Popover.propTypes = {
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 }
 
 Popover.defaultProps = {
+  name: '查看',
 }
 
 export default Popover;

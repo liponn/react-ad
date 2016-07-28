@@ -9,23 +9,22 @@ class Textarea extends Component {
     }
   }
   componentWillReceiveProps(props) {
-    this.setState({
-      value: props.value,
-    })
+    if (typeof props.value !== 'undefined') {
+      this.setState({
+        value: props.value,
+      });
+    }
   }
 
-  component
   valueChange(e) {
     const value = e.target.value;
     this.setState({
       value,
-    })
-
+    });
   }
 
   render() {
     return (
-
       <div className="form-group row">
         <label className="col-sm-4 form-control-label text-xs-right">{this.props.labelName}:</label>
         <div className="col-sm-8 col-md-6">
@@ -33,6 +32,7 @@ class Textarea extends Component {
             name={this.props.name}
             className="form-control"
             value={this.state.value}
+            defaultValue={this.props.defaultValue}
             onChange={this.valueChange}>
           </textarea>
         </div>
@@ -44,6 +44,7 @@ class Textarea extends Component {
 Textarea.propTypes = {
   name: PropTypes.string.isRequired,
   labelName: PropTypes.string.isRequired,
+  defaultValue: PropTypes.any,
   value: PropTypes.any,
   required: PropTypes.bool,
 }

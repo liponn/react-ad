@@ -66,7 +66,7 @@ class ChannelRule extends Component {
             channels: [],
           })
           dispatch(hideModal());
-          dispatch(commonFetch(ACTIVITY_RULE_LIST, 'GET', false, `/${activityId}`));
+          this.props.callback();
         }
       });
   }

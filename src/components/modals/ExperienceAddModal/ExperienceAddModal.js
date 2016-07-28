@@ -18,7 +18,7 @@ class ExperienceAddModal extends Component {
     this.state = {
       errorMsg: '',
       awardType: 3,
-      type: 1,
+      type: 3,
       timeType: 1,
       types,
       timeTypes,
@@ -83,6 +83,9 @@ class ExperienceAddModal extends Component {
           </Fieldset>
           <Select name="platform_type" labelName="限制平台" options={this.state.platformTypes} />
           <Textarea labelName="限制说明" name="limit_desc" />
+          <hr style={{ borderStyle: 'dashed' }} />
+          <Textarea labelName="站内信模板" defaultValue={getConfig('templateTypes', this.state.type)} name="message" />
+          <Textarea labelName="短信模板" name="mail" />
           <Submit />
         </form>
       </Modal>

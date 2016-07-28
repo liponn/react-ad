@@ -53,7 +53,7 @@ class RedEnvelope extends Component {
       <Card title="红包" btn={btn}>
         <table className="table m-b-0 table-bordered">
           <thead>
-            <tr><th>id</th><th>名称</th><th>金额</th><th>类型</th><th>投资门槛</th><th>项目类型</th><th>项目期限</th><th>产品ID</th><th>平台限制</th><th>限制说明</th><th>操作</th></tr>
+            <tr><th>id</th><th>名称</th><th>金额</th><th>类型</th><th>投资门槛</th><th>项目类型</th><th>项目期限</th><th>产品ID</th><th>平台限制</th><th>限制说明</th><th>消息模板</th><th>操作</th></tr>
           </thead>
           <tbody>
             {data.map((item) => {
@@ -81,6 +81,10 @@ class RedEnvelope extends Component {
                   <td>{item.product_id === '' ? '不限制' : item.product_id}</td>
                   <td>{getConfig('platformTypes', item.platform_type)}</td>
                   <td><Popover title="限制说明" content={item.limit_desc === '' ? '无' : `${item.limit_desc} `} /></td>
+                  <td>
+                    <Popover name="站内信" title="站内信" content={!item.message ? '无' : `${item.message} `} />
+                    <Popover name="短信" title="短信" content={!item.mail ? '无' : `${item.mail} `} />
+                  </td>
                   <td>{addAwardBtn}</td>
                 </tr>
               );

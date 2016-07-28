@@ -1,12 +1,12 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { commonFetch } from '../../../actions/omg';
+import { commonFetch, fetchAction } from '../../../actions/omg';
 import { showModal, hideModal } from '../../../actions/modal';
-import { ACTIVITY_INFO, ACTIVITY_RULE_LIST, ACTIVITY_AWARD_LIST, ACTIVITY_RULE_DEL, ACTIVITY_AWARD_ADD, ACTIVITY_AWARD_DEL } from '../../../constants';
+import { ACTIVITY_INFO, ACTIVITY_RULE_LIST, ACTIVITY_AWARD_LIST, ACTIVITY_RULE_DEL, ACTIVITY_AWARD_ADD, ACTIVITY_AWARD_DEL} from '../../../constants';
 import RuleAddModal from '../../modals/RuleAddModal';
 import Award from '../../pages/Award';
-import { Card, Modal, Text } from '../../tools';
-import { typeList, getConfig } from '../../../config/omg';
+import { Card, Modal, Text, Alert, Input, Submit } from '../../tools';
+import { getConfig } from '../../../config/omg';
 
 class Activity extends Component {
   constructor(props) {
@@ -30,6 +30,7 @@ class Activity extends Component {
       frequencyTypes,
       ruleTypes,
       ruleFileds,
+      addAwardErrorMsg: '',
     };
   }
   componentDidMount() {
@@ -39,17 +40,30 @@ class Activity extends Component {
   }
   // 刷新活动信息
   freshActivityInfo() {
-    this.props.dispatch(commonFetch(ACTIVITY_INFO, 'GET', false, `/${this.props.activityId}`));
+    this.props.dispatch(fetchAction({
+      type: ACTIVITY_INFO,
+      suffix: `/${this.props.activityId}`,
+      key: this.props.activityId,
+    }));
   }
   // 刷新规则
   freshRuleList() {
-    this.props.dispatch(commonFetch(ACTIVITY_RULE_LIST, 'GET', false, `/${this.props.activityId}`));
+    this.props.dispatch(fetchAction({
+      type: ACTIVITY_RULE_LIST,  
+      suffix: `/${this.props.activityId}`,
+      key: this.props.activityId, 
+    }));
   }
   // 刷新奖品
   freshAwardList() {
     const formData = new FormData;
     formData.append('activity_id', this.props.activityId);
-    this.props.dispatch(commonFetch(ACTIVITY_AWARD_LIST, 'POST', formData));
+    this.props.dispatch(fetchAction({
+      type: ACTIVITY_AWARD_LIST,
+      formData,
+      method: 'POST',
+      key: this.props.activityId,
+    }));
   }
   // 显示添加规则
   showAddRuleModal() {
@@ -57,11 +71,10 @@ class Activity extends Component {
     this.props.dispatch(showModal(ruleAddModal));
   }
   // 显示添加奖品
-  showAddAwardModal() {
+  showAddAwardModal(e) {
+    const awardRule = e.target.dataset.awardRule;
     const awardView = (
-      <Modal title="添加奖品" className="modal-lg">
-        <Award modal addAward={this.addAward} awardType="1" />
-      </Modal>
+      <AddAwardModal submit={this.addAward} awardRule={awardRule} activityId={this.props.activityId} />
     );
     this.props.dispatch(showModal(awardView));
   }
@@ -83,23 +96,24 @@ class Activity extends Component {
   }
   // 添加奖品
   addAward(e) {
-    const target = $(e.target);
-    const awardType = target.data('type');
-    const id = target.data('id');
-    const formData = new FormData;
-    formData.append('activity_id', this.props.activityId);
-    formData.append('award_type', awardType);
-    formData.append('award_id', id);
-    this.props.dispatch(commonFetch(ACTIVITY_AWARD_ADD, 'POST', formData))
-      .then(({ error_code }) => {
-        if (error_code === 0) {
-          this.props.dispatch(hideModal());
-          this.freshAwardList();
-        }
-      });
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+    this.props.dispatch(fetchAction({
+      type: ACTIVITY_AWARD_ADD,
+      method: 'POST',
+      formData,
+    })).then(json => {
+      if (json.error_code === 0) {
+        this.props.dispatch(hideModal());
+        this.freshAwardList();
+      }
+    });
   }
   render() {
-    const { activity } = this.props;
+    const activity = this.props.activityList[this.props.activityId] || {};
+    const awards = this.props.awardList[this.props.activityId] || [];
+    const rules = this.props.ruleList[this.props.activityId] || [];
     const addRuleBtn = (
       <button
         type="button"
@@ -113,6 +127,7 @@ class Activity extends Component {
       <button
         type="button"
         onClick={this.showAddAwardModal}
+        data-awardRule={activity.awardRule}
         className="btn btn-sm btn-info pull-right"
       >
         <i className="fa fa-plus">奖品</i>
@@ -143,9 +158,9 @@ class Activity extends Component {
               <tr><th>规则类型</th><th>规则详情</th><th>操作</th></tr>
             </thead>
             <tbody>
-            {this.props.rules.map((rule) => (
+            {rules.map((rule) => (
               <tr key={rule.id}>
-                <td>{typeList[rule.rule_type]}</td>
+                <td>{getConfig('ruleTypes', rule.rule_type)}</td>
                 <td>
                   {Object.keys(rule.rule_info).map((key) => (
                     <div
@@ -169,10 +184,10 @@ class Activity extends Component {
         <Card title="活动奖品" btn={addAwardBtn}>
           <table className="table m-b-0 table-bordered">
             <thead>
-              <tr><th>奖品类型</th><th>奖品ID</th><th>奖品名称</th><th>操作</th></tr>
+              <tr><th>奖品类型</th><th>奖品ID</th><th>奖品名称</th><th>权重</th><th>操作</th></tr>
             </thead>
             <tbody>
-            {this.props.awards.map((award) => (
+            {awards.map((award) => (
               <tr key={award.id}>
                 <td>
                   {this.state.awardTypes[award.award_type]}
@@ -181,6 +196,7 @@ class Activity extends Component {
                   {award.award_id}
                 </td>
                 <td>{award.name}</td>
+                <td>{award.priority}</td>
                 <td>
                   <button
                     data-id={award.id}
@@ -201,25 +217,76 @@ class Activity extends Component {
 
 Activity.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  rules: PropTypes.array.isRequired,
-  awards: PropTypes.array.isRequired,
+  ruleList: PropTypes.object.isRequired,
+  awardList: PropTypes.object.isRequired,
+  activityList: PropTypes.object.isRequired,
   activityId: PropTypes.number.isRequired,
 };
 
 Activity.defaultProps = {
-  rules: [],
-  awards: [],
-  activity: {},
 }
 
 export default connect(state => {
   const { omg } = state;
-  const activity = omg[ACTIVITY_INFO];
-  const rules = omg[ACTIVITY_RULE_LIST];
-  const awards = omg[ACTIVITY_AWARD_LIST];
+  const activityList = omg[ACTIVITY_INFO] || {};
+  const ruleList = omg[ACTIVITY_RULE_LIST] || {};
+  const awardList = omg[ACTIVITY_AWARD_LIST] || {};
   return {
-    rules,
-    awards,
-    activity,
+    activityList,
+    ruleList,
+    awardList,
   };
 })(Activity);
+
+class AddAwardModal extends Component {
+  constructor(props) {
+    super(props);
+    this.addAward = this.addAward.bind(this);
+    this.showAward = this.showAward.bind(this);
+    this.state = {
+      awardType: '',
+      awardId: '',
+      awardHidden: true,
+    };
+  }
+  static propTypes = {
+    activityId: PropTypes.number.isRequired,
+    awardRule: PropTypes.number,
+    submit: PropTypes.func.isRequired,
+  }
+  addAward(e) {
+    this.setState({
+      awardHidden: true,
+      awardType: e.target.dataset.type,
+      awardId: e.target.dataset.id,
+    });
+  }
+  showAward() {
+    this.setState({
+      awardHidden: false,
+    });
+  }
+  render() {
+    return (
+      <Modal title="添加奖品" className="modal-lg">
+        <Alert msg={this.props.addErrorMsg} />
+        <form onSubmit={this.props.submit}>
+          <input type="hidden" name="activity_id" value={this.props.activityId} />
+          <Input name="award_type" labelName="奖品类型Id" value={this.state.awardType} />
+          <Input name="award_id" labelName="奖品Id" value={this.state.awardId} />
+          <div className="form-group row">
+            <div className="col-sm-offset-4 col-sm-8 col-md-6">
+              <a className="btn btn-info-outline" onClick={this.showAward}>选择奖品</a>
+            </div>
+          </div>
+          <Input name="priority" labelName="奖品权重" type="number" defaultValue="0" />
+          <Submit value="添加" />
+        </form>
+        <div hidden={this.state.awardHidden}>
+          <hr style={{ borderStyle: 'dashed' }} />
+          <Award modal addAward={this.addAward} awardType="1" />
+        </div>
+      </Modal>
+    );
+  }
+}

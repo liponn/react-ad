@@ -18,7 +18,7 @@ class Text extends Component {
 
 Text.propTypes = {
   name: PropTypes.string.isRequired,
-  value: PropTypes.string,
+  value: PropTypes.any,
 }
 
 Text.defaultProps = {
