@@ -2,11 +2,11 @@ import React, { PropTypes, Component } from 'react';
 
 class Modal extends Component {
   constructor(props) {
-    super(props)
-  }  
+    super(props);
+  }
   render() {
     return (
-      <div className={this.props.className ? `modal-dialog ${this.props.className}` : `modal-dialog`}>
+      <div className={this.props.className ? `modal-dialog ${this.props.className}` : 'modal-dialog'}>
         <div className="modal-content">
           <div className="modal-header">
             <button
@@ -28,7 +28,9 @@ class Modal extends Component {
 }
 
 Modal.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  children: PropTypes.any,
+  title: PropTypes.string,
 }
 
 export default Modal;

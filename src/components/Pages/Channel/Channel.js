@@ -1,84 +1,94 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { commonFetch } from '../../../actions/omg';
-import { CHANNEL_LIST } from '../../../constants';
+import { fetchAction } from '../../../actions/omg';
+import { showModal, hideModal} from '../../../actions/modal';
+import { CHANNEL_LIST, CHANNEL_DEL, CHANNEL_INFO, CHANNEL_PUT, CHANNEL_ADD } from '../../../constants';
+import { Modal, Button,  Alert, Input, Submit, Card } from '../../tools';
 
 
 class Channel extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-    this.addChannel = this.addChannel.bind(this);
-    this.delChannel = this.delChannel.bind(this)
+    this.add = this.add.bind(this);
+    this.fresh = this.fresh.bind(this);
+    this.del = this.del.bind(this);
+    this.showAddModal = this.showAddModal.bind(this);
     this.state = {
       name: '',
       alias_name: '',
       pre: '',
       errorMsg: '',
+      addErrorMsg: '',
     };
   }
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(commonFetch(CHANNEL_LIST));
+    this.fresh();
   }
   handleChange(e) {
     const target = e.target;
-    const state = { errorMsg: '' };
-    state[target.name] = target.value;
-    this.setState(state);
+    this.setState({
+      errorMsg: '',
+      [target.name]: target.value ,
+    });
   }
-  addChannel() {
-    const { dispatch } = this.props;
-    if (this.state.name === '') {
-      this.setState({ errorMsg: '名称不能为空。' });
-      return;
-    }
-    if (this.state.alias_name === '') {
-      this.setState({ errorMsg: '别名不能为空。' });
-      return;
-    }
-    $.post('http://192.168.10.36:8001/channel/add', $('#add-channel-form').serialize(), function(res){
-      if (res.error_code !== 0) {
-        this.setState({ errorMsg: res.data.error_msg });
+  fresh() {
+    this.props.dispatch(fetchAction({
+      type: CHANNEL_LIST,
+    }));
+  }
+  add(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    this.props.dispatch(fetchAction({
+      type: CHANNEL_ADD,
+      method: 'POST',
+      formData,
+    })).then(json => {
+      if (json.error_code === 0) {
+        this.fresh();
+        this.props.dispatch(hideModal(true));
       } else {
-        $('#channel-add-modal').modal('hide');
-        dispatch(commonFetch(CHANNEL_LIST));
+        this.setState({
+          addErrorMsg: json.data.error_msg,
+        });
+        this.showAddModal();
       }
-    }.bind(this));
+    });
   }
-  delChannel(e) {
-    const { dispatch } = this.props;
-    const id = $(e.target).data('id');
-    $.post('http://192.168.10.36:8001/channel/del',{id: id}, function(res){
-      if (res.error_code !== 0) {
-        this.setState({ errorMsg: res.data.error_msg });
+  showAddModal() {
+    this.props.dispatch(showModal(<ChannelAddModal submit={this.add} errorMsg={this.state.addErrorMsg} />));
+  }
+  del(e) {
+    const id = e.target.dataset.id;
+    const formData = new FormData;
+    formData.append('id', id);
+    this.props.dispatch(fetchAction({
+      type: CHANNEL_DEL,
+      method: 'POST',
+      formData,
+    })).then(json => {
+      if (json.error_code === 0) {
+        this.fresh();
       } else {
-        dispatch(commonFetch(CHANNEL_LIST));
-      } 
-    }.bind(this));
+        this.setState({ errorMsg: res.data.error_msg });
+      }
+    });
   }
 
   render() {
-    const { items, isFetching } = this.props;
-    let loadClass = 'text-info fa fa-refresh fa-spin fa-fw';
-    loadClass += isFetching ? '' : ' invisible';
-    let errorClass = 'alert alert-danger';
-    errorClass += this.state.errorMsg === '' ? ' invisible' : '';
-
+    const { items } = this.props;
+    const addBtn = (
+      <button
+        onClick={this.showAddModal}
+        className="btn btn-sm btn-info pull-right"
+      >
+        <i className="fa fa-plus">渠道</i>
+      </button>
+    );
     return (
       <div>
-        <div className="card">
-          <div className="card-header clearfix">渠道
-            <i className={loadClass}></i>
-            <button
-              type="button"
-              className="btn btn-sm  btn-info pull-right"
-              data-toggle="modal"
-              data-target="#channel-add-modal"
-            >
-              <i className="fa fa-plus" data-toggle="modal" data-target="#cahnnel-add-modal"> 添加</i>
-            </button>
-          </div>
+        <Card title="渠道列表" btn={addBtn}>
           <table className="table table-bordered m-b-0 table-hover">
             <thead>
               <tr>
@@ -97,89 +107,13 @@ class Channel extends Component {
                 <td>{item.pre}</td>
                 <td>{item.alias_name}</td>
                 <td>
-                  <button className="btn btn-danger-outline btn-sm" data-id={item.id} onClick={this.delChannel}>删除</button>
+                  <button className="btn btn-danger-outline btn-sm" data-id={item.id} onClick={this.del}>删除</button>
                 </td>
               </tr>
             ))}
             </tbody>
           </table>
-        </div>
-        <div className="modal fade" id="channel-add-modal" tabIndex="-1" role="dialog">
-          <div className="modal-dialog modal-sm">
-            <div className="modal-content">
-              <div className="modal-header">
-                <button
-                  type="button"
-                  className="close"
-                  data-dismiss="modal"
-                >
-                  <span>&times;</span>
-                </button>
-                <h4 className="modal-title">添加渠道</h4>
-              </div>
-              <div className="modal-body">
-                <form
-                  id="add-channel-form"
-                  onSubmit={this.addChannel}
-                >
-                  <div className="row" role="alert">
-                    <div className="col-sm-12">
-                      <div hidden={this.state.errorMsg === ''} className={errorClass}>
-                        {this.state.errorMsg}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="form-group row">
-                    <label
-                      required
-                      className="col-sm-4 form-control-label text-xs-right"
-                    >中文名称:</label>
-                    <div className="col-sm-8">
-                      <input
-                        type="text"
-                        required
-                        name="name"
-                        defaultValue={this.state.name}
-                        onChange={this.handleChange}
-                        className="form-control"
-                      />
-                    </div>
-                  </div>
-                  <div className="form-group row">
-                    <label className="col-sm-4 form-control-label text-xs-right">英文别名:</label>
-                    <div className="col-sm-8">
-                      <input
-                        type="text"
-                        required
-                        name="alias_name"
-                        defaultValue={this.state.alias_name}
-                        onChange={this.handleChange}
-                        className="form-control"
-                      />
-                    </div>
-                  </div>
-                  <div className="form-group row">
-                    <label className="col-sm-4 form-control-label text-xs-right">前缀:</label>
-                    <div className="col-sm-8">
-                      <input
-                        type="text"
-                        name="pre"
-                        defaultValue={this.state.pre}
-                        onChange={this.handleChange}
-                        className="form-control"
-                        placeholder="默认为空"
-                      />
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-dismiss="modal">取消</button>
-                <button type="button" className="btn btn-primary" onClick={this.addChannel}>保存</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        </Card>
       </div>
     );
   }
@@ -190,7 +124,7 @@ Channel.propTypes = {
 }
 
 Channel.defaultProps = {
-  items: []
+  items: [],
 }
 
 
@@ -202,3 +136,23 @@ export default connect(state => {
   };
 })(Channel);
 
+class ChannelAddModal extends Component {
+  constructor (props) {
+    super(props);
+  }
+  static propTypes = {
+    submit: PropTypes.func.isRequired,
+  }
+  render() {
+    return (
+      <Modal title="添加渠道">
+        <Alert msg={this.props.errorMsg} />
+        <form onSubmit={this.props.submit}>
+          <Input labelName="中文说明" name="name" />
+          <Input labelName="渠道名称" placeholder="正能包含英文和数字" name="alias_name" />
+          <Submit />
+        </form>
+      </Modal>
+    );
+  }
+}

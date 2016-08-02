@@ -34,12 +34,12 @@ class BannerAddModal extends Component {
   render() {
     return (
       <Modal title="添加banner">
-        <form method="post" ref="addForm" onSubmit={this.onSubmit}>
+        <form method="post" onSubmit={this.onSubmit}>
           <Alert msg={this.state.errorMsg} />
           <input type="hidden" name="position" value={this.props.type} />
           <Input labelName="图片名称" name="name" />
           <AttachmentInput labelName="banner图片" name="img_path" />
-          <Input labelName="图片跳转链接" name="img_url" />
+          <Input labelName="跳转链接" name="url" />
           <DateTimeInput labelName="开始时间" name="start" />
           <DateTimeInput labelName="结束时间" name="end" />
           <Submit />

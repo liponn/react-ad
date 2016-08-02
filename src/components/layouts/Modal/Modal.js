@@ -29,12 +29,12 @@ class Modal extends Component {
 Modal.propTypes = {
   dispatch: PropTypes.func.isRequired,
   showStatus: PropTypes.bool.isRequired,
-  modalView: PropTypes.object.isRequired,
+  modalView: PropTypes.any.isRequired,
   data: PropTypes.object,
 }
 
 Modal.defaultProps = {
-  data: {}
+  data: {},
 }
 
 export default connect(state => {

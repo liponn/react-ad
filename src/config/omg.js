@@ -13,17 +13,6 @@ import {
   ACTIVITY_RULE_LIST,
   ACTIVITY_RULE_DEL,
 
-
-  ACTIVITY_RULE_ADD_REGISTER,
-  ACTIVITY_RULE_ADD_CHANNEL,
-  ACTIVITY_RULE_ADD_BALANCE,
-  ACTIVITY_RULE_ADD_RECHARGE,
-  ACTIVITY_RULE_ADD_CAST,
-  ACTIVITY_RULE_ADD_FIRSTCAST,
-  ACTIVITY_RULE_ADD_INVITE,
-  ACTIVITY_RULE_ADD_INVITENUM,
-  ACTIVITY_RULE_ADD_USERLEVEL,
-
   ACTIVITY_RULE_ADD,
 
   ACTIVITY_AWARD_ADD,
@@ -76,6 +65,7 @@ import {
   BANNER_DISABLE,
   BANNER_UP,
   BANNER_DOWN,
+  BANNER_INFO,
 
   ATTACHMENT_ADD,
   ATTACHMENT_LIST,
@@ -113,17 +103,6 @@ apiList[ACTIVITY_RELEASE] = '/activity/release';
 apiList[ACTIVITY_PUT] = '/activity/put';
 apiList[ACTIVITY_RULE_LIST] = '/activity/rule-list';
 apiList[ACTIVITY_RULE_DEL] = '/activity/rule-del';
-
-
-apiList[ACTIVITY_RULE_ADD_BALANCE] = '/activity/rule-add/balance';
-apiList[ACTIVITY_RULE_ADD_RECHARGE] = '/activity/rule-add/recharge';
-apiList[ACTIVITY_RULE_ADD_CAST] = '/activity/rule-add/cast';
-apiList[ACTIVITY_RULE_ADD_CHANNEL] = '/activity/rule-add/channel';
-apiList[ACTIVITY_RULE_ADD_FIRSTCAST] = '/activity/rule-add/firstcast';
-apiList[ACTIVITY_RULE_ADD_INVITE] = '/activity/rule-add/invite';
-apiList[ACTIVITY_RULE_ADD_INVITENUM] = '/activity/rule-add/invitenum';
-apiList[ACTIVITY_RULE_ADD_REGISTER] = '/activity/rule-add/register';
-apiList[ACTIVITY_RULE_ADD_USERLEVEL] = '/activity/rule-add/userlevel';
 
 apiList[ACTIVITY_RULE_ADD] = '/activity/rule-add';
 
@@ -178,6 +157,7 @@ apiList[BANNER_UP] = '/img/sort-up';
 apiList[BANNER_DOWN] = '/img/sort-down';
 apiList[BANNER_ENABLE] = '/img/banner-release';
 apiList[BANNER_DISABLE] = '/img/banner-offline';
+apiList[BANNER_INFO] = '/img/banner-info';
 
 apiList[ATTACHMENT_ADD] = '/img/img-add';
 apiList[ATTACHMENT_LIST] = '/img/img-list';

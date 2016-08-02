@@ -21,22 +21,13 @@ class Header extends Component {
     super(props);
     this.logout = this.logout.bind(this);
   }
-  
   componentDidMount() {
-    this.props.dispatch(fetchAction({
-      type: ACCOUNT_PROFILE,
-    })).then(json => {
-      if (json.error_code === 1106) {
-        history.push('/login');
-      }
-    });
+
   }
   logout() {
     this.props.dispatch(fetchAction({
       type: ACCOUNT_LOGOUT,
-    })).then(() => {
-      history.push('/login');
-    });
+    }));
   }
   render() {
     return (

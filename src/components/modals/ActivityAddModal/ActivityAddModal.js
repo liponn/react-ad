@@ -1,72 +1,67 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-
-import { commonFetch } from '../../../actions/omg';
-import { hideModal } from '../../../actions/modal';
-
-import Alert from '../../tools/Alert';
-import Input from '../../tools/Input';
-import ModalHeader from '../../tools/ModalHeader';
-
-import { ACTIVITY_GROUP_ADD, ACTIVITY_GROUP_LIST } from '../../../constants'
+import { Input, DateTimeInput, Select, Submit, Alert, Modal } from '../../tools';
+import { getConfig } from '../../../config/omg';
+import { ACTIVITY_ADD } from '../../../constants';
 
 class ActivityAddModal extends Component {
   constructor(props) {
     super(props);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
-  onSubmit(e) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    this.props.dispatch(commonFetch(ACTIVITY_GROUP_ADD, 'POST', formData))
-      .then(({ error_code }) => {
-        if (error_code === 0) {
-          this.props.dispatch(hideModal());
-          this.props.callback();
-        } else {
-          this.setState({
-            errorMsg: json.data.error_msg,
-          });
-        }
-      });
+    const activityTriggers = getConfig('activityTriggers');
+    const frequencyTypes = getConfig('frequencyTypes');
+    const sendAwardTypes = getConfig('sendAwardTypes');
+    this.state = {
+      activityTriggers,
+      frequencyTypes,
+      sendAwardTypes,
+    };
   }
 
   render() {
+    const item = this.props.item || {};
     return (
-      <div className="modal-dialog">
-        <div className="modal-content">
-          <ModalHeader title="添加活动" />
-          <div className="modal-body">
-            <form
-              id="add-activity-form"
-              method="post"
-              onSubmit={this.onSubmit}
-            >
-              <Alert msg={this.props.errorMsg} />
-              <Input labelName="活动名称" name="name"  />
-              <input type="hidden" name="type_id" value={this.props.typeId} />
-              <div className="form-group row">
-                <label className="col-sm-4 form-control-label text-xs-right">说明:</label>
-                <div className="col-sm-8 col-md-6">
-                  <textarea name="des" className="form-control"></textarea>
-                </div>
-              </div>
-              <div className="form-group row">
-                <div className="col-sm-offset-4 col-sm-8">
-                  <button type="submit" className="btn btn-primary" >保存</button>
-                </div>
-              </div>
-            </form>
+      <Modal title={this.props.update ? '编辑活动' : '添加活动'}>
+        <form method="post" onSubmit={this.props.submit}>
+          <Alert msg={this.props.errorMsg} />
+          <input type="hidden" name="id" value={item.id} />
+          <input name="group_id" type="hidden" value={item.group_id || this.props.groupId} className="form-control" />
+          <Input required labelName="活动名称" name="name" defaultValue={item.name} />
+          <Input labelName="英文别名" name="alias_name" defaultValue={item.alias_name} />
+          <DateTimeInput required limit labelName="开始时间" name="start_at" defaultValue={item.start_at} />
+          <DateTimeInput required limit labelName="结束时间" name="end_at" defaultValue={item.end_at} />
+          <Select labelName="触发条件" name="trigger_type" options={this.state.activityTriggers} defaultValue={item.trigger_type} />
+          <Select labelName="频次限制" name="frequency" options={this.state.frequencyTypes} defaultValue={item.frequency} />
+          <Select labelName="发奖规则" name="award_rule" options={this.state.sendAwardTypes} defaultValue={item.award_rule} />
+          <input type="hidden" name="trigger_index" value="1" />
+          <div className="form-group row">
+            <label className="col-sm-4 text-xs-right">说明:</label>
+            <div className="col-sm-6">
+              <textarea name="des" className="form-control" defaultValue={item.des}></textarea>
+            </div>
           </div>
-        </div>
-      </div>
+          <Submit />
+        </form>
+      </Modal>
     );
   }
 }
+
 ActivityAddModal.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  callback: PropTypes.func.isRequired,
-  typeId: PropTypes.number.isRequired,
+  groupId: PropTypes.number,
+  submit: PropTypes.func.isRequired,
+  errorMsg: PropTypes.string,
+  update: PropTypes.bool,
 }
 
-export default connect()(ActivityAddModal);
+ActivityAddModal.defaultProps = {
+  errorMsg: '',
+}
+
+export default connect( state => {
+  const { omg } = state;
+  const errorMsg = omg.errorMsg[ACTIVITY_ADD] || '';
+  return {
+    errorMsg,
+  };
+})(ActivityAddModal);

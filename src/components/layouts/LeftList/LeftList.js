@@ -13,7 +13,7 @@ function LeftList() {
       <Link className="list-group-item" to="/awardsend">
         <i className="fa fa-gift" aria-hidden="true"></i> 手动发放奖励
       </Link>
-      <Link className="list-group-item" to="/banner/1">
+      <Link className="list-group-item" to="/banner/mobile">
         <i className="fa fa-angellist" aria-hidden="true"></i> banner图
       </Link>
       <Link className="list-group-item" to="/startup/1">

@@ -9,7 +9,6 @@
 
 import React from 'react';
 import App from '../components/layouts/App';
-import Wrapper from '../components/layouts/Wrapper'
 
 // Child routes
 import activity from './activity';
@@ -20,7 +19,6 @@ import channel from './channel';
 import award from './award';
 import article from './article';
 import banner from './banner';
-import login from './login';
 import startup from './startup';
 import awardsend from './awardsend';
 import appupdate from './appupdate';
@@ -33,7 +31,6 @@ export default {
     appupdate,
     awardsend,
     startup,
-    login,
     activity,
     channel,
     award,
@@ -47,20 +44,9 @@ export default {
   async action({ next, render, context, path }) {
     const component = await next();
     if (component === undefined) return component;
-    let name = '';
-    if (component.type && component.type.WrappedComponent && component.type.WrappedComponent.displayName) {
-      name = component.type.WrappedComponent.displayName;
-    }
-    switch (name) {
-      case 'Login':
-        return render(
-          <Wrapper context={context} >{component}</Wrapper>
-        );
-      default:
-        return render(
-          <App context={context}>{component}</App>
-        );
-    }
+    return render(
+      <App context={context}>{component}</App>
+    );
   },
 
 };

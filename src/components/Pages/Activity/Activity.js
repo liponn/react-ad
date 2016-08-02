@@ -2,10 +2,11 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { commonFetch, fetchAction } from '../../../actions/omg';
 import { showModal, hideModal } from '../../../actions/modal';
-import { ACTIVITY_INFO, ACTIVITY_RULE_LIST, ACTIVITY_AWARD_LIST, ACTIVITY_RULE_DEL, ACTIVITY_AWARD_ADD, ACTIVITY_AWARD_DEL} from '../../../constants';
+import { ACTIVITY_INFO, ACTIVITY_RULE_LIST, ACTIVITY_AWARD_LIST, ACTIVITY_RULE_DEL, ACTIVITY_AWARD_ADD, ACTIVITY_AWARD_DEL, ACTIVITY_PUT } from '../../../constants';
 import RuleAddModal from '../../modals/RuleAddModal';
 import Award from '../../pages/Award';
 import { Card, Modal, Text, Alert, Input, Submit } from '../../tools';
+import ActivityAddModal from '../../modals/ActivityAddModal';
 import { getConfig } from '../../../config/omg';
 
 class Activity extends Component {
@@ -13,6 +14,7 @@ class Activity extends Component {
     super(props);
     this.showAddRuleModal = this.showAddRuleModal.bind(this);
     this.showAddAwardModal = this.showAddAwardModal.bind(this);
+    this.showUpdateActivity = this.showUpdateActivity.bind(this);
     this.freshRuleList = this.freshRuleList.bind(this);
     this.freshAwardList = this.freshAwardList.bind(this);
     this.freshActivityInfo = this.freshActivityInfo.bind(this);
@@ -20,6 +22,8 @@ class Activity extends Component {
     this.awardDel = this.awardDel.bind(this);
     this.addAward = this.addAward.bind(this);
     this.handleRule = this.handleRule.bind(this);
+    this.updateActivity = this.updateActivity.bind(this);
+    
     const awardTypes = getConfig('awardTypes');
     const activityTriggers = getConfig('activityTriggers');
     const frequencyTypes = getConfig('frequencyTypes');
@@ -50,9 +54,9 @@ class Activity extends Component {
   // 刷新规则
   freshRuleList() {
     this.props.dispatch(fetchAction({
-      type: ACTIVITY_RULE_LIST,  
+      type: ACTIVITY_RULE_LIST,
       suffix: `/${this.props.activityId}`,
-      key: this.props.activityId, 
+      key: this.props.activityId,
     }));
   }
   // 刷新奖品
@@ -65,6 +69,30 @@ class Activity extends Component {
       method: 'POST',
       key: this.props.activityId,
     }));
+  }
+  // 更新活动
+  updateActivity(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    this.props.dispatch(fetchAction({
+      type: ACTIVITY_PUT,
+      method: 'POST',
+      formData,     
+    })).then(json => {
+      if (json.error_code === 0) {
+        this.props.dispatch(hideModal(true));
+        this.freshActivityInfo();
+      }
+    });
+  }
+  showUpdateActivity() {
+    if (!this.activity || !this.activity.id) {
+      this.setState({
+        errorMsg: '无法获取详情',
+      });
+      return;
+    }
+    this.props.dispatch(showModal(<ActivityAddModal item={this.activity} update submit={this.updateActivity} />));
   }
   // 显示添加规则
   showAddRuleModal() {
@@ -81,17 +109,23 @@ class Activity extends Component {
   }
   // 删除规则
   ruleDel(e) {
-    const ruleId = $(e.target).data('id');
+    const id = $(e.target).data('id');
+    if (!confirm(`确认删除ID: ${id}吗?`)) {
+      return;
+    }
     const formData = new FormData;
-    formData.append('id', ruleId);
+    formData.append('id', id);
     this.props.dispatch(commonFetch(ACTIVITY_RULE_DEL, 'POST', formData))
       .then((() => this.freshRuleList()));
   }
   // 删除奖品
   awardDel(e) {
-    const ruleId = $(e.target).data('id');
+    const id = $(e.target).data('id');
+    if (!confirm(`确认删除ID: ${id}吗?`)) {
+      return;
+    }
     const formData = new FormData;
-    formData.append('id', ruleId);
+    formData.append('id', id);
     this.props.dispatch(commonFetch(ACTIVITY_AWARD_DEL, 'POST', formData))
       .then((() => this.freshAwardList()));
   }
@@ -131,16 +165,23 @@ class Activity extends Component {
         return getConfig('userLevels', value);
       default:
         return value;
-    } 
+    }
   }
-  
   render() {
     const activity = this.props.activityList[this.props.activityId] || {};
+    this.activity = activity;
     const awards = this.props.awardList[this.props.activityId] || [];
     const rules = this.props.ruleList[this.props.activityId] || [];
+    const updateActivityBtn = (
+      <button
+        onClick={this.showUpdateActivity}
+        className="btn btn-sm btn-info pull-right"
+      >
+        <i className="fa fa-edit">编辑</i>
+      </button>
+    );
     const addRuleBtn = (
       <button
-        type="button"
         onClick={this.showAddRuleModal}
         className="btn btn-sm btn-info pull-right"
       >
@@ -159,7 +200,7 @@ class Activity extends Component {
     )
     return (
       <div>
-        <Card title="活动详情" >
+        <Card title="活动详情" btn={updateActivityBtn} >
           <Text name="活动名称" value={activity.name} />
           <Text name="活动别名" value={activity.alias_name} />
           

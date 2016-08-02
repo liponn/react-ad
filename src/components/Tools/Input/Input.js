@@ -3,23 +3,6 @@ import React, { PropTypes, Component } from 'react';
 class Input extends Component {
   constructor(props) {
     super(props);
-    this.valueChange = this.valueChange.bind(this);
-    this.state = {
-      value: props.value,
-    };
-  }
-  componentWillReceiveProps(props) {
-    if (typeof props.value !== 'undefined') {
-      this.setState({
-        value: props.value,
-      });
-    }
-  }
-  valueChange(e) {
-    const value = e.target.value;
-    this.setState({
-      value,
-    });
   }
   render() {
     return (
@@ -34,9 +17,7 @@ class Input extends Component {
             type={this.props.type}
             name={this.props.name}
             className="form-control"
-            value={this.state.value}
             defaultValue={this.props.defaultValue}
-            onChange={this.valueChange}
           />
         </div>
       </div>
@@ -48,7 +29,6 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
   labelName: PropTypes.string.isRequired,
   type: PropTypes.string,
-  value: PropTypes.any,
   defaultValue: PropTypes.any,
   required: PropTypes.bool,
   placeholder: PropTypes.string,

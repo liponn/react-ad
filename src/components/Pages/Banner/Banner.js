@@ -1,10 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { ImgBox, Card, Status } from '../../tools';
-import { showModal } from '../../../actions/modal';
+import { Modal, Alert, Input, Status, ImgBox, Card, Submit, DateTimeInput, AttachmentInput } from '../../tools';
+import { BANNER_LIST, BANNER_DEL, BANNER_DISABLE, BANNER_ENABLE, BANNER_UP, BANNER_DOWN, BANNER_ADD, BANNER_INFO, BANNER_PUT } from '../../../constants';
+import { showModal, hideModal } from '../../../actions/modal';
 import { fetchAction } from '../../../actions/omg';
-import { BANNER_LIST, BANNER_DEL, BANNER_DISABLE, BANNER_ENABLE, BANNER_UP, BANNER_DOWN } from '../../../constants';
-import BannerAddModal from '../../modals/BannerAddModal';
 import { getConfig } from '../../../config/omg';
 import hisotry from '../../../core/history';
 
@@ -12,18 +11,22 @@ import hisotry from '../../../core/history';
 class Banner extends Component {
   constructor(props) {
     super(props);
-    this.showAddModal = this.showAddModal.bind(this);
     this.enable = this.enable.bind(this);
     this.disable = this.disable.bind(this);
     this.up = this.up.bind(this);
     this.down = this.down.bind(this);
+    this.add = this.add.bind(this);
     this.freshData = this.freshData.bind(this);
     this.del = this.del.bind(this);
+    this.update = this.update.bind(this);
+    this.showAdd = this.showAdd.bind(this);
+    this.showUpdate = this.showUpdate.bind(this);
     const bannerTypes = getConfig('bannerTypes');
     this.state = {
       bannerTypes,
     };
   }
+  static items = [];
   componentDidMount() {
     this.freshData(this.props.type);
   }
@@ -41,12 +44,12 @@ class Banner extends Component {
       queryObj,
     }));
   }
-  showAddModal() {
-    const modalView = <BannerAddModal type={this.props.type} callback={this.freshData} />;
+  showAdd() {
+    const modalView = <AddModal type={this.props.type} submit={this.add} />;
     this.props.dispatch(showModal(modalView));
   }
   enable(e) {
-    const id = $(e.target).data('id');
+    const id = e.target.dataset.id;
     const formData = new FormData;
     formData.append('id', id);
     this.props.dispatch(fetchAction({
@@ -67,6 +70,24 @@ class Banner extends Component {
       formData,
     })).then(() => {
       this.freshData(this.props.type);
+    });
+  }
+  add(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    this.props.dispatch(fetchAction({
+      type: BANNER_ADD,
+      method: 'POST',
+      formData,
+    })).then((json) => {
+      if (json.error_code === 0) {
+        this.props.dispatch(hideModal(true));
+        this.freshData(this.props.type);
+      } else {
+        this.setState({
+          addErrorMsg: json.data.error_msg,
+        });
+      }
     });
   }
   up(e) {
@@ -93,8 +114,36 @@ class Banner extends Component {
       this.freshData(this.props.type);
     });
   }
+  update(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    this.props.dispatch(fetchAction({
+      type: BANNER_PUT,
+      method: 'POST',
+      formData,
+    })).then((json) => {
+      if (json.error_code === 0) {
+        this.props.dispatch(hideModal(true));
+        this.freshData(this.props.type);
+      } else {
+        this.setState({
+          addErrorMsg: json.data.error_msg,
+        });
+      }
+    });
+  }
+  showUpdate(e) {
+    const id = e.target.dataset.id;
+    const index = e.target.dataset.index;
+    const item = this.items[index] || {};
+    const modalView = <AddModal type={this.props.type} item={item} id={id} submit={this.update} />;
+    this.props.dispatch(showModal(modalView));
+  }
   del(e) {
     const id = $(e.target).data('id');
+    if (!confirm(`确认删除 ID:${id} 吗?`)) {
+      return;
+    }
     const formData = new FormData;
     formData.append('id', id);
     this.props.dispatch(fetchAction({
@@ -114,11 +163,12 @@ class Banner extends Component {
     const btn = (
       <button
         className="btn btn-info btn-sm pull-xs-right"
-        onClick={this.showAddModal}
+        onClick={this.showAdd}
       >添加</button>
     );
     const banner = banners[type] || {};
     const items = banner.data || [];
+    this.items = items;
     return (
       <div>
         <div>
@@ -151,7 +201,7 @@ class Banner extends Component {
               </tr>
             </thead>
             <tbody>
-            {items.map((item)=>(
+            {items.map((item, index)=>(
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td><a title={item.img_url} href={item.img_url} target="_blank">查看</a></td>
@@ -164,6 +214,7 @@ class Banner extends Component {
                   <button hidden={+item.can_use === 0} className="btn btn-sm btn-warning-outline" data-id={item.id} onClick={this.disable}>下线</button>
                   <button className="btn btn-sm btn-info-outline" data-id={item.id} onClick={this.up}>上移</button>
                   <button className="btn btn-sm btn-info-outline" data-id={item.id} onClick={this.down}>下移</button>
+                  <button className="btn btn-sm btn-success-outline" data-id={item.id} data-index={index} onClick={this.showUpdate}>编辑</button>
                   <button className="btn btn-sm btn-danger-outline" data-id={item.id} onClick={this.del}>删除</button>
                 </td>
               </tr>
@@ -192,3 +243,36 @@ export default connect(state => {
     banners,
   };
 })(Banner);
+
+class AddModal extends Component {
+  constructor(props) {
+    super(props);
+  }
+  static propTypes = {
+    submit: PropTypes.func.isRequired,
+    type: PropTypes.string.isRequired,
+    errorMsg: PropTypes.string,
+    item: PropTypes.object,
+  }
+  static defaultProps = {
+    item: {},
+  }
+
+  render() {
+    return (
+      <Modal title="添加banner">
+        <form method="post" onSubmit={this.props.submit}>
+          <Alert msg={this.props.errorMsg} />
+          <input type="hidden" name="id" value={this.props.item.id} />
+          <input type="hidden" name="position" value={this.props.item.position || this.props.type} />
+          <Input labelName="图片名称" name="name" defaultValue={this.props.item.name} />
+          <AttachmentInput labelName="banner图片" position={`banner_${this.props.item.position}`} name="img_path" defaultValue={this.props.item.img_path} />
+          <Input labelName="跳转链接" name="url" defaultValue={this.props.item.url} />
+          <DateTimeInput labelName="开始时间" name="start" defaultValue={this.props.item.start} />
+          <DateTimeInput labelName="结束时间" name="end" defaultValue={this.props.item.end} />
+          <Submit />
+        </form>
+      </Modal>
+    );
+  }
+}

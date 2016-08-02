@@ -40,7 +40,7 @@ class AttachmentInput extends Component {
             className="col-sm-4 form-control-label text-xs-right"
           >{this.props.labelName}:</label>
           <div className="col-sm-3" >
-            <ImgBox src={this.state.value} />
+            <ImgBox src={this.state.value || this.props.defaultValue} />
           </div>
           <div className="col-sm-3">
             <UploadBtn callback={this.imgUpload} position={this.props.position} />
@@ -57,8 +57,9 @@ AttachmentInput.propTypes = {
   name: PropTypes.string.isRequired,
   labelName: PropTypes.string.isRequired,
   type: PropTypes.string,
-  defaultValue: PropTypes.any,
   required: PropTypes.bool,
+  defaultValue: PropTypes.any,
+  position: PropTypes.string.isRequired,
 }
 
 AttachmentInput.defaultProps = {

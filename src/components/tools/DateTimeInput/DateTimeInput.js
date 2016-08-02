@@ -6,11 +6,19 @@ class DateTimeInput extends Component {
     this.limitChange = this.limitChange.bind(this);
     this.dateChange = this.dateChange.bind(this);
     this.timeChange = this.timeChange.bind(this);
-    
+    let date = '';
+    let time = '00:00:00';
+    if (props.defaultValue) {
+      const arr = props.defaultValue.split(' ');
+      if (arr.length === 2) {
+        date = arr[0];
+        time = arr[1];
+      }
+    }
     this.state = {
       disabled: false,
-      date: '',
-      time: '',
+      date,
+      time,
     };
   }
   componentDidMount() {
@@ -56,6 +64,7 @@ class DateTimeInput extends Component {
   }
   render() {
     let dateTime = '';
+
     if (this.state.date && this.state.time) {
       dateTime = `${this.state.date} ${this.state.time}`;
     }
@@ -70,6 +79,7 @@ class DateTimeInput extends Component {
             disabled={this.state.disabled}
             ref="datePicker"
             type="text"
+            defaultValue={this.state.date}
             className="form-control"
             placeholder="YYYY-MM-DD"
           />
@@ -81,6 +91,7 @@ class DateTimeInput extends Component {
             disabled={this.state.disabled}
             ref="timePicker"
             type="text"
+            defaultValue={this.state.time}
             className="form-control"
             placeholder="hh:mm:ss"
           />
@@ -98,6 +109,7 @@ DateTimeInput.propTypes = {
   labelName: PropTypes.string.isRequired,
   required: PropTypes.bool,
   limit: PropTypes.bool,
+  defaultValue: PropTypes.string,
 }
 
 DateTimeInput.defaultProps = {

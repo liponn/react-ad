@@ -16,6 +16,10 @@ import { Provider } from 'react-redux';
 import Header from '../Header';
 import LeftList from '../LeftList';
 import Modal from '../Modal';
+import Main from '../Main';
+import Login from '../Login';
+import { fetchAction } from '../../../actions/omg';
+import { ACCOUNT_PROFILE } from '../../../constants';
 
 class App extends Component {
 
@@ -46,10 +50,13 @@ class App extends Component {
   }
 
   componentWillMount() {
-    const { insertCss } = this.props.context;
+    const { insertCss, store } = this.props.context;
     this.removeCss = insertCss(s);
+    // 尝试获取用户信息,用来判断登录
+    store.dispatch(fetchAction({
+      type: ACCOUNT_PROFILE,
+    }));
   }
-
   componentWillUnmount() {
     this.removeCss();
   }
@@ -62,15 +69,18 @@ class App extends Component {
     const store = this.props.context.store;
     return (
       <Provider store={store}>
-        <div id="main">
-          <Header />
-          <div id="left-column" className="col-sm-2 p-x-0">
-            <LeftList />
-          </div>
-          <div className="col-sm-10 m-t-1">
-            {this.props.children}
-          </div>
-          <Modal />
+        <div>
+          <Login />
+          <Main>
+            <Header />
+            <div id="left-column" className="col-sm-2 p-x-0">
+              <LeftList />
+            </div>
+            <div className="col-sm-10 m-t-1">
+              {this.props.children}
+            </div>
+            <Modal />
+          </Main>
         </div>
       </Provider>
     );

@@ -1,13 +1,13 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { commonFetch, fetchAction } from '../../../actions/omg';
-import { showModal } from '../../../actions/modal';
-import { ACTIVITY_GROUP_DEL, ACTIVITY_GROUP_LIST, ACTIVITY_OFFLINE, ACTIVITY_RELEASE, ACTIVITY_DEL } from '../../../constants';
+import { showModal, hideModal } from '../../../actions/modal';
+import { ACTIVITY_GROUP_DEL, ACTIVITY_GROUP_LIST, ACTIVITY_OFFLINE, ACTIVITY_RELEASE, ACTIVITY_DEL, ACTIVITY_ADD } from '../../../constants';
 import { Link, Card, Modal, Radio, Pagination } from '../../tools';
 import history from '../../../core/history';
 import { getConfig } from '../../../config/omg';
+import ActivityGroupAddModal from '../../modals/ActivityGroupAddModal';
 import ActivityAddModal from '../../modals/ActivityAddModal';
-import ActivityAdd from '../../activity/ActivityAdd';
 
 class ActivityList extends Component {
   constructor(props) {
@@ -21,6 +21,7 @@ class ActivityList extends Component {
     this.typeChange = this.typeChange.bind(this);
     this.getGroupList = this.getGroupList.bind(this);
     this.freshGroupList = this.freshGroupList.bind(this);
+    this.saveActivity = this.saveActivity.bind(this);
     this.groupClick = this.groupClick.bind(this);
     const types = getConfig('activityTypes');
     this.state = {
@@ -50,7 +51,19 @@ class ActivityList extends Component {
     this.getGroupList(this.props.typeId, this.props.page);
   }
   showModal() {
-    this.props.dispatch(showModal(<ActivityAddModal callback={this.freshGroupList} typeId={this.props.typeId} />));
+    this.props.dispatch(showModal(<ActivityGroupAddModal callback={this.freshGroupList} typeId={this.props.typeId} />));
+  }
+
+  saveActivity(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    this.props.dispatch(commonFetch(ACTIVITY_ADD, 'POST', formData))
+      .then((json) => {
+        if (json.error_code === 0) {
+          this.props.dispatch(hideModal());
+          history.push(`/activity/id/${json.data.insert_id}`);
+        }
+      });
   }
   activityRelease(e) {
     const id = $(e.target).data('id');
@@ -83,9 +96,7 @@ class ActivityList extends Component {
   showActivityAddModal(e) {
     const id = +$(e.target).data('id');
     const modalView = (
-      <Modal title="添加活动">
-        <ActivityAdd groupId={id} />
-      </Modal>
+      <ActivityAddModal submit={this.saveActivity} groupId={id} />
     );
     this.props.dispatch(showModal(modalView));
   }
@@ -180,8 +191,8 @@ class ActivityList extends Component {
                     <td>&nbsp;&nbsp;{activity.name}</td>
                     <td>{activity.alias_name ? activity.alias_name : '-'}</td>
                     <td>{getConfig('activityTriggers', activity.trigger_type)}</td>
-                    <td>{activity.start_at ? activity.start_at : '—'}</td>
-                    <td>{activity.end_at ? activity.start_at : '—'}</td>
+                    <td>{activity.start_at ? activity.start_at : '不限制'}</td>
+                    <td>{activity.end_at ? activity.end_at : '不限制'}</td>
                     <td>
                       <span className="text-success" hidden={!+activity.enable}>上线</span>
                       <span className="text-warning" hidden={+activity.enable}>下线</span></td>
