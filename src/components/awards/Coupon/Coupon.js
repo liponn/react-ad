@@ -49,7 +49,7 @@ class Coupon extends Component {
       <Card title="优惠券" btn={btn}>
         <table className="table m-b-0 table-bordered">
           <thead>
-          <tr><th>id</th><th>名称</th><th>金额</th><td>操作</td></tr>
+            <tr><th>id</th><th>名称</th><th>金额</th><td>操作</td></tr>
           </thead>
           <tbody>
           {data.map((item) => {

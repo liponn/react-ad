@@ -11,7 +11,8 @@ class InviteRule extends Component {
     return (
       <form onSubmit={this.props.submit}>
         <input type="hidden" name="activity_id" value={this.props.activityId} />
-        <Input labelName="邀请用户数量" type="number" name="invite_num" />
+        <Input labelName="最小邀请人数" type="number" name="min_invite_num" />
+        <Input labelName="最大邀请人数" type="number" name="max_invite_num" />
         <Submit />
       </form>
     );

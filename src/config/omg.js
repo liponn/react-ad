@@ -73,6 +73,7 @@ import {
   ACCOUNT_LOGIN,
   ACCOUNT_PROFILE,
   ACCOUNT_LOGOUT,
+  ACCOUNT_CAPTCHA,
 
   STARTUP_ADD,
   STARTUP_DISABLE,
@@ -165,6 +166,7 @@ apiList[ATTACHMENT_LIST] = '/img/img-list';
 apiList[ACCOUNT_LOGIN] = '/account/login';
 apiList[ACCOUNT_PROFILE] = '/account/profile';
 apiList[ACCOUNT_LOGOUT] = '/account/logout';
+apiList[ACCOUNT_CAPTCHA] = '/account/captcha';
 
 apiList[STARTUP_ADD] = '/img/app-add';
 apiList[STARTUP_DISABLE] = '/img/app-offline';

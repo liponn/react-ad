@@ -4,6 +4,16 @@ class Input extends Component {
   constructor(props) {
     super(props);
   }
+  componentDidMount() {
+    if (this.props.value) {
+      this.refs.input.value = this.props.value;
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value && nextProps.value !== this.props.value) {
+      this.refs.input.value = nextProps.value;
+    }
+  }
   render() {
     return (
       <div className="form-group row">
@@ -12,6 +22,7 @@ class Input extends Component {
         >{this.props.labelName}:</label>
         <div className="col-sm-6">
           <input
+            ref="input"
             placeholder={this.props.placeholder}
             required={this.props.required}
             type={this.props.type}
@@ -30,6 +41,7 @@ Input.propTypes = {
   labelName: PropTypes.string.isRequired,
   type: PropTypes.string,
   defaultValue: PropTypes.any,
+  value: PropTypes.any,
   required: PropTypes.bool,
   placeholder: PropTypes.string,
 }
