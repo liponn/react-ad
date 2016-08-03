@@ -16,7 +16,8 @@ class InviteRule extends Component {
     return (
       <form onSubmit={this.props.submit}>
         <input type="hidden" name="activity_id" value={this.props.activityId} />
-        <Select labelName="用户等级" name="user_level" options={this.state.userLevels} />
+        <Select labelName="最小用户等级" name="min_level" options={this.state.userLevels} />
+        <Select labelName="最大用户等级" name="max_level" options={this.state.userLevels} />
         <Submit />
       </form>
     );
