@@ -91,6 +91,16 @@ import {
   
   FEEDBACK_LIST,
 
+  NOTICE_ADD,
+  NOTICE_DEL,
+  NOTICE_DETAIL,
+  NOTICE_DOWN,
+  NOTICE_LIST,
+  NOTICE_OFFLINE,
+  NOTICE_PUT,
+  NOTICE_RELEASE,
+  NOTICE_UP,
+
 } from '../constants/index.js';
 
 // const apiHost = 'http://api-omg.wanglibao.com/yunying';
@@ -188,6 +198,16 @@ apiList[STARTUP_UP] = '/img/app-up';
 apiList[STARTUP_DOWN] = '/img/app-down';
 
 apiList[FEEDBACK_LIST] = '/cms/content/opinion-list';
+
+apiList[NOTICE_ADD] = '/notice/add';
+apiList[NOTICE_DEL] = '/notice/del';
+apiList[NOTICE_DETAIL] = '/notice/detail';
+apiList[NOTICE_DOWN] = '/notice/down';
+apiList[NOTICE_LIST] = '/notice/list';
+apiList[NOTICE_OFFLINE] = '/notice/offline';
+apiList[NOTICE_PUT] = '/notice/put';
+apiList[NOTICE_RELEASE] = '/notice/release';
+apiList[NOTICE_UP] = '/notice/up';
 
 
 function getApi(type) {

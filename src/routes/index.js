@@ -23,12 +23,14 @@ import startup from './startup';
 import awardsend from './awardsend';
 import appupdate from './appupdate';
 import feedback from './feedback';
+import notice from './notice';
 
 export default {
 
   path: '/',
 
   children: [
+    notice,
     feedback,
     appupdate,
     awardsend,

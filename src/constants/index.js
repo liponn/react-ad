@@ -112,3 +112,14 @@ export const STARTUP_DEL = 'STARTUP_DEL';
 export const STARTUP_UP = 'STARTUP_UP';
 export const STARTUP_DOWN = 'STARTUP_DOWN';
 
+// 公告
+export const NOTICE_ADD = 'NOTICE_ADD';
+export const NOTICE_LIST = 'NOTICE_LIST';
+export const NOTICE_DEL = 'NOTICE_DEL';
+export const NOTICE_PUT = 'NOTICE_PUT';
+export const NOTICE_DETAIL = 'NOTICE_DETAIL';
+export const NOTICE_RELEASE = 'NOTICE_RELEASE';
+export const NOTICE_OFFLINE = 'NOTICE_OFFLINE';
+export const NOTICE_UP = 'NOTICE_UP';
+export const NOTICE_DOWN = 'NOTICE_DOWN';
+
