@@ -22,12 +22,14 @@ import banner from './banner';
 import startup from './startup';
 import awardsend from './awardsend';
 import appupdate from './appupdate';
+import feedback from './feedback';
 
 export default {
 
   path: '/',
 
   children: [
+    feedback,
     appupdate,
     awardsend,
     startup,

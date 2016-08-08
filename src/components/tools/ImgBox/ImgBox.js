@@ -7,7 +7,7 @@ class ImgBox extends Component {
 
   render() {
     return (
-      <div style={{ outline: '1px solid #f5f5f5',  background: '#f5f5f5 center center no-repeat', backgroundImage: `url("${this.props.src}")`, backgroundSize: 'contain' }}>
+      <div className="img-pop" title="点击查看大图" data-url={this.props.src} style={{ outline: '1px solid #f5f5f5',  background: '#f5f5f5 center center no-repeat', backgroundImage: `url("${this.props.src}")`, backgroundSize: 'contain' }}>
         <div style={{ paddingTop: '100%' }} ></div>
       </div>
     );

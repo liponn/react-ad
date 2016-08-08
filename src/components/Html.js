@@ -18,6 +18,7 @@ function Html({ title, description, style, script, children, state }) {
         <link rel="stylesheet" type="text/css" href="/css/picker/default.css" />
         <link rel="stylesheet" type="text/css" href="/css/picker/default.date.css" />
         <link rel="stylesheet" type="text/css" href="/css/picker/default.time.css" />
+        <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
 
         <style id="css" dangerouslySetInnerHTML={{ __html: style }} />
       </head>
@@ -31,6 +32,8 @@ function Html({ title, description, style, script, children, state }) {
         <script src="/lib/picker/picker.time.js" />
         <script src="/lib/picker/picker.zh_cn.js" />
         <script src="/js/tinymce/tinymce.min.js" />
+        <script src="/lib/fancybox/jquery.fancybox.pack.js" />
+        <script src="/js/main.js" />
         {script && (
           <script
             id="source"

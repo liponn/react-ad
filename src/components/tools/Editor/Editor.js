@@ -30,7 +30,7 @@ class Editor extends Component {
     return (
       <div className="form-group row">
         <div className="col-sm-12">
-          <input type="hidden" name={this.props.name} value={this.state.value} />
+          <input type="hidden" name={this.props.name} value={this.state.value || this.props.defaultValue} />
           <TinyMce
             config={{
               height: 500,
@@ -42,7 +42,7 @@ class Editor extends Component {
               toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
               language: 'zh_CN',
             }}
-            name={this.props.name}
+            content={this.props.defaultValue}
             onChange={this.valueChange}
           />
         </div>
@@ -55,6 +55,7 @@ Editor.propTypes = {
   value: PropTypes.any,
   name: PropTypes.string.isRequired,
   required: PropTypes.bool,
+  defaultValue: PropTypes.any,
 }
 
 Editor.defaultProps = {

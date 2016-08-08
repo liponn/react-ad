@@ -96,7 +96,10 @@ class Interest extends Component {
                   <Popover name="站内信" title="站内信" content={!item.message ? '无' : `${item.message} `} />
                   <Popover name="短信" title="短信" content={!item.mail ? '无' : `${item.mail} `} />
                 </td>
-                <td>{addAwardBtn}</td>
+                <td>
+                  <button className="btn btn-success-outline btn-sm" data-id={item.id} onClick={this.downArticle}>编辑</button>
+                  {addAwardBtn}
+                </td>
               </tr>
             );
           })}

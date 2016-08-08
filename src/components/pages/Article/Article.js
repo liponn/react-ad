@@ -2,12 +2,11 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { commonFetch ,fetchAction} from '../../../actions/omg';
 import { getConfig } from '../../../config/omg';
-import { Link, Radio, Status, Popover } from '../../tools';
+import { Link, Radio, Status, Popover, Alert } from '../../tools';
 import history from '../../../core/history';
 import { showModal, hideModal } from '../../../actions/modal';
 import ArticleAddModal from '../../modals/ArticleAddModal';
-import ArticlePutModal from '../../modals/ArticlePutModal';
-import { ARTICLE_LIST, ARTICLE_TYPE_LIST, ARTICLE_DEL, ARTICLE_RELEASE, ARTICLE_OFFLINE, ARTICLE_DOWN, ARTICLE_UP } from '../../../constants';
+import { ARTICLE_LIST, ARTICLE_ADD, ARTICLE_PUT, ARTICLE_TYPE_LIST, ARTICLE_DEL, ARTICLE_RELEASE, ARTICLE_OFFLINE, ARTICLE_DOWN, ARTICLE_UP } from '../../../constants';
 
 class Article extends Component {
   constructor(props) {
@@ -16,14 +15,16 @@ class Article extends Component {
     this.delArticle = this.delArticle.bind(this);
     this.releaseArticle = this.releaseArticle.bind(this);
     this.offLineArticle = this.offLineArticle.bind(this);
-    this.showPutModal = this.showPutModal.bind(this);
     this.upArticle = this.upArticle.bind(this);
     this.downArticle = this.downArticle.bind(this);
-    this.articleByType = this.articleByType.bind(this);
     this.typeChange = this.typeChange.bind(this);
     this.getType = this.getType.bind(this);
     this.getArticle = this.getArticle.bind(this);
     this.freshArticle = this.freshArticle.bind(this);
+    this.add = this.add.bind(this);
+    this.update = this.update.bind(this);
+    this.showUpdate = this.showUpdate.bind(this);
+    
     const currentId = this.props.secId || this.props.firId || 0;
     this.state = {
       currentId,
@@ -37,14 +38,25 @@ class Article extends Component {
     this.getArticle(this.state.currentId);
   }
   showModal() {
-    const modalView = <ArticleAddModal typeId={this.state.currentId} callback={this.freshArticle} />;
+    const modalView = <ArticleAddModal typeId={this.state.currentId} submit={this.add} />;
     this.props.dispatch(showModal(modalView));
   }
-
-  showPutModal(e){
-    const id = $(e.target).data('id');
-    const putModalView = <ArticlePutModal articleId={id}/>;
-    this.props.dispatch(showModal(putModalView));
+  add(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const { dispatch } = this.props;
+    dispatch(fetchAction({
+      type: ARTICLE_ADD,
+      method: 'POST',
+      formData,
+    })).then(json => {
+      if (json.error_code === 0) {
+        dispatch(hideModal(true));
+        this.freshArticle();
+      } else {
+        alert(json.data.error_msg);
+      }
+    });
   }
   hideModal() {
     this.props.dispatch(hideModal());
@@ -113,33 +125,52 @@ class Article extends Component {
   }
 
   upArticle(e) {
-    const id =$(e.target).data('id');
+    const id = $(e.target).data('id');
     this.props.dispatch(commonFetch(ARTICLE_UP, 'GET',false ,"/"+id))
       .then(() => (this.freshArticle()));
   }
   downArticle(e) {
-    const id =$(e.target).data('id');
+    const id = $(e.target).data('id');
     this.props.dispatch(commonFetch(ARTICLE_DOWN, 'GET',false ,"/"+id))
       .then(() => (this.freshArticle()));
   }
-  articleByType(e) {
-    const self = $(e.target);
-    const id = self.data('id');
-    $("#articleAdd").attr("data-id",id);
-    self.addClass('focus').siblings().removeClass('focus');
-    self.parent().siblings().find('button').removeClass('focus');
-    if(self.parent().attr('id')=='btnType'){
-      this.props.dispatch(fetchAction({type:ARTICLE_TYPE_LIST,method:'GET',suffix:'/'+id,key:'subType'}))
+  showUpdate(e) {
+    const id = e.target.dataset.id;
+    const index = e.target.dataset.index;
+    const item = this.articles[index] || {};
+    if (item.id !== +id) {
+      this.setState({
+        errorMsg: '编辑信息不匹配,请刷新重试',
+      });
+      return;
     }
-    this.props.dispatch(fetchAction({type:ARTICLE_LIST,method:'GET',suffix: '/'+id+'/10',key:'articleList'}));
+    const modalView = <ArticleAddModal update typeId={this.state.currentId} item={item} submit={this.update} />;
+    this.props.dispatch(showModal(modalView));
+  }
+  update(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const { dispatch } = this.props;
+    dispatch(fetchAction({
+      type: ARTICLE_PUT,
+      method: 'POST',
+      formData,
+    })).then(json => {
+      if (json.error_code === 0) {
+        dispatch(hideModal(true));
+        this.freshArticle();
+      } else {
+        alert(json.data.error_msg);
+      }
+    });
   }
   render() {
-    // const items = this.props.items["articleList"]?this.props.items["articleList"].data:[];
     const typeItems = this.props.typeItems || {};
     const fatherItems = typeItems[0] || [];
     const subItems = typeItems[this.props.firId] || [];
     const articlesObj = this.props.articleList[this.state.currentId] || {};
     const articles = articlesObj.data || [];
+    this.articles = articles;
     return (
       <div>
         {fatherItems.map(item => (
@@ -164,6 +195,7 @@ class Article extends Component {
           />
         ))}
         <hr hidden={subItems.length === 0} />
+        <Alert msg={this.state.errorMsg} />
         <div className="card">
           <div className="card-header clearfix">文章
             <button
@@ -194,7 +226,7 @@ class Article extends Component {
               </tr>
             </thead>
             <tbody>
-            {articles.map((item) => (
+            {articles.map((item, index) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.title}</td>
@@ -202,10 +234,11 @@ class Article extends Component {
                 <td><Status status={+item.release} /></td>
                 <td>{getConfig('platform', item.platform)}</td>
                 <td>
-                  <button className="btn btn-primary-outline btn-sm" hidden={+item.release === 1} data-id={item.id} onClick={this.releaseArticle}>发布</button>
-                  <button className="btn btn-danger-outline btn-sm" hidden={+item.release === 0} data-id={item.id} onClick={this.offLineArticle}>下线</button>
-                  <button className="btn btn-success-outline btn-sm" data-id={item.id} onClick={this.upArticle}>上移</button>
-                  <button className="btn btn-success-outline btn-sm" data-id={item.id} onClick={this.downArticle}>下移</button>
+                  <button className="btn btn-success-outline btn-sm" hidden={+item.release === 1} data-id={item.id} onClick={this.releaseArticle}>发布</button>
+                  <button className="btn btn-warning-outline btn-sm" hidden={+item.release === 0} data-id={item.id} onClick={this.offLineArticle}>下线</button>
+                  <button className="btn btn-info-outline btn-sm" data-id={item.id} onClick={this.upArticle}>上移</button>
+                  <button className="btn btn-info-outline btn-sm" data-id={item.id} onClick={this.downArticle}>下移</button>
+                  <button className="btn btn-success-outline btn-sm" data-index={index} data-id={item.id} onClick={this.showUpdate}>编辑</button>
                   <button className="btn btn-danger-outline btn-sm" data-id={item.id} onClick={this.delArticle}>删除</button>
                 </td>
               </tr>

@@ -28,7 +28,9 @@ function LeftList() {
       <Link className="list-group-item" to="/article">
         <i className="fa fa-paint-brush" aria-hidden="true"></i> 文章
       </Link>
-      
+      <Link className="list-group-item" to="/feedback">
+        <i className="fa fa-paint-brush" aria-hidden="true"></i> 用户反馈
+      </Link>
     </div>
   );
 }

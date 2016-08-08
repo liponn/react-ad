@@ -19,6 +19,10 @@ import {
   ACTIVITY_AWARD_DEL,
   ACTIVITY_AWARD_LIST,
 
+  ACTIVITY_INVITE_AWARD_ADD,
+  ACTIVITY_INVITE_AWARD_DEL,
+  ACTIVITY_INVITE_AWARD_LIST,
+
   APP_ADD,
   APP_DISABLE,
   APP_ENABLE,
@@ -84,11 +88,13 @@ import {
   STARTUP_DEL,
   STARTUP_UP,
   STARTUP_DOWN,
+  
+  FEEDBACK_LIST,
 
 } from '../constants/index.js';
 
-const apiHost = 'http://api-omg.wanglibao.com/yunying';
-// const apiHost = 'https://php1.wanglibao.com/yunying';
+// const apiHost = 'http://api-omg.wanglibao.com/yunying';
+const apiHost = 'https://php1.wanglibao.com/yunying';
 const apiList = {}
 
 apiList[ACTIVITY_INDEX] = '/activity/index';
@@ -110,6 +116,9 @@ apiList[ACTIVITY_RULE_ADD] = '/activity/rule-add';
 apiList[ACTIVITY_AWARD_ADD] = '/activity/award-add';
 apiList[ACTIVITY_AWARD_LIST] = '/activity/award-list';
 apiList[ACTIVITY_AWARD_DEL] = '/activity/award-delete';
+apiList[ACTIVITY_INVITE_AWARD_ADD] = '/activity/award-invite-add';
+apiList[ACTIVITY_INVITE_AWARD_DEL] = '/activity/award-invite-delete';
+apiList[ACTIVITY_INVITE_AWARD_LIST] = '/activity/award-invite-list';
 
 apiList[APP_ADD] = '/app/add';
 apiList[APP_DISABLE] = '/app/close';
@@ -178,6 +187,8 @@ apiList[STARTUP_DEL] = '/img/app-del';
 apiList[STARTUP_UP] = '/img/app-up';
 apiList[STARTUP_DOWN] = '/img/app-down';
 
+apiList[FEEDBACK_LIST] = '/cms/content/opinion-list';
+
 
 function getApi(type) {
   return apiHost + apiList[type];
@@ -245,8 +256,8 @@ const forceTypes = {
 const interestTypes = {
   1: '全周期',
   2: '加息天数',
-  3: '加息时间段',
-  4: '加息月数',
+  //3: '加息时间段',
+  //4: '加息月数',
 }
 
 const userLevels = {
@@ -342,6 +353,13 @@ const platform = {
   3: 'PC端',
 }
 
+const feedbackPlatformTypes = {
+  1: 'ios',
+  2: '安卓',
+  3: 'PC',
+  4: 'H5',
+}
+
 const projectDurationTypes = {
   1: '不限',
   2: '月标',
@@ -350,6 +368,12 @@ const projectDurationTypes = {
   5: '日标',
   6: '日标及以上',
   7: '日标及以下',
+}
+
+const articlePlatformTypes = {
+  0: '全平台',
+  1: 'PC端',
+  2: '移动端',
 }
 
 const platformTypes = {
@@ -407,6 +431,8 @@ const config = {
   appUpdateTypes,
   templateTypes,
   userLevels,
+  articlePlatformTypes,
+  feedbackPlatformTypes,
 }
 
 function getConfig(type, value = false) {
