@@ -226,21 +226,6 @@ function getApi(type) {
   return apiHost + apiList[type];
 }
 
-const typeList = {
-  register: '注册时间',
-  channel: '用户渠道',
-  invite: '是否被邀请',
-  inviteNum: '邀请人数',
-  userLevel: '用户等级',
-  userCredit: '用户积分',
-  balance: '用户余额',
-  cast: '投资金额',
-  reCharge: '充值金额',
-  payment: '回款金额',
-  castAll: '投资总金额',
-  rechargeAll: '充值总金额',
-}
-
 const activityTypes = {
   1: '常规活动',
   2: '渠道活动',
@@ -257,17 +242,6 @@ const frequencyTypes = {
   0: '不限制',
   1: '一天一次',
   2: '仅一次',
-}
-
-const activityTriggers = {
-  0: '主动',
-  1: '注册',
-  2: '充值',
-  3: '绑卡',
-  4: '投资',
-  5: '回款',
-  6: '实名',
-  7: '微信绑定',
 }
 
 const redEnvelopeTypes = {
@@ -332,10 +306,10 @@ const awardTypes = {
 }
 
 const templateTypes = {
-  1: '恭喜你在{{sourcename}}活动中获得了{{awardname}}奖励,请在我的奖励中查看。',
-  2: '恭喜你在{{sourcename}}活动中获得了{{awardname}}奖励,请在我的奖励中查看。',
-  3: '恭喜你在{{sourcename}}活动中获得了{{awardname}}奖励,请在我的奖励中查看。',
-  6: '恭喜你在{{sourcename}}活动中获得了{{awardname}}奖励,请在我的奖励中查看。',
+  1: '恭喜你在\'{{sourcename}}\'活动中获得了\'{{awardname}}\'奖励,请在我的奖励中查看。',
+  2: '恭喜你在\'{{sourcename}}\'活动中获得了\'{{awardname}}\'奖励,请在我的奖励中查看。',
+  3: '恭喜你在\'{{sourcename}}\'活动中获得了\'{{awardname}}\'奖励,请在我的奖励中查看。',
+  6: '恭喜你在\'{{sourcename}}\'活动中获得了\'{{awardname}}\'奖励,请在我的奖励中查看。',
 }
 
 const ruleFileds = {
@@ -362,6 +336,29 @@ const ruleFileds = {
   max_cast_all: '最大投资金额',
 }
 
+const activityTriggers = {
+  0: '主动',
+  1: '注册',
+  2: '充值',
+  3: '首次绑卡',
+  4: '投资',
+  5: '回款',
+  6: '实名',
+  7: '微信绑定',
+}
+
+const triggerRuleFileds = {
+  0: {},
+  1: {},
+  2: { recharge: '充值金额' },
+  3: {},
+  4: { cast: '投资金额' },
+  5: { payment: '回款金额' },
+  6: {},
+  7: {},
+}
+
+
 const ruleTypes = {
   register: '注册时间',
   channel: '用户渠道',
@@ -369,9 +366,6 @@ const ruleTypes = {
   invitenum: '邀请人数',
   userlevel: '用户等级',
   balance: '用户余额',
-  cast: '投资金额',
-  recharge: '充值金额',
-  payment: '回款金额',
   castall: '投资总金额',
   rechargeall: '充值总金额',
 }
@@ -489,6 +483,7 @@ const config = {
   redeemStatus,
   discoverTypes,
   popTypes,
+  triggerRuleFileds,
 }
 
 function getConfig(type, value = false) {
@@ -504,7 +499,7 @@ function getConfig(type, value = false) {
   return config[type][value];
 }
 
-export { getApi, getConfig, typeList };
+export { getApi, getConfig};
 
 
 

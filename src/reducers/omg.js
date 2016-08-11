@@ -10,16 +10,25 @@ function initState() {
     initialNow: Date.now(),
     isFetching: {},
     errorMsg: {},
+    logs: [],
+    lastAction: {}
   };
 }
 export default function omg(state = null, action) {
   if (state === null) {
     return initState();
   }
+  const nextState = {};
+  if (action.status) {
+    const logs = state.logs;
+    nextState.logs = logs;
+    nextState.statues = action.status;
+    nextState.lastAction = action;
+  }
   switch (action.status) {
     case FETCH_REQUEST: {
-      const nextState = {};
       nextState.isFetching = Object.assign({}, state.isFetching, { [action.type]: true });
+      nextState.lastRequest = action.type;
       return Object.assign({}, state, nextState);
     }
     case FETCH_SUCCESS: {
@@ -29,7 +38,6 @@ export default function omg(state = null, action) {
           return initState();
         default:
       }
-      const nextState = {};
       nextState.isFetching = Object.assign({}, state.isFetching, { [action.type]: false });
       nextState.errorMsg = Object.assign({}, state.error_msg, { [action.type]: '' });
       if (action.key !== false) {
@@ -41,14 +49,15 @@ export default function omg(state = null, action) {
       } else {
         nextState[action.type] = action.data;
       }
+      nextState.status = 0;
 
       return Object.assign({}, state, nextState);
     }
     case FETCH_ERROR: {
-      const nextState = {};
-
       nextState.isFetching = Object.assign({}, state.isFetching, { [action.type]: false });
-      nextState.errorMsg = Object.assign({}, state.error_msg, { [action.type]: action.msg }) 
+      nextState.errorMsg = Object.assign({}, state.error_msg, { [action.type]: action.msg });
+      nextState.lastErrorMsg = action.msg;
+      nextState.status = 2;
       return Object.assign({}, state, nextState);
     }
     default: {

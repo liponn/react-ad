@@ -142,8 +142,8 @@ class RedEnvelope extends Component {
                     <td>{getConfig('platformTypes', item.platform_type)}</td>
                     <td><Popover title="限制说明" content={item.limit_desc === '' ? '无' : `${item.limit_desc} `} /></td>
                     <td>
-                      <Popover name="站内信" title="站内信" content={!item.message ? '无' : `${item.message} `} />
-                      <Popover name="短信" title="短信" content={!item.mail ? '无' : `${item.mail} `} />
+                      <Popover name="站内信" title="站内信" content={!item.mail ? '无' : `${item.mail} `} />
+                      <Popover name="短信" title="短信" content={!item.message ? '无' : `${item.message} `} />
                     </td>
                     <td>
                       <button hidden={modal} className="btn btn-success-outline btn-sm" data-id={item.id} data-index={index} onClick={this.showUpdateModal}>编辑</button>

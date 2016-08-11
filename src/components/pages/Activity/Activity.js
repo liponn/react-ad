@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { commonFetch, fetchAction } from '../../../actions/omg';
 import { showModal, hideModal } from '../../../actions/modal';
 import { ACTIVITY_INFO, ACTIVITY_RULE_LIST, ACTIVITY_AWARD_LIST, ACTIVITY_RULE_DEL, ACTIVITY_AWARD_ADD, ACTIVITY_AWARD_DEL, ACTIVITY_PUT, ACTIVITY_INVITE_AWARD_ADD, ACTIVITY_INVITE_AWARD_DEL, ACTIVITY_INVITE_AWARD_LIST } from '../../../constants';
-import RuleAddModal from '../../modals/RuleAddModal';
+import RuleAddModal from './RuleAddModal';
 import Award from '../../pages/Award';
 import { Card, Modal, Text, Alert, Input, Submit } from '../../tools';
 import ActivityAddModal from '../../modals/ActivityAddModal';
@@ -103,16 +103,18 @@ class Activity extends Component {
   // 更新活动
   showUpdateActivity() {
     if (!this.activity || !this.activity.id) {
-      this.setState({
-        errorMsg: '无法获取详情',
-      });
+      alert('获取活动详情失败');
       return;
     }
     this.props.dispatch(showModal(<ActivityAddModal item={this.activity} update submit={this.updateActivity} />));
   }
   // 显示添加规则
   showAddRuleModal() {
-    const ruleAddModal = <RuleAddModal activityId={this.props.activityId} callback={this.freshRuleList} />;
+    if (!this.activity || !this.activity.id) {
+      alert('获取活动详情失败');
+      return;
+    }
+    const ruleAddModal = <RuleAddModal item={this.activity} callback={this.freshRuleList} />;
     this.props.dispatch(showModal(ruleAddModal));
   }
   // 显示添加奖品
@@ -264,7 +266,7 @@ class Activity extends Component {
       <div>
         <Card title="活动详情" btn={updateActivityBtn} >
           <Text name="活动名称" value={activity.name} />
-          <Text name="活动别名" value={activity.alias_name} />
+          <Text name="活动别名" value={activity.alias_name || '—'} />
           
           <Text name="活动id" value={activity.id} />
           <Text name="状态" value={+activity.enable ? '上线' : '下线'} />

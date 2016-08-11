@@ -11,6 +11,9 @@ class Main extends Component {
   }
 
   render() {
+    if (!this.props.profile.id || this.props.fetching) {
+      return false;
+    }
     return (
       <div id="main" hidden={!this.props.profile.id || this.props.fetching} >
         {this.props.children}

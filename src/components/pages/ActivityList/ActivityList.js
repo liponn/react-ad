@@ -80,7 +80,10 @@ class ActivityList extends Component {
       .then(() => (this.freshGroupList()));
   }
   activityDelete(e) {
-    const id = $(e.target).data('id');
+    if (!confirm('确定删除吗')) {
+      return;
+    }
+    const id = e.target.dataset.id;
     const formData = new FormData;
     formData.append('id', id);
     this.props.dispatch(commonFetch(ACTIVITY_DEL, 'POST', formData))
@@ -176,7 +179,7 @@ class ActivityList extends Component {
                         onClick={this.showActivityAddModal}
                         className="btn btn-sm btn-info-outline"
                       >
-                        <i className="fa fa-plus"></i>子活动
+                        <i data-id={item.id} className="fa fa-plus"></i>子活动
                       </button>
                       <button
                         hidden={item.activities.length}
@@ -189,7 +192,7 @@ class ActivityList extends Component {
                 const children = item.activities.map((activity) => (
                   <tr hidden={!this.state.group[item.id]} key={`activity${activity.id}`}>
                     <td>&nbsp;&nbsp;{activity.name}</td>
-                    <td>{activity.alias_name ? activity.alias_name : '-'}</td>
+                    <td>{activity.alias_name ? activity.alias_name : '—'}</td>
                     <td>{getConfig('activityTriggers', activity.trigger_type)}</td>
                     <td>{activity.start_at ? activity.start_at : '不限制'}</td>
                     <td>{activity.end_at ? activity.end_at : '不限制'}</td>
@@ -213,6 +216,7 @@ class ActivityList extends Component {
                         编辑
                       </Link>
                       <button
+                        hidden={activity.enable}
                         data-id={activity.id}
                         onClick={this.activityDelete}
                         className="btn btn-sm btn-danger-outline"

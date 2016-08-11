@@ -3,23 +3,16 @@ import React, { PropTypes, Component } from 'react';
 class PercentInput extends Component {
   constructor(props) {
     super(props);
-    this.onChange = this.onChange.bind(this);
   }
   componentDidMount() {
     if (this.props.value) {
       this.refs.input.value = this.props.value;
-      this.refs.hidden.value = this.props.value / 100;
     }
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.value && nextProps.value !== this.props.value) {
       this.refs.input.value = nextProps.value;
-      this.refs.hidden.value = nextProps.value / 100;
     }
-  }
-  onChange(e) {
-    const value = e.target.value;
-    this.refs.hidden.value = value / 100;
   }
   render() {
     return (
@@ -29,19 +22,12 @@ class PercentInput extends Component {
         >{this.props.labelName}:</label>
         <div className="col-sm-6 input-group">
           <input
-            type="hidden"
-            ref="hidden"
-            name={this.props.name}
-            value={this.props.value && this.props.value / 100}
-            defaultValue={this.props.defaultValue && this.props.defaultValue / 100}
-          />
-          <input
             ref="input"
             placeholder={this.props.placeholder}
             required={this.props.required}
+            name={this.props.name}
             type={this.props.type}
             className="form-control"
-            onChange={this.onChange}
             defaultValue={this.props.defaultValue}
           />
           <div className="input-group-addon">%</div>

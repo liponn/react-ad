@@ -26,7 +26,7 @@ class ActivityAddModal extends Component {
           <input type="hidden" name="id" value={item.id} />
           <input name="group_id" type="hidden" value={item.group_id || this.props.groupId} className="form-control" />
           <Input required labelName="活动名称" name="name" defaultValue={item.name} />
-          <Input labelName="英文别名" name="alias_name" defaultValue={item.alias_name} />
+          <Input labelName="英文别名" name="alias_name" placeholder="可为空" defaultValue={item.alias_name} />
           <DateTimeInput required limit labelName="开始时间" name="start_at" defaultValue={item.start_at} />
           <DateTimeInput required limit labelName="结束时间" name="end_at" defaultValue={item.end_at} />
           <Select labelName="触发条件" name="trigger_type" options={this.state.activityTriggers} defaultValue={item.trigger_type} />

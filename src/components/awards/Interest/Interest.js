@@ -150,10 +150,10 @@ class Interest extends Component {
                   <td>{
                     item.rate_increases_type === 1 ? '全周期' :
                     item.rate_increases_type === 2 ? `${item.rate_increases_time}天` :
-                    item.rate_increases_type === 3 ? [`开始: ${item.rate_increases_start}`, <br />, `结束: ${item.rate_increases_end}`] :
+                    item.rate_increases_type === 3 ? [<span key="filed_start">`开始: ${item.rate_increases_start}`</span>, <br key="filed_br" />, <span key="filed_end">`结束: ${item.rate_increases_end}`</span>] :
                     item.rate_increases_type === 4 ? `${item.rate_increases_time}月` : '未知'
                   }</td>
-                  <td>{item.effective_time_type === 1 ? `${item.effective_time_day}天` : [`开始: ${item.effective_time_start}`, <br />, `结束: ${item.effective_time_end}`]}</td>
+                  <td>{item.effective_time_type === 1 ? `${item.effective_time_day}天` : [<span key="filed_start2">`开始: ${item.effective_time_start}`</span>, <br key="filed_br2" />, <span key="filed_end2">`结束: ${item.effective_time_end}`</span>]}</td>
                   <td>{item.investment_threshold ? `${item.investment_threshold}元` : '不限制'}</td>
                   <td>{getConfig('projectTypes', item.project_type)}</td>
                   <td>{`${item.project_duration_type === 1 ? '' : item.project_duration_time}${getConfig('projectDurationTypes', item.project_duration_type)}`}</td>
@@ -161,8 +161,8 @@ class Interest extends Component {
                   <td>{getConfig('platformTypes', item.platform_type)}</td>
                   <td><Popover title="限制说明" content={item.limit_desc === '' ? '无' : `${item.limit_desc} `} /></td>
                   <td>
-                    <Popover name="站内信" title="站内信" content={!item.message ? '无' : `${item.message} `} />
-                    <Popover name="短信" title="短信" content={!item.mail ? '无' : `${item.mail} `} />
+                    <Popover name="站内信" title="站内信" content={!item.mail ? '无' : `${item.mail} `} />
+                    <Popover name="短信" title="短信" content={!item.message ? '无' : `${item.message} `} />
                   </td>
                   <td>
                     <button hidden={modal} className="btn btn-success-outline btn-sm" data-id={item.id} data-index={index} onClick={this.showUpdateModal}>编辑</button>
@@ -195,7 +195,7 @@ Interest.defaultProps = {
 
 export default connect( state => {
   const { omg } = state;
-  const awardList = omg[AWARD_LIST];
+  const awardList = omg[AWARD_LIST] || {};
   return {
     awardList,
   };

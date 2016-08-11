@@ -18,6 +18,7 @@ import LeftList from '../LeftList';
 import Modal from '../Modal';
 import Main from '../Main';
 import Login from '../Login';
+import StatusBar from '../StatusBar';
 import { fetchAction } from '../../../actions/omg';
 import { ACCOUNT_PROFILE } from '../../../constants';
 
@@ -81,6 +82,7 @@ class App extends Component {
             </div>
             <Modal />
           </Main>
+          <StatusBar />
         </div>
       </Provider>
     );

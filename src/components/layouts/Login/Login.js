@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { Input, Card, Submit, Alert } from '../../tools';
 import { fetchAction } from '../../../actions/omg';
 import { ACCOUNT_LOGIN, ACCOUNT_PROFILE, ACCOUNT_CAPTCHA } from '../../../constants';
-import history from '../../../core/history';
-
 
 class Login extends Component {
   constructor(props) {
@@ -49,6 +47,7 @@ class Login extends Component {
           });
         });
       } else {
+        this.refreshCaptcha();
         this.setState({
           errorMsg: json.data.error_msg,
         });
@@ -56,6 +55,9 @@ class Login extends Component {
     });
   }
   render() {
+    if (this.props.profile.id || (!this.state.fetching && this.props.fetching)) {
+      return false;
+    }
     return (
       <div className="row m-t-3" hidden={this.props.profile.id || (!this.state.fetching && this.props.fetching)} >
         <div className="col-md-offset-4 col-md-4" >

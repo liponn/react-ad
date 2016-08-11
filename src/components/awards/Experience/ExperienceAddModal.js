@@ -66,8 +66,8 @@ class ExperienceAddModal extends Component {
           <Select name="platform_type" labelName="限制平台" defaultValue={item.platform_type} options={this.state.platformTypes} />
           <Textarea labelName="限制说明" name="limit_desc" defaultValue={item.limit_desc} />
           <hr style={{ borderStyle: 'dashed' }} />
-          <Textarea labelName="站内信模板" defaultValue={getConfig('templateTypes', this.state.type)} name="message" defaultValue={item.message} />
-          <Textarea labelName="短信模板" name="mail" defaultValue={item.mail} />
+          <Textarea labelName="站内信模板" defaultValue={item.mail || getConfig('templateTypes', this.state.type)} name="mail" />
+          <Textarea labelName="短信模板" name="message" defaultValue={item.message} />
           <Submit />
         </form>
       </Modal>

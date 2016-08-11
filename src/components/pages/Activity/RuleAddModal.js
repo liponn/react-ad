@@ -60,40 +60,43 @@ class RuleAddModal extends Component {
 
   render() {
     const { ruleTypes } = this.state;
+    const triggerType = this.props.item.trigger_type;
+    const externalRuleTypes = getConfig('triggerRuleFileds', triggerType) || {};
+
     let ruleView = '';
     switch(this.state.currentRule) {
       case 'channel':
-        ruleView = <ChannelRule submit={this.submit} activityId={this.props.activityId} />;
+        ruleView = <ChannelRule submit={this.submit} activityId={this.props.item.id} />;
         break;
       case 'register':
-        ruleView = <RegisterRule submit={this.submit} activityId={this.props.activityId} />;
+        ruleView = <RegisterRule submit={this.submit} activityId={this.props.item.id} />;
         break;
       case 'cast':
-        ruleView = <CastRule submit={this.submit} activityId={this.props.activityId} />;
+        ruleView = <CastRule submit={this.submit} activityId={this.props.item.id} />;
         break;
       case 'recharge':
-        ruleView = <RechargeRule submit={this.submit} activityId={this.props.activityId} />;
+        ruleView = <RechargeRule submit={this.submit} activityId={this.props.item.id} />;
         break;
       case 'invite':
-        ruleView = <InviteRule submit={this.submit} activityId={this.props.activityId} />;
+        ruleView = <InviteRule submit={this.submit} activityId={this.props.item.id} />;
         break;
       case 'invitenum':
-        ruleView = <InviteNumRule submit={this.submit} activityId={this.props.activityId} />;
+        ruleView = <InviteNumRule submit={this.submit} activityId={this.props.item.id} />;
         break;
       case 'userlevel':
-        ruleView = <UserLevelRule submit={this.submit} activityId={this.props.activityId} />;
+        ruleView = <UserLevelRule submit={this.submit} activityId={this.props.item.id} />;
         break;
       case 'balance':
-        ruleView = <BalanceRule submit={this.submit} activityId={this.props.activityId} />;
+        ruleView = <BalanceRule submit={this.submit} activityId={this.props.item.id} />;
         break;
       case 'payment':
-        ruleView = <PaymentRule submit={this.submit} activityId={this.props.activityId} />;
+        ruleView = <PaymentRule submit={this.submit} activityId={this.props.item.id} />;
         break;
       case 'castall':
-        ruleView = <CastAllRule submit={this.submit} activityId={this.props.activityId} />;
+        ruleView = <CastAllRule submit={this.submit} activityId={this.props.item.id} />;
         break;
       case 'rechargeall':
-        ruleView = <RechargeAllRule submit={this.submit} activityId={this.props.activityId} />;
+        ruleView = <RechargeAllRule submit={this.submit} activityId={this.props.item.id} />;
         break;
       default:
         ruleView = this.state.currentRule;
@@ -102,6 +105,7 @@ class RuleAddModal extends Component {
     return (
       <Modal title="添加规则">
         <div className="clearfix">
+
           {Object.keys(ruleTypes).map(key => (
             <div className="pull-left m-r-1">
               <label key={key} className="c-input c-radio">
@@ -114,6 +118,21 @@ class RuleAddModal extends Component {
                 />
                 <span className="c-indicator"></span>
                 {ruleTypes[key]}
+              </label>
+            </div>
+          ))}
+          {Object.keys(externalRuleTypes).map(key => (
+            <div className="pull-left m-r-1">
+              <label key={key} className="c-input c-radio text-info">
+                <input
+                  name="rule-add"
+                  checked={key === this.state.currentRule}
+                  value={key}
+                  type="radio"
+                  onChange={this.selectRule}
+                />
+                <span className="c-indicator"></span>
+                {externalRuleTypes[key]}
               </label>
             </div>
           ))}
