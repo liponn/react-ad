@@ -101,9 +101,15 @@ import {
   NOTICE_RELEASE,
   NOTICE_UP,
 
+  REDEEM_ADD,
+  REDEEM_CODE_LIST,
+  REDEEM_EXPORT,
+  REDEEM_LIST,
+  REDEEM_DOWNLOAD,
+
 } from '../constants/index.js';
 
-// const apiHost = 'http://api-omg.wanglibao.com/yunying';
+// const apiHost = 'http://api-omg.wanglibao.com/';
 const apiHost = 'https://php1.wanglibao.com/yunying';
 const apiList = {}
 
@@ -209,6 +215,12 @@ apiList[NOTICE_PUT] = '/notice/put';
 apiList[NOTICE_RELEASE] = '/notice/release';
 apiList[NOTICE_UP] = '/notice/up';
 
+apiList[REDEEM_ADD] = '/redeem/add';
+apiList[REDEEM_CODE_LIST] = '/redeem/code-list';
+apiList[REDEEM_EXPORT] = '/redeem/export';
+apiList[REDEEM_LIST] = '/redeem/list';
+apiList[REDEEM_DOWNLOAD] = '/redeem/download';
+
 
 function getApi(type) {
   return apiHost + apiList[type];
@@ -290,6 +302,21 @@ const userLevels = {
   5: 'vip5',
 }
 
+const discoverTypes = {
+  0: '不显示',
+  1: '最热',
+}
+
+const popTypes = {
+  0: '不跳转',
+  1: '理财专区',
+  2: '发现页',
+  3: '全民淘金',
+  4: '发现页',
+  5: '其它H5页面',
+  6: '体验金',
+}
+
 const interestTimeTypes = {
   1: '有效天数',
   2: '有效时间段',
@@ -301,14 +328,14 @@ const awardTypes = {
   3: '体验金',
   // 4: '用户积分',
   // 5: '实物',
-  6: '优惠券',
+  //6: '优惠券',
 }
 
 const templateTypes = {
-  1: '恭喜你在{{sourceName}}活动中获得了{{awardName}}奖励,请在我的奖励中查看。',
-  2: '恭喜你在{{sourceName}}活动中获得了{{awardName}}奖励,请在我的奖励中查看。',
-  3: '恭喜你在{{sourceName}}活动中获得了{{awardName}}奖励,请在我的奖励中查看。',
-  6: '恭喜你在{{sourceName}}活动中获得了{{awardName}}奖励,请在我的奖励中查看。',
+  1: '恭喜你在{{sourcename}}活动中获得了{{awardname}}奖励,请在我的奖励中查看。',
+  2: '恭喜你在{{sourcename}}活动中获得了{{awardname}}奖励,请在我的奖励中查看。',
+  3: '恭喜你在{{sourcename}}活动中获得了{{awardname}}奖励,请在我的奖励中查看。',
+  6: '恭喜你在{{sourcename}}活动中获得了{{awardname}}奖励,请在我的奖励中查看。',
 }
 
 const ruleFileds = {
@@ -371,6 +398,12 @@ const platform = {
   1: '移动端',
   2: 'H5',
   3: 'PC端',
+}
+
+const redeemStatus = {
+  0: '队列中',
+  1: '生成中',
+  2: '完成',
 }
 
 const feedbackPlatformTypes = {
@@ -453,6 +486,9 @@ const config = {
   userLevels,
   articlePlatformTypes,
   feedbackPlatformTypes,
+  redeemStatus,
+  discoverTypes,
+  popTypes,
 }
 
 function getConfig(type, value = false) {

@@ -20,3 +20,4 @@ export Status from './Status';
 export Popover from './Popover';
 export Pagination from './Pagination';
 export Success from './Success';
+export PercentInput from './PercentInput';

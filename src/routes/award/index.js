@@ -6,9 +6,9 @@ export default {
   path: '/Award',
   children: [
     {
-      path: '/:awardType',
+      path: '/:type',
       action(context) {
-        return <Award awardType={context.params.awardType} />;
+        return <Award type={context.params.type} page={+context.query.page || 1} />;
       },
     },
   ],

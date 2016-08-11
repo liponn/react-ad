@@ -77,7 +77,7 @@ class Login extends Component {
                   />
                 </div>
                 <div className="col-sm-3 p-l-0">
-                  <img title="点击刷新" style={{ width: '100%', height: '100%' }} alt="点击刷新" onClick={this.refreshCaptcha} src={this.props.captcha.img_src} />
+                  <img title="点击刷新" style={{ width: '100%', height: '38px' }} alt="点击刷新" onClick={this.refreshCaptcha} src={this.props.captcha.img_src} />
                 </div>
               </div>
               <Submit value="登录" />

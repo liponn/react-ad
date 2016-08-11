@@ -28,6 +28,12 @@ function LeftList() {
       <Link className="list-group-item" to="/article">
         <i className="fa fa-paint-brush" aria-hidden="true"></i> 文章
       </Link>
+      <Link className="list-group-item" to="/redeem">
+        <i className="fa fa-paint-brush" aria-hidden="true"></i> 兑换码生成
+      </Link>
+      <Link className="list-group-item" to="/notice">
+        <i className="fa fa-paint-brush" aria-hidden="true"></i> 公告
+      </Link>
       <Link className="list-group-item" to="/feedback">
         <i className="fa fa-paint-brush" aria-hidden="true"></i> 用户反馈
       </Link>

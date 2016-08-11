@@ -123,3 +123,10 @@ export const NOTICE_OFFLINE = 'NOTICE_OFFLINE';
 export const NOTICE_UP = 'NOTICE_UP';
 export const NOTICE_DOWN = 'NOTICE_DOWN';
 
+// 兑换码
+export const REDEEM_ADD = 'REDEEM_ADD';
+export const REDEEM_CODE_LIST = 'REDEEM_CODE_LIST';
+export const REDEEM_EXPORT = 'REDEEM_EXPORT';
+export const REDEEM_LIST = 'REDEEM_LIST';
+export const REDEEM_DOWNLOAD = 'REDEEM_DOWNLOAD';
+

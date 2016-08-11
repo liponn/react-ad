@@ -1,12 +1,12 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Modal, Alert, Input, Status, ImgBox, Card, Submit, DateTimeInput, AttachmentInput } from '../../tools';
-import { BANNER_LIST, BANNER_DEL, BANNER_DISABLE, BANNER_ENABLE, BANNER_UP, BANNER_DOWN, BANNER_ADD, BANNER_INFO, BANNER_PUT } from '../../../constants';
+import { Status, ImgBox, Card, } from '../../tools';
+import { BANNER_LIST, BANNER_DEL, BANNER_DISABLE, BANNER_ENABLE, BANNER_UP, BANNER_DOWN, BANNER_ADD, BANNER_PUT } from '../../../constants';
 import { showModal, hideModal } from '../../../actions/modal';
 import { fetchAction } from '../../../actions/omg';
 import { getConfig } from '../../../config/omg';
 import hisotry from '../../../core/history';
-
+import AddModal from './AddModal';
 
 class Banner extends Component {
   constructor(props) {
@@ -218,7 +218,7 @@ class Banner extends Component {
                   <button className="btn btn-sm btn-danger-outline" data-id={item.id} onClick={this.del}>删除</button>
                 </td>
               </tr>
-            )) }
+            ))}
             </tbody>
           </table>
         </Card>
@@ -243,36 +243,3 @@ export default connect(state => {
     banners,
   };
 })(Banner);
-
-class AddModal extends Component {
-  constructor(props) {
-    super(props);
-  }
-  static propTypes = {
-    submit: PropTypes.func.isRequired,
-    type: PropTypes.string.isRequired,
-    errorMsg: PropTypes.string,
-    item: PropTypes.object,
-  }
-  static defaultProps = {
-    item: {},
-  }
-
-  render() {
-    return (
-      <Modal title="添加banner">
-        <form method="post" onSubmit={this.props.submit}>
-          <Alert msg={this.props.errorMsg} />
-          <input type="hidden" name="id" value={this.props.item.id} />
-          <input type="hidden" name="position" value={this.props.item.position || this.props.type} />
-          <Input labelName="图片名称" name="name" defaultValue={this.props.item.name} />
-          <AttachmentInput labelName="banner图片" position={`banner_${this.props.item.position}`} name="img_path" defaultValue={this.props.item.img_path} />
-          <Input labelName="跳转链接" name="url" defaultValue={this.props.item.url} />
-          <DateTimeInput labelName="开始时间" name="start" defaultValue={this.props.item.start} />
-          <DateTimeInput labelName="结束时间" name="end" defaultValue={this.props.item.end} />
-          <Submit />
-        </form>
-      </Modal>
-    );
-  }
-}

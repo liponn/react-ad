@@ -24,12 +24,14 @@ import awardsend from './awardsend';
 import appupdate from './appupdate';
 import feedback from './feedback';
 import notice from './notice';
+import redeem from './redeem';
 
 export default {
 
   path: '/',
 
   children: [
+    redeem,
     notice,
     feedback,
     appupdate,

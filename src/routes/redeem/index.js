@@ -1,19 +1,19 @@
 import React from 'react';
-import Feedback from '../../components/pages/Feedback';
+import Redeem from '../../components/pages/Redeem';
 
 export default {
 
-  path: '/Feedback',
+  path: '/Redeem',
   children: [
     {
       path: '/',
       action(context) {
-        return <Feedback page={+context.query.page || 1} />;
+        return <Redeem page={+context.query.page || 1} />;
       },
     },
   ],
   async action({ next, context }) {
-    context.setTitle('运营后台 | 用户反馈');
+    context.setTitle('运营后台 | 兑换码');
     const component = await next();
     return component;
   },

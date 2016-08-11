@@ -24,6 +24,9 @@ class Pagination extends Component {
   }
   jump(e) {
     const page = e.target.dataset.page;
+    if (this.props.unurl) {
+      return this.props.onClick(page);
+    }
     const location = history.getCurrentLocation();
     history.push({ ...location, query: Object.assign({}, location.query, { page }) });
   }
@@ -63,9 +66,12 @@ class Pagination extends Component {
 Pagination.propTypes = {
   currentPage: PropTypes.number,
   lastPage: PropTypes.number,
+  unurl: PropTypes.bool,
+  onClick: PropTypes.func,
 }
 
 Pagination.defaultProps = {
+  unurl: false,
 }
 
 export default Pagination;

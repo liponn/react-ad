@@ -15,7 +15,7 @@ class Award extends Component {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
     this.selectAward = this.selectAward.bind(this);
-    const currentType = props.awardType;
+    const currentType = props.type;
     const awardTypes = getConfig('awardTypes');
     this.state = {
       currentType,
@@ -23,9 +23,9 @@ class Award extends Component {
     };
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.awardType !== '') {
+    if (nextProps.type !== '') {
       this.setState({
-        currentType: nextProps.awardType,
+        currentType: nextProps.type,
       });
     }
   }
@@ -57,21 +57,21 @@ class Award extends Component {
     let awardView = '类型未找到';
     switch (this.state.currentType) {
       case '1':
-        awardView = <Interest {...this.props} />;
+        awardView = <Interest type={this.state.currentType} {...this.props} />;
         break;
       case '2':
-        awardView = <RedEnvelope {...this.props} />;
+        awardView = <RedEnvelope type={this.state.currentType} {...this.props} />;
         break;
       case '3':
-        awardView = <Experience {...this.props} />;
+        awardView = <Experience type={this.state.currentType} {...this.props} />;
         break;
       case '6':
-        awardView = <Coupon {...this.props} />;
+        awardView = <Coupon type={this.state.currentType} {...this.props} />;
         break;
       default:
         awardView = this.state.currentType;
     }
-    const { awardTypes, currentType} = this.state;
+    const { awardTypes, currentType } = this.state;
     return (
       <div>
         {Object.keys(awardTypes).map(key => {
@@ -97,7 +97,7 @@ class Award extends Component {
 }
 Award.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  awardType: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 }
 
 Award.defaultProps = {

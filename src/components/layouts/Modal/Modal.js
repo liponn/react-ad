@@ -7,7 +7,7 @@ class Modal extends Component {
     super(props);
   }
   componentDidMount() {
-    $('#modal').on('hidden.bs.modal', () => this.props.dispatch(hideModal()));
+    $('#modal').on('hidden.bs.modal', () => this.props.dispatch(hideModal(true)));
   }
   componentDidUpdate() {
     if(this.props.showStatus) {

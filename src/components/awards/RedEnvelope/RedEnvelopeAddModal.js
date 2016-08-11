@@ -1,28 +1,26 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-
-import { commonFetch } from '../../../actions/omg';
-import { hideModal } from '../../../actions/modal';
-import { AWARD_ADD } from '../../../constants';
 import { getConfig } from '../../../config/omg';
-import { Modal, Input, Submit, Select, DateTimeInput, Alert, Fieldset, Textarea } from '../../tools';
+import { Modal, Input, Submit, Select, DateTimeInput, Alert, Fieldset, Textarea, PercentInput } from '../../tools';
 
 class RedEnvelopeAddModal extends Component {
   constructor(props) {
     super(props);
     this.redTypeChange = this.redTypeChange.bind(this);
     this.effectiveTimeTypeChange = this.effectiveTimeTypeChange.bind(this);
-    this.addRedEnvelope = this.addRedEnvelope.bind(this);
+    this.durationTypeChange = this.durationTypeChange.bind(this);
     const redEnvelopeTypes = getConfig('redEnvelopeTypes');
     const redEnvelopeTimeTypes = getConfig('redEnvelopeTimeTypes');
     const projectTypes = getConfig('projectTypes');
     const platformTypes = getConfig('platformTypes');
     const projectDurationTypes = getConfig('projectDurationTypes');
+    const item = this.props.item || {}; 
     this.state = {
       errorMsg: '',
-      redType: 1,
-      type:2,
-      effectiveTimeType: 1,
+      redType: item.red_type || 1,
+      type: 2,
+      effectiveTimeType: item.effective_time_type || 1,
+      durationType : item.project_duration_type || 1,
       projectTypes,
       platformTypes,
       projectDurationTypes,
@@ -30,29 +28,12 @@ class RedEnvelopeAddModal extends Component {
       redEnvelopeTimeTypes,
     };
   }
-  static propTypes = {
-    dispatch: PropTypes.func.isRequired,
-  }
-
-  static defaultProps = {
-
-  }
-
-  addRedEnvelope(e) {
-    e.preventDefault();
-    const form = e.target;
-    const formData = new FormData(form);
-    this.props.dispatch(commonFetch(AWARD_ADD, 'POST', formData))
-      .then(json => {
-        if (json.error_code === 0) {
-          this.props.dispatch(hideModal());
-          this.props.callback();
-        }else{
-          this.setState({
-            errorMsg: json.data.error_msg,
-          });
-        }
-      });
+  
+  durationTypeChange(e) {
+    const value = e.target.value;
+    this.setState({
+      durationType: +value,
+    });
   }
   redTypeChange(e) {
     const value = $(e.target).val();
@@ -70,11 +51,13 @@ class RedEnvelopeAddModal extends Component {
     let typeFileds = false;
     let timeTypeFileds = false;
     let durationTypeFileds = false;
+    const item = this.props.item || {};
+    console.dir(item);
 
     // 根据红包类型显示字段
     switch (this.state.redType) {
       case 1:
-        typeFileds = [<Input required key="1" type="number" labelName="红包金额" name="red_money" />];
+        typeFileds = [<Input required key="1" type="number" labelName="红包金额" defaultValue={item.red_money} name="red_money" />];
         break;
       case 2:
         typeFileds = [
@@ -84,9 +67,10 @@ class RedEnvelopeAddModal extends Component {
             type="number"
             labelName="红包最高金额"
             type="number"
+            defaultValue={item.red_money}
             name="red_max_money"
           />,
-          <Input key="3" required placeholder="请输入小数,例:0.025为2.5%" labelName="红包百分比" name="percentage" />,
+          <PercentInput key="3" required placeholder="请输入小数,例:2.5为2.5%" labelName="红包百分比" defaultValue={item.percentage && (item.percentage * 100).toFixed(1)} name="percentage" />,
         ];
         break;
       default:
@@ -95,31 +79,33 @@ class RedEnvelopeAddModal extends Component {
     switch (this.state.effectiveTimeType) {
       case 1:
         timeTypeFileds = [
-          <Input key="1" required type="number" labelName="有效期天数" name="effective_time_day" />
+          <Input key="1" required type="number" labelName="有效期天数" defaultValue={item.effective_time_day} name="effective_time_day" />
         ];
         break;
       case 2:
         timeTypeFileds = [
-          <DateTimeInput required key="2" labelName="有效期开始时间" name="effective_time_start" />,
-          <DateTimeInput required key="3" labelName="有效期结束时间" name="effective_time_end" />,
+          <DateTimeInput required key="2" labelName="有效期开始时间" defaultValue={item.effective_time_start} name="effective_time_start" />,
+          <DateTimeInput required key="3" labelName="有效期结束时间" defaultValue={item.effective_time_end} name="effective_time_end" />,
         ];
         break;
       default:
     }
     if (this.state.durationType > 1) {
-      durationTypeFileds = <Input type="number" labelName="项目期限时长" name="project_duration_time" />;
+      durationTypeFileds = <Input type="number" labelName="项目期限时长" defaultValue={item.project_duration_time} name="project_duration_time" />;
     }
     
     return (
       <Modal title="添加红包">
-        <form method="post" onSubmit={this.addRedEnvelope}>
+        <form method="post" onSubmit={this.props.submit}>
           <Alert msg={this.state.errorMsg} />
-          <input type="hidden" name="award_type" value="2" />
-          <Input labelName="名称" name="name" />
+          <input type="hidden" name="award_type" defaultValue={this.state.type} />
+          <input type="hidden" name="award_id" defaultValue={item.id} />
+          <Input labelName="名称" name="name" defaultValue={item.name} />
           <Fieldset>
             <Select
               labelName="红包类型"
               name="red_type"
+              defaultValue={item.red_type}
               options={this.state.redEnvelopeTypes}
               onChange={this.redTypeChange}
             />
@@ -129,29 +115,31 @@ class RedEnvelopeAddModal extends Component {
             <Select
               labelName="有效期类型"
               name="effective_time_type"
+              defaultValue={item.effective_time_type}
               options={this.state.redEnvelopeTimeTypes}
               onChange={this.effectiveTimeTypeChange}
             />
             {timeTypeFileds}
           </Fieldset>
           <hr style={{ borderStyle: 'dashed' }} />
-          <Input type="number" required labelName="投资门槛" defaultValue="0" name="investment_threshold" placeholder="0为不限制" />
-          <Select labelName="项目类型" name="project_type" options={this.state.projectTypes} />
+          <Input type="number" required labelName="投资门槛" defaultValue={item.investment_threshold || 0} name="investment_threshold" placeholder="0为不限制" />
+          <Select labelName="项目类型" name="project_type" defaultValue={item.project_type} options={this.state.projectTypes} />
           <Fieldset>
             {durationTypeFileds}
             <Select
               labelName="项目期限类型"
               name="project_duration_type"
+              defaultValue={item.project_duration_type}
               onChange={this.durationTypeChange}
               options={this.state.projectDurationTypes}
             />
           </Fieldset>
-          <Input labelName="产品ID" name="product_id" placeholder="不填则不限制" />
-          <Select labelName="平台限制" name="platform_type" options={this.state.platformTypes} />
-          <Textarea labelName="限制说明" name="limit_desc" />
+          <Input labelName="产品ID" name="product_id" defaultValue={item.product_id} placeholder="不填则不限制" />
+          <Select labelName="平台限制" name="platform_type" defaultValue={item.platform_type} options={this.state.platformTypes} />
+          <Textarea labelName="限制说明" name="limit_desc" defaultValue={item.limit_desc} />
           <hr style={{ borderStyle: 'dashed' }} />
-          <Textarea labelName="站内信模板" defaultValue={getConfig('templateTypes', this.state.type)} name="message" />
-          <Textarea labelName="短信模板" name="mail" />
+          <Textarea labelName="站内信模板" defaultValue={getConfig('templateTypes', this.state.type)} defaultValue={item.message} name="message" />
+          <Textarea labelName="短信模板" name="mail" defaultValue={item.mail} />
           <Submit />
         </form>
       </Modal>
@@ -161,6 +149,7 @@ class RedEnvelopeAddModal extends Component {
 
 RedEnvelopeAddModal.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  callback: PropTypes.func.isRequired,
+  submit: PropTypes.func.isRequired,
+  item: PropTypes.object,
 }
 export default connect()(RedEnvelopeAddModal);

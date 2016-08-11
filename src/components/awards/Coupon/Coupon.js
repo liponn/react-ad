@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Card from '../../tools/Card';
 import { AWARD_LIST } from '../../../constants';
 import { fetchAction } from '../../../actions/omg';
-import CouponAddModal from '../../modals/CouponAddModal';
+import CouponAddModal from './CouponAddModal';
 import { showModal } from '../../../actions/modal';
 
 class Coupon extends Component {
