@@ -93,9 +93,9 @@ class Channel extends Component {
             <thead>
               <tr>
                 <th>id</th>
-                <th>名称</th>
+                <th>中文说明</th>
                 <th>前缀</th>
-                <th>英文名称</th>
+                <th>渠道名称</th>
                 <th>操作</th>
               </tr>
             </thead>
@@ -149,7 +149,7 @@ class ChannelAddModal extends Component {
         <Alert msg={this.props.errorMsg} />
         <form onSubmit={this.props.submit}>
           <Input labelName="中文说明" name="name" />
-          <Input labelName="渠道名称" placeholder="正能包含英文和数字" name="alias_name" />
+          <Input labelName="渠道名称" placeholder="只能包含英文和数字" name="alias_name" />
           <Submit />
         </form>
       </Modal>

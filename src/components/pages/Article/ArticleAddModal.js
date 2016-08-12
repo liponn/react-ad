@@ -12,7 +12,7 @@ class ArticleAddModal extends Component {
   }
   render() {
     return (
-      <Modal title={this.props.update ? '编辑文章' : '添加文章'}>
+      <Modal className="modal-lg" title={this.props.update ? '编辑文章' : '添加文章'}>
         <form id="add-article-form" method="post" onSubmit={this.props.submit}>
           <Alert msg={this.state.errorMsg} />
           <input type="hidden" name="id" value={this.props.item.id} />

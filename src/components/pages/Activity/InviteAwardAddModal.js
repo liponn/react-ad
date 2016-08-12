@@ -4,8 +4,8 @@ import Award from '../../pages/Award';
 import { Modal, Input, Submit, Select } from '../../tools';
 import { getConfig } from '../../../config/omg';
 
-
-class AwardAddModal extends Component {
+// 添加邀请人奖品弹窗
+class InviteAwardAddModal extends Component {
   constructor(props) {
     super(props);
     this.addAward = this.addAward.bind(this);
@@ -18,7 +18,8 @@ class AwardAddModal extends Component {
     };
   }
   static propTypes = {
-    item: PropTypes.object.isRequired,
+    activityId: PropTypes.number.isRequired,
+    awardRule: PropTypes.number,
     submit: PropTypes.func.isRequired,
   }
   addAward(e) {
@@ -39,11 +40,10 @@ class AwardAddModal extends Component {
     });
   }
   render() {
-    const item = this.props.item;
     return (
       <Modal title="添加奖品" className="modal-lg">
         <form onSubmit={this.props.submit}>
-          <input type="hidden" name="activity_id" value={item.id} />
+          <input type="hidden" name="activity_id" value={this.props.activityId} />
           <Select onChange={this.changeSelect} name="award_type" labelName="奖品类型" options={getConfig('awardTypes')} value={this.state.awardType} />
           <Input name="award_id" labelName="奖品Id" value={this.state.awardId} />
           <div className="form-group row">
@@ -51,7 +51,6 @@ class AwardAddModal extends Component {
               <a className="btn btn-info-outline" onClick={this.showAward}>选择奖品</a>
             </div>
           </div>
-          <Input hidden={item.award_rule !== 2} name="priority" labelName="奖品权重" type="number" defaultValue="0" />
           <Submit value="添加" />
         </form>
         <div hidden={this.state.awardHidden}>
@@ -63,4 +62,4 @@ class AwardAddModal extends Component {
   }
 }
 
-export default connect()(AwardAddModal);
+export default connect()(InviteAwardAddModal);

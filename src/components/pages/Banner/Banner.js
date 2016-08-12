@@ -208,8 +208,6 @@ class Banner extends Component {
             {items.map((item, index) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
-                <td>{item.sort}</td>
-                
                 <td><ImgBox src={item.img_path} /></td>
                 {this.props.type === 'discover' && <td>{getConfig('discoverTypes', item.type) || '——'}</td>}
                 {this.props.type === 'pop' && <td>{getConfig('popTypes', item.type) || '不跳转'}</td>}

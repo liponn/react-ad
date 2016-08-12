@@ -67,10 +67,11 @@ class ArticleType extends Component {
               type="button"
               className="btn btn-sm  btn-info pull-right"
               data-toggle="modal"
+              data-id="0"
               data-target="#channel-add-modal"
               onClick={this.showAddModal}
             >
-              <i className="fa fa-plus" data-toggle="modal" data-id="0" data-target="#cahnnel-add-modal" > 添加</i>
+              <i className="fa fa-plus" data-toggle="modal" data-id="0" data-target="#cahnnel-add-modal">添加</i>
             </button>
           </div>
           <table className="table table-bordered m-b-0 table-hover">

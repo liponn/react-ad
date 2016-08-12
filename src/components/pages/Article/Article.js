@@ -183,6 +183,12 @@ class Article extends Component {
             onChange={this.typeChange}
           />
         ))}
+        <Link
+          className="btn btn-sm  btn-info-outline pull-right"
+          to="/article/type"
+        >
+          <i className="fa fa-pencil">类型管理</i>
+        </Link>
         <hr />
         {subItems.map(item => (
           <Radio
@@ -207,12 +213,7 @@ class Article extends Component {
             >
               <i id="articleAdd" className="fa fa-plus"> 添加</i>
             </button>
-            <Link
-              className="btn btn-sm  btn-info pull-right"
-              to="/article/type"
-            >
-              <i className="fa fa-pencil">类型管理</i>
-            </Link>
+
           </div>
           <table className="table table-bordered m-b-0 table-hover">
             <thead>
