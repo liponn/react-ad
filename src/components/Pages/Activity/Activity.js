@@ -284,8 +284,8 @@ class Activity extends Component {
           <Text name="触发类型" value={this.state.activityTriggers[activity.trigger_type]} />
           <div className="clearfix"></div>
 
-          <Text name="开始时间" value={activity.created_at} />
-          <Text name="结束时间" value={activity.created_at} />
+          <Text name="开始时间" value={activity.start_at || '—'} />
+          <Text name="结束时间" value={activity.end_at || '—'} />
           <div className="m-b-1 clearfix"></div>
         </Card>
         <Card title="活动规则" btn={addRuleBtn}>

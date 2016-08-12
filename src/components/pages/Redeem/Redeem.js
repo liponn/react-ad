@@ -57,7 +57,9 @@ class Redeem extends Component {
     this.props.dispatch(fetchAction({
       type: REDEEM_EXPORT,
       queryObj: { id },
-    }));
+    })).then(() => (
+      this.fresh()
+    ));
   }
   showAddModal() {
     const modalView = <RedeemAddModal submit={this.add} />;
@@ -80,6 +82,8 @@ class Redeem extends Component {
               <tr>
                 <th>ID</th>
                 <th>名称</th>
+                <th>奖品类型</th>
+                <th>奖品ID</th>
                 <th>数量</th>
                 <th>兑换码文件</th>
                 <th>状态</th>
@@ -92,12 +96,14 @@ class Redeem extends Component {
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.name}</td>
+                <td>{getConfig('awardTypes', item.award_type)}</td>
+                <td>{item.award_id}</td>
                 <td>{item.number}</td>
-                <td><a hidden={item.file_name === ''} href={`${getApi(REDEEM_DOWNLOAD)}?file=${item.file_name}`} target="_blank" >下载</a></td>
+                <td><span hidden={item.export_status !== 1}>生成中</span><a hidden={item.file_name === '' || item.export_status === 1} href={`${getApi(REDEEM_DOWNLOAD)}?file=${item.file_name}`} target="_blank" >下载</a></td>
                 <td>{getConfig('redeemStatus', item.status)}</td>
                 <td>{item.expire_time}</td>
                 <td>
-                  <button hidden={item.export_status === 1 || item.status !== 2} className="btn btn-sm btn-primary-outline" data-id={item.id} onClick={this.export}>生成文件</button>
+                  <button hidden={item.export_status === 1 || item.status !== 2} className="btn btn-sm btn-primary-outline" data-id={item.id} onClick={this.export}>{item.export_status === 0 ? '生成下载文件' : '重新生成下载文件'}</button>
                   <button className="btn btn-sm btn-info-outline" data-id={item.id} onClick={this.fresh}>刷新</button>
                 </td>
               </tr>
