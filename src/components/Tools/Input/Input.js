@@ -15,6 +15,9 @@ class Input extends Component {
     }
   }
   render() {
+    if (this.props.hidden) {
+      return false;
+    }
     return (
       <div className="form-group row">
         <label
@@ -43,6 +46,7 @@ Input.propTypes = {
   defaultValue: PropTypes.any,
   value: PropTypes.any,
   required: PropTypes.bool,
+  hidden: PropTypes.bool,
   placeholder: PropTypes.string,
 }
 

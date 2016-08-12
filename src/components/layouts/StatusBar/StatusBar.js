@@ -11,7 +11,7 @@ class StatusBar extends Component {
     return (
       <div id="status-bar" hidden={!action || action.status === FETCH_SUCCESS}>
         <span hidden={action.status !== FETCH_REQUEST}>请求中:{action.type}</span>
-        <span hidden={action.status !== FETCH_ERROR}>[{action.type}]:{action.msg}</span>
+        <span className="bg-danger" hidden={action.status !== FETCH_ERROR}>[{action.type}]:{action.msg}</span>
       </div>
     );
   }

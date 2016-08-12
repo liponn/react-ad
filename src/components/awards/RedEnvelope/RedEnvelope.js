@@ -89,7 +89,8 @@ class RedEnvelope extends Component {
     const id = +e.target.dataset.id;
     const item = this.items[index] || {};
     if (item.id !== id) {
-      return alert('获取奖品信息失败,请刷新重试');
+      alert('获取奖品信息失败,请刷新重试');
+      return;
     }
     this.props.dispatch(showModal(<RedEnvelopeAddModal item={item} update submit={this.update} />));
   }
@@ -133,13 +134,13 @@ class RedEnvelope extends Component {
                     <td>{item.id}</td>
                     <td>{item.name}</td>
                     <td>{item.red_money}元</td>
-                    <td>{getConfig('redEnvelopeTypes', item.red_type)}{item.red_type === 2 ? `(${(item.percentage * 100).toFixed(1)}%)` : ''}</td>
+                    <td>{getConfig('redEnvelopeTypes', item.red_type || '-')}{item.red_type === 2 ? `(${(item.percentage * 100).toFixed(1)}%)` : ''}</td>
                     <td>{item.effective_time_type === 1 ? `${item.effective_time_day}天` : [`开始: ${item.effective_time_start}`, <br />, `结束: ${item.effective_time_end}`]}</td>
                     <td>{item.investment_threshold ? `${item.investment_threshold}元` : '不限制'}</td>
                     <td>{getConfig('projectTypes', item.project_type)}</td>
-                    <td>{`${item.project_duration_type === 1 ? '' : item.project_duration_time}${getConfig('projectDurationTypes', item.project_duration_type)}`}</td>
+                    <td>{`${item.project_duration_type === 1 ? '' : item.project_duration_time}${getConfig('projectDurationTypes', item.project_duration_type || '-')}`}</td>
                     <td>{item.product_id === '' ? '不限制' : item.product_id}</td>
-                    <td>{getConfig('platformTypes', item.platform_type)}</td>
+                    <td>{getConfig('platformTypes', item.platform_type || '-')}</td>
                     <td><Popover title="限制说明" content={item.limit_desc === '' ? '无' : `${item.limit_desc} `} /></td>
                     <td>
                       <Popover name="站内信" title="站内信" content={!item.mail ? '无' : `${item.mail} `} />

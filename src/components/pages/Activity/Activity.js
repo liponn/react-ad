@@ -7,6 +7,7 @@ import RuleAddModal from './RuleAddModal';
 import Award from '../../pages/Award';
 import { Card, Modal, Text, Alert, Input, Submit } from '../../tools';
 import ActivityAddModal from '../../modals/ActivityAddModal';
+import AwardAddModal from './AwardAddModal';
 import { getConfig } from '../../../config/omg';
 
 class Activity extends Component {
@@ -119,9 +120,12 @@ class Activity extends Component {
   }
   // 显示添加奖品
   showAddAwardModal(e) {
-    const awardRule = e.target.dataset.awardRule;
+    if (!this.activity || !this.activity.id) {
+      alert('获取活动详情失败');
+      return;
+    }
     const awardView = (
-      <AddAwardModal submit={this.addAward} awardRule={awardRule} activityId={this.props.activityId} />
+      <AwardAddModal submit={this.addAward} item={this.activity} />
     );
     this.props.dispatch(showModal(awardView));
   }
@@ -225,6 +229,10 @@ class Activity extends Component {
     this.activity = activity;
     
     const awards = this.props.awardList[this.props.activityId] || [];
+    const totalPriority = awards.reduce((previous, current) => (
+      { priority: previous.priority + current.priority }
+    ), { priority: 0 });
+    console.log(totalPriority);
     const inviteAwards = this.props.inviteAwardList[this.props.activityId] || [];
     const rules = this.props.ruleList[this.props.activityId] || [];
     const updateActivityBtn = (
@@ -247,7 +255,6 @@ class Activity extends Component {
       <button
         type="button"
         onClick={this.showAddAwardModal}
-        data-awardRule={activity.awardRule}
         className="btn btn-sm btn-info pull-right"
       >
         <i className="fa fa-plus">奖品</i>
@@ -265,20 +272,20 @@ class Activity extends Component {
     return (
       <div>
         <Card title="活动详情" btn={updateActivityBtn} >
-          <Text name="活动名称" value={activity.name} />
-          <Text name="活动别名" value={activity.alias_name || '—'} />
+          <Text name="名称" value={activity.name} />
+          <Text name="别名" value={activity.alias_name || '—'} />
           
-          <Text name="活动id" value={activity.id} />
+          <Text name="ID" value={activity.id} />
           <Text name="状态" value={+activity.enable ? '上线' : '下线'} />
 
-          <Text name="触发类型" value={this.state.activityTriggers[activity.trigger_type]} />
           <Text name="发奖频次" value={this.state.frequencyTypes[activity.frequency]} />
-          
+          <Text name="发奖规则" value={getConfig('sendAwardTypes', activity.award_rule || '—')} />
+
+          <Text name="触发类型" value={this.state.activityTriggers[activity.trigger_type]} />
+          <div className="clearfix"></div>
+
           <Text name="开始时间" value={activity.created_at} />
           <Text name="结束时间" value={activity.created_at} />
-          
-          <Text name="创建时间" value={activity.created_at} />
-          <Text name="更新时间" value={activity.updated_at} />
           <div className="m-b-1 clearfix"></div>
         </Card>
         <Card title="活动规则" btn={addRuleBtn}>
@@ -313,7 +320,7 @@ class Activity extends Component {
         <Card title="活动奖品" btn={addAwardBtn}>
           <table className="table m-b-0 table-bordered">
             <thead>
-              <tr><th>奖品类型</th><th>奖品ID</th><th>奖品名称</th><th>权重</th><th>操作</th></tr>
+              <tr><th>奖品类型</th><th>奖品ID</th><th>奖品名称</th><th hidden={activity.award_rule !== 2}>权重</th><th>操作</th></tr>
             </thead>
             <tbody>
             {awards.map((award) => (
@@ -325,7 +332,7 @@ class Activity extends Component {
                   {award.award_id}
                 </td>
                 <td>{award.name}</td>
-                <td>{award.priority}</td>
+                <td hidden={activity.award_rule !== 2}>{award.priority}({(award.priority / totalPriority.priority * 100).toFixed(2)}%)</td>
                 <td>
                   <button
                     data-id={award.id}

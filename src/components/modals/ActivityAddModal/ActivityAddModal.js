@@ -30,7 +30,7 @@ class ActivityAddModal extends Component {
           <DateTimeInput required limit labelName="开始时间" name="start_at" defaultValue={item.start_at} />
           <DateTimeInput required limit labelName="结束时间" name="end_at" defaultValue={item.end_at} />
           <Select labelName="触发条件" name="trigger_type" options={this.state.activityTriggers} defaultValue={item.trigger_type} />
-          <Select labelName="频次限制" name="frequency" options={this.state.frequencyTypes} defaultValue={item.frequency} />
+          <Select labelName="发奖频次" name="frequency" options={this.state.frequencyTypes} defaultValue={item.frequency} />
           <Select labelName="发奖规则" name="award_rule" options={this.state.sendAwardTypes} defaultValue={item.award_rule} />
           <input type="hidden" name="trigger_index" value="1" />
           <div className="form-group row">

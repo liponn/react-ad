@@ -2,10 +2,10 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { commonFetch ,fetchAction} from '../../../actions/omg';
 import { getConfig } from '../../../config/omg';
-import { Link, Radio, Status, Popover, Alert } from '../../tools';
+import { Link, Radio, Status, Popover, Alert, ImgBox } from '../../tools';
 import history from '../../../core/history';
 import { showModal, hideModal } from '../../../actions/modal';
-import ArticleAddModal from '../../modals/ArticleAddModal';
+import ArticleAddModal from './ArticleAddModal';
 import { ARTICLE_LIST, ARTICLE_ADD, ARTICLE_PUT, ARTICLE_TYPE_LIST, ARTICLE_DEL, ARTICLE_RELEASE, ARTICLE_OFFLINE, ARTICLE_DOWN, ARTICLE_UP } from '../../../constants';
 
 class Article extends Component {
@@ -219,6 +219,7 @@ class Article extends Component {
               <tr>
                 <th>id</th>
                 <th>标题</th>
+                <th>配图</th>
                 <th>内容</th>
                 <th>发布状态</th>
                 <th>发布平台</th>
@@ -230,6 +231,7 @@ class Article extends Component {
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.title}</td>
+                <td>{item.cover ? <ImgBox src={item.cover} /> : '—'}</td>
                 <td><Popover title={item.title} content={item.content} /></td>
                 <td><Status status={+item.release} /></td>
                 <td>{getConfig('platform', item.platform)}</td>

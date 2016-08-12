@@ -39,7 +39,6 @@ class AddModal extends Component {
           <Alert msg={this.props.errorMsg} />
           <input type="hidden" name="id" value={this.props.item.id} />
           <input type="hidden" name="position" value={this.props.item.position || this.props.type} />
-          <Input labelName="图片名称" name="name" defaultValue={this.props.item.name} />
           {fileds}
           <AttachmentInput labelName="banner图片" position={`banner_${this.props.item.position}`} name="img_path" defaultValue={this.props.item.img_path} />
           <Input labelName="跳转链接" name="url" defaultValue={this.props.item.url} />

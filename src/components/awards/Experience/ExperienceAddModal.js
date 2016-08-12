@@ -52,7 +52,7 @@ class ExperienceAddModal extends Component {
           <input type="hidden" name="award_type" value={this.state.awardType} />
           <input type="hidden" name="award_id" defaultValue={item.id} />
           <Input labelName="名称" name="name" defaultValue={item.name} />
-          <Input labelName="体验金额" name="experience_amount_money" defaultValue={item.experience_amount_money} />
+          <Input labelName="体验金额" type="number" name="experience_amount_money" defaultValue={item.experience_amount_money} />
           <Fieldset>
             <Select
               labelName="有效期类型"

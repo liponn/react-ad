@@ -277,7 +277,7 @@ const userLevels = {
 }
 
 const discoverTypes = {
-  0: '不显示',
+  0: '——',
   1: '最热',
 }
 
@@ -486,20 +486,16 @@ const config = {
   triggerRuleFileds,
 }
 
-function getConfig(type, value = false) {
-  if (typeof config[type] === 'undefined') {
-    return {};
+function getConfig(type, key = false) {
+  const values = config[type] || undefined;
+  if (key === false) {
+    return values;
   }
-  if (value === false) {
-    return config[type];
-  }
-  if (typeof config[type][value] === 'undefined') {
-    return value;
-  }
-  return config[type][value];
+  const value = values[key] || key;
+  return value;
 }
 
-export { getApi, getConfig};
+export { getApi, getConfig };
 
 
 

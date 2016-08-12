@@ -102,7 +102,8 @@ class Interest extends Component {
     const id = +e.target.dataset.id;
     const item = this.items[index] || {};
     if (item.id !== id) {
-      return alert('获取奖品信息失败,请刷新重试');
+      alert('获取奖品信息失败,请刷新重试');
+      return;
     }
     this.props.dispatch(showModal(<InterestAddModal item={item} update submit={this.update} />));
   }
@@ -146,7 +147,7 @@ class Interest extends Component {
                 <tr key={item.id}>
                   <td>{item.id}</td>
                   <td>{item.name}</td>
-                  <td>{`${(item.rate_increases * 100).toFixed(1)}%`}</td>
+                  <td>{`${(item.rate_increases * 100).toFixed(2)}%`}</td>
                   <td>{
                     item.rate_increases_type === 1 ? '全周期' :
                     item.rate_increases_type === 2 ? `${item.rate_increases_time}天` :

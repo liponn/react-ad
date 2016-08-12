@@ -94,6 +94,7 @@ class Banner extends Component {
     const id = $(e.target).data('id');
     const formData = new FormData;
     formData.append('id', id);
+    formData.append('position', this.props.type)
     this.props.dispatch(fetchAction({
       type: BANNER_UP,
       method: 'POST',
@@ -106,6 +107,7 @@ class Banner extends Component {
     const id = $(e.target).data('id');
     const formData = new FormData;
     formData.append('id', id);
+    formData.append('position', this.props.type)
     this.props.dispatch(fetchAction({
       type: BANNER_DOWN,
       method: 'POST',
@@ -192,8 +194,10 @@ class Banner extends Component {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>跳转URL</th>
                 <th>图片预览</th>
+                {this.props.type === 'pop' && <th>跳转类型</th>}
+                {this.props.type === 'discover' && <th>tag</th>}
+                <th>跳转URL</th>
                 <th>状态</th>
                 <th>开始时间</th>
                 <th>结束时间</th>
@@ -201,19 +205,23 @@ class Banner extends Component {
               </tr>
             </thead>
             <tbody>
-            {items.map((item, index)=>(
+            {items.map((item, index) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
-                <td><a title={item.img_url} href={item.img_url} target="_blank">查看</a></td>
+                <td>{item.sort}</td>
+                
                 <td><ImgBox src={item.img_path} /></td>
+                {this.props.type === 'discover' && <td>{getConfig('discoverTypes', item.type) || '——'}</td>}
+                {this.props.type === 'pop' && <td>{getConfig('popTypes', item.type) || '不跳转'}</td>}
+                <td><a title={item.img_url} href={item.img_url} target="_blank">查看</a></td>
                 <td><Status status={+item.can_use} /></td>
                 <td>{item.start === null ? '不限制' : item.start}</td>
                 <td>{item.end === null ? '不限制' : item.end}</td>
                 <td>
                   <button hidden={+item.can_use === 1} className="btn btn-sm btn-success-outline" data-id={item.id} onClick={this.enable}>上线</button>
                   <button hidden={+item.can_use === 0} className="btn btn-sm btn-warning-outline" data-id={item.id} onClick={this.disable}>下线</button>
-                  <button className="btn btn-sm btn-info-outline" data-id={item.id} onClick={this.up}>上移</button>
-                  <button className="btn btn-sm btn-info-outline" data-id={item.id} onClick={this.down}>下移</button>
+                  <button hidden={!item.can_use} className="btn btn-sm btn-info-outline" data-id={item.id} onClick={this.up}>上移</button>
+                  <button hidden={!item.can_use} className="btn btn-sm btn-info-outline" data-id={item.id} onClick={this.down}>下移</button>
                   <button className="btn btn-sm btn-success-outline" data-id={item.id} data-index={index} onClick={this.showUpdate}>编辑</button>
                   <button className="btn btn-sm btn-danger-outline" data-id={item.id} onClick={this.del}>删除</button>
                 </td>

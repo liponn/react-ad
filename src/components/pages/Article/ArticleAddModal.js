@@ -16,12 +16,14 @@ class ArticleAddModal extends Component {
         <form id="add-article-form" method="post" onSubmit={this.props.submit}>
           <Alert msg={this.state.errorMsg} />
           <input type="hidden" name="id" value={this.props.item.id} />
-          <input hidden name="type_id" defaultValue={this.props.typeId} />
+          <input type="hidden" name="type_id" defaultValue={this.props.typeId} />
           <Input labelName="标题" name="title" defaultValue={this.props.item.title} />
-          <Editor name="content" defaultValue={this.props.item.title} />
-          <div hidden>
-            <AttachmentInput labelName="封面" position={`article_${this.props.typeId}`} name="cover" />
+          <div>
+            <AttachmentInput labelName="封面" defaultValue={this.props.item.cover} position={`article_${this.props.typeId}`} name="cover" />
           </div>
+
+          <Editor name="content" defaultValue={this.props.item.title} />
+
           <Submit />
         </form>
       </Modal>

@@ -57,16 +57,16 @@ class Award extends Component {
     let awardView = '类型未找到';
     switch (this.state.currentType) {
       case '1':
-        awardView = <Interest type={this.state.currentType} {...this.props} />;
+        awardView = <Interest {...this.props} type={this.state.currentType} />;
         break;
       case '2':
-        awardView = <RedEnvelope type={this.state.currentType} {...this.props} />;
+        awardView = <RedEnvelope {...this.props} type={this.state.currentType} />;
         break;
       case '3':
-        awardView = <Experience type={this.state.currentType} {...this.props} />;
+        awardView = <Experience {...this.props} type={this.state.currentType} />;
         break;
       case '6':
-        awardView = <Coupon type={this.state.currentType} {...this.props} />;
+        awardView = <Coupon {...this.props} type={this.state.currentType} />;
         break;
       default:
         awardView = this.state.currentType;
@@ -98,6 +98,7 @@ class Award extends Component {
 Award.propTypes = {
   dispatch: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
+  modal: PropTypes.bool.isRequired,
 }
 
 Award.defaultProps = {

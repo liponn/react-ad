@@ -7,7 +7,8 @@ html,body {height:100%;}
 .img-pop:hover {
     cousor:pointer;
 }
-#status-bar {font-size:12px;position:fixed;left:0;bottom:0;z-index:100000;border-top:1px solid #555;border-right:1px solid #555;background-color:#fff}
+#status-bar {font-size:12px;position:fixed;left:0;bottom:0;z-index:100000;border-top:1px solid #999;border-right:1px solid #555;background-color:#fff}
+#status-bar {line-height:1.5}
 .btn { margin-right: .25rem;}
 
 .btn-file {
