@@ -29,6 +29,7 @@ import {
   APP_INFO,
   APP_PUT,
   APP_UPDATE_LOG,
+  APP_DEL,
 
   AWARD_LIST,
   AWARD_ADD,
@@ -110,8 +111,8 @@ import {
 } from '../constants/index.js';
 
 // const apiHost = 'http://yunying.dev.wanglibao.com/';
-// const apiHost = 'http://api-omg.wanglibao.com/';
-const apiHost = 'https://php1.wanglibao.com/yunying';
+const apiHost = 'http://api-omg.wanglibao.com/';
+// const apiHost = 'https://php1.wanglibao.com/yunying';
 const apiList = {}
 
 apiList[ACTIVITY_INDEX] = '/activity/index';
@@ -143,6 +144,7 @@ apiList[APP_ENABLE] = '/app/enable';
 apiList[APP_INFO] = '/app/info';
 apiList[APP_PUT] = '/app/put';
 apiList[APP_UPDATE_LOG] = '/app/update-log';
+apiList[APP_DEL] = '/app/del';
 
 apiList[AWARD_ADD] = '/award/add';
 apiList[AWARD_DEL] = '/award/delete';
@@ -381,6 +383,10 @@ const bannerTypes = {
   ios_score: 'ios评分页',
 }
 
+const shareConfigTypes = {
+  taojin: '全民淘金',
+}
+
 // 启动页类型
 const startupTypes = {
   1: 'IOS',
@@ -485,6 +491,7 @@ const config = {
   discoverTypes,
   popTypes,
   triggerRuleFileds,
+  shareConfigTypes,
 }
 
 function getConfig(type, key = false) {

@@ -16,6 +16,9 @@ function LeftList() {
       <Link className="list-group-item" to="/banner/mobile">
         banner图
       </Link>
+      <Link className="list-group-item" to="/shareconfig/taojin">
+        分享配置
+      </Link>
       <Link className="list-group-item" to="/startup/1">
         启动页
       </Link>

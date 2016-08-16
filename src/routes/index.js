@@ -25,12 +25,14 @@ import appupdate from './appupdate';
 import feedback from './feedback';
 import notice from './notice';
 import redeem from './redeem';
+import shareconfig from './shareconfig';
 
 export default {
 
   path: '/',
 
   children: [
+    shareconfig,
     redeem,
     notice,
     feedback,

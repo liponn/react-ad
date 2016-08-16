@@ -48,13 +48,16 @@ export function fetchAction({
   if (queryString !== '') {
     queryString = `?${queryString}`;
   }
+  const params = {
+    method,
+    credentials: 'include',
+  };
+  if (method === 'POST') {
+    params.body = formData;
+  }
   return dispatch => {
     dispatch(fetchRequest(type));
-    return fetch(requestUri + suffix + queryString, {
-      method,
-      body: formData,
-      credentials: 'include',
-    })
+    return fetch(requestUri + suffix + queryString, params)
       .then(response => response.json())
       .then(json => {
         if (json.error_code === 0) {

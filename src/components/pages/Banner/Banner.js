@@ -21,7 +21,7 @@ class Banner extends Component {
     this.update = this.update.bind(this);
     this.showAdd = this.showAdd.bind(this);
     this.showUpdate = this.showUpdate.bind(this);
-    const bannerTypes = getConfig('bannerTypes');
+    const bannerTypes = (props.path === 'Banner' ? getConfig('bannerTypes') : getConfig('shareConfigTypes') );
     this.state = {
       bannerTypes,
     };
@@ -34,6 +34,12 @@ class Banner extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.type !== nextProps.type) {
       this.freshData(nextProps.type);
+    }
+    if (this.props.type !== nextProps.type) {
+      const bannerTypes = (nextProps.path === 'Banner' ? getConfig('bannerTypes') : getConfig('shareConfigTypes') );
+      this.setState({
+        bannerTypes,
+      });
     }
   }
   freshData(type) {
@@ -189,11 +195,14 @@ class Banner extends Component {
           ))}
         </div>
         <hr />
-        <Card title="banner图" btn={btn}>
+        <Card title={this.props.path === 'Banner' ? 'banner图' : '分享配置'} btn={btn}>
           <table className="table m-b-0 table-bordered">
             <thead>
               <tr>
                 <th>ID</th>
+                {this.props.path === 'ShareConfig' && <th>标题</th>}
+                {this.props.path === 'ShareConfig' && <th>分享内容</th>}
+                {this.props.path === 'ShareConfig' && <th>分享时说明</th>}
                 <th>图片预览</th>
                 {this.props.type === 'pop' && <th>跳转类型</th>}
                 {this.props.type === 'discover' && <th>tag</th>}
@@ -208,10 +217,13 @@ class Banner extends Component {
             {items.map((item, index) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
+                {this.props.path === 'ShareConfig' && <td>{item.name}</td>}
+                {this.props.path === 'ShareConfig' && <td>{item.desc}</td>}
+                {this.props.path === 'ShareConfig' && <td>{item.short_desc}</td>}
                 <td><ImgBox src={item.img_path} /></td>
                 {this.props.type === 'discover' && <td>{getConfig('discoverTypes', item.type) || '——'}</td>}
                 {this.props.type === 'pop' && <td>{getConfig('popTypes', item.type) || '不跳转'}</td>}
-                <td><a title={item.img_url} href={item.img_url} target="_blank">查看</a></td>
+                <td><a title={item.url} href={item.url} target="_blank">查看</a></td>
                 <td><Status status={+item.can_use} /></td>
                 <td>{item.start === null ? '不限制' : item.start}</td>
                 <td>{item.end === null ? '不限制' : item.end}</td>
@@ -237,6 +249,7 @@ Banner.propTypes = {
   banners: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired,
 }
 
 Banner.defaultProps = {

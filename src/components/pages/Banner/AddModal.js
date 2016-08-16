@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Modal, Alert, Input, AttachmentInput, DateTimeInput, Submit, Select } from '../../tools';
+import { Modal, Alert, Input, AttachmentInput, DateTimeInput, Submit, Select, Textarea } from '../../tools';
 import { getConfig } from '../../../config/omg';
 
 
@@ -31,10 +31,15 @@ class AddModal extends Component {
         break;
       case 'pop':
         fileds.push(<Select key="pop_type" labelName="跳转类型" name="type" defaultValue={this.props.item.type} options={this.state.popTypes} />);
+        break;
+      case 'taojin':
+        fileds.push(<Input key="share_name" name="name" labelName="标题" defaultValue={this.props.item.name} />);
+        fileds.push(<Textarea key="share_desc" name="desc" labelName="内容" defaultValue={this.props.item.desc} />);
+        fileds.push(<Input key="share_short_des" name="short_desc" labelName="分享时说明" defaultValue={this.props.item.short_desc} />);
       default:
     }
     return (
-      <Modal title="添加banner">
+      <Modal title="添加">
         <form method="post" onSubmit={this.props.submit}>
           <Alert msg={this.props.errorMsg} />
           <input type="hidden" name="id" value={this.props.item.id} />

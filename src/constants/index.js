@@ -23,6 +23,7 @@ export const APP_UPDATE_LOG = 'APP_UPDATE_LOG';
 export const APP_INFO = 'APP_INFO';
 export const APP_ENABLE = 'APP_ENABLE';
 export const APP_DISABLE = 'APP_DISABLE';
+export const APP_DEL = 'APP_DEL';
 
 
 // 活动

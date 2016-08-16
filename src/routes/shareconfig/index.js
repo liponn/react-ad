@@ -6,13 +6,13 @@ import Banner from '../../components/pages/Banner';
 
 export default {
 
-  path: '/Banner',
+  path: '/ShareConfig',
 
   children: [
     {
       path: '/:type',
       action(context) {
-        return <Banner path="Banner" type={context.params.type} />;
+        return <Banner path="ShareConfig" type={context.params.type} />;
       },
     },
   ],

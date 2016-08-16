@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { ImgBox, Card, Radio, Status, Modal, Alert, DateTimeInput, Input, Submit, Textarea, Select, Popover } from '../../tools';
 import { showModal, hideModal } from '../../../actions/modal';
 import { fetchAction } from '../../../actions/omg';
-import {APP_DISABLE, APP_ENABLE, APP_ADD, APP_INFO, APP_UPDATE_LOG } from '../../../constants';
+import {APP_DISABLE, APP_ENABLE, APP_ADD, APP_INFO, APP_UPDATE_LOG, APP_DEL } from '../../../constants';
 import StartupAddModal from '../../modals/StartupAddModal';
 import { getConfig } from '../../../config/omg';
 import hisotry from '../../../core/history';
@@ -78,6 +78,9 @@ class AppUpdate extends Component {
   }
   del(e) {
     const id = $(e.target).data('id');
+    if(!confirm('确认删除吗?')) {
+      return;
+    }
     const formData = new FormData;
     formData.append('id', id);
     this.props.dispatch(fetchAction({
