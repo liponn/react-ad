@@ -111,8 +111,8 @@ import {
 } from '../constants/index.js';
 
 // const apiHost = 'http://yunying.dev.wanglibao.com/';
-const apiHost = 'http://api-omg.wanglibao.com/';
-// const apiHost = 'https://php1.wanglibao.com/yunying';
+// const apiHost = 'http://api-omg.wanglibao.com/';
+const apiHost = 'https://php1.wanglibao.com/yunying';
 const apiList = {}
 
 apiList[ACTIVITY_INDEX] = '/activity/index';
