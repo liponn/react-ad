@@ -89,7 +89,7 @@ import {
   STARTUP_DEL,
   STARTUP_UP,
   STARTUP_DOWN,
-  
+
   FEEDBACK_LIST,
 
   NOTICE_ADD,

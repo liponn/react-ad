@@ -18,7 +18,7 @@ class NoticeAddModal extends Component {
           <input type="hidden" name="id" value={this.props.item.id} />
           <input hidden name="type_id" defaultValue={this.props.typeId} />
           <Input labelName="标题" name="title" defaultValue={this.props.item.title} />
-          <Editor name="content" defaultValue={this.props.item.title} />
+          <Editor name="content" defaultValue={this.props.item.content} />
           <div hidden>
             <AttachmentInput labelName="封面" position={`article_${this.props.typeId}`} name="cover" />
           </div>
