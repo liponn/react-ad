@@ -32,6 +32,7 @@ class Input extends Component {
             name={this.props.name}
             className="form-control"
             defaultValue={this.props.defaultValue}
+            onChange={this.props.onChange}
           />
         </div>
       </div>
@@ -48,11 +49,13 @@ Input.propTypes = {
   required: PropTypes.bool,
   hidden: PropTypes.bool,
   placeholder: PropTypes.string,
+  onChange: PropTypes.func,
 }
 
 Input.defaultProps = {
   required: false,
   type: 'text',
+  onChange: () => {},
 }
 
 export default Input;

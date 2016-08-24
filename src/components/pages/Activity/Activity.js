@@ -204,9 +204,10 @@ class Activity extends Component {
   }
   // 优化规则显示
   handleRule(type, value) {
-    switch (type){
+    switch (type) {
       case 'isfirst':
-        return value === 1 ? '是' : '否';
+      case 'is_invite':
+        return +value === 1 ? '是' : '否';
       case 'min_payment':
       case 'max_payment':
       case 'min_recharge':
@@ -232,7 +233,6 @@ class Activity extends Component {
     const totalPriority = awards.reduce((previous, current) => (
       { priority: previous.priority + current.priority }
     ), { priority: 0 });
-    console.log(totalPriority);
     const inviteAwards = this.props.inviteAwardList[this.props.activityId] || [];
     const rules = this.props.ruleList[this.props.activityId] || [];
     const updateActivityBtn = (
@@ -281,11 +281,12 @@ class Activity extends Component {
           <Text name="发奖频次" value={this.state.frequencyTypes[activity.frequency]} />
           <Text name="发奖规则" value={getConfig('sendAwardTypes', activity.award_rule || '—')} />
 
-          <Text name="触发类型" value={this.state.activityTriggers[activity.trigger_type]} />
           <div className="clearfix"></div>
 
-          <Text name="开始时间" value={activity.start_at || '—'} />
-          <Text name="结束时间" value={activity.end_at || '—'} />
+          <Text name="开始时间" value={activity.start_at || '不限'} />
+          <Text name="结束时间" value={activity.end_at || '不限'} />
+          <Text name="触发类型" value={this.state.activityTriggers[activity.trigger_type]} />
+          <Text name="活动说明" value={activity.des || '—'} />
           <div className="m-b-1 clearfix"></div>
         </Card>
         <Card title="活动规则" btn={addRuleBtn}>
@@ -296,7 +297,7 @@ class Activity extends Component {
             <tbody>
             {rules.map((rule) => (
               <tr key={rule.id}>
-                <td>{getConfig('ruleTypes', rule.rule_type)}</td>
+                <td>{getConfig('allRuleTypes', rule.rule_type)}</td>
                 <td>
                   {Object.keys(rule.rule_info).map((key) => (
                     <div
@@ -332,7 +333,7 @@ class Activity extends Component {
                   {award.award_id}
                 </td>
                 <td>{award.name}</td>
-                <td hidden={activity.award_rule !== 2}>{award.priority}({(award.priority / totalPriority.priority * 100).toFixed(2)}%)</td>
+                <td hidden={activity.award_rule !== 2}>{award.priority}({(award.priority / totalPriority.priority * 100 || 0).toFixed(2)}%)</td>
                 <td>
                   <button
                     data-id={award.id}

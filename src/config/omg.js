@@ -242,7 +242,7 @@ const sendAwardTypes = {
 }
 
 const frequencyTypes = {
-  0: '不限制',
+  0: '不限',
   1: '一天一次',
   2: '仅一次',
 }
@@ -309,10 +309,10 @@ const awardTypes = {
 }
 
 const templateTypes = {
-  1: '恭喜你在\'{{sourcename}}\'活动中获得了\'{{awardname}}\'奖励,请在我的奖励中查看。',
-  2: '恭喜你在\'{{sourcename}}\'活动中获得了\'{{awardname}}\'奖励,请在我的奖励中查看。',
-  3: '恭喜你在\'{{sourcename}}\'活动中获得了\'{{awardname}}\'奖励,请在我的奖励中查看。',
-  6: '恭喜你在\'{{sourcename}}\'活动中获得了\'{{awardname}}\'奖励,请在我的奖励中查看。',
+  1: '恭喜您在\'{{sourcename}}\'活动中获得了\'{{awardname}}\'奖励。',
+  2: '恭喜您在\'{{sourcename}}\'活动中获得了\'{{awardname}}\'奖励。',
+  3: '恭喜您在\'{{sourcename}}\'活动中获得了\'{{awardname}}\'奖励。',
+  6: '恭喜您在\'{{sourcename}}\'活动中获得了\'{{awardname}}\'奖励。',
 }
 
 const ruleFileds = {
@@ -360,7 +360,6 @@ const triggerRuleFileds = {
   6: {},
   7: {},
 }
-
 
 const ruleTypes = {
   register: '注册时间',
@@ -448,17 +447,23 @@ const release = {
 }
 
 const projectTypes = {
-  0: '不限制',
-  1: '测试',
-  2: '白银',
-  3: '黄金',
-  4: '原油',
-  5: 'test',
-  6: '古董',
-  7: '专用',
-  8: '月利宝',
-  9: '房贷',
-  10: '旧机动车抵押',
+  0: '不限',
+  1: '散标',
+  2: '月利宝',
+  11: '产融通',
+  12: '好房赚',
+  13: '好车盈',
+  14: '银行优选',
+  15: '黄金精选',
+}
+
+function getAllRuleTypes() {
+  const allRuleTypes = {};
+  Object.assign(allRuleTypes, ruleTypes);
+  Object.keys(triggerRuleFileds).forEach((index) => (
+    Object.assign(allRuleTypes, triggerRuleFileds[index])
+  ));
+  return allRuleTypes;
 }
 
 
@@ -492,7 +497,8 @@ const config = {
   popTypes,
   triggerRuleFileds,
   shareConfigTypes,
-}
+  allRuleTypes: getAllRuleTypes(),
+};
 
 function getConfig(type, key = false) {
   const values = config[type] || undefined;

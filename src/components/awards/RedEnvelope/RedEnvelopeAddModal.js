@@ -9,18 +9,19 @@ class RedEnvelopeAddModal extends Component {
     this.redTypeChange = this.redTypeChange.bind(this);
     this.effectiveTimeTypeChange = this.effectiveTimeTypeChange.bind(this);
     this.durationTypeChange = this.durationTypeChange.bind(this);
+    this.initLimitDes = this.initLimitDes.bind(this);
     const redEnvelopeTypes = getConfig('redEnvelopeTypes');
     const redEnvelopeTimeTypes = getConfig('redEnvelopeTimeTypes');
     const projectTypes = getConfig('projectTypes');
     const platformTypes = getConfig('platformTypes');
     const projectDurationTypes = getConfig('projectDurationTypes');
-    const item = this.props.item || {}; 
+    const item = this.props.item || {};
     this.state = {
       errorMsg: '',
       redType: item.red_type || 1,
       type: 2,
       effectiveTimeType: item.effective_time_type || 1,
-      durationType : item.project_duration_type || 1,
+      durationType: item.project_duration_type || 1,
       projectTypes,
       platformTypes,
       projectDurationTypes,
@@ -47,12 +48,18 @@ class RedEnvelopeAddModal extends Component {
       effectiveTimeType: +value,
     });
   }
+  initLimitDes() {
+    const formData = new FormData(this.refs.form);
+    const valuesObj = {};
+    for (const pair of formData.entries()) {
+      valuesObj[pair[0]] = pair[1];
+    }
+  }
   render() {
     let typeFileds = false;
     let timeTypeFileds = false;
     let durationTypeFileds = false;
     const item = this.props.item || {};
-    console.dir(item);
 
     // 根据红包类型显示字段
     switch (this.state.redType) {
@@ -96,7 +103,7 @@ class RedEnvelopeAddModal extends Component {
     
     return (
       <Modal title="添加红包">
-        <form method="post" onSubmit={this.props.submit}>
+        <form method="post" ref="form" onSubmit={this.props.submit}>
           <Alert msg={this.state.errorMsg} />
           <input type="hidden" name="award_type" defaultValue={this.state.type} />
           <input type="hidden" name="award_id" defaultValue={item.id} />
@@ -122,7 +129,7 @@ class RedEnvelopeAddModal extends Component {
             {timeTypeFileds}
           </Fieldset>
           <hr style={{ borderStyle: 'dashed' }} />
-          <Input type="number" required labelName="投资门槛" defaultValue={item.investment_threshold || 0} name="investment_threshold" placeholder="0为不限制" />
+          <Input type="number" onChange={this.investmentThresholdChange} required labelName="投资门槛" defaultValue={item.investment_threshold || 0} name="investment_threshold" placeholder="0为不限制" />
           <Select labelName="项目类型" name="project_type" defaultValue={item.project_type} options={this.state.projectTypes} />
           <Fieldset>
             {durationTypeFileds}

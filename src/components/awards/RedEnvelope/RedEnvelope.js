@@ -24,6 +24,14 @@ class RedEnvelope extends Component {
   componentDidMount() {
     this.fresh();
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.page !== this.props.page) {
+      this.setState({
+        page: nextProps.page,
+      })
+      this.list(nextProps.page);
+    }
+  }
   add(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
