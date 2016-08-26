@@ -113,8 +113,7 @@ import {
 import { serverApi } from '../config';
 
 // const apiHost = 'http://yunying.dev.wanglibao.com/';
-//const apiHost = 'http://api-omg.wanglibao.com/';
-//const apiHost = config.apiServer;
+// const apiHost = 'http://api-omg.wanglibao.com/';
 const apiHost = serverApi;
 const apiList = {}
 
@@ -268,8 +267,8 @@ const forceTypes = {
 const interestTypes = {
   1: '全周期',
   2: '加息天数',
-  //3: '加息时间段',
-  //4: '加息月数',
+  // 3: '加息时间段',
+  // 4: '加息月数',
 }
 
 const userLevels = {
