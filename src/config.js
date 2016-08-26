@@ -23,6 +23,8 @@ export const analytics = {
 
 };
 
+export const serverApi = 'https://php1.wanglibao.com/yunying';
+
 export const auth = {
 
   jwt: { secret: process.env.JWT_SECRET || 'React Starter Kit' },

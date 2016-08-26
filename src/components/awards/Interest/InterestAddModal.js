@@ -9,6 +9,7 @@ class InterestAddModal extends Component {
     this.typeChange = this.typeChange.bind(this);
     this.timeTypeChange = this.timeTypeChange.bind(this);
     this.durationTypeChange = this.durationTypeChange.bind(this);
+    this.initLimitDes = this.initLimitDes.bind(this);
     const types = getConfig('interestTypes');
     const timeTypes = getConfig('interestTimeTypes');
     const projectTypes = getConfig('projectTypes');
@@ -18,7 +19,6 @@ class InterestAddModal extends Component {
     this.state = {
       errorMsg: '',
       awardType: 1,
-
       projectTypes,
       platformTypes,
       projectDurationTypes,
@@ -27,6 +27,7 @@ class InterestAddModal extends Component {
       durationType: item.project_duration_type ? item.project_duration_type : 1,
       types,
       timeTypes,
+      limitDes: item.limit_desc || '',
     };
   }
 
@@ -36,17 +37,63 @@ class InterestAddModal extends Component {
     this.setState({
       durationType: +value,
     });
+    this.initLimitDes();
   }
   typeChange(e) {
     const value = e.target.value;
     this.setState({
       type: +value,
     });
+    this.initLimitDes();
   }
   timeTypeChange(e) {
     const value = e.target.value;
     this.setState({
       timeType: +value,
+    });
+  }
+  initLimitDes() {
+    const formData = new FormData(this.refs.form);
+    const valuesObj = {};
+    for (const pair of formData.entries()) {
+      valuesObj[pair[0]] = pair[1];
+    }
+    console.log(valuesObj);
+    const limitDesArr = [];
+    const investmentThreshold = valuesObj.investment_threshold || 0;
+    const projectDurationType = valuesObj.project_duration_type || 0;
+    const projectDurationTime = valuesObj.project_duration_time || 0;
+    const projectType = valuesObj.project_type || 0;
+    const platformType = valuesObj.platform_type || 0;
+    const productId = valuesObj.product_id || '';
+    const rateIncreasesType = valuesObj.rate_increases_type || 0;
+    const rateIncreasesTime = valuesObj.rate_increases_time || 0;
+    // 投资门槛
+    if (+investmentThreshold !== 0) {
+      limitDesArr.push(`${investmentThreshold}元起投`);
+    }
+    // 项目时间限制
+    if (+projectDurationType !== 1) {
+      limitDesArr.push(`限${projectDurationTime}${getConfig('projectDurationTypes', projectDurationType)}`);
+    }
+    // 项目类型限制
+    if (+projectType !== 0) {
+      limitDesArr.push(`${getConfig('projectTypes', projectType)}专享`);
+    }
+    // 加息时长
+    if (+rateIncreasesType !== 0) {
+      limitDesArr.push(`加息${rateIncreasesTime}天`);
+    }
+    // 平台限制
+    if (+platformType !== 0) {
+      limitDesArr.push(`${getConfig('platformTypes', platformType)}专享`);
+    }
+    // 标限制
+    if (productId) {
+      limitDesArr.push('限特定标使用');
+    }
+    this.setState({
+      limitDes: limitDesArr.join('，'),
     });
   }
   render() {
@@ -61,7 +108,7 @@ class InterestAddModal extends Component {
         typeFileds = false;
         break;
       case 2:
-        typeFileds = [<Input required key="1" defaultValue={item.rate_increases_time} type="number" labelName="加息天数" name="rate_increases_time" />];
+        typeFileds = [<Input required key="1" defaultValue={item.rate_increases_time} onChange={this.initLimitDes} type="number" labelName="加息天数" name="rate_increases_time" />];
         break;
       default:
     }
@@ -81,11 +128,11 @@ class InterestAddModal extends Component {
       default:
     }
     if (this.state.durationType > 1) {
-      durationTypeFileds = <Input type="number" labelName="项目期限时长" defaultValue={item.project_duration_time} name="project_duration_time" />;
+      durationTypeFileds = <Input type="number" labelName="项目期限时长" onChange={this.initLimitDes} defaultValue={item.project_duration_time} name="project_duration_time" />;
     }
     return (
       <Modal title="添加加息券">
-        <form method="post" onSubmit={this.props.submit}>
+        <form method="post" ref="form" onSubmit={this.props.submit}>
           <Alert msg={this.state.errorMsg} />
           <input type="hidden" name="award_type" value={this.state.awardType} />
           <input type="hidden" name="award_id" value={item.id} />
@@ -112,8 +159,8 @@ class InterestAddModal extends Component {
             {timeTypeFileds}
           </Fieldset>
           <hr style={{ borderStyle: 'dashed' }} />
-          <Input type="number" required labelName="投资门槛" defaultValue={item.investment_threshold || 0} name="investment_threshold" placeholder="0为不限制" />
-          <Select labelName="项目类型" name="project_type" defaultValue={item.project_type} options={this.state.projectTypes} />
+          <Input type="number" required labelName="投资门槛" onChange={this.initLimitDes} defaultValue={item.investment_threshold || 0} name="investment_threshold" placeholder="0为不限制" />
+          <Select labelName="项目类型" name="project_type" onChange={this.initLimitDes} defaultValue={item.project_type} options={this.state.projectTypes} />
           <Fieldset>
             {durationTypeFileds}
             <Select
@@ -124,9 +171,9 @@ class InterestAddModal extends Component {
               options={this.state.projectDurationTypes}
             />
           </Fieldset>
-          <Input labelName="产品ID" name="product_id" defaultValue={item.product_id} placeholder="不填则不限制" />
-          <Select labelName="平台限制" name="platform_type" defaultValue={item.platform_type} options={this.state.platformTypes} />
-          <Textarea labelName="限制说明" name="limit_desc" defaultValue={item.limit_desc} />
+          <Input labelName="产品ID" name="product_id" onChange={this.initLimitDes} defaultValue={item.product_id} placeholder="不填则不限制" />
+          <Select labelName="平台限制" name="platform_type" onChange={this.initLimitDes} defaultValue={item.platform_type} options={this.state.platformTypes} />
+          <Textarea labelName="限制说明" name="limit_desc" value={this.state.limitDes} />
           <hr style={{ borderStyle: 'dashed' }} />
           <Textarea labelName="站内信模板" name="mail" defaultValue={item.mail || getConfig('templateTypes', this.state.awardType)} />
           <Textarea labelName="短信模板" name="message" defaultValue={item.message} />

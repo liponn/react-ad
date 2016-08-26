@@ -27,6 +27,7 @@ class RedEnvelopeAddModal extends Component {
       projectDurationTypes,
       redEnvelopeTypes,
       redEnvelopeTimeTypes,
+      limitDes: item.limit_desc || '',
     };
   }
   
@@ -35,6 +36,7 @@ class RedEnvelopeAddModal extends Component {
     this.setState({
       durationType: +value,
     });
+    this.initLimitDes();
   }
   redTypeChange(e) {
     const value = $(e.target).val();
@@ -54,6 +56,36 @@ class RedEnvelopeAddModal extends Component {
     for (const pair of formData.entries()) {
       valuesObj[pair[0]] = pair[1];
     }
+    const limitDesArr = [];
+    const investmentThreshold = valuesObj.investment_threshold || 0;
+    const projectDurationType = valuesObj.project_duration_type || 0;
+    const projectDurationTime = valuesObj.project_duration_time || 0;
+    const projectType = valuesObj.project_type || 0;
+    const platformType = valuesObj.platform_type || 0;
+    const productId = valuesObj.product_id || '';
+    // 投资门槛
+    if (+investmentThreshold !== 0) {
+      limitDesArr.push(`${investmentThreshold}元起投`);
+    }
+    // 项目时间限制
+    if (+projectDurationType !== 1) {
+      limitDesArr.push(`限${projectDurationTime}${getConfig('projectDurationTypes', projectDurationType)}`);
+    }
+    // 项目类型限制
+    if (+projectType !== 0) {
+      limitDesArr.push(`${getConfig('projectTypes', projectType)}专享`);
+    }
+    // 平台限制
+    if (+platformType !== 0) {
+      limitDesArr.push(`${getConfig('platformTypes', platformType)}专享`);
+    }
+    // 标限制
+    if (productId) {
+      limitDesArr.push('限特定标使用');
+    }
+    this.setState({
+      limitDes: limitDesArr.join('，'),
+    });
   }
   render() {
     let typeFileds = false;
@@ -86,7 +118,7 @@ class RedEnvelopeAddModal extends Component {
     switch (this.state.effectiveTimeType) {
       case 1:
         timeTypeFileds = [
-          <Input key="1" required type="number" labelName="有效期天数" defaultValue={item.effective_time_day} name="effective_time_day" />
+          <Input key="1" required type="number" labelName="有效期天数" defaultValue={item.effective_time_day || 0} onChange={this.initLimitDes} name="effective_time_day" />
         ];
         break;
       case 2:
@@ -98,7 +130,7 @@ class RedEnvelopeAddModal extends Component {
       default:
     }
     if (this.state.durationType > 1) {
-      durationTypeFileds = <Input type="number" labelName="项目期限时长" defaultValue={item.project_duration_time} name="project_duration_time" />;
+      durationTypeFileds = <Input type="number" labelName="项目期限时长" defaultValue={item.project_duration_time || 0} onChange={this.initLimitDes} name="project_duration_time" />;
     }
     
     return (
@@ -129,8 +161,8 @@ class RedEnvelopeAddModal extends Component {
             {timeTypeFileds}
           </Fieldset>
           <hr style={{ borderStyle: 'dashed' }} />
-          <Input type="number" onChange={this.investmentThresholdChange} required labelName="投资门槛" defaultValue={item.investment_threshold || 0} name="investment_threshold" placeholder="0为不限制" />
-          <Select labelName="项目类型" name="project_type" defaultValue={item.project_type} options={this.state.projectTypes} />
+          <Input type="number" onChange={this.initLimitDes} required labelName="投资门槛" defaultValue={item.investment_threshold || 0} name="investment_threshold" placeholder="0为不限制" />
+          <Select labelName="项目类型" name="project_type" onChange={this.initLimitDes} defaultValue={item.project_type} options={this.state.projectTypes} />
           <Fieldset>
             {durationTypeFileds}
             <Select
@@ -141,9 +173,9 @@ class RedEnvelopeAddModal extends Component {
               options={this.state.projectDurationTypes}
             />
           </Fieldset>
-          <Input labelName="产品ID" name="product_id" defaultValue={item.product_id} placeholder="不填则不限制" />
-          <Select labelName="平台限制" name="platform_type" defaultValue={item.platform_type} options={this.state.platformTypes} />
-          <Textarea labelName="限制说明" name="limit_desc" defaultValue={item.limit_desc} />
+          <Input labelName="产品ID" name="product_id" defaultValue={item.product_id} onChange={this.initLimitDes} placeholder="多个用(,)分割,不填则不限制," />
+          <Select labelName="平台限制" name="platform_type" defaultValue={item.platform_type} onChange={this.initLimitDes} options={this.state.platformTypes} />
+          <Textarea labelName="限制说明" name="limit_desc" value={this.state.limitDes} />
           <hr style={{ borderStyle: 'dashed' }} />
           <Textarea labelName="站内信模板" defaultValue={item.mail || getConfig('templateTypes', this.state.type)} name="mail" />
           <Textarea labelName="短信模板" name="message" defaultValue={item.message} />

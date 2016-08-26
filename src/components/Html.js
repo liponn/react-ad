@@ -33,6 +33,7 @@ function Html({ title, description, style, script, children, state }) {
         <script src="/lib/picker/picker.zh_cn.js" />
         <script src="/js/tinymce/tinymce.min.js" />
         <script src="/lib/fancybox/jquery.fancybox.pack.js" />
+        <script src="/js/config.js" />
         <script src="/js/main.js" />
         {script && (
           <script

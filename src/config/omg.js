@@ -110,9 +110,12 @@ import {
 
 } from '../constants/index.js';
 
+import { serverApi } from '../config';
+
 // const apiHost = 'http://yunying.dev.wanglibao.com/';
-// const apiHost = 'http://api-omg.wanglibao.com/';
-const apiHost = 'https://php1.wanglibao.com/yunying';
+//const apiHost = 'http://api-omg.wanglibao.com/';
+//const apiHost = config.apiServer;
+const apiHost = serverApi;
 const apiList = {}
 
 apiList[ACTIVITY_INDEX] = '/activity/index';
@@ -395,7 +398,7 @@ const startupTypes = {
 
 const platform = {
   0: '全平台',
-  1: '移动端',
+  1: 'App',
   2: 'H5',
   3: 'PC端',
 }
@@ -416,11 +419,11 @@ const feedbackPlatformTypes = {
 const projectDurationTypes = {
   1: '不限',
   2: '月标',
-  3: '月标及以上',
-  4: '月标及以下',
+  3: '月及以上标',
+  4: '月及以下标',
   5: '日标',
-  6: '日标及以上',
-  7: '日标及以下',
+  6: '日及以上标',
+  7: '日及以下标',
 }
 
 const articlePlatformTypes = {
@@ -431,7 +434,7 @@ const articlePlatformTypes = {
 
 const platformTypes = {
   0: '全平台',
-  1: '移动端',
+  1: 'App',
   2: 'h5',
   3: 'pc端',
 }
