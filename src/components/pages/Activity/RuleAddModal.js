@@ -18,6 +18,8 @@ import BalanceRule from '../../rules/BalanceRule';
 import PaymentRule from '../../rules/PaymentRule';
 import CastAllRule from '../../rules/CastAllRule';
 import RechargeAllRule from '../../rules/RechargeAllRule';
+import CastName from '../../rules/CastName';
+import ChannelBlist from '../../rules/ChannelBlist';
 
 class RuleAddModal extends Component {
   constructor(props) {
@@ -98,6 +100,12 @@ class RuleAddModal extends Component {
       case 'rechargeall':
         ruleView = <RechargeAllRule submit={this.submit} activityId={this.props.item.id} />;
         break;
+      case 'castname':
+        ruleView = <CastName submit={this.submit} activityId={this.props.item.id} />;
+        break;
+      case 'channelblist':
+        ruleView = <ChannelBlist submit={this.submit} activityId={this.props.item.id} />;
+        break; 
       default:
         ruleView = this.state.currentRule;
     }

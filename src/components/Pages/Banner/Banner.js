@@ -206,6 +206,7 @@ class Banner extends Component {
                 <th>图片预览</th>
                 {this.props.type === 'pop' && <th>跳转类型</th>}
                 {this.props.type === 'discover' && <th>tag</th>}
+                {this.props.type === 'channel' && <th>渠道</th>}
                 <th>跳转URL</th>
                 <th>状态</th>
                 <th>开始时间</th>
@@ -223,6 +224,7 @@ class Banner extends Component {
                 <td><ImgBox src={item.img_path} /></td>
                 {this.props.type === 'discover' && <td>{getConfig('discoverTypes', item.type) || '——'}</td>}
                 {this.props.type === 'pop' && <td>{getConfig('popTypes', item.type) || '不跳转'}</td>}
+                {this.props.type === 'channel' && <td>{item.name}</td>}
                 <td><a title={item.url} href={item.url} target="_blank">查看</a></td>
                 <td><Status status={+item.can_use} /></td>
                 <td>{item.start === null ? '不限制' : item.start}</td>

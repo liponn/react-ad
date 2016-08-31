@@ -307,14 +307,14 @@ const awardTypes = {
   3: '体验金',
   // 4: '用户积分',
   // 5: '实物',
-  //6: '优惠券',
+  6: '优惠券',
 }
 
 const templateTypes = {
   1: '恭喜您在\'{{sourcename}}\'活动中获得了\'{{awardname}}\'奖励。',
   2: '恭喜您在\'{{sourcename}}\'活动中获得了\'{{awardname}}\'奖励。',
   3: '恭喜您在\'{{sourcename}}\'活动中获得了\'{{awardname}}\'奖励。',
-  6: '恭喜您在\'{{sourcename}}\'活动中获得了\'{{awardname}}\'奖励。',
+  6: '恭喜您在\'{{sourcename}}\'活动中获得了\'{{awardname}}\'奖励,兑换码为\'{{code}}\'。',
 }
 
 const ruleFileds = {
@@ -339,6 +339,8 @@ const ruleFileds = {
   max_recharge_all: '最大充值金额',
   min_cast_all: '最小投资金额',
   max_cast_all: '最大投资金额',
+  name: '名称',
+  stage_name: '期名',
 }
 
 const activityTriggers = {
@@ -357,7 +359,7 @@ const triggerRuleFileds = {
   1: {},
   2: { recharge: '充值金额' },
   3: {},
-  4: { cast: '投资金额' },
+  4: { cast: '投资金额', castname: '投资标名称' },
   5: { payment: '回款金额' },
   6: {},
   7: {},
@@ -366,6 +368,7 @@ const triggerRuleFileds = {
 const ruleTypes = {
   register: '注册时间',
   channel: '用户渠道',
+  channelblist: '渠道黑名单',
   invite: '是否被邀请',
   invitenum: '邀请人数',
   userlevel: '用户等级',
@@ -382,6 +385,7 @@ const bannerTypes = {
   memorabilia: '大事记',
   appzichan: 'app资产页',
   ios_score: 'ios评分页',
+  channel: '渠道落地页',
 }
 
 const shareConfigTypes = {
