@@ -41,11 +41,11 @@ class Link extends Component { // eslint-disable-line react/prefer-stateless-fun
     }
 
     event.preventDefault();
-    const location = history.getCurrentLocation();
+    // const location = history.getCurrentLocation();
     if (allowTransition) {
       if (this.props.to) {
-        // history.push(this.props.to);
-        history.push({ ...location, pathname: this.props.to});
+        history.push(this.props.to);
+        // history.push({ ...location, pathname: this.props.to});
       } else {
         history.push({
           pathname: event.currentTarget.pathname,
