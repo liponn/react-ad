@@ -60,7 +60,7 @@ class AwardList extends Component {
                 <td>{item.mail_status}</td>
                 <td>{item.message_status}</td>
                 <td>{item.status}</td>
-                <td>{JSON.stringify(JSON.parse(item.remark))}</td>
+                <td>{JSON.stringify(JSON.parse(item.remark || '{}'))}</td>
               </tr>
             ))}
             </tbody>
