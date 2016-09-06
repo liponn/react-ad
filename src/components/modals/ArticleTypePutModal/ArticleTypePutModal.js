@@ -39,13 +39,13 @@ class ArticleTypePutModal extends Component {
     const { dispatch } = this.props;
     dispatch(commonFetch(ARTICLE_TYPE_PUT, 'POST', formData))
       .then(json => {
-        if (json.code === 0) {
+        if (json.error_code === 0) {
           dispatch(hideModal());
           this.props.callback();
         } else {
           this.setState({
-            errorMsg: json.data.error_msg, 
-          });  
+            errorMsg: json.data.error_msg,
+          });
         }
       });
   }

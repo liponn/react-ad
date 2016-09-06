@@ -4,7 +4,7 @@ import { commonFetch, fetchAction } from '../../../actions/omg';
 import { showModal, hideModal } from '../../../actions/modal';
 import { ACTIVITY_INFO, ACTIVITY_RULE_LIST, ACTIVITY_AWARD_LIST, ACTIVITY_RULE_DEL, ACTIVITY_AWARD_ADD, ACTIVITY_AWARD_DEL, ACTIVITY_PUT, ACTIVITY_INVITE_AWARD_ADD, ACTIVITY_INVITE_AWARD_DEL, ACTIVITY_INVITE_AWARD_LIST } from '../../../constants';
 import RuleAddModal from './RuleAddModal';
-import { Card, Text } from '../../tools';
+import { Card, Text, Link } from '../../tools';
 import ActivityAddModal from '../../modals/ActivityAddModal';
 import AwardAddModal from './AwardAddModal';
 import InviteAwardAddModal from './InviteAwardAddModal';
@@ -206,6 +206,13 @@ class Activity extends Component {
   handleRule(type, value) {
     switch (type) {
       case 'isfirst':
+        if(+value === 0) {
+          return '不限';
+        } else if(+value === 1) {
+          return '首次';
+        } else if(+value === 2) {
+          return '非首次';
+        }
       case 'is_invite':
         return +value === 1 ? '是' : '否';
       case 'min_payment':
@@ -272,16 +279,9 @@ class Activity extends Component {
     return (
       <div>
         <ol className="breadcrumb">
-          <li class="breadcrumb-item active">Home</li>
-        </ol>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item active">Library</li>
-        </ol>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item"><a href="#">Library</a></li>
-          <li class="breadcrumb-item active">Data</li>
+          <li className="breadcrumb-item"><Link to="/">首页</Link></li>
+          <li className="breadcrumb-item"><Link to="/activity/1">活动列表</Link></li>
+          <li className="breadcrumb-item active">{activity.name || '—'}</li>
         </ol>
         <Card title="活动详情" btn={updateActivityBtn} >
           <Text name="名称" value={activity.name} />

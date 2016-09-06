@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Submit, Alert, Checkbox, Input } from '../../tools';
+import { Submit, Input, Select } from '../../tools';
+import { getConfig } from '../../../config/omg';
 
 class RechargeRule extends Component {
   constructor(props) {
@@ -10,9 +11,9 @@ class RechargeRule extends Component {
     return (
       <form onSubmit={this.props.submit}>
         <input name="activity_id" type="hidden" value={this.props.activityId} />
-        <Input required limit labelName="最小金额" name="min_recharge" />
-        <Input required limit labelName="最大金额" name="max_recharge" />
-        <Checkbox labelName="首充" name="isfirst" />
+        <Input required limit labelName="最小金额" name="min_recharge" defaultValue="0" />
+        <Input required limit labelName="最大金额" name="max_recharge" defaultValue="99999999" />
+        <Select labelName="是否首充" options={getConfig('rechargeTypes')} name="isfirst" />
         <Submit />
       </form>
     );

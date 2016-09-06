@@ -57,7 +57,7 @@ class Article extends Component {
     })).then(json => {
       if (json.error_code === 0) {
         dispatch(hideModal(true));
-        this.freshArticle();
+        this.fresh();
       } else {
         alert(json.data.error_msg);
       }
@@ -110,7 +110,7 @@ class Article extends Component {
     formData.append('id', id);
     const type_id = $('.focus').data('id');
     this.props.dispatch(commonFetch(ARTICLE_DEL, 'POST', formData))
-      .then(() => (this.freshArticle()));
+      .then(() => (this.fresh()));
   }
   releaseArticle(e) {
     const id = $(e.target).data('id');
@@ -120,7 +120,7 @@ class Article extends Component {
       type: ARTICLE_RELEASE,
       method: 'POST',
       formData,
-    })).then(() => (this.freshArticle()));
+    })).then(() => (this.fresh()));
   }
   offLineArticle(e) {
     const id = $(e.target).data('id');
@@ -130,18 +130,18 @@ class Article extends Component {
       type: ARTICLE_OFFLINE,
       method: 'POST',
       formData,
-    })).then(() => (this.freshArticle()));
+    })).then(() => (this.fresh()));
   }
 
   upArticle(e) {
     const id = $(e.target).data('id');
     this.props.dispatch(commonFetch(ARTICLE_UP, 'GET',false ,"/"+id))
-      .then(() => (this.freshArticle()));
+      .then(() => (this.fresh()));
   }
   downArticle(e) {
     const id = $(e.target).data('id');
     this.props.dispatch(commonFetch(ARTICLE_DOWN, 'GET',false ,"/"+id))
-      .then(() => (this.freshArticle()));
+      .then(() => (this.fresh()));
   }
   showUpdate(e) {
     const id = e.target.dataset.id;
@@ -167,7 +167,7 @@ class Article extends Component {
     })).then(json => {
       if (json.error_code === 0) {
         dispatch(hideModal(true));
-        this.freshArticle();
+        this.fresh();
       } else {
         alert(json.data.error_msg);
       }
@@ -233,7 +233,6 @@ class Article extends Component {
                 <th>配图</th>
                 <th>内容</th>
                 <th>发布状态</th>
-                <th>发布平台</th>
                 <th>操作</th>
               </tr>
             </thead>
@@ -245,7 +244,6 @@ class Article extends Component {
                 <td>{item.cover ? <ImgBox src={item.cover} /> : '—'}</td>
                 <td><Popover title={item.title} content={item.content} /></td>
                 <td><Status status={+item.release} /></td>
-                <td>{getConfig('platform', item.platform)}</td>
                 <td>
                   <button className="btn btn-success-outline btn-sm" hidden={+item.release === 1} data-id={item.id} onClick={this.releaseArticle}>发布</button>
                   <button className="btn btn-warning-outline btn-sm" hidden={+item.release === 0} data-id={item.id} onClick={this.offLineArticle}>下线</button>

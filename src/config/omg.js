@@ -335,7 +335,7 @@ const ruleFileds = {
   max_time: '最大时间',
   min_cast: '最小投资',
   max_cast: '最大投资',
-  isfirst: '首次',
+  isfirst: '是否首次',
   min_recharge: '最小充值',
   max_recharge: '最大充值',
   is_invite: '是否被邀请',
@@ -459,6 +459,18 @@ const appUpdateTypes = {
   2: 'IOS',
 }
 
+const castTypes = {
+  0: '不限',
+  1: '首投',
+  2: '非首投',
+}
+
+const rechargeTypes = {
+  0: '不限', 
+  1: '首充',
+  2: '非首充',
+}
+
 const release = {
   0: '未发布',
   1: '已发布',
@@ -516,6 +528,8 @@ const config = {
   triggerRuleFileds,
   shareConfigTypes,
   allRuleTypes: getAllRuleTypes(),
+  castTypes,
+  rechargeTypes,
 };
 
 function getConfig(type, key = false) {

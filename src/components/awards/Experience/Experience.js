@@ -121,7 +121,7 @@ class Experience extends Component {
         <Card title="体验金" btn={btn}>
           <table className="table m-b-0 table-bordered">
             <thead>
-              <tr><th>id</th><th>名称</th><th>金额</th><th>有效期</th><th>平台限制</th><th>限制说明</th><th>消息模板</th><th>操作</th></tr>
+              <tr><th>id</th><th>名称</th><th>金额</th><th>有效期</th><th>消息模板</th><th>操作</th></tr>
             </thead>
             <tbody>
             {items.map((item, index) => {
@@ -143,10 +143,8 @@ class Experience extends Component {
                   <td>{item.name}</td>
                   <td>{item.experience_amount_money}</td>
                   <td>
-                    {item.effective_time_type === 1 ? `${item.effective_time_day}天` : [`开始: ${item.effective_time_start}`, <br />, `结束: ${item.effective_time_end}`]}
+                    {+item.effective_time_type === 1 ? `${item.effective_time_day}天` : [`开始: ${item.effective_time_start}`, <br />, `结束: ${item.effective_time_end}`]}
                   </td>
-                  <td>{getConfig('platformTypes', item.platform_type)}</td>
-                  <td><Popover title={item.name} content={item.limit_desc === '' ? '无' : `${item.limit_desc} `} /></td>
                   <td>
                     <Popover name="站内信" title="站内信" content={!item.mail ? '无' : `${item.mail} `} />
                     <Popover name="短信" title="短信" content={!item.message ? '无' : `${item.message} `} />

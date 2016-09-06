@@ -63,8 +63,8 @@ class ExperienceAddModal extends Component {
             />
             {timeTypeFileds}
           </Fieldset>
-          <Select name="platform_type" labelName="限制平台" defaultValue={item.platform_type} options={this.state.platformTypes} />
-          <Textarea labelName="限制说明" name="limit_desc" defaultValue={item.limit_desc} />
+          <input type="hidden" name="platform_type" value="0" />
+          <input type="hidden" name="limit_desc" value="" />
           <hr style={{ borderStyle: 'dashed' }} />
           <Textarea labelName="站内信模板" defaultValue={item.mail || getConfig('templateTypes', this.state.type)} name="mail" />
           <Textarea labelName="短信模板" name="message" defaultValue={item.message} />

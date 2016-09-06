@@ -96,7 +96,7 @@ class ArticleType extends Component {
                       data-id={item.id}
                       onClick={this.showAddModal}
                     >
-                      <i className="fa fa-plus"></i>子类型
+                      <i className="fa fa-plus" data-id={item.id}></i>子类型
                     </button>
                     <button className="btn btn-danger-outline btn-sm" data-id={item.id} onClick={this.delType}>删除
                     </button>
