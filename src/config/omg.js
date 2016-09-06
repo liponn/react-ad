@@ -23,6 +23,9 @@ import {
   ACTIVITY_INVITE_AWARD_DEL,
   ACTIVITY_INVITE_AWARD_LIST,
 
+  ACTIVITY_REWARD_LIST,
+  ACTIVITY_JOINS_LIST,
+
   APP_ADD,
   APP_DISABLE,
   APP_ENABLE,
@@ -108,6 +111,9 @@ import {
   REDEEM_LIST,
   REDEEM_DOWNLOAD,
 
+  BATCH_AWARD_LIST,
+  BATCH_AWARD,
+
 } from '../constants/index.js';
 
 import { serverApi } from '../config';
@@ -139,6 +145,9 @@ apiList[ACTIVITY_AWARD_DEL] = '/activity/award-delete';
 apiList[ACTIVITY_INVITE_AWARD_ADD] = '/activity/award-invite-add';
 apiList[ACTIVITY_INVITE_AWARD_DEL] = '/activity/award-invite-delete';
 apiList[ACTIVITY_INVITE_AWARD_LIST] = '/activity/award-invite-list';
+
+apiList[ACTIVITY_REWARD_LIST] = '/activity/send-reward-log-list';
+apiList[ACTIVITY_JOINS_LIST] = '/activity/activity-joins-list';
 
 apiList[APP_ADD] = '/app/add';
 apiList[APP_DISABLE] = '/app/close';
@@ -225,6 +234,9 @@ apiList[REDEEM_CODE_LIST] = '/redeem/code-list';
 apiList[REDEEM_EXPORT] = '/redeem/export';
 apiList[REDEEM_LIST] = '/redeem/list';
 apiList[REDEEM_DOWNLOAD] = '/redeem/download';
+
+apiList[BATCH_AWARD] = '/award/batch-award';
+apiList[BATCH_AWARD_LIST] = '/activity/batch-award-list'
 
 
 function getApi(type) {

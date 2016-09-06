@@ -25,11 +25,11 @@ export const analytics = {
 
 // export const serverApi = 'http://api-omg.wanglibao.com/';
 
-//export const serverApi = 'http://api-omg.wanglibao.com';
-// export const serverApi = 'https://php1.wanglibao.com/yunying';
-export const serverApi = 'https://php2.wanglibao.com/yunying';
+// export const serverApi = 'http://api-omg.wanglibao.com';
+export const serverApi = 'https://php1.wanglibao.com/yunying';
+// export const serverApi = 'https://php2.wanglibao.com/yunying';
 
-//export const serverApi = 'http://yunying.dev.wanglibao.com';
+// export const serverApi = 'http://yunying.dev.wanglibao.com';
 
 export const auth = {
 

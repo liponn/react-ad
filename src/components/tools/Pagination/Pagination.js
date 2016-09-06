@@ -11,16 +11,16 @@ class Pagination extends Component {
     };
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.currentPage) {
+    if (nextProps.currentPage !== this.state.currentPage) {
       this.setState({
         currentPage: nextProps.currentPage,
       });
     }
-    if (nextProps.lastPage) {
+    if (nextProps.lastPage !== this.state.lastPage) {
       this.setState({
         lastPage: nextProps.lastPage,
       });
-    } 
+    }
   }
   jump(e) {
     const page = e.target.dataset.page;
@@ -31,13 +31,16 @@ class Pagination extends Component {
     history.push({ ...location, query: Object.assign({}, location.query, { page }) });
   }
   render() {
-    if (!this.state.currentPage || !this.state.lastPage || this.state.lastPage === 1) {
+    if (!this.state.currentPage || !this.state.lastPage || this.state.lastPage <= 1) {
       return false;
     }
     const { currentPage, lastPage } = this.state;
     const arr = [];
     for (let i = 0; i < lastPage; i++) {
-      arr[i] = i + 1;
+      if ((i < currentPage - 5 && i !== 0) || (i > currentPage + 5 && i !== lastPage - 1)) {
+        continue;
+      }
+      arr.push(i + 1);
     }
     return (
       <nav>

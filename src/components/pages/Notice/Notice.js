@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { commonFetch ,fetchAction} from '../../../actions/omg';
 import { getConfig } from '../../../config/omg';
-import { Status, Popover } from '../../tools';
+import { Status, Popover, Pagination} from '../../tools';
 import { showModal, hideModal } from '../../../actions/modal';
 import NoticeAddModal from './NoticeAddModal';
 import { NOTICE_ADD, NOTICE_DEL, NOTICE_DOWN, NOTICE_LIST, NOTICE_OFFLINE, NOTICE_PUT, NOTICE_RELEASE, NOTICE_UP } from '../../../constants';
@@ -25,6 +25,11 @@ class Notice extends Component {
   }
   componentDidMount() {
     this.list(this.props.page);
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.page !== this.props.page) {
+      this.list(nextProps.page);
+    }
   }
   showModal() {
     const modalView = <NoticeAddModal submit={this.add} />;
@@ -57,6 +62,7 @@ class Notice extends Component {
     this.props.dispatch(fetchAction({
       type: NOTICE_LIST,
       method: 'GET',
+      queryObj: { page },
       key: page,
     }));   
   }
@@ -179,6 +185,7 @@ class Notice extends Component {
             </tbody>
           </table>
         </div>
+        <Pagination currentPage={notice.current_page} lastPage={notice.last_page} />
       </div>
 
     );

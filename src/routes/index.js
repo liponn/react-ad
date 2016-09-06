@@ -26,12 +26,18 @@ import feedback from './feedback';
 import notice from './notice';
 import redeem from './redeem';
 import shareconfig from './shareconfig';
+import sendawards from './sendawards';
+import activityjoins from './activityjoins';
+import awardlist from './awardlist';
 
 export default {
 
   path: '/',
 
   children: [
+    activityjoins,
+    awardlist,
+    sendawards,
     shareconfig,
     redeem,
     notice,

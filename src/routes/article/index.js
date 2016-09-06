@@ -21,13 +21,13 @@ export default {
     {
       path: '/:firId',
       action(context) {
-        return <Article firId={+context.params.firId} />;
+        return <Article firId={+context.params.firId} page={+context.query.page || 1} />;
       },
     },
     {
       path: '/:firId/:secId',
       action(context) {
-        return <Article firId={+context.params.firId} secId={+context.params.secId} />;
+        return <Article firId={+context.params.firId} page={+context.query.page || 1} secId={+context.params.secId} />;
       },
     },
 

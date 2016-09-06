@@ -7,8 +7,17 @@ function LeftList() {
       <Link className="list-group-item" to="/activity/1">
         活动
       </Link>
+      <Link className="list-group-item" to="/activityjoins">
+        活动参与记录
+      </Link>
       <Link className="list-group-item" to="/award/1">
         奖品
+      </Link>
+      <Link className="list-group-item" to="/awardlist">
+        奖品发放记录
+      </Link>
+      <Link className="list-group-item" to="/sendawards">
+        批量发放奖品
       </Link>
       <Link className="list-group-item" to="/awardsend">
         手动发放奖品

@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { commonFetch ,fetchAction} from '../../../actions/omg';
 import { getConfig } from '../../../config/omg';
-import { Link, Radio, Status, Popover, Alert, ImgBox } from '../../tools';
+import { Link, Radio, Status, Popover, Alert, ImgBox, Pagination } from '../../tools';
 import history from '../../../core/history';
 import { showModal, hideModal } from '../../../actions/modal';
 import ArticleAddModal from './ArticleAddModal';
@@ -20,7 +20,7 @@ class Article extends Component {
     this.typeChange = this.typeChange.bind(this);
     this.getType = this.getType.bind(this);
     this.getArticle = this.getArticle.bind(this);
-    this.freshArticle = this.freshArticle.bind(this);
+    this.fresh = this.fresh.bind(this);
     this.add = this.add.bind(this);
     this.update = this.update.bind(this);
     this.showUpdate = this.showUpdate.bind(this);
@@ -35,7 +35,12 @@ class Article extends Component {
     if (this.props.firId !== undefined) {
       this.getType(this.props.firId);
     }
-    this.getArticle(this.state.currentId);
+    this.fresh();
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.page !== this.props.page) {
+      this.getArticle(this.state.currentId, nextProps.page);
+    }
   }
   showModal() {
     const modalView = <ArticleAddModal typeId={this.state.currentId} submit={this.add} />;
@@ -69,31 +74,35 @@ class Article extends Component {
       key: typeId,
     }));
   }
-  getArticle(typeId) {
+  getArticle(typeId, page) {
     this.props.dispatch(fetchAction({
       type: ARTICLE_LIST,
       method: 'GET',
+      queryObj: { page },
       suffix: `/${typeId}/30`,
-      key: typeId,
+      key: `${typeId}_${page}`,
     }));
   }
-  freshArticle() {
-    this.getArticle(this.state.currentId);   
+  fresh() {
+    this.getArticle(this.state.currentId, this.props.page);
   }
   typeChange(e) {
     const value = e.target.value;
     const name = e.target.name;
+    // const location = history.getCurrentLocation();
     if (name === 'firId') {
+      // history.push({ ...location, pathname: `/article/${value}` });
       history.push(`/article/${value}`);
-      this.getType(value)
+      this.getType(value);
     }
     if (name === 'secId') {
+      // history.push({ ...location, pathname: `/article/${this.props.firId}/${value}` });
       history.push(`/article/${this.props.firId}/${value}`);
     }
     this.setState({
       currentId: +value,
     });
-    this.getArticle(value);
+    this.getArticle(value, this.props.page);
   }
   delArticle(e) {
     const id = $(e.target).data('id');
@@ -168,7 +177,8 @@ class Article extends Component {
     const typeItems = this.props.typeItems || {};
     const fatherItems = typeItems[0] || [];
     const subItems = typeItems[this.props.firId] || [];
-    const articlesObj = this.props.articleList[this.state.currentId] || {};
+    const key = `${this.state.currentId}_${this.props.page}`;
+    const articlesObj = this.props.articleList[key] || {};
     const articles = articlesObj.data || [];
     this.articles = articles;
     return (
@@ -249,6 +259,7 @@ class Article extends Component {
             </tbody>
           </table>
         </div>
+        <Pagination currentPage={articlesObj.current_page} lastPage={articlesObj.last_page} />
       </div>
 
     );
@@ -259,6 +270,7 @@ Article.propTypes = {
   articleList: PropTypes.object,
   firId: PropTypes.number,
   secId: PropTypes.number,
+  page: PropTypes.number.isRequired,
 };
 Article.defaultProps = {
 };
