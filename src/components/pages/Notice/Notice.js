@@ -171,7 +171,7 @@ class Notice extends Component {
                 <td>{item.title}</td>
                 <td><Popover title={item.title} content={item.content} /></td>
                 <td><Status status={+item.release} /></td>
-                <td>{getConfig('platform', item.platform)}</td>
+                <td>{getConfig('noticePlatforms', item.platform)}</td>
                 <td>
                   <button className="btn btn-success-outline btn-sm" hidden={+item.release === 1} data-id={item.id} onClick={this.release}>发布</button>
                   <button className="btn btn-warning-outline btn-sm" hidden={+item.release === 0} data-id={item.id} onClick={this.offLine}>下线</button>

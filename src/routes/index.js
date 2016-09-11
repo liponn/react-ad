@@ -29,12 +29,14 @@ import shareconfig from './shareconfig';
 import sendawards from './sendawards';
 import activityjoins from './activityjoins';
 import awardlist from './awardlist';
+import admin from './admin';
 
 export default {
 
   path: '/',
 
   children: [
+    admin,
     activityjoins,
     awardlist,
     sendawards,

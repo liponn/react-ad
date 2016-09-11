@@ -11,7 +11,7 @@ function initState() {
     isFetching: {},
     errorMsg: {},
     logs: [],
-    lastAction: {}
+    lastAction: {},
   };
 }
 export default function omg(state = null, action) {
@@ -54,6 +54,12 @@ export default function omg(state = null, action) {
       return Object.assign({}, state, nextState);
     }
     case FETCH_ERROR: {
+       // 根据code特殊处理
+      switch (action.code) {
+        case '11002': // 需重新登录
+          return initState();
+        default:
+      }
       nextState.isFetching = Object.assign({}, state.isFetching, { [action.type]: false });
       nextState.errorMsg = Object.assign({}, state.error_msg, { [action.type]: action.msg });
       nextState.lastErrorMsg = action.msg;

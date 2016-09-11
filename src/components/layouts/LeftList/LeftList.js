@@ -49,6 +49,9 @@ function LeftList() {
       <Link className="list-group-item" to="/feedback">
         用户反馈
       </Link>
+      <Link className="list-group-item" to="/admin">
+        权限管理
+      </Link>
     </div>
   );
 }

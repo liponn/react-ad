@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { analytics } from '../config';
+import { imgHost } from '../config'
 
 function Html({ title, description, style, script, children, state }) {
   return (

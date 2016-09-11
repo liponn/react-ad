@@ -138,3 +138,10 @@ export const REDEEM_DOWNLOAD = 'REDEEM_DOWNLOAD';
 export const BATCH_AWARD = 'BATCH_AWARD';
 export const BATCH_AWARD_LIST = 'BATCH_AWARD_LIST';
 
+// 管理员
+export const ADMIN_LIST = 'ADMIN_LIST';
+export const ADMIN_ADD = 'ADMIN_ADD';
+export const ADMIN_PUT = 'ADMIN_PUT';
+export const ADMIN_INFO = 'ADMIN_INFO';
+export const ADMIN_DEL = 'ADMIN_DEL';
+

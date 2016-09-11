@@ -151,14 +151,14 @@ class Interest extends Component {
                   <td>{
                     item.rate_increases_type === 1 ? '全周期' :
                     item.rate_increases_type === 2 ? `${item.rate_increases_time}天` :
-                    item.rate_increases_type === 3 ? [<span key="filed_start">`开始: {item.rate_increases_start}`</span>, <br key="filed_br" />, <span key="filed_end">`结束: {item.rate_increases_end}`</span>] :
+                    item.rate_increases_type === 3 ? [<span key="filed_start">开始: {item.rate_increases_start}</span>, <br key="filed_br" />, <span key="filed_end">结束: {item.rate_increases_end}</span>] :
                     item.rate_increases_type === 4 ? `${item.rate_increases_time}月` : '未知'
                   }</td>
-                  <td>{item.effective_time_type === 1 ? `${item.effective_time_day}天` : [<span key="filed_start2">`开始: ${item.effective_time_start}`</span>, <br key="filed_br2" />, <span key="filed_end2">`结束: ${item.effective_time_end}`</span>]}</td>
-                  <td>{item.investment_threshold ? `${item.investment_threshold}元` : '不限制'}</td>
+                  <td>{+item.effective_time_type === 1 ? `${item.effective_time_day}天` : [<span key="filed_start2">开始: {item.effective_time_start}</span>, <br key="filed_br2" />, <span key="filed_end2">结束: {item.effective_time_end}</span>]}</td>
+                  <td>{item.investment_threshold ? `${item.investment_threshold}元` : '不限'}</td>
                   <td>{getConfig('projectTypes', item.project_type)}</td>
                   <td>{`${item.project_duration_type === 1 ? '' : item.project_duration_time}${getConfig('projectDurationTypes', item.project_duration_type)}`}</td>
-                  <td>{item.product_id === '' ? '不限制' : item.product_id}</td>
+                  <td>{item.product_id === '' ? '不限' : item.product_id}</td>
                   <td>{getConfig('platformTypes', item.platform_type)}</td>
                   <td><Popover title="限制说明" content={item.limit_desc === '' ? '无' : `${item.limit_desc} `} /></td>
                   <td>

@@ -114,6 +114,12 @@ import {
   BATCH_AWARD_LIST,
   BATCH_AWARD,
 
+  ADMIN_ADD,
+  ADMIN_LIST,
+  ADMIN_INFO,
+  ADMIN_PUT,
+  ADMIN_DEL,
+
 } from '../constants/index.js';
 
 import { serverApi } from '../config';
@@ -236,11 +242,22 @@ apiList[REDEEM_LIST] = '/redeem/list';
 apiList[REDEEM_DOWNLOAD] = '/redeem/download';
 
 apiList[BATCH_AWARD] = '/award/batch-award';
-apiList[BATCH_AWARD_LIST] = '/activity/batch-award-list'
+apiList[BATCH_AWARD_LIST] = '/activity/batch-award-list';
 
+apiList[ADMIN_ADD] = '/admin/add';
+apiList[ADMIN_LIST] = '/admin/list';
+apiList[ADMIN_PUT] = '/admin/put';
+apiList[ADMIN_INFO] = '/admin/info';
+apiList[ADMIN_DEL] = '/admin/del';
 
 function getApi(type) {
   return apiHost + apiList[type];
+}
+
+const adminTypes = {
+  0: '游客',
+  1: '超级管理员',
+  2: '运营组',
 }
 
 const activityTypes = {
@@ -418,6 +435,12 @@ const platform = {
   3: 'PC端',
 }
 
+const noticePlatforms = {
+  0: '全平台',
+  1: 'PC端',
+  2: '移动端',
+}
+
 const redeemStatus = {
   0: '队列中',
   1: '生成中',
@@ -466,7 +489,7 @@ const castTypes = {
 }
 
 const rechargeTypes = {
-  0: '不限', 
+  0: '不限',
   1: '首充',
   2: '非首充',
 }
@@ -530,6 +553,8 @@ const config = {
   allRuleTypes: getAllRuleTypes(),
   castTypes,
   rechargeTypes,
+  adminTypes,
+  noticePlatforms,
 };
 
 function getConfig(type, key = false) {

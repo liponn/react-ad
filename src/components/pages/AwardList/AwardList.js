@@ -34,7 +34,7 @@ class AwardList extends Component {
     const items = award.data || [];
     return (
       <div>
-        <Card title="用户反馈列表">
+        <Card title="奖品发放记录">
           <table className="table m-b-0 table-bordered">
             <thead>
               <tr>

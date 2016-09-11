@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Input, Editor, Select, AttachmentInput, Alert, Submit, Modal } from '../../tools';
-import { NOTICE_ADD} from '../../../constants';
+import { Input, Select, Alert, Submit, Modal } from '../../tools';
+import { ADMIN_ADD } from '../../../constants';
 import { getConfig } from '../../../config/omg';
 
 class NoticeAddModal extends Component {
@@ -13,13 +13,13 @@ class NoticeAddModal extends Component {
   }
   render() {
     return (
-      <Modal title={this.props.update ? '编辑公告' : '添加公告'}>
-        <form id="add-article-form" method="post" onSubmit={this.props.submit}>
+      <Modal title={this.props.update ? '编辑后台用户' : '添加后台用户'}>
+        <form method="post" onSubmit={this.props.submit}>
           <Alert msg={this.state.errorMsg} />
           <input type="hidden" name="id" value={this.props.item.id} />
-          <Input labelName="标题" name="title" defaultValue={this.props.item.title} />
-          <Select labelName="平台" name="platform" options={getConfig('noticePlatforms')} defaultValue={this.props.item.platform} />
-          <Editor name="content" defaultValue={this.props.item.content} />
+          <Input labelName="姓名" name="name" defaultValue={this.props.item.name} />
+          <Input hidden={this.props.update} labelName="手机号" name="mobile" defaultValue={this.props.item.mobile} />
+          <Select labelName="用户组" name="level" options={getConfig('adminTypes')} defaultValue={this.props.item.level} />
           <Submit />
         </form>
       </Modal>
@@ -38,7 +38,7 @@ NoticeAddModal.defaultProps = {
 }
 export default connect(state => {
   const { omg } = state;
-  const errorMsg = omg.errorMsg[NOTICE_ADD] || '';
+  const errorMsg = omg.errorMsg[ADMIN_ADD] || '';
   return {
     errorMsg,
   };
