@@ -27,8 +27,8 @@ export const analytics = {
 // export const serverApi = 'http://api-omg.wanglibao.com';
 
 
-// export const imgHost = 'https://php1.wanglibao.com';
-// export const serverApi = 'https://php1.wanglibao.com/yunying';
+export const imgHost = 'https://php1.wanglibao.com';
+export const serverApi = 'https://php1.wanglibao.com/yunying';
 
 // export const imgHost = 'https://php2.wanglibao.com';
 // export const serverApi = 'https://php2.wanglibao.com/yunying';
