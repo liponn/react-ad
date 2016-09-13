@@ -145,3 +145,9 @@ export const ADMIN_PUT = 'ADMIN_PUT';
 export const ADMIN_INFO = 'ADMIN_INFO';
 export const ADMIN_DEL = 'ADMIN_DEL';
 
+// 模板生成
+export const TEMPLATE_NOTICE = 'TEMPLATE_NOTICE';
+export const TEMPLATE_HELP = 'TEMPLATE_HELP';
+export const TEMPLATE_DYNAMIC = 'TEMPLATE_DYNAMIC';
+export const TEMPLATE_MEDIA = 'TEMPLATE_MEDIA';
+

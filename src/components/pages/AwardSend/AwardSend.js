@@ -44,7 +44,7 @@ class AwardSend extends Component {
       method: 'POST',
       formData,
     })).then(json => {
-      if (json.error_code === 0){
+      if (json.error_code === 0) {
         const date = new Date()
         const time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
         if (!json.data.status) {

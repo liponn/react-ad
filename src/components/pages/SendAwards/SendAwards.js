@@ -36,13 +36,15 @@ class SendAwards extends Component {
     this.props.dispatch(fetchAction({
       type: BATCH_AWARD_LIST,
       method: 'GET',
-      queryObj: { page },
+      queryObj: {
+        
+        page,
+      },
       key: page,
     }));
   }
   add(e) {
     e.preventDefault();
-    console.log('ok');
     const formData = new FormData(e.target);
     this.props.dispatch(fetchAction({
       type: BATCH_AWARD,
@@ -53,7 +55,6 @@ class SendAwards extends Component {
         this.props.dispatch(hideModal());
         this.fresh();
       }
-      
     });
   }
   render() {
@@ -82,7 +83,9 @@ class SendAwards extends Component {
                 <th>奖品类型</th>
                 <th>奖品id</th>
                 <th>来源名</th>
+                <th>发送数量</th>
                 <th>发送状态</th>
+                <th>备注</th>
               </tr>
             </thead>
             <tbody>
@@ -93,6 +96,7 @@ class SendAwards extends Component {
                 <td>{getConfig('awardTypes', item.award_type)}</td>
                 <td>{item.award_id}</td>
                 <td>{item.source_name}</td>
+                <td>{item.send_num || '—'}</td>
                 <td>{item.status !== 2 ? '发送中' : '发送完成'}</td>
                 <td>
                   <button className="btn btn-info-outline btn-sm" onClick={this.fresh}>刷新</button>

@@ -5,7 +5,7 @@ import { getConfig } from '../../../config/omg';
 import { Status, Popover, Pagination} from '../../tools';
 import { showModal, hideModal } from '../../../actions/modal';
 import NoticeAddModal from './NoticeAddModal';
-import { NOTICE_ADD, NOTICE_DEL, NOTICE_DOWN, NOTICE_LIST, NOTICE_OFFLINE, NOTICE_PUT, NOTICE_RELEASE, NOTICE_UP } from '../../../constants';
+import { NOTICE_ADD, NOTICE_DEL, NOTICE_DOWN, NOTICE_LIST, NOTICE_OFFLINE, NOTICE_PUT, NOTICE_RELEASE, NOTICE_UP, TEMPLATE_NOTICE } from '../../../constants';
 
 class Notice extends Component {
   constructor(props) {
@@ -21,8 +21,9 @@ class Notice extends Component {
     this.update = this.update.bind(this);
     this.showUpdate = this.showUpdate.bind(this);
     this.list = this.list.bind(this);
-
+    this.template = this.template.bind(this);
   }
+
   componentDidMount() {
     this.list(this.props.page);
   }
@@ -64,7 +65,15 @@ class Notice extends Component {
       method: 'GET',
       queryObj: { page },
       key: page,
-    }));   
+    }));
+  }
+  template() {
+    this.props.dispatch(fetchAction({
+      type: TEMPLATE_NOTICE,
+      method: 'POST',
+    })).then(() => {
+      alert('pc公告页生成完成');
+    });
   }
   del(e) {
     const id = $(e.target).data('id');
@@ -143,6 +152,7 @@ class Notice extends Component {
       <div>
         <div className="card">
           <div className="card-header clearfix">公告列表
+            
             <button
               type="button"
               className="btn btn-sm  btn-info pull-right"
@@ -151,6 +161,15 @@ class Notice extends Component {
               onClick={this.showModal}
             >
               <i className="fa fa-plus"> 添加</i>
+            </button>
+            <button
+              type="button"
+              className="btn btn-sm btn-success pull-right"
+              data-toggle="modal"
+              data-target="#channel-add-modal"
+              onClick={this.template}
+            >
+              同步pc公告页
             </button>
           </div>
           <table className="table table-bordered m-b-0 table-hover">

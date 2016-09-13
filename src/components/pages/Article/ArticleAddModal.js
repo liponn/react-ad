@@ -22,7 +22,7 @@ class ArticleAddModal extends Component {
             <AttachmentInput labelName="封面" defaultValue={this.props.item.cover} position={`article_${this.props.typeId}`} name="cover" />
           </div>
 
-          <Editor name="content" defaultValue={this.props.item.title} />
+          <Editor name="content" defaultValue={this.props.item.content} />
 
           <Submit />
         </form>

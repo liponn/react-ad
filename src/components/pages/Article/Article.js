@@ -6,7 +6,7 @@ import { Link, Radio, Status, Popover, Alert, ImgBox, Pagination } from '../../t
 import history from '../../../core/history';
 import { showModal, hideModal } from '../../../actions/modal';
 import ArticleAddModal from './ArticleAddModal';
-import { ARTICLE_LIST, ARTICLE_ADD, ARTICLE_PUT, ARTICLE_TYPE_LIST, ARTICLE_DEL, ARTICLE_RELEASE, ARTICLE_OFFLINE, ARTICLE_DOWN, ARTICLE_UP } from '../../../constants';
+import { ARTICLE_LIST, ARTICLE_ADD, ARTICLE_PUT, ARTICLE_TYPE_LIST, ARTICLE_DEL, ARTICLE_RELEASE, ARTICLE_OFFLINE, ARTICLE_DOWN, ARTICLE_UP, TEMPLATE_HELP, TEMPLATE_DYNAMIC, TEMPLATE_MEDIA } from '../../../constants';
 
 class Article extends Component {
   constructor(props) {
@@ -24,7 +24,9 @@ class Article extends Component {
     this.add = this.add.bind(this);
     this.update = this.update.bind(this);
     this.showUpdate = this.showUpdate.bind(this);
-    
+    this.templateDynamic = this.templateDynamic.bind(this);
+    this.templateHelp = this.templateHelp.bind(this);
+    this.templateMedia = this.templateMedia.bind(this);
     const currentId = this.props.secId || this.props.firId || 0;
     this.state = {
       currentId,
@@ -41,6 +43,30 @@ class Article extends Component {
     if (nextProps.page !== this.props.page) {
       this.getArticle(this.state.currentId, nextProps.page);
     }
+  }
+  templateMedia() {
+    this.props.dispatch(fetchAction({
+      type: TEMPLATE_MEDIA,
+      method: 'POST',
+    })).then(() => {
+      alert('媒体报道页生成完成');
+    });
+  }
+  templateDynamic() {
+    this.props.dispatch(fetchAction({
+      type: TEMPLATE_DYNAMIC,
+      method: 'POST',
+    })).then(() => {
+      alert('pc网利动态成完成');
+    });
+  }
+  templateHelp() {
+    this.props.dispatch(fetchAction({
+      type: TEMPLATE_HELP,
+      method: 'POST',
+    })).then(() => {
+      alert('pc帮助中心生成完成');
+    });
   }
   showModal() {
     const modalView = <ArticleAddModal typeId={this.state.currentId} submit={this.add} />;
@@ -223,7 +249,27 @@ class Article extends Component {
             >
               <i id="articleAdd" className="fa fa-plus"> 添加</i>
             </button>
-
+            <button
+              type="button"
+              className="btn btn-sm  btn-success pull-right"
+              data-toggle="modal"
+              data-target="#channel-add-modal"
+              onClick={this.templateDynamic}
+            >生成网利动态页</button>
+            <button
+              type="button"
+              className="btn btn-sm  btn-success pull-right"
+              data-toggle="modal"
+              data-target="#channel-add-modal"
+              onClick={this.templateHelp}
+            >生成帮助中心页</button>
+            <button
+              type="button"
+              className="btn btn-sm  btn-success pull-right"
+              data-toggle="modal"
+              data-target="#channel-add-modal"
+              onClick={this.templateMedia}
+            >生成媒体报道页</button>
           </div>
           <table className="table table-bordered m-b-0 table-hover">
             <thead>

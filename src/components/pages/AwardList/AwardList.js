@@ -25,7 +25,10 @@ class AwardList extends Component {
   fresh(page) {
     this.props.dispatch(fetchAction({
       type: ACTIVITY_REWARD_LIST,
-      queryObj: { page },
+      queryObj: {
+        // 'data[filter][status]': 0,
+        page,
+      },
       key: page,
     }));
   }
@@ -46,6 +49,7 @@ class AwardList extends Component {
                 <th>站内信发送状态</th>
                 <th>短信发送状态</th>
                 <th>奖品发送状态</th>
+                <th>创建时间</th>
                 <th>备注</th>
               </tr>
             </thead>
@@ -60,6 +64,7 @@ class AwardList extends Component {
                 <td>{item.mail_status}</td>
                 <td>{item.message_status}</td>
                 <td>{item.status}</td>
+                <td>{item.created_at}</td>
                 <td>{JSON.stringify(JSON.parse(item.remark || '{}'))}</td>
               </tr>
             ))}

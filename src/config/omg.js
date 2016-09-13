@@ -120,6 +120,11 @@ import {
   ADMIN_PUT,
   ADMIN_DEL,
 
+  TEMPLATE_HELP,
+  TEMPLATE_MEDIA,
+  TEMPLATE_DYNAMIC,
+  TEMPLATE_NOTICE,
+
 } from '../constants/index.js';
 
 import { serverApi } from '../config';
@@ -249,6 +254,11 @@ apiList[ADMIN_LIST] = '/admin/list';
 apiList[ADMIN_PUT] = '/admin/put';
 apiList[ADMIN_INFO] = '/admin/info';
 apiList[ADMIN_DEL] = '/admin/del';
+
+apiList[TEMPLATE_HELP] = '/template/help-list';
+apiList[TEMPLATE_NOTICE] = '/template/notice-list';
+apiList[TEMPLATE_MEDIA] = '/template/media-list';
+apiList[TEMPLATE_DYNAMIC] = '/template/dynamic-list';
 
 function getApi(type) {
   return apiHost + apiList[type];

@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { ACCOUNT_PROFILE } from '../../../constants';
+import { authentication } from '../../../config'
 
 class Main extends Component {
   constructor(props) {
@@ -12,10 +13,12 @@ class Main extends Component {
 
   render() {
     if (!this.props.profile.id || this.props.fetching) {
-      return false;
+      if (authentication) {
+        return false;
+      }
     }
     return (
-      <div id="main" hidden={!this.props.profile.id || this.props.fetching} >
+      <div id="main">
         {this.props.children}
       </div>
     );

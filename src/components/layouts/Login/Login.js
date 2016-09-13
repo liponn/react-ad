@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Input, Card, Submit, Alert } from '../../tools';
 import { fetchAction } from '../../../actions/omg';
 import { ACCOUNT_LOGIN, ACCOUNT_PROFILE, ACCOUNT_CAPTCHA } from '../../../constants';
+import { authentication } from '../../../config';
 
 class Login extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class Login extends Component {
     this.state = {
       errorMsg: '',
       fetching: false,
-    }
+    };
   }
   componentDidMount() {
     this.refreshCaptcha();
@@ -55,7 +56,7 @@ class Login extends Component {
     });
   }
   render() {
-    if (this.props.profile.id || (!this.state.fetching && this.props.fetching)) {
+    if (!authentication || this.props.profile.id || (!this.state.fetching && this.props.fetching)) {
       return false;
     }
     return (

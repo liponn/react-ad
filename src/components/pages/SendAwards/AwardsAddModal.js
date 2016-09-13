@@ -48,7 +48,7 @@ class AwardsAddModal extends Component {
   }
   render() {
     return (
-      <Modal title={this.props.update ? '编辑公告' : '批量发送奖品'} className="modal-lg">
+      <Modal title={this.props.update ? '' : '批量发送奖品'} className="modal-lg">
         <div className="p-t-1 p-x-1">
           <Alert msg={this.state.errorMsg} />
           <Success msg={this.state.successMsg} />
