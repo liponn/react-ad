@@ -40,6 +40,7 @@ import {
   AWARD_DEL,
   AWARD_INFO,
   AWARD_ADD_TO_USER,
+  AWARD_REISSUE,
 
   CHANNEL_ADD,
   CHANNEL_DEL,
@@ -174,6 +175,7 @@ apiList[AWARD_INFO] = '/award/get-one';
 apiList[AWARD_LIST] = '/award/get-list';
 apiList[AWARD_UPDATE] = '/award/update';
 apiList[AWARD_ADD_TO_USER] = '/award/add-award-to-user';
+apiList[AWARD_REISSUE] = '/award/reissue-award';
 
 apiList[CHANNEL_ADD] = '/channel/add';
 apiList[CHANNEL_INFO] = '/channel/info';
@@ -259,6 +261,7 @@ apiList[TEMPLATE_HELP] = '/template/help-list';
 apiList[TEMPLATE_NOTICE] = '/template/notice-list';
 apiList[TEMPLATE_MEDIA] = '/template/media-list';
 apiList[TEMPLATE_DYNAMIC] = '/template/dynamic-list';
+
 
 function getApi(type) {
   return apiHost + apiList[type];

@@ -66,6 +66,7 @@ export const AWARD_UPDATE = 'AWARD_UPDATE';
 export const AWARD_DEL = 'AWARD_DEL';
 export const AWARD_INFO = 'AWARD_INFO';
 export const AWARD_ADD_TO_USER = 'AWARD_ADD_TO_USER';
+export const AWARD_REISSUE = 'AWARD_REISSUE';
 
 export const ARTICLE_TYPE_LIST = 'ARTICLE_TYPE_LIST';
 export const ARTICLE_TYPE_ADD = 'ARTICLE_TYPE_ADD';
@@ -150,4 +151,5 @@ export const TEMPLATE_NOTICE = 'TEMPLATE_NOTICE';
 export const TEMPLATE_HELP = 'TEMPLATE_HELP';
 export const TEMPLATE_DYNAMIC = 'TEMPLATE_DYNAMIC';
 export const TEMPLATE_MEDIA = 'TEMPLATE_MEDIA';
+
 

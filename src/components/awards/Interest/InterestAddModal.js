@@ -58,7 +58,6 @@ class InterestAddModal extends Component {
     for (const pair of formData.entries()) {
       valuesObj[pair[0]] = pair[1];
     }
-    console.log(valuesObj);
     const limitDesArr = [];
     const investmentThreshold = valuesObj.investment_threshold || 0;
     const projectDurationType = valuesObj.project_duration_type || 0;

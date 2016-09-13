@@ -1,8 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { ImgBox, Card, Status, Popover, Pagination } from '../../tools';
+import { Card, Pagination, Input, Button } from '../../tools';
 import { fetchAction } from '../../../actions/omg';
-import { ACTIVITY_REWARD_LIST } from '../../../constants';
+import { ACTIVITY_REWARD_LIST, AWARD_REISSUE } from '../../../constants';
 import { getConfig } from '../../../config/omg';
 
 
@@ -10,6 +10,8 @@ class AwardList extends Component {
   constructor(props) {
     super(props);
     this.fresh = this.fresh.bind(this);
+    this.searchChange = this.searchChange.bind(this);
+    this.awardReissue = this.awardReissue.bind(this);
     this.state = {
       errorMsg: '',
     };
@@ -22,7 +24,19 @@ class AwardList extends Component {
       this.fresh(nextProps.page);
     }
   }
+  awardReissue() {
+    this.props.dispatch(fetchAction({
+      type: AWARD_REISSUE,
+      method: 'POST',
+    })).then(() => {
+      alert('奖品正在补发,请稍等。。。');
+    });
+  }
+  searchChange() {
+  
+  } 
   fresh(page) {
+    const queryObj = {page}
     this.props.dispatch(fetchAction({
       type: ACTIVITY_REWARD_LIST,
       queryObj: {
@@ -35,9 +49,31 @@ class AwardList extends Component {
   render() {
     const award = this.props.awardList[this.props.page] || {};
     const items = award.data || [];
+    const btn = (
+       [<button
+          type="button"
+          className="btn btn-sm btn-success pull-right"
+          data-toggle="modal"
+          data-target="#channel-add-modal"
+          onClick={this.awardReissue}
+        >
+          补发奖品
+        </button>,
+        <div className="pull-right row" hidden>
+          <form ref="searchForm">
+            <div className="pull-left">
+              <Input labelName="userId" onChange={this.searchChange} />
+            </div>
+            <div className="pull-left">
+              <Input labelName="奖品发送状态" onChange={this.searchChange} />
+            </div>
+          </form>
+        </div>
+       ]
+    );
     return (
       <div>
-        <Card title="奖品发放记录">
+        <Card title="奖品发放记录" btn={btn}>
           <table className="table m-b-0 table-bordered">
             <thead>
               <tr>
