@@ -40,7 +40,7 @@ class AwardList extends Component {
     this.props.dispatch(fetchAction({
       type: ACTIVITY_REWARD_LIST,
       queryObj: {
-        // 'data[filter][status]': 0,
+        //'data[filter][status]': 0,
         page,
       },
       key: page,

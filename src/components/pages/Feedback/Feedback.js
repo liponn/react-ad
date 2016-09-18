@@ -42,6 +42,7 @@ class Feedback extends Component {
                 <th>用户ID</th>
                 <th>内容</th>
                 <th>平台</th>
+                <th>时间</th>
                 <th>UA</th>
               </tr>
             </thead>
@@ -52,6 +53,7 @@ class Feedback extends Component {
                 <td>{item.user_id}</td>
                 <td>{item.content}</td>
                 <td>{getConfig('feedbackPlatformTypes', item.platform)}</td>
+                <td>{item.created_at}</td>
                 <td>{item.user_agent}</td>
               </tr>
             ))}

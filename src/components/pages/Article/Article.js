@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { commonFetch ,fetchAction} from '../../../actions/omg';
+import { commonFetch, fetchAction } from '../../../actions/omg';
 import { getConfig } from '../../../config/omg';
 import { Link, Radio, Status, Popover, Alert, ImgBox, Pagination } from '../../tools';
 import history from '../../../core/history';
@@ -30,6 +30,7 @@ class Article extends Component {
     const currentId = this.props.secId || this.props.firId || 0;
     this.state = {
       currentId,
+      aliasname: '',
     };
   }
   componentDidMount() {
@@ -68,8 +69,9 @@ class Article extends Component {
       alert('pc帮助中心生成完成');
     });
   }
-  showModal() {
-    const modalView = <ArticleAddModal typeId={this.state.currentId} submit={this.add} />;
+  showModal(e) {
+    const aliasName = e.target.dataset.alias;
+    const modalView = <ArticleAddModal aliasName={aliasName} typeId={this.state.currentId} submit={this.add} />;
     this.props.dispatch(showModal(modalView));
   }
   add(e) {
@@ -115,14 +117,12 @@ class Article extends Component {
   typeChange(e) {
     const value = e.target.value;
     const name = e.target.name;
-    // const location = history.getCurrentLocation();
+    
     if (name === 'firId') {
-      // history.push({ ...location, pathname: `/article/${value}` });
       history.push(`/article/${value}`);
       this.getType(value);
     }
     if (name === 'secId') {
-      // history.push({ ...location, pathname: `/article/${this.props.firId}/${value}` });
       history.push(`/article/${this.props.firId}/${value}`);
     }
     this.setState({
@@ -173,13 +173,14 @@ class Article extends Component {
     const id = e.target.dataset.id;
     const index = e.target.dataset.index;
     const item = this.articles[index] || {};
+    const aliasName = e.target.dataset.alias;
     if (item.id !== +id) {
       this.setState({
         errorMsg: '编辑信息不匹配,请刷新重试',
       });
       return;
     }
-    const modalView = <ArticleAddModal update typeId={this.state.currentId} item={item} submit={this.update} />;
+    const modalView = <ArticleAddModal update aliasName={aliasName} typeId={this.state.currentId} item={item} submit={this.update} />;
     this.props.dispatch(showModal(modalView));
   }
   update(e) {
@@ -206,7 +207,13 @@ class Article extends Component {
     const key = `${this.state.currentId}_${this.props.page}`;
     const articlesObj = this.props.articleList[key] || {};
     const articles = articlesObj.data || [];
+    let aliasName = '';
     this.articles = articles;
+    for (let i = 0; i < fatherItems.length; i++) {
+      if (fatherItems[i].id === this.props.firId) {
+        aliasName = fatherItems[i].alias_name;
+      }
+    }
     return (
       <div>
         {fatherItems.map(item => (
@@ -243,31 +250,27 @@ class Article extends Component {
             <button
               type="button"
               className="btn btn-sm  btn-info pull-right"
-              data-toggle="modal"
-              data-target="#channel-add-modal"
+              data-alias={aliasName}
               onClick={this.showModal}
             >
-              <i id="articleAdd" className="fa fa-plus"> 添加</i>
+              <i id="articleAdd" data-alias={aliasName} className="fa fa-plus"> 添加</i>
             </button>
             <button
               type="button"
               className="btn btn-sm  btn-success pull-right"
-              data-toggle="modal"
-              data-target="#channel-add-modal"
+              hidden={aliasName !== 'trends'}
               onClick={this.templateDynamic}
             >生成网利动态页</button>
             <button
               type="button"
               className="btn btn-sm  btn-success pull-right"
-              data-toggle="modal"
-              data-target="#channel-add-modal"
+              hidden={aliasName !== 'questions'}
               onClick={this.templateHelp}
             >生成帮助中心页</button>
             <button
               type="button"
               className="btn btn-sm  btn-success pull-right"
-              data-toggle="modal"
-              data-target="#channel-add-modal"
+              hidden={aliasName !== 'report'}
               onClick={this.templateMedia}
             >生成媒体报道页</button>
           </div>
@@ -279,6 +282,7 @@ class Article extends Component {
                 <th>配图</th>
                 <th>内容</th>
                 <th>发布状态</th>
+                {(aliasName === 'questions' || aliasName === 'pc_questions') ? [<th>常见问题</th>] : false}
                 <th>操作</th>
               </tr>
             </thead>
@@ -290,12 +294,13 @@ class Article extends Component {
                 <td>{item.cover ? <ImgBox src={item.cover} /> : '—'}</td>
                 <td><Popover title={item.title} content={item.content} /></td>
                 <td><Status status={+item.release} /></td>
+                <td>{item.platform === 1 ? '√️' : '—'}</td>
                 <td>
                   <button className="btn btn-success-outline btn-sm" hidden={+item.release === 1} data-id={item.id} onClick={this.releaseArticle}>发布</button>
                   <button className="btn btn-warning-outline btn-sm" hidden={+item.release === 0} data-id={item.id} onClick={this.offLineArticle}>下线</button>
                   <button className="btn btn-info-outline btn-sm" data-id={item.id} onClick={this.upArticle}>上移</button>
                   <button className="btn btn-info-outline btn-sm" data-id={item.id} onClick={this.downArticle}>下移</button>
-                  <button className="btn btn-success-outline btn-sm" data-index={index} data-id={item.id} onClick={this.showUpdate}>编辑</button>
+                  <button className="btn btn-success-outline btn-sm" data-alias={aliasName} data-index={index} data-id={item.id} onClick={this.showUpdate}>编辑</button>
                   <button className="btn btn-danger-outline btn-sm" data-id={item.id} onClick={this.delArticle}>删除</button>
                 </td>
               </tr>

@@ -9,7 +9,6 @@ class Checkbox extends Component {
     };
   }
   checkChange(e) {
-    console.log(e.target.checked);
     this.setState({
       checked: e.target.checked,
     });
@@ -37,11 +36,13 @@ Checkbox.propTypes = {
   checked: PropTypes.bool,
   true: PropTypes.any,
   false: PropTypes.any,
+  value: PropTypes.any,
 }
 
 Checkbox.defaultProps = {
   checked: false,
   true: 1,
   false: 0,
+  value: 'on',
 }
 export default Checkbox;

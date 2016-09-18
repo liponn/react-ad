@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Input, Editor, AttachmentInput, Alert, Submit, Modal } from '../../tools';
+import { Input, Editor, AttachmentInput, Alert, Submit, Modal, Checkbox } from '../../tools';
 import { ARTICLE_ADD} from '../../../constants'
 
 class ArticleAddModal extends Component {
@@ -18,12 +18,13 @@ class ArticleAddModal extends Component {
           <input type="hidden" name="id" value={this.props.item.id} />
           <input type="hidden" name="type_id" defaultValue={this.props.typeId} />
           <Input labelName="标题" name="title" defaultValue={this.props.item.title} />
-          <div>
+          <div hidden={this.props.aliasName !== 'report'}>
             <AttachmentInput labelName="封面" defaultValue={this.props.item.cover} position={`article_${this.props.typeId}`} name="cover" />
           </div>
-
+          <div hidden={this.props.aliasName !== 'questions' && this.props.aliasName !== 'pc_questions'}>
+            <Checkbox labelName="常见问题" name="platform" value="1" checked={this.props.item.platform} />
+          </div>
           <Editor name="content" defaultValue={this.props.item.content} />
-
           <Submit />
         </form>
       </Modal>
@@ -36,9 +37,11 @@ ArticleAddModal.propTypes = {
   submit: PropTypes.func.isRequired,
   update: PropTypes.bool,
   item: PropTypes.object,
+  aliasName: PropTypes.string,
 }
 ArticleAddModal.defaultProps = {
   item: {},
+  aliasName: '',
 }
 export default connect(state => {
   const { omg } = state;

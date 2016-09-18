@@ -41,7 +41,7 @@ class ActivityList extends Component {
     this.props.dispatch(fetchAction({
       type: ACTIVITY_GROUP_LIST,
       queryObj: {
-        'data[filter][type_id]': typeId,
+        // 'data[filter][status]': 0,
         page,
       },
       key: `${typeId}_${page}`,

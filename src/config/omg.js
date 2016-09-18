@@ -271,6 +271,8 @@ const adminTypes = {
   0: '游客',
   1: '超级管理员',
   2: '运营组',
+  3: '产品组',
+  4: '渠道组',
 }
 
 const activityTypes = {
