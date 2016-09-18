@@ -20,6 +20,8 @@ import CastAllRule from '../../rules/CastAllRule';
 import RechargeAllRule from '../../rules/RechargeAllRule';
 import CastName from '../../rules/CastName';
 import ChannelBlist from '../../rules/ChannelBlist';
+import CastType from '../../rules/CastType';
+import JoinNum from '../../rules/JoinNum';
 
 class RuleAddModal extends Component {
   constructor(props) {
@@ -105,7 +107,13 @@ class RuleAddModal extends Component {
         break;
       case 'channelblist':
         ruleView = <ChannelBlist submit={this.submit} activityId={this.props.item.id} />;
-        break; 
+        break;
+      case 'casttype':
+        ruleView = <CastType submit={this.submit} activityId={this.props.item.id} />;
+        break;
+      case 'joinnum':
+        ruleView = <JoinNum submit={this.submit} activityId={this.props.item.id} />;
+        break;
       default:
         ruleView = this.state.currentRule;
     }

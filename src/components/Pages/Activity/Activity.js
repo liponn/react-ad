@@ -215,6 +215,8 @@ class Activity extends Component {
         }
       case 'is_invite':
         return +value === 1 ? '是' : '否';
+      case 'type':
+        return getConfig('castDateTypes', +value);
       case 'min_payment':
       case 'max_payment':
       case 'min_recharge':
@@ -293,12 +295,14 @@ class Activity extends Component {
           <Text name="发奖频次" value={this.state.frequencyTypes[activity.frequency]} />
           <Text name="发奖规则" value={getConfig('sendAwardTypes', activity.award_rule || '—')} />
 
-          <div className="clearfix"></div>
-
           <Text name="开始时间" value={activity.start_at || '不限'} />
           <Text name="结束时间" value={activity.end_at || '不限'} />
+          
           <Text name="触发类型" value={this.state.activityTriggers[activity.trigger_type]} />
           <Text name="活动说明" value={activity.des || '—'} />
+
+          <Text name="当前参与人数" value={activity.join_nums || '—'} />
+          
           <div className="m-b-1 clearfix"></div>
         </Card>
         <Card title="活动规则" btn={addRuleBtn}>

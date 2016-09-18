@@ -385,6 +385,8 @@ const ruleFileds = {
   max_cast_all: '最大投资金额',
   name: '名称',
   stage_name: '期名',
+  join_max: '参与人数上限',
+  type: '类型',
 }
 
 const activityTriggers = {
@@ -403,7 +405,7 @@ const triggerRuleFileds = {
   1: {},
   2: { recharge: '充值金额' },
   3: {},
-  4: { cast: '投资金额', castname: '投资标名称' },
+  4: { cast: '投资金额', castname: '投资标名称', casttype: '标期限制' },
   5: { payment: '回款金额' },
   6: {},
   7: {},
@@ -419,6 +421,7 @@ const ruleTypes = {
   balance: '用户余额',
   castall: '投资总金额',
   rechargeall: '充值总金额',
+  joinnum: '参与人数上限',
 }
 
 const bannerTypes = {
@@ -503,6 +506,12 @@ const castTypes = {
   2: '非首投',
 }
 
+const castDateTypes = {
+  0: '不限',
+  1: '天标',
+  2: '月标',
+}
+
 const rechargeTypes = {
   0: '不限',
   1: '首充',
@@ -570,6 +579,7 @@ const config = {
   rechargeTypes,
   adminTypes,
   noticePlatforms,
+  castDateTypes,
 };
 
 function getConfig(type, key = false) {

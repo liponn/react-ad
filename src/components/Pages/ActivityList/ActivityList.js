@@ -42,6 +42,7 @@ class ActivityList extends Component {
       type: ACTIVITY_GROUP_LIST,
       queryObj: {
         // 'data[filter][status]': 0,
+        'data[filter][type_id]': typeId,
         page,
       },
       key: `${typeId}_${page}`,
