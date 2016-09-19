@@ -67,6 +67,7 @@ export const AWARD_DEL = 'AWARD_DEL';
 export const AWARD_INFO = 'AWARD_INFO';
 export const AWARD_ADD_TO_USER = 'AWARD_ADD_TO_USER';
 export const AWARD_REISSUE = 'AWARD_REISSUE';
+export const AWARD_COUPON_TOTAL = 'AWARD_COUPON_TOTAL';
 
 export const ARTICLE_TYPE_LIST = 'ARTICLE_TYPE_LIST';
 export const ARTICLE_TYPE_ADD = 'ARTICLE_TYPE_ADD';

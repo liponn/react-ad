@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Card, Popover } from '../../tools';
-import { AWARD_LIST, AWARD_UPDATE, AWARD_ADD } from '../../../constants';
+import { AWARD_LIST, AWARD_UPDATE, AWARD_ADD, AWARD_COUPON_TOTAL } from '../../../constants';
 import { fetchAction } from '../../../actions/omg';
 import CouponAddModal from './CouponAddModal';
 import { showModal, hideModal } from '../../../actions/modal';
@@ -13,6 +13,7 @@ class Coupon extends Component {
     this.fresh = this.fresh.bind(this);
     this.list = this.list.bind(this);
     this.add = this.add.bind(this);
+    this.showNum = this.showNum.bind(this);
     this.update = this.update.bind(this);
     const page = props.page || 1;
     this.state = {
@@ -45,6 +46,22 @@ class Coupon extends Component {
         this.setState({
           errorMsg: json.data.error_msg,
         });
+      }
+    });
+  }
+  showNum(e) {
+    const id = e.target.dataset.id;
+    const formData = new FormData();
+    formData.append('coupon_id', id);
+    this.props.dispatch(fetchAction({
+      type: AWARD_COUPON_TOTAL,
+      method: 'POST',
+      formData,
+    })).then(json => {
+      if (json.error_code === 0) {
+        alert(`未送出: ${json.data.notUse || 0} 个,已送出: ${json.data.use || 0} 个`);
+      } else {
+        alert(json.data.error_msg);
       }
     });
   }
@@ -145,7 +162,10 @@ class Coupon extends Component {
                   <Popover name="站内信" title="站内信" content={!item.mail ? '无' : `${item.mail} `} />
                   <Popover name="短信" title="短信" content={!item.message ? '无' : `${item.message} `} />
                 </td>
-                <td>{addAwardBtn}</td>
+                <td>
+                  <button hidden={modal} className="btn btn-success-outline btn-sm" data-id={item.id} onClick={this.showNum}>查看数量</button>
+                  {addAwardBtn}
+                </td>
               </tr>
             );
           })}

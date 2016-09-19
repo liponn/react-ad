@@ -5,15 +5,7 @@ export default {
 
   path: '/channel',
 
-  action() {
-    return <Channel />;
+  action(context) {
+    return <Channel page={+context.query.page || 1} />;
   },
-  children: [
-    {
-      path: '/:type',
-      action() {
-        return <Channel />;
-      },
-    },
-  ],
 };

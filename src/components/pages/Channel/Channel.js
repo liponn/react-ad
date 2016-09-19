@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { fetchAction } from '../../../actions/omg';
 import { showModal, hideModal} from '../../../actions/modal';
 import { CHANNEL_LIST, CHANNEL_DEL, CHANNEL_INFO, CHANNEL_PUT, CHANNEL_ADD } from '../../../constants';
-import { Modal, Button,  Alert, Input, Submit, Card } from '../../tools';
+import { Card, Pagination} from '../../tools';
+import ChannelAddModal from './ChannelAddModal';
+import { getConfig } from '../../../config/omg';
 
 
 class Channel extends Component {
@@ -11,9 +13,12 @@ class Channel extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.add = this.add.bind(this);
+    this.update = this.update.bind(this);
     this.fresh = this.fresh.bind(this);
+    this.list = this.list.bind(this);
     this.del = this.del.bind(this);
     this.showAddModal = this.showAddModal.bind(this);
+    this.showUpdateModal = this.showUpdateModal.bind(this);
     this.state = {
       name: '',
       alias_name: '',
@@ -25,6 +30,11 @@ class Channel extends Component {
   componentDidMount() {
     this.fresh();
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.page !== this.props.page) {
+      this.list(nextProps.page);
+    }
+  }
   handleChange(e) {
     const target = e.target;
     this.setState({
@@ -33,8 +43,13 @@ class Channel extends Component {
     });
   }
   fresh() {
+    this.list(this.props.page);
+  }
+  list(page) {
     this.props.dispatch(fetchAction({
       type: CHANNEL_LIST,
+      queryObj: { page },
+      key: page,
     }));
   }
   add(e) {
@@ -56,10 +71,31 @@ class Channel extends Component {
       }
     });
   }
+  update(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    this.props.dispatch(fetchAction({
+      type: CHANNEL_PUT,
+      method: 'POST',
+      formData,
+    })).then(json => {
+      this.props.dispatch(hideModal(true));
+      this.fresh();
+    });
+  }
   showAddModal() {
     this.props.dispatch(showModal(<ChannelAddModal submit={this.add} errorMsg={this.state.addErrorMsg} />));
   }
+  showUpdateModal(e) {
+    const index = e.target.dataset.index;
+    console.dir(index);
+    const item = this.items[index];
+    this.props.dispatch(showModal(<ChannelAddModal update item={item} submit={this.update} errorMsg={this.state.addErrorMsg} />));
+  }
   del(e) {
+    if (!confirm('确认删除吗?')) {
+      return false;
+    }
     const id = e.target.dataset.id;
     const formData = new FormData;
     formData.append('id', id);
@@ -77,7 +113,9 @@ class Channel extends Component {
   }
 
   render() {
-    const { items } = this.props;
+    const channel = this.props.channelList[this.props.page] || {};
+    const items = channel.data || [];
+    this.items = items;
     const addBtn = (
       <button
         onClick={this.showAddModal}
@@ -93,20 +131,23 @@ class Channel extends Component {
             <thead>
               <tr>
                 <th>id</th>
-                <th>中文说明</th>
-                <th>前缀</th>
                 <th>渠道名称</th>
+                <th>中文说明</th>
+                <th>合作模式</th>
+                <th>状态</th>
                 <th>操作</th>
               </tr>
             </thead>
             <tbody>
-            {items.map((item) => (
+            {items.map((item, index) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
-                <td>{item.name}</td>
-                <td>{item.pre}</td>
                 <td>{item.alias_name}</td>
+                <td>{item.name}</td>
+                <td>{getConfig('channelStatusTypes', item.coop_status)}</td>
+                <td>{getConfig('channelClassTypes', item.classification)}</td>
                 <td>
+                  <button className="btn btn-info-outline btn-sm" data-id={item.id} data-index={index} onClick={this.showUpdateModal}>编辑</button>
                   <button className="btn btn-danger-outline btn-sm" data-id={item.id} onClick={this.del}>删除</button>
                 </td>
               </tr>
@@ -114,6 +155,7 @@ class Channel extends Component {
             </tbody>
           </table>
         </Card>
+        <Pagination currentPage={channel.current_page} lastPage={channel.last_page} />
       </div>
     );
   }
@@ -121,6 +163,7 @@ class Channel extends Component {
 Channel.propTypes = {
   items: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
+  page: PropTypes.number.isRequired,
 }
 
 Channel.defaultProps = {
@@ -130,29 +173,10 @@ Channel.defaultProps = {
 
 export default connect(state => {
   const { omg } = state;
-  const { data } = omg[CHANNEL_LIST] || [];
+  const channelList = omg[CHANNEL_LIST] || {};
   return {
-    items: data,
+    channelList,
   };
 })(Channel);
 
-class ChannelAddModal extends Component {
-  constructor (props) {
-    super(props);
-  }
-  static propTypes = {
-    submit: PropTypes.func.isRequired,
-  }
-  render() {
-    return (
-      <Modal title="添加渠道">
-        <Alert msg={this.props.errorMsg} />
-        <form onSubmit={this.props.submit}>
-          <Input labelName="中文说明" name="name" />
-          <Input labelName="渠道名称" placeholder="只能包含英文和数字" name="alias_name" />
-          <Submit />
-        </form>
-      </Modal>
-    );
-  }
-}
+

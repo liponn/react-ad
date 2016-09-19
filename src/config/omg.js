@@ -41,6 +41,7 @@ import {
   AWARD_INFO,
   AWARD_ADD_TO_USER,
   AWARD_REISSUE,
+  AWARD_COUPON_TOTAL,
 
   CHANNEL_ADD,
   CHANNEL_DEL,
@@ -176,6 +177,7 @@ apiList[AWARD_LIST] = '/award/get-list';
 apiList[AWARD_UPDATE] = '/award/update';
 apiList[AWARD_ADD_TO_USER] = '/award/add-award-to-user';
 apiList[AWARD_REISSUE] = '/award/reissue-award';
+apiList[AWARD_COUPON_TOTAL] = '/award/coupon-code-total';
 
 apiList[CHANNEL_ADD] = '/channel/add';
 apiList[CHANNEL_INFO] = '/channel/info';
@@ -435,6 +437,22 @@ const bannerTypes = {
   channel: '渠道落地页',
 }
 
+const channelStatusTypes = {
+  0: '正常',
+  1: '暂停拉新',
+  2: '暂停合作',
+  3: '渠道归并',
+}
+
+const channelClassTypes = {
+  '----': '不限制',
+  CPC: '按点击计费',
+  CPD: '按天计费',
+  CPT: '按时间计费',
+  CPA: '按行为计费',
+  CPS: '按销售计费',
+}
+
 const shareConfigTypes = {
   taojin: '全民淘金',
 }
@@ -580,6 +598,9 @@ const config = {
   adminTypes,
   noticePlatforms,
   castDateTypes,
+  channelStatusTypes,
+  channelClassTypes,
+  
 };
 
 function getConfig(type, key = false) {
