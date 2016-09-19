@@ -4,7 +4,6 @@ import { ImgBox, Card, Radio, Status, Modal, Alert, DateTimeInput, Input, Submit
 import { showModal, hideModal } from '../../../actions/modal';
 import { fetchAction } from '../../../actions/omg';
 import {APP_DISABLE, APP_ENABLE, APP_ADD, APP_INFO, APP_UPDATE_LOG, APP_DEL } from '../../../constants';
-import StartupAddModal from '../../modals/StartupAddModal';
 import { getConfig } from '../../../config/omg';
 import hisotry from '../../../core/history';
 

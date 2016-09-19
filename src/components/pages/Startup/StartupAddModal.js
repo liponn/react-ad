@@ -1,9 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchAction } from '../../../actions/omg';
-import { hideModal } from '../../../actions/modal'
-import { STARTUP_ADD } from '../../../constants'
-import { Modal, Alert, Input, Textarea, Submit, DateTimeInput, AttachmentInput } from '../../tools';
+import { hideModal } from '../../../actions/modal';
+import { STARTUP_ADD } from '../../../constants';
+import { Modal, Alert, Input, Submit, DateTimeInput, AttachmentInput } from '../../tools';
 
 class StartupAddModal extends Component {
   constructor(props) {

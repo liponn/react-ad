@@ -4,7 +4,7 @@ import { ImgBox, Card, Radio, Status } from '../../tools';
 import { showModal } from '../../../actions/modal';
 import { fetchAction } from '../../../actions/omg';
 import { STARTUP_LIST, STARTUP_DISABLE, STARTUP_ENABLE, STARTUP_DEL, STARTUP_UP, STARTUP_DOWN} from '../../../constants';
-import StartupAddModal from '../../modals/StartupAddModal';
+import StartupAddModal from './StartupAddModal';
 import { getConfig } from '../../../config/omg';
 import hisotry from '../../../core/history';
 
@@ -128,12 +128,12 @@ class Startup extends Component {
           ))}
         </div>
         <hr />
-        <Card title="banner图" btn={btn}>
+        <Card title="启动图" btn={btn}>
           <table className="table m-b-0 table-bordered">
             <thead>
               <tr>
                 <th>ID</th>
-                <th>跳转URL</th>
+                <th hidden>跳转URL</th>
                 <th>图片1</th>
                 <th>图片2</th>
                 <th>图片3</th>
@@ -141,7 +141,6 @@ class Startup extends Component {
                 <th>状态</th>
                 <th>开始时间</th>
                 <th>结束时间</th>
-                <th>发布时间</th>
                 <th>操作</th>
               </tr>
             </thead>
@@ -149,7 +148,7 @@ class Startup extends Component {
             {items.map((item) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
-                <td><a title={item.target_url} href={item.target_url} target="_blank">查看</a></td>
+                <td hidden><a title={item.target_url} href={item.target_url} target="_blank">查看</a></td>
                 <td><ImgBox src={item.img1} /></td>
                 <td><ImgBox src={item.img2} /></td>
                 <td><ImgBox src={item.img3} /></td>
@@ -157,7 +156,6 @@ class Startup extends Component {
                 <td><Status status={+item.enable} /></td>
                 <td>{item.online_time}</td>
                 <td>{item.offline_time}</td>
-                <td>{item.release_at}</td>
                 <td>
                   <button hidden={+item.enable === 1} className="btn btn-sm btn-success-outline" data-id={item.id} onClick={this.enable}>上线</button>
                   <button hidden={+item.enable === 0} className="btn btn-sm btn-warning-outline" data-id={item.id} onClick={this.disable}>下线</button>

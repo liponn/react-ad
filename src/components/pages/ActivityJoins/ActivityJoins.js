@@ -26,7 +26,8 @@ class Feedback extends Component {
     this.props.dispatch(fetchAction({
       type: ACTIVITY_JOINS_LIST,
       queryObj: {
-        // 'data[filter][user_id]': 806750,
+        // 'data[filter][activity_id]': 24,
+        // 'data[filter][status]': 3,
         page,
       },
       key: page,
@@ -45,6 +46,7 @@ class Feedback extends Component {
                 <th>活动id</th>
                 <th>用户ID</th>
                 <th>状态</th>
+                <th>创建时间</th>
                 <th>邀请人奖品</th>
                 <th>附加信息</th>
               </tr>
@@ -60,6 +62,7 @@ class Feedback extends Component {
                   {item.status === 2 && '规则不通过'}
                   {item.status === 3 && '成功'}
                 </td>
+                <td>{item.created_at}</td>
                 <td>{JSON.stringify(JSON.parse(item.invite_remark || '{}'))}</td>
                 <td>{JSON.stringify(JSON.parse(item.remark || '{}'))}</td>
               </tr>

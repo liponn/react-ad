@@ -32,6 +32,7 @@ class ActivityAddModal extends Component {
           <Select labelName="触发条件" name="trigger_type" options={this.state.activityTriggers} defaultValue={item.trigger_type} />
           <Select labelName="发奖频次" name="frequency" options={this.state.frequencyTypes} defaultValue={item.frequency} />
           <Select labelName="发奖规则" name="award_rule" options={this.state.sendAwardTypes} defaultValue={item.award_rule} />
+          <Input labelName="最大参与人数" name="join_max" placeholder="0为不限制" defaultValue={item.join_max || 0} />
           <input type="hidden" name="trigger_index" value="1" />
           <div className="form-group row">
             <label className="col-sm-4 text-xs-right">说明:</label>
