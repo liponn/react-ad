@@ -9,7 +9,7 @@
 
 /* eslint-disable max-len */
 
-export const port = process.env.PORT || 3001;
+export const port = process.env.PORT || 3003;
 export const host = process.env.WEBSITE_HOSTNAME || `localhost:${port}`;
 
 export const databaseUrl = process.env.DATABASE_URL || 'sqlite:database.sqlite';
