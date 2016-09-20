@@ -9,7 +9,6 @@ class ChannelAddModal extends Component {
     super(props);
   }
   render() {
-    console.dir(this.props.item);
     return (
       <Modal title={this.props.update ? '编辑渠道' : '添加渠道'}>
         <form onSubmit={this.props.submit}>

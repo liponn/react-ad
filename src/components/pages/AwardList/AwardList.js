@@ -36,11 +36,11 @@ class AwardList extends Component {
   
   } 
   fresh(page) {
-    const queryObj = {page}
+    // const queryObj = {page};
     this.props.dispatch(fetchAction({
       type: ACTIVITY_REWARD_LIST,
       queryObj: {
-        //'data[filter][status]': 0,
+        // 'data[filter][user_id]': 628745,
         page,
       },
       key: page,

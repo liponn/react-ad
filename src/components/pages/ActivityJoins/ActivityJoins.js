@@ -26,6 +26,7 @@ class Feedback extends Component {
     this.props.dispatch(fetchAction({
       type: ACTIVITY_JOINS_LIST,
       queryObj: {
+        // 'data[filter][user_id]': 628745,
         // 'data[filter][activity_id]': 24,
         // 'data[filter][status]': 3,
         page,

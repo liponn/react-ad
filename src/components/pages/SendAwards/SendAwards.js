@@ -92,7 +92,7 @@ class SendAwards extends Component {
             {items.map((item, index) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
-                <td>{item.uids}</td>
+                <td><div style={{ 'wordBreak': 'break-all' }}>{item.uids}</div></td>
                 <td>{getConfig('awardTypes', item.award_type)}</td>
                 <td>{item.award_id}</td>
                 <td>{item.source_name}</td>

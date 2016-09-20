@@ -52,17 +52,13 @@ class RedEnvelopeAddModal extends Component {
   }
   initLimitDes() {
     const formData = new FormData(this.refs.form);
-    const valuesObj = {};
-    for (const pair of formData.entries()) {
-      valuesObj[pair[0]] = pair[1];
-    }
     const limitDesArr = [];
-    const investmentThreshold = valuesObj.investment_threshold || 0;
-    const projectDurationType = valuesObj.project_duration_type || 0;
-    const projectDurationTime = valuesObj.project_duration_time || 0;
-    const projectType = valuesObj.project_type || 0;
-    const platformType = valuesObj.platform_type || 0;
-    const productId = valuesObj.product_id || '';
+    const investmentThreshold = formData.get('investment_threshold') || 0;
+    const projectDurationType = formData.get('project_duration_type') || 0;
+    const projectDurationTime = formData.get('project_duration_time') || 0;
+    const projectType = formData.get('project_type') || 0;
+    const platformType = formData.get('platform_type') || 0;
+    const productId = formData.get('product_id') || '';
     // 投资门槛
     if (+investmentThreshold !== 0) {
       limitDesArr.push(`${investmentThreshold}元起投`);

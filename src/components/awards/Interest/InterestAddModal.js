@@ -54,19 +54,16 @@ class InterestAddModal extends Component {
   }
   initLimitDes() {
     const formData = new FormData(this.refs.form);
-    const valuesObj = {};
-    for (const pair of formData.entries()) {
-      valuesObj[pair[0]] = pair[1];
-    }
+    
     const limitDesArr = [];
-    const investmentThreshold = valuesObj.investment_threshold || 0;
-    const projectDurationType = valuesObj.project_duration_type || 0;
-    const projectDurationTime = valuesObj.project_duration_time || 0;
-    const projectType = valuesObj.project_type || 0;
-    const platformType = valuesObj.platform_type || 0;
-    const productId = valuesObj.product_id || '';
-    const rateIncreasesType = valuesObj.rate_increases_type || 0;
-    const rateIncreasesTime = valuesObj.rate_increases_time || 0;
+    const investmentThreshold = formData.get('investment_threshold') || 0;
+    const projectDurationType = formData.get('project_duration_type') || 0;
+    const projectDurationTime = formData.get('project_duration_time') || 0;
+    const projectType = formData.get('project_type') || 0;
+    const platformType = formData.get('platform_type') || 0;
+    const productId = formData.get('product_id') || '';
+    const rateIncreasesType = formData.get('rate_increases_type') || 0;
+    const rateIncreasesTime = formData.get('rate_increases_time') || 0;
     // 投资门槛
     if (+investmentThreshold !== 0) {
       limitDesArr.push(`${investmentThreshold}元起投`);
@@ -80,7 +77,8 @@ class InterestAddModal extends Component {
       limitDesArr.push(`${getConfig('projectTypes', projectType)}专享`);
     }
     // 加息时长
-    if (+rateIncreasesType !== 0) {
+    console.dir(rateIncreasesType);
+    if (+rateIncreasesType === 2) {
       limitDesArr.push(`加息${rateIncreasesTime}天`);
     }
     // 平台限制
@@ -136,7 +134,7 @@ class InterestAddModal extends Component {
           <input type="hidden" name="award_type" value={this.state.awardType} />
           <input type="hidden" name="award_id" value={item.id} />
           <Input labelName="名称" name="name" defaultValue={item.name} />
-          <PercentInput labelName="加息值" name="rate_increases" defaultValue={item.rate_increases && (item.rate_increases * 100).toFixed(1)} placeholder="例:2.5代表加息2.5%" />
+          <PercentInput labelName="加息值" name="rate_increases" defaultValue={item.rate_increases && (item.rate_increases * 100).toFixed(2)} placeholder="例:2.5代表加息2.5%" />
           <Fieldset>
             <Select
               labelName="加息时长类型"
