@@ -172,8 +172,8 @@ class InterestAddModal extends Component {
           <Select labelName="平台限制" name="platform_type" onChange={this.initLimitDes} defaultValue={item.platform_type} options={this.state.platformTypes} />
           <Textarea labelName="限制说明" name="limit_desc" value={this.state.limitDes} />
           <hr style={{ borderStyle: 'dashed' }} />
-          <Textarea labelName="站内信模板" name="mail" defaultValue={item.mail || getConfig('templateTypes', this.state.awardType)} />
-          <Textarea labelName="短信模板" name="message" defaultValue={item.message} />
+          <Textarea labelName="站内信模板" name="mail" defaultValue={typeof item.mail !== 'undefined' ? item.mail : getConfig('templateTypes', this.state.awardType)} />
+          <Textarea labelName="短信模板" name="message" defaultValue={item.message || ''} />
           <Submit />
         </form>
       </Modal>

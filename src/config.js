@@ -27,14 +27,12 @@ export const authentication = true;
 
 // export const imgHost = 'http://api-omg.wanglibao.com';
 // export const serverApi = 'http://api-omg.wanglibao.com';
-// export const imgHost = 'http://10.44.12.108:8017';
-// export const serverApi = 'http://10.44.12.108:8017';
 
-// export const imgHost = 'https://www.wanglibao.com';
-// export const serverApi = 'https://www.wanglibao.com/yunying';
+export const imgHost = 'https://www.wanglibao.com';
+export const serverApi = 'https://www.wanglibao.com/yunying';
 
-export const imgHost = 'https://php1.wanglibao.com';
-export const serverApi = 'https://php1.wanglibao.com/yunying';
+// export const imgHost = 'https://php1.wanglibao.com';
+// export const serverApi = 'https://php1.wanglibao.com/yunying';
 
 // export const imgHost = 'https://php2.wanglibao.com';
 // export const serverApi = 'https://php2.wanglibao.com/yunying';

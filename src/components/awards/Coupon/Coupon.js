@@ -1,10 +1,11 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Card, Popover } from '../../tools';
-import { AWARD_LIST, AWARD_UPDATE, AWARD_ADD, AWARD_COUPON_TOTAL } from '../../../constants';
+import { AWARD_LIST, AWARD_UPDATE, AWARD_ADD, AWARD_COUPON_TOTAL, AWARD_COUPON_EXPORT, AWARD_COUPON_DOWNLOAD, AWARD_INVALIDE_COUPON } from '../../../constants';
 import { fetchAction } from '../../../actions/omg';
 import CouponAddModal from './CouponAddModal';
 import { showModal, hideModal } from '../../../actions/modal';
+import { getApi } from '../../../config/omg'
 
 class Coupon extends Component {
   constructor(props) {
@@ -15,6 +16,8 @@ class Coupon extends Component {
     this.add = this.add.bind(this);
     this.showNum = this.showNum.bind(this);
     this.update = this.update.bind(this);
+    this.export = this.export.bind(this);
+    this.disable = this.disable.bind(this);
     const page = props.page || 1;
     this.state = {
       page,
@@ -117,7 +120,43 @@ class Coupon extends Component {
   showAddModal() {
     this.props.dispatch(showModal(<CouponAddModal submit={this.add} />));
   }
-
+  export(e) {
+    const id = e.target.dataset.id;
+    this.props.dispatch(fetchAction({
+      type: AWARD_COUPON_EXPORT,
+      method: 'GET',
+      queryObj: { id },
+    })).then(json => {
+      if (json.error_code === 0) {
+        this.fresh();
+      } else {
+        alert(json.data.error_msg);
+      }
+    });
+  }
+  getDownloadUrl(file) {
+    const requestUrl = getApi(AWARD_COUPON_DOWNLOAD);
+    return `${requestUrl}?file=${file}`;
+  }
+  disable(e) {
+    const index = e.target.dataset.index;
+    const item = this.items[index];
+    if (!confirm(`本条奖品将不能再使用,你确定禁用: ${item.name} 吗。`)) {
+      return;
+    }
+    const id = e.target.dataset.id;
+    this.props.dispatch(fetchAction({
+      type: AWARD_INVALIDE_COUPON,
+      method: 'GET',
+      queryObj: { id },
+    })).then(json => {
+      if (json.error_code === 0) {
+        this.fresh();
+      } else {
+        alert(json.data.error_msg);
+      }
+    });
+  }
   render() {
     const btn = (
       <button
@@ -126,7 +165,6 @@ class Coupon extends Component {
         onClick={this.showAddModal}
       >添加</button>
     );
-    
     const { modal, addAward = false } = this.props;
     const key = `${this.props.type}_${this.state.page}`;
     const awardList = this.props.awardList || {};
@@ -137,17 +175,17 @@ class Coupon extends Component {
       <Card title="优惠券" btn={btn}>
         <table className="table m-b-0 table-bordered">
           <thead>
-            <tr><th>id</th><th>名称</th><th>导入状态</th><td>消息模板</td><td>操作</td></tr>
+            <tr><th>id</th><th>名称</th><th>导入状态</th><td>消息模板</td><td hidden={modal}>导出</td><td>操作</td></tr>
           </thead>
           <tbody>
-          {items.map((item) => {
+          {items.map((item, index) => {
             let addAwardBtn = false;
             if (modal) {
               addAwardBtn = (
                 <button
                   data-type={this.props.type}
                   data-id={item.id}
-                  hidden={!modal}
+                  hidden={!modal || item.is_del}
                   className="btn btn-info btn-sm"
                   onClick={addAward}
                 >添加</button>
@@ -157,13 +195,24 @@ class Coupon extends Component {
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.name}</td>
-                <td>{item.import_status === 2 ? '导入成功' : '导入中'}</td>
+                <td>{item.import_status === 2 ? '成功' : '导入中'}</td>
                 <td>
                   <Popover name="站内信" title="站内信" content={!item.mail ? '无' : `${item.mail} `} />
                   <Popover name="短信" title="短信" content={!item.message ? '无' : `${item.message} `} />
                 </td>
+
+                <td hidden={modal}>
+                  <button hidden={item.export_status !== 0} className="btn btn-success-outline btn-sm" data-id={item.id} onClick={this.export}>{'生成导出文件'}</button>
+                  <button hidden={item.export_status !== 1} className="btn btn-sm" disabled data-id={item.id} >{'生成中...'}</button>
+                  <button hidden={item.export_status !== 1} className="btn btn-success-outline btn-sm" data-id={item.id}  onClick={this.fresh}>{'刷新'}</button>
+                  <button hidden={item.export_status !== 2} className="btn btn-success-outline btn-sm" data-id={item.id} onClick={this.export}>{'重新生成'}</button>
+                  <a hidden={item.export_status !== 2} href={this.getDownloadUrl(item.file)} target="_blank">下载</a>
+                </td>
                 <td>
-                  <button hidden={modal} className="btn btn-success-outline btn-sm" data-id={item.id} onClick={this.showNum}>查看数量</button>
+                  <button className="btn btn-info-outline btn-sm" data-id={item.id} onClick={this.showNum}>查看数量</button>
+                  <button className="btn btn-success-outline btn-sm" data-id={item.id} data-index={index} onClick={this.showUpdateModal}>编辑</button>
+                  <button hidden={!item.is_del} className="btn btn-danger btn-sm" disabled>已禁用</button>
+                  <button hidden={modal || item.is_del} className="btn btn-danger-outline btn-sm" data-id={item.id} data-index={index} onClick={this.disable}>禁用</button>
                   {addAwardBtn}
                 </td>
               </tr>

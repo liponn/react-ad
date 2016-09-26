@@ -42,6 +42,9 @@ import {
   AWARD_ADD_TO_USER,
   AWARD_REISSUE,
   AWARD_COUPON_TOTAL,
+  AWARD_COUPON_EXPORT,
+  AWARD_COUPON_DOWNLOAD,
+  AWARD_INVALIDE_COUPON,
 
   CHANNEL_ADD,
   CHANNEL_DEL,
@@ -178,6 +181,9 @@ apiList[AWARD_UPDATE] = '/award/update';
 apiList[AWARD_ADD_TO_USER] = '/award/add-award-to-user';
 apiList[AWARD_REISSUE] = '/award/reissue-award';
 apiList[AWARD_COUPON_TOTAL] = '/award/coupon-code-total';
+apiList[AWARD_COUPON_EXPORT] = '/award/coupon-export';
+apiList[AWARD_COUPON_DOWNLOAD] = '/award/coupon-download';
+apiList[AWARD_INVALIDE_COUPON] = '/award/invalid-coupon';
 
 apiList[CHANNEL_ADD] = '/channel/add';
 apiList[CHANNEL_INFO] = '/channel/info';
@@ -463,6 +469,17 @@ const startupTypes = {
   2: 'Android',
 }
 
+const startupImages = {
+  '1:1': '1242x2208',
+  '1:2': '750x1334',
+  '1:3': '640x1136',
+  '1:4': '640x960',
+  '2:1': '1080x1920',
+  '2:2': '720x1280',
+  '2:3': '480x800',
+  '2:4': '无',
+}
+
 
 const platform = {
   0: '全平台',
@@ -579,6 +596,7 @@ const config = {
   platformTypes,
   sendAwardTypes,
   startupTypes,
+  startupImages,
   projectDurationTypes,
   projectTypes,
   forceTypes,
@@ -600,7 +618,6 @@ const config = {
   castDateTypes,
   channelStatusTypes,
   channelClassTypes,
-  
 };
 
 function getConfig(type, key = false) {

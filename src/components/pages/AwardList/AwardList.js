@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Card, Pagination, Input, Button } from '../../tools';
 import { fetchAction } from '../../../actions/omg';
 import { ACTIVITY_REWARD_LIST, AWARD_REISSUE } from '../../../constants';
+import history from '../../../core/history';
 import { getConfig } from '../../../config/omg';
 
 
@@ -10,10 +11,12 @@ class AwardList extends Component {
   constructor(props) {
     super(props);
     this.fresh = this.fresh.bind(this);
-    this.searchChange = this.searchChange.bind(this);
+    this.search = this.search.bind(this);
+    this.reset = this.reset.bind(this);
     this.awardReissue = this.awardReissue.bind(this);
     this.state = {
       errorMsg: '',
+      searchObj: {},
     };
   }
   componentDidMount() {
@@ -32,33 +35,74 @@ class AwardList extends Component {
       alert('奖品正在补发,请稍等。。。');
     });
   }
-  searchChange() {
-  
-  } 
-  fresh(page) {
-    // const queryObj = {page};
+  fresh(page, searchObj) {
+    const queryObj = searchObj || this.state.searchObj;
+    queryObj.page = page;
     this.props.dispatch(fetchAction({
       type: ACTIVITY_REWARD_LIST,
-      queryObj: {
-        // 'data[filter][user_id]': 628745,
-        page,
-      },
+      queryObj,
       key: page,
     }));
+  }
+  search(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const searchObj = {};
+
+    const userId = formData.get('user_id');
+    const activityId = formData.get('activity_id');
+    const awardType = formData.get('award_type');
+    const awardId = formData.get('award_id');
+    const status = formData.get('status');
+    const mailStatus = formData.get('mail_status');
+    const messageStatus = formData.get('message_status');
+    if (userId) {
+      searchObj['data[filter][user_id]'] = userId;
+    }
+    if (activityId) {
+      searchObj['data[filter][activity_id]'] = activityId;
+    }
+    if (awardType) {
+      searchObj['data[filter][award_type]'] = awardType;
+    }
+    if (awardId) {
+      searchObj['data[filter][award_id]'] = awardId;
+    }
+    if (status) {
+      searchObj['data[filter][status]'] = status;
+    }
+    if (mailStatus) {
+      searchObj['data[filter][mail_status]'] = mailStatus;
+    }
+    if (messageStatus) {
+      searchObj['data[filter][message_status]'] = messageStatus;
+    }
+    const location = history.getCurrentLocation();
+    history.push({ ...location, query: Object.assign({}, location.query, { page: 1 }) });
+    this.setState({
+      searchObj,
+    });
+    this.fresh(this.props.page, searchObj);
+  }
+  reset() {
+    this.setState({
+      searchObj: {},
+    });
+    this.fresh(this.props.page, {});
   }
   render() {
     const award = this.props.awardList[this.props.page] || {};
     const items = award.data || [];
     const btn = (
-       [<button
-          type="button"
-          className="btn btn-sm btn-success pull-right"
-          data-toggle="modal"
-          data-target="#channel-add-modal"
-          onClick={this.awardReissue}
-        >
-          补发奖品
-        </button>,
+      [<button
+        type="button"
+        className="btn btn-sm btn-success pull-right"
+        data-toggle="modal"
+        data-target="#channel-add-modal"
+        onClick={this.awardReissue}
+      >
+        补发奖品
+      </button>,
         <div className="pull-right row" hidden>
           <form ref="searchForm">
             <div className="pull-left">
@@ -68,12 +112,57 @@ class AwardList extends Component {
               <Input labelName="奖品发送状态" onChange={this.searchChange} />
             </div>
           </form>
-        </div>
-       ]
+        </div>,
+      ]
     );
     return (
       <div>
-        <Card title="奖品发放记录" btn={btn}>
+        <form className="form-inline m-b-1" onSubmit={this.search} onReset={this.reset}>
+          <div className="form-group">
+            <input type="number" style={{ width: '100px' }} name="user_id" className="form-control" placeholder="用户Id" />
+          </div>&nbsp;
+          <div className="form-group">
+            <input type="number" style={{ width: '100px' }} name="activity_id" className="form-control" placeholder="活动Id" />
+          </div>&nbsp;
+          <div className="form-group">
+            <select name="award_type" className="form-control">
+              <option value="" >奖品类型</option>
+              {Object.keys(getConfig('awardTypes')).map((key) => (
+                <option value={key} >{getConfig('awardTypes', key)}</option>
+              ))}
+            </select>
+          </div>&nbsp;
+          <div className="form-group">
+            <input type="number" style={{ width: '100px' }} name="award_id" className="form-control" placeholder="奖品Id" />
+          </div>&nbsp;
+          <div className="form-group">
+            <select name="status" className="form-control">
+              <option value="" >发送状态</option>
+              <option value="0" >失败</option>
+              <option value="1" >成功</option>
+              <option value="2" >补发成功</option>
+            </select>
+          </div>&nbsp;
+          <div className="form-group">
+            <select name="mail_status" className="form-control">
+              <option value="" >站内信状态</option>
+              <option value="0" >无站内信</option>
+              <option value="1" >失败</option>
+              <option value="2" >成功</option>
+            </select>
+          </div>&nbsp;
+          <div className="form-group">
+            <select name="message_status" className="form-control">
+              <option value="" >短信状态</option>
+              <option value="0" >无短信</option>
+              <option value="1" >失败</option>
+              <option value="2" >成功</option>
+            </select>
+          </div>&nbsp;
+          <button type="submit" className="btn btn-primary">查询</button>&nbsp;
+          <input type="reset" className="btn btn-info" value="重置" />
+        </form>
+        <Card title={`奖品发放记录(${award.total})`} btn={btn}>
           <table className="table m-b-0 table-bordered">
             <thead>
               <tr>

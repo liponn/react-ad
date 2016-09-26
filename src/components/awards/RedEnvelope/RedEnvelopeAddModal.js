@@ -173,7 +173,7 @@ class RedEnvelopeAddModal extends Component {
           <Select labelName="平台限制" name="platform_type" defaultValue={item.platform_type} onChange={this.initLimitDes} options={this.state.platformTypes} />
           <Textarea labelName="限制说明" name="limit_desc" value={this.state.limitDes} />
           <hr style={{ borderStyle: 'dashed' }} />
-          <Textarea labelName="站内信模板" defaultValue={item.mail || getConfig('templateTypes', this.state.type)} name="mail" />
+          <Textarea labelName="站内信模板" defaultValue={typeof item.mail !== 'undefined' ? item.mail : getConfig('templateTypes', this.state.type)} name="mail" />
           <Textarea labelName="短信模板" name="message" defaultValue={item.message} />
           <Submit />
         </form>

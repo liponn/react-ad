@@ -1,9 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { ImgBox, Card, Radio, Status } from '../../tools';
-import { showModal } from '../../../actions/modal';
+import { showModal, hideModal } from '../../../actions/modal';
 import { fetchAction } from '../../../actions/omg';
-import { STARTUP_LIST, STARTUP_DISABLE, STARTUP_ENABLE, STARTUP_DEL, STARTUP_UP, STARTUP_DOWN} from '../../../constants';
+import { STARTUP_LIST, STARTUP_DISABLE, STARTUP_ENABLE, STARTUP_DEL, STARTUP_UP, STARTUP_DOWN, STARTUP_PUT, STARTUP_ADD } from '../../../constants';
 import StartupAddModal from './StartupAddModal';
 import { getConfig } from '../../../config/omg';
 import hisotry from '../../../core/history';
@@ -13,11 +13,14 @@ class Startup extends Component {
   constructor(props) {
     super(props);
     this.showAddModal = this.showAddModal.bind(this);
+    this.showUpdateModal = this.showUpdateModal.bind(this);
     this.enable = this.enable.bind(this);
     this.disable = this.disable.bind(this);
     this.up = this.up.bind(this);
     this.down = this.down.bind(this);
-    this.freshData = this.freshData.bind(this);
+    this.fresh = this.fresh.bind(this);
+    this.update = this.update.bind(this);
+    this.list = this.list.bind(this);
     this.del = this.del.bind(this);
     const types = getConfig('startupTypes');
     this.state = {
@@ -25,20 +28,57 @@ class Startup extends Component {
     };
   }
   componentDidMount() {
-    this.freshData(this.props.type);
+    this.fresh();
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.type !== nextProps.type) {
-      this.freshData(nextProps.type);
+      this.list(nextProps.type);
     }
   }
 
   showAddModal() {
-    const modalView = <StartupAddModal type={this.props.type} callback={this.freshData} />;
+    const modalView = <StartupAddModal type={this.props.type} submit={this.add} />;
     this.props.dispatch(showModal(modalView));
   }
-
+  showUpdateModal(e) {
+    const index = e.target.dataset.index;
+    const item = this.items[index];
+    const modalView = <StartupAddModal update item={item} type={this.props.type} submit={this.update} />;
+    this.props.dispatch(showModal(modalView));
+  }
+  add(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    this.props.dispatch(fetchAction({
+      type: STARTUP_ADD,
+      method: 'POST',
+      formData,
+    })).then((json) => {
+      if (json.error_code === 0) {
+        this.props.dispatch(hideModal(true));
+        this.fresh();
+      } else {
+        alert(json.data.error_msg);
+      }
+    });
+  }
+  update(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    this.props.dispatch(fetchAction({
+      type: STARTUP_PUT,
+      method: 'POST',
+      formData,
+    })).then((json) => {
+      if (json.error_code === 0) {
+        this.props.dispatch(hideModal(true));
+        this.fresh();
+      } else {
+        alert(json.data.error_msg);
+      }
+    });   
+  }
   disable(e) {
     const id = $(e.target).data('id');    
     const formData = new FormData;
@@ -63,7 +103,10 @@ class Startup extends Component {
       this.freshData(this.props.type);
     });
   }
-  freshData(type) {
+  fresh() {
+    this.list(this.props.type);
+  }
+  list(type) {
     this.props.dispatch(fetchAction({
       type: STARTUP_LIST,
       suffix: `/${type}`,
@@ -113,6 +156,7 @@ class Startup extends Component {
       >添加</button>
     );
     const items = startups[type] || [];
+    this.items = items;
     return (
       <div>
         <div>
@@ -133,34 +177,37 @@ class Startup extends Component {
             <thead>
               <tr>
                 <th>ID</th>
+                <th>名称</th>
                 <th hidden>跳转URL</th>
-                <th>图片1</th>
-                <th>图片2</th>
-                <th>图片3</th>
-                <th>图片4</th>
-                <th>状态</th>
+                <th>{getConfig('startupImages', `${this.props.type}:1`)}</th>
+                <th>{getConfig('startupImages', `${this.props.type}:2`)}</th>
+                <th>{getConfig('startupImages', `${this.props.type}:3`)}</th>
+                <th>{getConfig('startupImages', `${this.props.type}:4`)}</th>
                 <th>开始时间</th>
                 <th>结束时间</th>
+                <th>状态</th>
                 <th>操作</th>
               </tr>
             </thead>
             <tbody>
-            {items.map((item) => (
+            {items.map((item, index) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
+                <td>{item.name}</td>
                 <td hidden><a title={item.target_url} href={item.target_url} target="_blank">查看</a></td>
                 <td><ImgBox src={item.img1} /></td>
                 <td><ImgBox src={item.img2} /></td>
                 <td><ImgBox src={item.img3} /></td>
                 <td><ImgBox src={item.img4} /></td>
-                <td><Status status={+item.enable} /></td>
                 <td>{item.online_time}</td>
                 <td>{item.offline_time}</td>
+                <td><Status status={+item.enable} /></td>
                 <td>
                   <button hidden={+item.enable === 1} className="btn btn-sm btn-success-outline" data-id={item.id} onClick={this.enable}>上线</button>
                   <button hidden={+item.enable === 0} className="btn btn-sm btn-warning-outline" data-id={item.id} onClick={this.disable}>下线</button>
                   <button className="btn btn-sm btn-info-outline" data-id={item.id} onClick={this.up}>上移</button>
                   <button className="btn btn-sm btn-info-outline" data-id={item.id} onClick={this.down}>下移</button>
+                  <button className="btn btn-sm btn-success-outline" data-id={item.id} data-index={index} onClick={this.showUpdateModal}>编辑</button>
                   <button className="btn btn-sm btn-danger-outline" data-id={item.id} onClick={this.del}>删除</button>
                 </td>
               </tr>

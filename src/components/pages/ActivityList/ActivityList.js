@@ -152,6 +152,7 @@ class ActivityList extends Component {
             <thead>
               <tr>
                 <th>活动名称</th>
+                <th>ID</th>
                 <th>活动别名</th>
                 <th>触发类型</th>
                 <th>开始时间</th>
@@ -163,12 +164,13 @@ class ActivityList extends Component {
             <tbody >
               {items.map((item) => {
                 const trArr = [
-                  <tr key={`group-${item.id}`} title={item.des}>
+                  <tr key={`group-${item.id}`} style={{'fontWeight': 'bold'}} title={item.des}>
                     <td onClick={this.groupClick} data-id={item.id}>
-                      <i data-id={item.id} hidden={this.state.group[item.id]} className="fa fa-plus-square-o"></i>
-                      <i data-id={item.id} hidden={!this.state.group[item.id]} className="fa fa-minus-square-o"></i>
+                      <i data-id={item.id} hidden={this.state.group[item.id] !== false} className="fa fa-plus-square-o"></i>
+                      <i data-id={item.id} hidden={this.state.group[item.id] === false} className="fa fa-minus-square-o"></i>
                       {item.name} ({item.activities.length})
                     </td>
+                    <td>—</td>
                     <td>—</td>
                     <td>—</td>
                     <td>—</td>
@@ -191,8 +193,9 @@ class ActivityList extends Component {
                     </td>
                   </tr>];
                 const children = item.activities.map((activity) => (
-                  <tr hidden={!this.state.group[item.id]} key={`activity${activity.id}`} title={activity.des}>
+                  <tr hidden={this.state.group[item.id] === false} key={`activity${activity.id}`} title={activity.des}>
                     <td>&nbsp;&nbsp;{activity.name}</td>
+                    <td>{activity.id ? activity.id : '—'}</td>
                     <td>{activity.alias_name ? activity.alias_name : '—'}</td>
                     <td>{getConfig('activityTriggers', activity.trigger_type)}</td>
                     <td>{activity.start_at ? activity.start_at : '不限制'}</td>
