@@ -204,6 +204,7 @@ class Banner extends Component {
                 {this.props.path === 'ShareConfig' && <th>分享内容</th>}
                 {this.props.path === 'ShareConfig' && <th>分享时说明</th>}
                 <th>图片预览</th>
+                {this.props.type === 'cast_finish' && <th>跳转类型</th>}
                 {this.props.type === 'pop' && <th>跳转类型</th>}
                 {this.props.type === 'discover' && <th>tag</th>}
                 {this.props.type === 'channel' && <th>渠道</th>}
@@ -223,9 +224,10 @@ class Banner extends Component {
                 {this.props.path === 'ShareConfig' && <td>{item.short_desc}</td>}
                 <td><ImgBox src={item.img_path} /></td>
                 {this.props.type === 'discover' && <td>{getConfig('discoverTypes', item.type) || '——'}</td>}
+                {this.props.type === 'cast_finish' && <td>{getConfig('popTypes', item.type) || '不跳转'}</td>}
                 {this.props.type === 'pop' && <td>{getConfig('popTypes', item.type) || '不跳转'}</td>}
                 {this.props.type === 'channel' && <td>{item.name}</td>}
-                <td><a title={item.url} href={item.url} target="_blank">查看</a></td>
+                <td><a hidden={!item.url} title={item.url} href={item.url} target="_blank">查看</a></td>
                 <td><Status status={+item.can_use} /></td>
                 <td>{item.start === null ? '不限制' : item.start}</td>
                 <td>{item.end === null ? '不限制' : item.end}</td>

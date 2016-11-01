@@ -7,6 +7,7 @@ import RedEnvelope from '../../awards/RedEnvelope';
 import Interest from '../../awards/Interest';
 import Coupon from '../../awards/Coupon';
 import Experience from '../../awards/Experience';
+import Point from '../../awards/Point';
 import { getConfig } from '../../../config/omg';
 import { AWARD_LIST, ACTIVITY_GROUP_ADD, ACTIVITY_GROUP_LIST } from '../../../constants';
 
@@ -64,6 +65,9 @@ class Award extends Component {
         break;
       case '3':
         awardView = <Experience {...this.props} type={this.state.currentType} />;
+        break;
+      case '4':
+        awardView = <Point {...this.props} type={this.state.currentType} />;
         break;
       case '6':
         awardView = <Coupon {...this.props} type={this.state.currentType} />;

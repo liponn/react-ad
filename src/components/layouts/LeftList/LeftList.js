@@ -40,6 +40,9 @@ function LeftList() {
       <Link className="list-group-item" to="/article">
         文章
       </Link>
+      <Link className="list-group-item" to="/idiom">
+        成语管理
+      </Link>
       <Link className="list-group-item" to="/redeem">
         兑换码生成
       </Link>

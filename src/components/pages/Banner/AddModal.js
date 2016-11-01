@@ -33,6 +33,7 @@ class AddModal extends Component {
         fileds.push(<Select key="discover_tag" labelName="tag" name="type" defaultValue={this.props.item.type} options={this.state.discoverTypes} />);
         break;
       case 'pop':
+      case 'cast_finish':
         fileds.push(<Select key="pop_type" labelName="跳转类型" name="type" defaultValue={this.props.item.type} options={this.state.popTypes} />);
         break;
       case 'taojin':

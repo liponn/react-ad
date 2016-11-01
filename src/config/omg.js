@@ -129,6 +129,13 @@ import {
   TEMPLATE_MEDIA,
   TEMPLATE_DYNAMIC,
   TEMPLATE_NOTICE,
+  TEMPLATE_CLASSROOM,
+
+  IDIOM_ADD,
+  IDIOM_DEL,
+  IDIOM_INFO,
+  IDIOM_LIST,
+  IDIOM_PUT,
 
 } from '../constants/index.js';
 
@@ -269,7 +276,13 @@ apiList[TEMPLATE_HELP] = '/template/help-list';
 apiList[TEMPLATE_NOTICE] = '/template/notice-list';
 apiList[TEMPLATE_MEDIA] = '/template/media-list';
 apiList[TEMPLATE_DYNAMIC] = '/template/dynamic-list';
+apiList[TEMPLATE_CLASSROOM] = '/template/study-list';
 
+apiList[IDIOM_ADD] = '/cms/idiom/add';
+apiList[IDIOM_DEL] = '/cms/idiom/del';
+apiList[IDIOM_INFO] = '/cms/idiom/info';
+apiList[IDIOM_LIST] = '/cms/idiom/list';
+apiList[IDIOM_PUT] = '/cms/idiom/put';
 
 function getApi(type) {
   return apiHost + apiList[type];
@@ -343,9 +356,10 @@ const popTypes = {
   1: '理财专区',
   2: '发现页',
   3: '全民淘金',
-  4: '发现页',
+  4: '发现页H5页面',
   5: '其它H5页面',
   6: '体验金',
+  7: '投资助手',
 }
 
 const interestTimeTypes = {
@@ -357,16 +371,17 @@ const awardTypes = {
   1: '加息券',
   2: '红包',
   3: '体验金',
-  // 4: '用户积分',
+  4: '用户积分',
   // 5: '实物',
   6: '优惠券',
 }
 
 const templateTypes = {
-  1: '恭喜您在\'{{sourcename}}\'活动中获得了\'{{awardname}}\'奖励。',
-  2: '恭喜您在\'{{sourcename}}\'活动中获得了\'{{awardname}}\'奖励。',
-  3: '恭喜您在\'{{sourcename}}\'活动中获得了\'{{awardname}}\'奖励。',
-  6: '恭喜您在\'{{sourcename}}\'活动中获得了\'{{awardname}}\'奖励,兑换码为\'{{code}}\'。',
+  1: '恭喜您在\'{{sourcename}}\'活动中获得\'{{awardname}}\'奖励。',
+  2: '恭喜您在\'{{sourcename}}\'活动中获得\'{{awardname}}\'奖励。',
+  3: '恭喜您在\'{{sourcename}}\'活动中获得\'{{awardname}}\'奖励。',
+  4: '恭喜您在\'{{sourcename}}\'活动中获得\'{{awardname}}\'奖励。',
+  6: '恭喜您在\'{{sourcename}}\'活动中获得\'{{awardname}}\'奖励,兑换码为\'{{code}}\'。',
 }
 
 const ruleFileds = {
@@ -436,9 +451,10 @@ const bannerTypes = {
   mobile: '移动端轮播图',
   pc: 'PC端轮播图',
   pop: '活动弹窗',
+  cast_finish: '投资完成页',
   discover: '发现页',
   memorabilia: '大事记',
-  appzichan: 'app资产页',
+  appzichan: '资产页',
   ios_score: 'ios评分页',
   channel: '渠道落地页',
 }

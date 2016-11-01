@@ -23,19 +23,19 @@ export const analytics = {
 
 };
 // 是否需要验证登录
-export const authentication = true;
+// export const authentication = true;
 
-// export const imgHost = 'http://api-omg.wanglibao.com';
-// export const serverApi = 'http://api-omg.wanglibao.com';
+export const imgHost = 'http://api-omg.wanglibao.com';
+export const serverApi = 'http://api-omg.wanglibao.com';
 
-export const imgHost = 'https://www.wanglibao.com';
-export const serverApi = 'https://www.wanglibao.com/yunying';
+// export const imgHost = 'https://www.wanglibao.com';
+// export const serverApi = 'https://www.wanglibao.com/yunying';
+
+// export const imgHost = 'https://php3.wanglibao.com';
+// export const serverApi = 'https://php3.wanglibao.com/yunying';
 
 // export const imgHost = 'https://php1.wanglibao.com';
 // export const serverApi = 'https://php1.wanglibao.com/yunying';
-
-// export const imgHost = 'https://php2.wanglibao.com';
-// export const serverApi = 'https://php2.wanglibao.com/yunying';
 
 // export const imgHost = 'http://yunying.dev.wanglibao.com';
 // export const serverApi = 'http://yunying.dev.wanglibao.com';

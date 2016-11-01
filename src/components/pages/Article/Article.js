@@ -6,7 +6,7 @@ import { Link, Radio, Status, Popover, Alert, ImgBox, Pagination } from '../../t
 import history from '../../../core/history';
 import { showModal, hideModal } from '../../../actions/modal';
 import ArticleAddModal from './ArticleAddModal';
-import { ARTICLE_LIST, ARTICLE_ADD, ARTICLE_PUT, ARTICLE_TYPE_LIST, ARTICLE_DEL, ARTICLE_RELEASE, ARTICLE_OFFLINE, ARTICLE_DOWN, ARTICLE_UP, TEMPLATE_HELP, TEMPLATE_DYNAMIC, TEMPLATE_MEDIA } from '../../../constants';
+import { ARTICLE_LIST, ARTICLE_ADD, ARTICLE_PUT, ARTICLE_TYPE_LIST, ARTICLE_DEL, ARTICLE_RELEASE, ARTICLE_OFFLINE, ARTICLE_DOWN, ARTICLE_UP, TEMPLATE_HELP, TEMPLATE_DYNAMIC, TEMPLATE_MEDIA, TEMPLATE_CLASSROOM } from '../../../constants';
 
 class Article extends Component {
   constructor(props) {
@@ -27,6 +27,7 @@ class Article extends Component {
     this.templateDynamic = this.templateDynamic.bind(this);
     this.templateHelp = this.templateHelp.bind(this);
     this.templateMedia = this.templateMedia.bind(this);
+    this.templateClass = this.templateClass.bind(this);
     const currentId = this.props.secId || this.props.firId || 0;
     this.state = {
       currentId,
@@ -67,6 +68,14 @@ class Article extends Component {
       method: 'POST',
     })).then(() => {
       alert('pc帮助中心生成完成');
+    });
+  }
+  templateClass() {
+    this.props.dispatch(fetchAction({
+      type: TEMPLATE_CLASSROOM,
+      method: 'POST',
+    })).then(() => {
+      alert('理财课堂页生成完成');
     });
   }
   showModal(e) {
@@ -273,6 +282,12 @@ class Article extends Component {
               hidden={aliasName !== 'report'}
               onClick={this.templateMedia}
             >生成媒体报道页</button>
+            <button
+              type="button"
+              className="btn btn-sm  btn-success pull-right"
+              hidden={aliasName !== 'classroom'}
+              onClick={this.templateClass}
+            >生成理财课堂页</button>
           </div>
           <table className="table table-bordered m-b-0 table-hover">
             <thead>
@@ -294,7 +309,7 @@ class Article extends Component {
                 <td>{item.cover ? <ImgBox src={item.cover} /> : '—'}</td>
                 <td><Popover title={item.title} content={item.content} /></td>
                 <td><Status status={+item.release} /></td>
-                <td>{item.platform === 1 ? '√️' : '—'}</td>
+                {(aliasName === 'questions' || aliasName === 'pc_questions') ? [<td>{item.platform === 1 ? '√️' : '—'}</td>] : false}
                 <td>
                   <button className="btn btn-success-outline btn-sm" hidden={+item.release === 1} data-id={item.id} onClick={this.releaseArticle}>发布</button>
                   <button className="btn btn-warning-outline btn-sm" hidden={+item.release === 0} data-id={item.id} onClick={this.offLineArticle}>下线</button>

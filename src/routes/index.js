@@ -30,12 +30,14 @@ import sendawards from './sendawards';
 import activityjoins from './activityjoins';
 import awardlist from './awardlist';
 import admin from './admin';
+import idiom from './idiom';
 
 export default {
 
   path: '/',
 
   children: [
+    idiom,
     admin,
     activityjoins,
     awardlist,

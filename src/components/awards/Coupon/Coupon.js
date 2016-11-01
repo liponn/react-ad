@@ -11,6 +11,7 @@ class Coupon extends Component {
   constructor(props) {
     super(props);
     this.showAddModal = this.showAddModal.bind(this);
+    this.showUpdateModal = this.showUpdateModal.bind(this);
     this.fresh = this.fresh.bind(this);
     this.list = this.list.bind(this);
     this.add = this.add.bind(this);
@@ -147,7 +148,7 @@ class Coupon extends Component {
     const id = e.target.dataset.id;
     this.props.dispatch(fetchAction({
       type: AWARD_INVALIDE_COUPON,
-      method: 'GET',
+      method: 'POST',
       queryObj: { id },
     })).then(json => {
       if (json.error_code === 0) {

@@ -19,6 +19,7 @@ class Startup extends Component {
     this.up = this.up.bind(this);
     this.down = this.down.bind(this);
     this.fresh = this.fresh.bind(this);
+    this.add = this.add.bind(this);
     this.update = this.update.bind(this);
     this.list = this.list.bind(this);
     this.del = this.del.bind(this);

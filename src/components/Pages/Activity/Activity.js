@@ -301,7 +301,7 @@ class Activity extends Component {
           <Text name="触发类型" value={this.state.activityTriggers[activity.trigger_type]} />
           <Text name="活动说明" value={activity.des || '—'} />
 
-          <Text name="当前参与人数" value={activity.join_nums || '—'} />
+          <Text name="当前参与人数" value={activity.join_num || '—'} />
           
           <div className="m-b-1 clearfix"></div>
         </Card>

@@ -155,5 +155,13 @@ export const TEMPLATE_NOTICE = 'TEMPLATE_NOTICE';
 export const TEMPLATE_HELP = 'TEMPLATE_HELP';
 export const TEMPLATE_DYNAMIC = 'TEMPLATE_DYNAMIC';
 export const TEMPLATE_MEDIA = 'TEMPLATE_MEDIA';
+export const TEMPLATE_CLASSROOM = 'TEMPLATE_CLASSROOM';
+
+// 成语管理
+export const IDIOM_LIST = 'IDIOM_LIST';
+export const IDIOM_ADD = 'IDIOM_ADD';
+export const IDIOM_PUT = 'IDIOM_PUT';
+export const IDIOM_INFO = 'IDIOM_INFO';
+export const IDIOM_DEL = 'IDIOM_DEL';
 
 
