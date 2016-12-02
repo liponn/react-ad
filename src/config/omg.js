@@ -137,12 +137,28 @@ import {
   IDIOM_LIST,
   IDIOM_PUT,
 
+  INTEGRAL_LIST,
+  INTEGRAL_OPERATION,
+  INTEGRAL_UP,
+  INTEGRAL_DOWN,
+  INTEGRAL_DEL,
+  INTEGRAL_ENABLE,
+  INTEGRAL_DISABLE,
+
+  ONEYUAN_LIST,
+  ONEYUAN_OPERATION,
+  ONEYUAN_ENABLE,
+  ONEYUAN_DISABLE,
+  ONEYUAN_DEL,
+  ONEYUAN_OPEN,
+  ONEYUAN_AUTO_OPEN,
+  ONEYUAN_ADD_CHANCE,
 } from '../constants/index.js';
 
 import { serverApi } from '../config';
+import host from '../core/getHost';
+console.log(host);
 
-// const apiHost = 'http://yunying.dev.wanglibao.com/';
-// const apiHost = 'http://api-omg.wanglibao.com/';
 const apiHost = serverApi;
 const apiList = {}
 
@@ -283,6 +299,24 @@ apiList[IDIOM_DEL] = '/cms/idiom/del';
 apiList[IDIOM_INFO] = '/cms/idiom/info';
 apiList[IDIOM_LIST] = '/cms/idiom/list';
 apiList[IDIOM_PUT] = '/cms/idiom/put';
+
+apiList[INTEGRAL_LIST] = '/integral/list';
+apiList[INTEGRAL_OPERATION] = '/integral/operation';
+apiList[INTEGRAL_DOWN] = '/integral/down';
+apiList[INTEGRAL_UP] = '/integral/up';
+apiList[INTEGRAL_DEL] = '/integral/delete';
+apiList[INTEGRAL_ENABLE] = '/integral/up-status';
+apiList[INTEGRAL_DISABLE] = '/integral/down-status';
+
+apiList[ONEYUAN_LIST] = '/one/list';
+apiList[ONEYUAN_OPERATION] = '/one/operation';
+apiList[ONEYUAN_ENABLE] = '/one/up-status';
+apiList[ONEYUAN_DISABLE] = '/one/down-status';
+apiList[ONEYUAN_DEL] = '/one/delete';
+apiList[ONEYUAN_OPEN] = '/one/luck-draw';
+apiList[ONEYUAN_AUTO_OPEN] = '/one/auto-luck-draw';
+apiList[ONEYUAN_ADD_CHANCE] = '/one/add-one-yuan-num';
+
 
 function getApi(type) {
   return apiHost + apiList[type];

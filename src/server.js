@@ -28,7 +28,7 @@ import schema from './data/schema';
 import routes from './routes';
 import assets from './assets'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
-import { setRuntimeVariable } from './actions/runtime';
+import { setRuntimeVariable, setHost } from './actions/runtime';
 import { port, auth } from './config';
 
 const app = express();
@@ -99,6 +99,11 @@ app.get('*', async (req, res, next) => {
     store.dispatch(setRuntimeVariable({
       name: 'initialNow',
       value: Date.now(),
+    }));
+    
+    store.dispatch(setHost({
+      name: 'host',
+      value: req.headers.host,
     }));
 
     await UniversalRouter.resolve(routes, {

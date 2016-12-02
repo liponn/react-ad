@@ -19,9 +19,6 @@ function LeftList() {
       <Link className="list-group-item" to="/sendawards">
         批量发放奖品
       </Link>
-      <Link className="list-group-item" to="/awardsend">
-        手动发放奖品
-      </Link>
       <Link className="list-group-item" to="/banner/mobile">
         banner图
       </Link>
@@ -51,6 +48,12 @@ function LeftList() {
       </Link>
       <Link className="list-group-item" to="/feedback">
         用户反馈
+      </Link>
+      <Link className="list-group-item" to="/oneyuan">
+        一元夺宝
+      </Link>
+      <Link className="list-group-item" to="/integral">
+        积分商城
       </Link>
       <Link className="list-group-item" to="/admin">
         权限管理

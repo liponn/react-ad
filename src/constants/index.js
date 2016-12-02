@@ -1,4 +1,5 @@
 export const SET_RUNTIME_VARIABLE = 'SET_RUNTIME_VARIABLE';
+export const SET_HOST = 'SET_HOST';
 
 // 接口请求
 export const FETCH_REQUEST = 'FETCH_REQUEST';
@@ -163,5 +164,27 @@ export const IDIOM_ADD = 'IDIOM_ADD';
 export const IDIOM_PUT = 'IDIOM_PUT';
 export const IDIOM_INFO = 'IDIOM_INFO';
 export const IDIOM_DEL = 'IDIOM_DEL';
+
+// 积分商城
+export const INTEGRAL_LIST = 'INTEGRAL_LIST';
+export const INTEGRAL_OPERATION = 'INTEGRAL_OPERATION';
+export const INTEGRAL_UP = 'INTEGRAL_UP';
+export const INTEGRAL_DOWN = 'INTEGRAL_DOWN';
+export const INTEGRAL_ENABLE = 'INTEGRAL_ENABLE';
+export const INTEGRAL_DISABLE = 'INTEGRAL_DISABLE';
+export const INTEGRAL_DEL = 'INTEGRAL_DEL';
+
+// 一元商城
+export const ONEYUAN_LIST = 'ONEYUAN_LIST';
+export const ONEYUAN_OPERATION = 'ONEYUAN_OPERATION';
+export const ONEYUAN_ENABLE = 'ONEYUAN_ENABLE';
+export const ONEYUAN_DISABLE = 'ONEYUAN_DISABLE';
+export const ONEYUAN_DEL = 'ONEYUAN_DEL';
+export const ONEYUAN_OPEN = 'ONEYUAN_OPEN';
+export const ONEYUAN_AUTO_OPEN = 'ONEYUAN_AUTO_OPEN';
+export const ONEYUAN_ADD_CHANCE = 'ONEYUAN_ADD_CHANCE';
+
+
+
 
 

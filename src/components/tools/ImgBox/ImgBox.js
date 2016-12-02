@@ -24,7 +24,6 @@ class ImgBox extends Component {
     if (!src) return;
     img.src = src;
     img.onload = function () {
-      console.dir(img);
       if (img.width === state.width && img.height === state.height) {
         return;
       }
@@ -36,7 +35,6 @@ class ImgBox extends Component {
   }
   render() {
     this.getSize();
-    console.log(this.state.width);
     return (
       <div className="img-pop" title="点击查看大图" data-url={this.url(this.props.src)} style={{ background: '#f5f5f5 center center no-repeat', backgroundImage: `url("${this.url(this.props.src)}")`, backgroundSize: 'contain' }}>
         <div style={{ paddingTop: '75%' }} >

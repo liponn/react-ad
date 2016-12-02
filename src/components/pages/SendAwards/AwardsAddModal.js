@@ -54,7 +54,7 @@ class AwardsAddModal extends Component {
           <Success msg={this.state.successMsg} />
         </div>
         <form className="m-t-1" onSubmit={this.props.submit}>
-          <Textarea name="uids" labelName="用户ID" />
+          <Textarea name="uids" labelName="手机号/ID" />
           <Select onChange={this.changeSelect} name="award_type" labelName="奖品类型" options={getConfig('awardTypes')} value={this.state.awardType} />
           <Input name="award_id" labelName="奖品Id" value={this.state.awardId} />
           <div className="form-group row">

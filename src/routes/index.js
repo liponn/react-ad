@@ -31,12 +31,16 @@ import activityjoins from './activityjoins';
 import awardlist from './awardlist';
 import admin from './admin';
 import idiom from './idiom';
+import integral from './integral';
+import oneyuan from './oneyuan';
 
 export default {
 
   path: '/',
 
   children: [
+    oneyuan,
+    integral,
     idiom,
     admin,
     activityjoins,
