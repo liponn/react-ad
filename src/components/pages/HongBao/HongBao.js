@@ -164,7 +164,6 @@ class HongBao extends Component {
                 <th>用户ID</th>
                 <th>发送者</th>
                 <th>标识</th>
-                <th>key</th>
                 <th>奖品ID</th>
                 <th>总额</th>
                 <th>个数</th>
@@ -182,9 +181,9 @@ class HongBao extends Component {
                 <td>{item.id}</td>
                 <td>{item.user_id ? item.user_id : '--'}</td>
                 <td>{item.user_name ? item.user_name : '--'}</td>
-                <td>{item.identify}</td>
                 <td>
-                  <button className="btn btn-success-outline btn-sm clipboard" data-clipboard-text={item.key} >复制</button>
+                  {item.identify}
+                  <button className="btn btn-success-outline btn-sm clipboard" data-clipboard-text={item.identify} >复制</button>
                 </td>
                 <td>{item.award_id}</td>
                 <td>{item.use_money}/{item.total_money}</td>
@@ -192,7 +191,7 @@ class HongBao extends Component {
                 <td>{item.min}-{item.max}</td>
                 <td>{item.start_time}</td>
                 <td>{item.end_time}</td>
-                <td><Popover title="祝福语" content={item.blessing} /></td>
+                <td><Popover title="祝福语" content={item.blessing || ''} /></td>
                 <td><Status status={+item.status} /></td>
                 <td>
                   <button hidden={+item.status === 1} className="btn btn-sm btn-success-outline" data-id={item.id} onClick={this.enable}>上线</button>

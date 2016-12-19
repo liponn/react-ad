@@ -16,7 +16,7 @@ class Popover extends Component {
       <button
         ref="popover"
         title={this.props.title}
-        data-content={this.props.content}
+        data-content={`${this.props.content} `}
         className="btn btn-sm btn-info-outline"
       >{this.props.name}</button>
     );
