@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { imgHost } from '../../../config';
 
 class ImgBox extends Component {
   constructor(props) {
@@ -9,12 +8,6 @@ class ImgBox extends Component {
       width: 0,
       height: 0,
     };
-  }
-  url(path) {
-    if (path && path[0] === '/') {
-      return imgHost + path;
-    }
-    return path;
   }
   getSize() {
     const img = new Image();
@@ -32,6 +25,9 @@ class ImgBox extends Component {
         height: img.height,
       });
     };
+  }
+  url(path) {
+    return path;
   }
   render() {
     this.getSize();

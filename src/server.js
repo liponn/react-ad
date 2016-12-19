@@ -100,7 +100,7 @@ app.get('*', async (req, res, next) => {
       name: 'initialNow',
       value: Date.now(),
     }));
-    
+
     store.dispatch(setHost({
       name: 'host',
       value: req.headers.host,

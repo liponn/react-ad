@@ -52,6 +52,9 @@ function LeftList() {
       <Link className="list-group-item" to="/oneyuan">
         一元夺宝
       </Link>
+      <Link className="list-group-item" to="/hongbao">
+        让红包飞
+      </Link>
       <Link className="list-group-item" to="/integral">
         积分商城
       </Link>

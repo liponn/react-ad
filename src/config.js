@@ -20,25 +20,13 @@ export const analytics = {
   google: {
     trackingId: process.env.GOOGLE_TRACKING_ID, // UA-XXXXX-X
   },
-
 };
+
 // 是否需要验证登录
 export const authentication = true;
 
-// export const imgHost = 'http://api-omg.wanglibao.com';
-// export const serverApi = 'http://api-omg.wanglibao.com';
-
-export const imgHost = 'https://php1.wanglibao.com';
-export const serverApi = 'https://php1.wanglibao.com/yunying';
-
-//export const imgHost = 'https://www.wanglibao.com';
-// export const serverApi = 'https://www.wanglibao.com/yunying';
-
-// export const imgHost = 'https://php3.wanglibao.com';
-// export const serverApi = 'https://php3.wanglibao.com/yunying';
-
-// export const imgHost = 'http://yunying.dev.wanglibao.com';
-// export const serverApi = 'http://yunying.dev.wanglibao.com';
+// 当前host,用来区分调用API
+export const hostname = process.env.YYADMIN_HOSTNAME || 'localhost';
 
 export const auth = {
 

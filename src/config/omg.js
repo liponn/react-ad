@@ -153,13 +153,16 @@ import {
   ONEYUAN_OPEN,
   ONEYUAN_AUTO_OPEN,
   ONEYUAN_ADD_CHANCE,
+
+  HONGBAO_LIST,
+  HONGBAO_OPERATION,
+  HONGBAO_ENABLE,
+  HONGBAO_DISABLE,
+  HONGBAO_DEL,
+
 } from '../constants/index.js';
 
-import { serverApi } from '../config';
-import host from '../core/getHost';
-console.log(host);
-
-const apiHost = serverApi;
+import { hostname } from '../config.js';
 const apiList = {}
 
 apiList[ACTIVITY_INDEX] = '/activity/index';
@@ -317,8 +320,33 @@ apiList[ONEYUAN_OPEN] = '/one/luck-draw';
 apiList[ONEYUAN_AUTO_OPEN] = '/one/auto-luck-draw';
 apiList[ONEYUAN_ADD_CHANCE] = '/one/add-one-yuan-num';
 
+apiList[HONGBAO_LIST] = '/money/list';
+apiList[HONGBAO_OPERATION] = '/money/operation';
+apiList[HONGBAO_ENABLE] = '/money/up-status';
+apiList[HONGBAO_DISABLE] = '/money/down-status';
+apiList[HONGBAO_DEL] = '/money/delete';
 
 function getApi(type) {
+  let apiHost = '';
+  const host = typeof window !== 'undefined' ? window.location.hostname : hostname;
+  switch (host) {
+    case 'localhost' :  // 本地开发
+      apiHost = 'http://api-omg.wanglibao.com';
+      break;
+    case 'yunyingadmin.wanglibao.com': // 开发环境
+      apiHost = 'http://api-omg.wanglibao.com';
+      break;
+    case 'yyadmin.wanglibao.com': // 测试环境
+      apiHost = 'https://php1.wanglibao.com/yunying';
+      break;
+    case 'yyadmin3.wanglibao.com': // 预上线环境
+      apiHost = 'https://php3.wanglibao.com/yunying';
+      break;
+    default: // 默认线上
+      apiHost = 'https://www.wanglibao.com/yunying';
+      break;
+  }
+  // apiHost = 'https://php1.wanglibao.com/yunying';
   return apiHost + apiList[type];
 }
 

@@ -33,12 +33,14 @@ import admin from './admin';
 import idiom from './idiom';
 import integral from './integral';
 import oneyuan from './oneyuan';
+import hongbao from './hongbao';
 
 export default {
 
   path: '/',
 
   children: [
+    hongbao,
     oneyuan,
     integral,
     idiom,

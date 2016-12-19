@@ -4,3 +4,9 @@ $('#app').delegate('.img-pop', 'click', function (e) {
     href: href,
   });
 });
+
+var clipboard = new Clipboard('.btn');
+clipboard.on('success', function(e) {
+  alert('复制成功');
+});
+

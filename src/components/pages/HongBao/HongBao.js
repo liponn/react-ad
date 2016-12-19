@@ -2,13 +2,11 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchAction } from '../../../actions/omg';
 import { showModal, hideModal} from '../../../actions/modal';
-import { INTEGRAL_LIST, INTEGRAL_DEL, INTEGRAL_OPERATION, INTEGRAL_UP, INTEGRAL_DOWN, INTEGRAL_ENABLE, INTEGRAL_DISABLE } from '../../../constants';
-import { Card, Pagination, ImgBox, Status} from '../../tools';
+import { HONGBAO_LIST, HONGBAO_DEL, HONGBAO_OPERATION, HONGBAO_ENABLE, HONGBAO_DISABLE } from '../../../constants';
+import { Card, Pagination, Status, Popover } from '../../tools';
 import AddModal from './AddModal';
-import { getConfig } from '../../../config/omg';
 
-
-class Integral extends Component {
+class HongBao extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -17,11 +15,8 @@ class Integral extends Component {
     this.fresh = this.fresh.bind(this);
     this.list = this.list.bind(this);
     this.del = this.del.bind(this);
-    this.up = this.up.bind(this);
-    this.down = this.down.bind(this);
     this.enable = this.enable.bind(this);
     this.disable = this.disable.bind(this);
-    
     this.showAddModal = this.showAddModal.bind(this);
     this.showUpdateModal = this.showUpdateModal.bind(this);
     this.state = {
@@ -52,7 +47,7 @@ class Integral extends Component {
   }
   list(page) {
     this.props.dispatch(fetchAction({
-      type: INTEGRAL_LIST,
+      type: HONGBAO_LIST,
       queryObj: { page },
       key: page,
     }));
@@ -61,7 +56,7 @@ class Integral extends Component {
     e.preventDefault();
     const formData = new FormData(e.target);
     this.props.dispatch(fetchAction({
-      type: INTEGRAL_OPERATION,
+      type: HONGBAO_OPERATION,
       method: 'POST',
       formData,
     })).then(json => {
@@ -80,7 +75,7 @@ class Integral extends Component {
     e.preventDefault();
     const formData = new FormData(e.target);
     this.props.dispatch(fetchAction({
-      type: INTEGRAL_OPERATION,
+      type: HONGBAO_OPERATION,
       method: 'POST',
       formData,
     })).then(json => {
@@ -90,7 +85,6 @@ class Integral extends Component {
       } else {
         alert(json.data.error_msg);
       }
-
     });
   }
   showAddModal() {
@@ -101,34 +95,13 @@ class Integral extends Component {
     const item = this.items[index];
     this.props.dispatch(showModal(<AddModal update item={item} submit={this.update} errorMsg={this.state.addErrorMsg} />));
   }
-  up(e) {
-    const id = e.target.dataset.id;
-    this.props.dispatch(fetchAction({
-      type: INTEGRAL_UP,
-      method: 'GET',
-      suffix: `/${id}`,
-    })).then(() => {
-      this.fresh();
-    });
-  }
-  down(e) {
-    const id = e.target.dataset.id;
-    const formData = new FormData;
-    formData.append('id', id);
-    this.props.dispatch(fetchAction({
-      type: INTEGRAL_DOWN,
-      method: 'GET',
-      suffix: `/${id}`,
-    })).then(() => {
-      this.fresh();
-    });
-  }
+
   enable(e) {
     const id = e.target.dataset.id;
     const formData = new FormData;
     formData.append('id', id);
     this.props.dispatch(fetchAction({
-      type: INTEGRAL_ENABLE,
+      type: HONGBAO_ENABLE,
       method: 'POST',
       formData,
     })).then(() => {
@@ -140,7 +113,7 @@ class Integral extends Component {
     const formData = new FormData;
     formData.append('id', id);
     this.props.dispatch(fetchAction({
-      type: INTEGRAL_DISABLE,
+      type: HONGBAO_DISABLE,
       method: 'POST',
       formData,
     })).then(() => {
@@ -155,7 +128,7 @@ class Integral extends Component {
     const formData = new FormData;
     formData.append('id', id);
     this.props.dispatch(fetchAction({
-      type: INTEGRAL_DEL,
+      type: HONGBAO_DEL,
       method: 'POST',
       formData,
     })).then(json => {
@@ -172,29 +145,33 @@ class Integral extends Component {
     const items = itemObj.data || [];
     this.items = items;
     const addBtn = (
-      <button
-        onClick={this.showAddModal}
-        className="btn btn-sm btn-info pull-right"
-      >
-        <i className="fa fa-plus">商品</i>
-      </button>
+      [
+        <button
+          onClick={this.showAddModal}
+          className="btn btn-sm btn-info pull-right"
+        >
+          <i className="fa fa-plus">红包</i>
+        </button>
+      ]
     );
     return (
       <div>
-
-        <Card title="积分商城" btn={addBtn}>
+        <Card title="红包分享" btn={addBtn}>
           <table className="table table-bordered m-b-0 table-hover">
             <thead>
               <tr>
                 <th>id</th>
-                <th>奖品名称</th>
-                <th>积分</th>
-                <th>配图</th>
-                <th>配图(小)</th>
-                <th>总量</th>
-                <th>已兑换</th>
+                <th>用户ID</th>
+                <th>发送者</th>
+                <th>标识</th>
+                <th>key</th>
+                <th>奖品ID</th>
+                <th>总额</th>
+                <th>个数</th>
+                <th>区间</th>
                 <th>开始时间</th>
                 <th>结束时间</th>
+                <th>祝福语</th>
                 <th>状态</th>
                 <th>操作</th>
               </tr>
@@ -203,20 +180,23 @@ class Integral extends Component {
             {items.map((item, index) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
-                <td>{item.name}</td>
-                <td>{item.integral}</td>
-                <td><ImgBox src={item.photo} /></td>
-                <td><ImgBox src={item.photo_min} /></td>
-                <td>{item.total_quantity}</td>
-                <td>{item.send_quantity}</td>
+                <td>{item.user_id ? item.user_id : '--'}</td>
+                <td>{item.user_name ? item.user_name : '--'}</td>
+                <td>{item.identify}</td>
+                <td>
+                  <button className="btn btn-success-outline btn-sm clipboard" data-clipboard-text={item.key} >复制</button>
+                </td>
+                <td>{item.award_id}</td>
+                <td>{item.use_money}/{item.total_money}</td>
+                <td>{item.receive_num}/{item.total_num}</td>
+                <td>{item.min}-{item.max}</td>
                 <td>{item.start_time}</td>
                 <td>{item.end_time}</td>
+                <td><Popover title="祝福语" content={item.blessing} /></td>
                 <td><Status status={+item.status} /></td>
                 <td>
                   <button hidden={+item.status === 1} className="btn btn-sm btn-success-outline" data-id={item.id} onClick={this.enable}>上线</button>
                   <button hidden={+item.status === 0} className="btn btn-sm btn-warning-outline" data-id={item.id} onClick={this.disable}>下线</button>
-                  <button hidden={!item.status} className="btn btn-sm btn-info-outline" data-id={item.id} onClick={this.up}>上移</button>
-                  <button hidden={!item.status} className="btn btn-sm btn-info-outline" data-id={item.id} onClick={this.down}>下移</button>
                   <button className="btn btn-success-outline btn-sm" data-id={item.id} data-index={index} onClick={this.showUpdateModal}>编辑</button>
                   <button className="btn btn-danger-outline btn-sm" data-id={item.id} onClick={this.del}>删除</button>
                 </td>
@@ -230,20 +210,20 @@ class Integral extends Component {
     );
   }
 }
-Integral.propTypes = {
+HongBao.propTypes = {
   itemList: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
 }
 
-Integral.defaultProps = {
+HongBao.defaultProps = {
   itemList: {},
 }
 
 export default connect(state => {
   const { omg } = state;
-  const itemList = omg[INTEGRAL_LIST] || {};
+  const itemList = omg[HONGBAO_LIST] || {};
   return {
     itemList,
   };
-})(Integral);
+})(HongBao);
