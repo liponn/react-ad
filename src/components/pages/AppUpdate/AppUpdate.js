@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { ImgBox, Card, Radio, Status, Modal, Alert, DateTimeInput, Input, Submit, Textarea, Select, Popover } from '../../tools';
 import { showModal, hideModal } from '../../../actions/modal';
 import { fetchAction } from '../../../actions/omg';
-import {APP_DISABLE, APP_ENABLE, APP_ADD, APP_INFO, APP_UPDATE_LOG, APP_DEL } from '../../../constants';
+import {APP_DISABLE, APP_ENABLE, APP_ADD, APP_PUT, APP_INFO, APP_UPDATE_LOG, APP_DEL } from '../../../constants';
 import { getConfig } from '../../../config/omg';
 import hisotry from '../../../core/history';
 
@@ -12,11 +12,13 @@ class AppUpdate extends Component {
   constructor(props) {
     super(props);
     this.showAddModal = this.showAddModal.bind(this);
+    this.showUpdateModal = this.showUpdateModal.bind(this);
     this.enable = this.enable.bind(this);
     this.disable = this.disable.bind(this);
     this.freshData = this.freshData.bind(this);
     this.del = this.del.bind(this);
     this.add = this.add.bind(this);
+    this.update = this.update.bind(this);
     const types = getConfig('appUpdateTypes');
     this.state = {
       types,
@@ -39,6 +41,20 @@ class AppUpdate extends Component {
       submit={this.add}
       errorMsg={this.state.addErrorMsg}
       type={this.props.type}
+      callback={this.freshData}
+    />);
+    this.props.dispatch(showModal(modalView));
+  }
+  
+  showUpdateModal(e) {
+    const index = e.target.dataset.index;
+    const item = this.items[index];
+    const modalView = (<AppUpdateAddModal
+      submit={this.update}
+      errorMsg={this.state.addErrorMsg}
+      type={this.props.type}
+      item={item}
+      update
       callback={this.freshData}
     />);
     this.props.dispatch(showModal(modalView));
@@ -107,6 +123,26 @@ class AppUpdate extends Component {
       }
     });
   }
+  
+  update(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    this.props.dispatch(fetchAction({
+      type: APP_PUT,
+      method: 'POST',
+      formData,
+    })).then(json => {
+      if (json.error_code === 0) {
+        this.props.dispatch(hideModal(true));
+        this.freshData(this.props.type);
+      } else {
+        this.setState({
+          addErrorMsg: json.data.error_msg,
+        });
+        this.showAddModal();
+      }
+    });
+  }
 
   selectChange(e) {
     const value = e.target.value;
@@ -123,6 +159,7 @@ class AppUpdate extends Component {
     );
     const updatesList = updates[type] || {};
     const items = updatesList.data || [];
+    this.items = items;
     return (
       <div>
         <div>
@@ -154,7 +191,7 @@ class AppUpdate extends Component {
               </tr>
             </thead>
             <tbody>
-            {items.map((item) => (
+            {items.map((item, index) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.version}</td>
@@ -167,6 +204,7 @@ class AppUpdate extends Component {
                 <td>
                   <button hidden={+item.toggle === 1} className="btn btn-sm btn-success-outline" data-id={item.id} onClick={this.enable}>上线</button>
                   <button hidden={+item.toggle === 0} className="btn btn-sm btn-warning-outline" data-id={item.id} onClick={this.disable}>下线</button>
+                  <button data-index={index} className="btn btn-sm btn-success-outline" data-id={item.id} onClick={this.showUpdateModal}>编辑</button>
                   <button className="btn btn-sm btn-danger-outline" data-id={item.id} onClick={this.del}>删除</button>
                 </td>
               </tr>
@@ -204,23 +242,29 @@ class AppUpdateAddModal extends Component {
       forceTypes,
     };
   }
+  static defaultProps = {
+    item: {},  
+  }
   static propTypes = {
     type: PropTypes.number.isRequired,
     submit: PropTypes.func.isRequired,
     errorMsg: PropTypes.string.isRequired,
+    item: PropTypes.any,
+    update: PropTypes.boolean,
   }
   render() {
     return (
-      <Modal title="添加升级配置">
+      <Modal title={this.props.update ? '更新升级配置' : '添加升级配置'}>
         <Alert msg={this.props.errorMsg} />
         <form method="post" ref="addForm" onSubmit={this.props.submit}>
           <input type="hidden" name="platform" value={this.props.type} />
-          <Input labelName="版本号" name="version" />
-          <Select labelName="强制升级" name="force" options={this.state.forceTypes} />
-          <DateTimeInput labelName="更新时间" name="update_time" />
-          {this.props.type === 2 ? false : <Input labelName="下载链接" name="url" />}
-          <Input labelName="安装包大小" name="size" />
-          <Textarea labelName="升级描述" name="description" />
+          <input type="hidden" name="id" value={this.props.item.id || ''} />
+          <Input labelName="版本号" name="version" defaultValue={this.props.item.version || ''} />
+          <Select labelName="强制升级" name="force" options={this.state.forceTypes} defaultValue={this.props.item.force || ''} />
+          <Input labelName="更新时间" placeholder="YYYY-MM-DD" name="update_time" defaultValue={this.props.item.update_time || ''} />
+          {this.props.type === 2 ? false : <Input labelName="下载链接" name="url" defaultValue={this.props.item.url || ''} />}
+          <Input labelName="安装包大小" name="size" defaultValue={this.props.item.size || ''}/>
+          <Textarea labelName="升级描述" name="description" defaultValue={this.props.item.description || ''} />
           <Submit />
         </form>
       </Modal>

@@ -27,13 +27,16 @@ class AddModal extends Component {
     const fileds = [];
     switch (this.props.type) {
       case 'channel':
+        fileds.push(<Input key="share_name" name="name" labelName="埋点说明" defaultValue={this.props.item.name} />);
         fileds.push(<Input key="share_name" name="name" labelName="渠道名" placeholder="不填则为默认渠道" defaultValue={this.props.item.name} />);
         break;
       case 'discover':
+        fileds.push(<Input key="share_name" name="name" labelName="埋点说明" defaultValue={this.props.item.name} />);
         fileds.push(<Select key="discover_tag" labelName="tag" name="type" defaultValue={this.props.item.type} options={this.state.discoverTypes} />);
         break;
       case 'pop':
       case 'cast_finish':
+        fileds.push(<Input key="share_name" name="name" labelName="埋点说明" defaultValue={this.props.item.name} />);
         fileds.push(<Select key="pop_type" labelName="跳转类型" name="type" defaultValue={this.props.item.type} options={this.state.popTypes} />);
         break;
       case 'taojin':
@@ -41,6 +44,7 @@ class AddModal extends Component {
         fileds.push(<Textarea key="share_desc" name="desc" labelName="内容" defaultValue={this.props.item.desc} />);
         fileds.push(<Input key="share_short_des" name="short_desc" labelName="分享时说明" defaultValue={this.props.item.short_desc} />);
       default:
+        fileds.push(<Input key="share_name" name="name" labelName="埋点说明" defaultValue={this.props.item.name} />);
     }
     return (
       <Modal title="添加">

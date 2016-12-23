@@ -200,6 +200,7 @@ class Banner extends Component {
             <thead>
               <tr>
                 <th>ID</th>
+                {this.props.path !== 'ShareConfig' && <td>埋点说明</td>}
                 {this.props.path === 'ShareConfig' && <th>标题</th>}
                 {this.props.path === 'ShareConfig' && <th>分享内容</th>}
                 {this.props.path === 'ShareConfig' && <th>分享时说明</th>}
@@ -219,6 +220,7 @@ class Banner extends Component {
             {items.map((item, index) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
+                {this.props.path !== 'ShareConfig' && <td>{item.name}</td>}
                 {this.props.path === 'ShareConfig' && <td>{item.name}</td>}
                 {this.props.path === 'ShareConfig' && <td>{item.desc}</td>}
                 {this.props.path === 'ShareConfig' && <td>{item.short_desc}</td>}

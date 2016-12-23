@@ -18,7 +18,7 @@ class ArticleAddModal extends Component {
           <input type="hidden" name="id" value={this.props.item.id} />
           <input type="hidden" name="type_id" defaultValue={this.props.typeId} />
           <Input labelName="标题" name="title" defaultValue={this.props.item.title} />
-          <div hidden={this.props.aliasName !== 'report'}>
+          <div>
             <AttachmentInput labelName="封面" defaultValue={this.props.item.cover} position={`article_${this.props.typeId}`} name="cover" />
           </div>
           <div hidden={this.props.aliasName !== 'questions' && this.props.aliasName !== 'pc_questions'}>
