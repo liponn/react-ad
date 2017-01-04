@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Card, Popover, Pagination} from '../../tools';
-import { AWARD_LIST, AWARD_ADD, AWARD_UPDATE } from '../../../constants';
+import { AWARD_LIST, AWARD_ADD, AWARD_UPDATE, AWARD_DEL } from '../../../constants';
 import { fetchAction } from '../../../actions/omg';
 import { getConfig } from '../../../config/omg';
 import ExperienceAddModal from './ExperienceAddModal';
@@ -16,6 +16,7 @@ class Experience extends Component {
     this.update = this.update.bind(this);
     this.fresh = this.fresh.bind(this);
     this.list = this.list.bind(this);
+    this.del = this.del.bind(this);
     const page = props.page || 1;
     this.state = {
       page,
@@ -47,6 +48,27 @@ class Experience extends Component {
         this.setState({
           errorMsg: json.data.error_msg,
         });
+      }
+    });
+  }
+  del(e) {
+    const name = e.target.dataset.name;
+    const id = +e.target.dataset.id;
+    const formData = new FormData();
+    formData.append('award_type', this.props.type);
+    formData.append('award_id', id);
+    if (!confirm(`你确定删除:${name}吗？该操作不可逆`)){
+      return;
+    }
+    this.props.dispatch(fetchAction({
+      type: AWARD_DEL,
+      method: 'POST',
+      formData,
+    })).then(json => {
+      if (json.error_code === 0) {
+        this.fresh();
+      } else {
+        alert(json.data.error_msg);
       }
     });
   }
@@ -97,7 +119,8 @@ class Experience extends Component {
     const id = +e.target.dataset.id;
     const item = this.items[index] || {};
     if (item.id !== id) {
-      return alert('获取奖品信息失败,请刷新重试');
+      alert('获取奖品信息失败,请刷新重试');
+      return;
     }
     this.props.dispatch(showModal(<ExperienceAddModal item={item} update submit={this.update} />));
   }
@@ -152,6 +175,7 @@ class Experience extends Component {
                   <td>
                     <button hidden={modal} className="btn btn-success-outline btn-sm" data-id={item.id} data-index={index} onClick={this.showUpdateModal}>编辑</button>
                     {addAwardBtn}
+                    <button hidden={true || modal} className="btn btn-danger-outline btn-sm" data-id={item.id} data-name={item.name} onClick={this.del}>删除</button>
                   </td>
                 </tr>
               );
@@ -160,7 +184,7 @@ class Experience extends Component {
           </table>
         </Card>
         <Pagination currentPage={award.current_page} lastPage={award.last_page} onClick={this.pageSelect} unurl={modal} />
-      </div>  
+      </div>
     );
   }
 }

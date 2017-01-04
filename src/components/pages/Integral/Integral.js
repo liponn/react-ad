@@ -21,7 +21,7 @@ class Integral extends Component {
     this.down = this.down.bind(this);
     this.enable = this.enable.bind(this);
     this.disable = this.disable.bind(this);
-    
+
     this.showAddModal = this.showAddModal.bind(this);
     this.showUpdateModal = this.showUpdateModal.bind(this);
     this.state = {
@@ -189,10 +189,10 @@ class Integral extends Component {
                 <th>id</th>
                 <th>奖品名称</th>
                 <th>积分</th>
+                <th>单用户兑换上限</th>
                 <th>配图</th>
                 <th>配图(小)</th>
                 <th>总量</th>
-                <th>已兑换</th>
                 <th>开始时间</th>
                 <th>结束时间</th>
                 <th>状态</th>
@@ -205,10 +205,10 @@ class Integral extends Component {
                 <td>{item.id}</td>
                 <td>{item.name}</td>
                 <td>{item.integral}</td>
+                <td>{item.user_quantity || '不限'}</td>
                 <td><ImgBox src={item.photo} /></td>
                 <td><ImgBox src={item.photo_min} /></td>
-                <td>{item.total_quantity}</td>
-                <td>{item.send_quantity}</td>
+                <td>{item.send_quantity}/{item.total_quantity}</td>
                 <td>{item.start_time}</td>
                 <td>{item.end_time}</td>
                 <td><Status status={+item.status} /></td>

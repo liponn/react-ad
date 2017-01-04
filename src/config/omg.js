@@ -333,7 +333,9 @@ function getApi(type) {
     case 'localhost' :  // 本地开发
       apiHost = 'http://api-omg.wanglibao.com';
       break;
-
+    case '192.168.10.36': // dev环境
+      apiHost = 'http://yunying.dev.wanglibao.com';
+      break;
     case 'yyadmin.wanglibao.com': // 测试环境
       apiHost = 'https://php1.wanglibao.com/yunying';
       break;
@@ -347,6 +349,7 @@ function getApi(type) {
       apiHost = 'https://www.wanglibao.com/yunying';
       break;
   }
+  // apiHost = 'https://www.wanglibao.com/yunying';
   return apiHost + apiList[type];
 }
 

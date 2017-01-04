@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Card, Popover, Pagination} from '../../tools';
-import { AWARD_LIST, AWARD_ADD, AWARD_UPDATE } from '../../../constants';
+import { AWARD_LIST, AWARD_ADD, AWARD_UPDATE, AWARD_DEL } from '../../../constants';
 import { fetchAction } from '../../../actions/omg';
 import RedEnvelopeAddModal from './RedEnvelopeAddModal';
 import { getConfig } from '../../../config/omg';
@@ -14,6 +14,7 @@ class RedEnvelope extends Component {
     this.showUpdateModal = this.showUpdateModal.bind(this);
     this.pageSelect = this.pageSelect.bind(this);
     this.add = this.add.bind(this);
+    this.del = this.del.bind(this);
     this.update = this.update.bind(this);
     this.fresh = this.fresh.bind(this);
     const page = props.page || 1;
@@ -32,6 +33,27 @@ class RedEnvelope extends Component {
       })
       this.list(nextProps.page);
     }
+  }
+  del(e) {
+    const name = e.target.dataset.name;
+    const id = +e.target.dataset.id;
+    const formData = new FormData();
+    formData.append('award_type', this.props.type);
+    formData.append('award_id', id);
+    if (!confirm(`你确定删除:${name}吗？该操作不可逆`)){
+      return;
+    }
+    this.props.dispatch(fetchAction({
+      type: AWARD_DEL,
+      method: 'POST',
+      formData,
+    })).then(json => {
+      if (json.error_code === 0) {
+        this.fresh();
+      } else {
+        alert(json.data.error_msg);
+      }
+    });
   }
   add(e) {
     e.preventDefault();
@@ -158,6 +180,7 @@ class RedEnvelope extends Component {
                     <td>
                       <button hidden={modal} className="btn btn-success-outline btn-sm" data-id={item.id} data-index={index} onClick={this.showUpdateModal}>编辑</button>
                       {addAwardBtn}
+                      <button hidden={true || modal} className="btn btn-danger-outline btn-sm" data-id={item.id} data-name={item.name} onClick={this.del}>删除</button>
                     </td>
                   </tr>
                 );
