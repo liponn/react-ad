@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Input, Alert, Submit, Modal, Select, Success, Textarea } from '../../tools';
+import { Input, Alert, Submit, Modal, Select, Success, Textarea, Checkbox } from '../../tools';
 import { BATCH_AWARD } from '../../../constants';
 import { getConfig } from '../../../config/omg';
 import { fetchAction } from '../../../actions/omg';
@@ -63,6 +63,7 @@ class AwardsAddModal extends Component {
             </div>
           </div>
           <Input name="source_name" labelName="奖品来源" value="手动添加" />
+          <Checkbox labelName="其它费用" name="is_other" />
           <Submit value="发送" />
         </form>
         <div hidden={this.state.awardHidden}>
