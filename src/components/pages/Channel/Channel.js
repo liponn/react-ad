@@ -79,8 +79,14 @@ class Channel extends Component {
       method: 'POST',
       formData,
     })).then(json => {
-      this.props.dispatch(hideModal(true));
-      this.fresh();
+      if (json.error_code === 0) {
+        this.props.dispatch(hideModal(true));
+        this.fresh();
+      } else {
+        this.props.dispatch(hideModal(true));
+        this.fresh();
+        alert(json.data.error_msg);
+      }
     });
   }
   showAddModal() {
@@ -88,7 +94,6 @@ class Channel extends Component {
   }
   showUpdateModal(e) {
     const index = e.target.dataset.index;
-    console.dir(index);
     const item = this.items[index];
     this.props.dispatch(showModal(<ChannelAddModal update item={item} submit={this.update} errorMsg={this.state.addErrorMsg} />));
   }
@@ -107,7 +112,7 @@ class Channel extends Component {
       if (json.error_code === 0) {
         this.fresh();
       } else {
-        this.setState({ errorMsg: res.data.error_msg });
+        this.setState({ errorMsg: json.error_msg });
       }
     });
   }
@@ -133,8 +138,8 @@ class Channel extends Component {
                 <th>id</th>
                 <th>渠道名称</th>
                 <th>中文说明</th>
-                <th>合作模式</th>
-                <th>状态</th>
+                <th hidden>合作模式</th>
+                <th hidden>状态</th>
                 <th>操作</th>
               </tr>
             </thead>
@@ -144,8 +149,8 @@ class Channel extends Component {
                 <td>{item.id}</td>
                 <td>{item.alias_name}</td>
                 <td>{item.name}</td>
-                <td>{getConfig('channelStatusTypes', item.coop_status)}</td>
-                <td>{getConfig('channelClassTypes', item.classification)}</td>
+                <td hidden>{getConfig('channelStatusTypes', item.coop_status)}</td>
+                <td hidden>{getConfig('channelClassTypes', item.classification)}</td>
                 <td>
                   <button className="btn btn-info-outline btn-sm" data-id={item.id} data-index={index} onClick={this.showUpdateModal}>编辑</button>
                   <button className="btn btn-danger-outline btn-sm" data-id={item.id} onClick={this.del}>删除</button>

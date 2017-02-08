@@ -16,10 +16,9 @@ class ChannelAddModal extends Component {
           <Input labelName="中文说明" name="name" defaultValue={this.props.item.name || ''} />
           <Input labelName="渠道名称" placeholder="只能包含英文和数字" name="alias_name" defaultValue={this.props.item.alias_name || ''} />
           <div hidden>
-            <Input labelName="渠道组" placeholder="默认为空" name="pre" defaultValue={this.props.item.alias_name || ''} />
+            <Select labelName="合作状态" options={getConfig('channelStatusTypes')} name="coop_status" defaultValue={this.props.item.coop_status || '0'} />
+            <Select labelName="计费方式" options={getConfig('channelClassTypes')} name="classification" defaultValue={this.props.item.classification || '----'} />
           </div>
-          <Select labelName="合作状态" options={getConfig('channelStatusTypes')} name="coop_status" defaultValue={this.props.item.coop_status || '0'} />
-          <Select labelName="计费方式" options={getConfig('channelClassTypes')} name="classification" defaultValue={this.props.item.classification || '----'} />
           <Submit />
         </form>
       </Modal>
