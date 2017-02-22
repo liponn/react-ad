@@ -514,14 +514,15 @@ const ruleTypes = {
 
 const bannerTypes = {
   mobile: '移动端轮播图',
+  discover: '发现页',
   pc: 'PC端轮播图',
   pop: '活动弹窗',
   cast_finish: '投资完成页',
-  discover: '发现页',
   memorabilia: '大事记',
   appzichan: '资产页',
   ios_score: 'ios评分页',
   channel: '渠道落地页',
+  pc_channel: 'pc渠道落地页',
 }
 
 const channelStatusTypes = {

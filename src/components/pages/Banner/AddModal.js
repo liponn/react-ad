@@ -27,7 +27,7 @@ class AddModal extends Component {
     const fileds = [];
     switch (this.props.type) {
       case 'channel':
-        fileds.push(<Input key="share_name" name="name" labelName="埋点说明" defaultValue={this.props.item.name} />);
+      case 'pc_channel':
         fileds.push(<Input key="share_name" name="name" labelName="渠道名" placeholder="不填则为默认渠道" defaultValue={this.props.item.name} />);
         break;
       case 'discover':
