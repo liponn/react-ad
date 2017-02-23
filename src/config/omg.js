@@ -475,6 +475,8 @@ const ruleFileds = {
   stage_name: '期名',
   join_max: '参与人数上限',
   type: '类型',
+  min_paymentdate: '最小天数 >=',
+  max_paymentdate: '最大天数 <',
 }
 
 const activityTriggers = {
@@ -494,7 +496,7 @@ const triggerRuleFileds = {
   2: { recharge: '充值金额' },
   3: {},
   4: { cast: '投资金额', castname: '投资标名称', casttype: '标期限制' },
-  5: { payment: '回款金额' },
+  5: { payment: '回款金额', paymentdate: '项目天数' },
   6: {},
   7: {},
 }
@@ -510,6 +512,7 @@ const ruleTypes = {
   castall: '投资总金额',
   rechargeall: '充值总金额',
   joinnum: '参与人数上限',
+  paymentdate: '投资天数'
 }
 
 const bannerTypes = {
