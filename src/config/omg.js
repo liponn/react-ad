@@ -512,7 +512,6 @@ const ruleTypes = {
   castall: '投资总金额',
   rechargeall: '充值总金额',
   joinnum: '参与人数上限',
-  paymentdate: '投资天数'
 }
 
 const bannerTypes = {
