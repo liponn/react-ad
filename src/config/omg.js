@@ -488,6 +488,7 @@ const activityTriggers = {
   5: '回款',
   6: '实名',
   7: '微信绑定',
+  8: '签到',
 }
 
 const triggerRuleFileds = {
