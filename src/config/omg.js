@@ -526,6 +526,7 @@ const bannerTypes = {
   ios_score: 'ios评分页',
   channel: '渠道落地页',
   pc_channel: 'pc渠道落地页',
+  anualreport: '年度账单',
 }
 
 const channelStatusTypes = {
