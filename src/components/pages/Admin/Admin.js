@@ -119,4 +119,4 @@ Admin.defaultProps = {
 }
 
 
-export default connect(() => {})(Admin);
+export default connect(() => ({}))(Admin);

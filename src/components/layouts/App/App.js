@@ -15,7 +15,6 @@ import { Provider } from 'react-redux';
 
 import Header from '../Header';
 import Container from '../Container';
-import LeftList from '../LeftList';
 import Modal from '../Modal';
 import Main from '../Main';
 import Login from '../Login';

@@ -172,13 +172,10 @@ class Container extends Component {
       ],
     },
     ];
-    console.log(authentication);
     if (authentication) {
       const privilege = props.profile.privilege || false;
-      console.log(privilege);
       if (privilege) {
         items = this.initItems(privilege, items);
-        console.log(items);
       }
     }
     this.state = {
@@ -312,14 +309,14 @@ class Container extends Component {
               if (item.subItems.length === 0) {
                 return false;
               }
-              return (<div className={item.isFold ? 'fold' : ''} >
+              return (<div key={`item_${index}`} className={item.isFold ? 'fold' : ''} >
                 <div className="item" data-toggle="tooltip" data-placement="right" data-index={index} onClick={this.toggleSubFold} >
                   <span className={item.isFold ? 'fa fa-caret-right' : 'fa fa-caret-down'}></span>
                   <span className="title">{item.title}</span>
                 </div>
                 <div className="sub-items">
-                  {item.subItems.map((subItem) => {
-                    return (<div className="sub-item">
+                  {item.subItems.map((subItem, index2) => {
+                    return (<div key={`subitem_${index2}`} className="sub-item">
                       <Link to={subItem.url}>
                         <span className={`fa ${subItem.fontClass}`}></span>
                         <span className="title">{subItem.title}</span>

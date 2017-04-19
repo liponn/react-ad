@@ -97,4 +97,4 @@ Privilege.defaultProps = {
 }
 
 
-export default connect(() => {})(Privilege);
+export default connect(() => ({}))(Privilege);

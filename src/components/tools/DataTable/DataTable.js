@@ -264,7 +264,7 @@ class DataTable extends Component {
             <thead>
             <tr>
               {this.state.columns.map((item, index) => (
-                <th data-index={index} onClick={this.changeOrder}>
+                <th data-index={index} key={`th_${index}`} onClick={this.changeOrder}>
                   {item.cname}
                   <span
                     className="pull-right arrow"
@@ -281,9 +281,9 @@ class DataTable extends Component {
             </thead>
             <tbody>
             {items.map((item, index) => (
-              <tr>
-                {item.map((value) => (
-                  <td>{value}</td>
+              <tr key={`item_${index}`}>
+                {item.map((value, index2) => (
+                  <td key={`fileld_${index}_${index2}`}>{value}</td>
                 ))}
                 <td>
                   <button

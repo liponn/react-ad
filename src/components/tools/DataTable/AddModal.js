@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Modal, Input, Submit, Select, Textarea } from '../../tools';
-import { getConfig } from '../../../config/omg';
+import { Modal, Input, Submit, Textarea } from '../../tools';
 
 class AddModal extends Component {
   constructor (props) {
@@ -11,11 +10,12 @@ class AddModal extends Component {
     return (
       <Modal title={this.props.update ? '编辑' : '添加'}>
         <form onSubmit={this.props.submit}>
-          {this.props.columns.map((filed) => {
+          {this.props.columns.map((filed, index) => {
             let ret = false;
             switch (filed.type) {
               case 'hidden':
                 ret = (<input
+                  key={`filed_${index}`}
                   type="hidden"
                   name={filed.name}
                   defaultValue={this.props.item[filed.name] || ''}
@@ -23,6 +23,7 @@ class AddModal extends Component {
                 break;
               case 'text':
                 ret = (<Input
+                  key={`filed_${index}`}
                   labelName={filed.cname}
                   name={filed.name}
                   defaultValue={this.props.item[filed.name] || ''}
@@ -30,6 +31,7 @@ class AddModal extends Component {
                 break;
               case 'textarea':
                 ret = (<Textarea
+                  key={`filed_${index}`}
                   labelName={filed.cname}
                   name={filed.name}
                   defaultValue={this.props.item[filed.name] || ''}
@@ -40,8 +42,11 @@ class AddModal extends Component {
             }
             return ret;
           })}
-          <input type="hidden" name="id" defaultValue={this.props.item.id || ''} />
-          <Submit />
+          <div className="form-group row">
+            <div className="col-sm-offset-4 col-sm-8 col-md-6">
+              <button type="submit" className="btn btn-primary" >提交</button>
+            </div>
+          </div>
         </form>
       </Modal>
     );
@@ -50,9 +55,9 @@ class AddModal extends Component {
 
 AddModal.propTypes = {
   submit: PropTypes.func.isRequired,
-  item: PropTypes.obj,
-  update: PropTypes.boolean,
   columns: PropTypes.array.isRequired,
+  item: PropTypes.object,
+  update: PropTypes.bool,
 }
 
 AddModal.defaultProps = {

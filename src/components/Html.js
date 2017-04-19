@@ -36,7 +36,6 @@ function Html({ title, description, style, script, children, state }) {
         <script src="/js/tinymce/tinymce.min.js" />
         <script src="/lib/fancybox/jquery.fancybox.pack.js" />
         <script src="/lib/clipboard.min.js" />
-        <script src="/lib/particles.js" />
 
         <script src="/js/main.js" />
         {script && (
@@ -46,16 +45,6 @@ function Html({ title, description, style, script, children, state }) {
             data-initial-state={JSON.stringify(state)}
           />
         )}
-        {analytics.google.trackingId &&
-          <script
-            dangerouslySetInnerHTML={{ __html:
-            'window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;' +
-            `ga('create','${analytics.google.trackingId}','auto');ga('send','pageview')` }}
-          />
-        }
-        {analytics.google.trackingId &&
-          <script src="https://www.google-analytics.com/analytics.js" async defer />
-        }
       </body>
     </html>
   );
