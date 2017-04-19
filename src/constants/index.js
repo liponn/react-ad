@@ -16,6 +16,7 @@ export const CHANNEL_ADD = 'CHANNEL_ADD';
 export const CHANNEL_DEL = 'CHANNEL_DEL';
 export const CHANNEL_PUT = 'CHANNEL_PUT';
 export const CHANNEL_INFO = 'CHANNEL_INFO';
+export const CHANNEL_DT_LIST = 'CHANNEL_DT_LIST';
 
 // 升级
 export const APP_ADD = 'APP_ADD';
@@ -147,9 +148,13 @@ export const BATCH_AWARD_LIST = 'BATCH_AWARD_LIST';
 // 管理员
 export const ADMIN_LIST = 'ADMIN_LIST';
 export const ADMIN_ADD = 'ADMIN_ADD';
-export const ADMIN_PUT = 'ADMIN_PUT';
-export const ADMIN_INFO = 'ADMIN_INFO';
+export const ADMIN_UPDATE = 'ADMIN_UPDATE';
 export const ADMIN_DEL = 'ADMIN_DEL';
+// 权限组
+export const PRIVILEGE_LIST = 'PRIVILEGE_LIST';
+export const PRIVILEGE_ADD = 'PRIVILEGE_ADD';
+export const PRIVILEGE_UPDATE = 'PRIVILEGE_UPDATE';
+export const PRIVILEGE_DEL = 'PRIVILEGE_DEL';
 
 // 模板生成
 export const TEMPLATE_NOTICE = 'TEMPLATE_NOTICE';

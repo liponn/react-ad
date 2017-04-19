@@ -35,10 +35,16 @@ class AddModal extends Component {
         fileds.push(<Select key="discover_tag" labelName="tag" name="type" defaultValue={this.props.item.type} options={this.state.discoverTypes} />);
         break;
       case 'pop':
+        fileds.push(<Input key="name" name="name" labelName="标题" defaultValue={this.props.item.name} />);
+        fileds.push(<Input key="share_name" name="short_desc" labelName="副标题" defaultValue={this.props.item.short_desc} />);
+        fileds.push(<Select key="pop_type" labelName="跳转类型" name="type" defaultValue={this.props.item.type} options={this.state.popTypes} />);
+        break;
       case 'cast_finish':
         fileds.push(<Input key="share_name" name="name" labelName="埋点说明" defaultValue={this.props.item.name} />);
         fileds.push(<Select key="pop_type" labelName="跳转类型" name="type" defaultValue={this.props.item.type} options={this.state.popTypes} />);
         break;
+      case 'share':
+        fileds.push(<Input key="tag" name="tag" labelName="tag" defaultValue={this.props.item.tag} />);
       case 'taojin':
         fileds.push(<Input key="share_name" name="name" labelName="标题" defaultValue={this.props.item.name} />);
         fileds.push(<Textarea key="share_desc" name="desc" labelName="内容" defaultValue={this.props.item.desc} />);

@@ -34,12 +34,14 @@ import idiom from './idiom';
 import integral from './integral';
 import oneyuan from './oneyuan';
 import hongbao from './hongbao';
+import privilege from './privilege';
 
 export default {
 
   path: '/',
 
   children: [
+    privilege,
     hongbao,
     oneyuan,
     integral,

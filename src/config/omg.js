@@ -51,6 +51,7 @@ import {
   CHANNEL_INFO,
   CHANNEL_LIST,
   CHANNEL_PUT,
+  CHANNEL_DT_LIST,
 
   ARTICLE_ADD,
   ARTICLE_LIST,
@@ -121,9 +122,13 @@ import {
 
   ADMIN_ADD,
   ADMIN_LIST,
-  ADMIN_INFO,
-  ADMIN_PUT,
+  ADMIN_UPDATE,
   ADMIN_DEL,
+
+  PRIVILEGE_ADD,
+  PRIVILEGE_DEL,
+  PRIVILEGE_LIST,
+  PRIVILEGE_UPDATE,
 
   TEMPLATE_HELP,
   TEMPLATE_MEDIA,
@@ -216,6 +221,7 @@ apiList[CHANNEL_INFO] = '/channel/info';
 apiList[CHANNEL_LIST] = '/channel/list';
 apiList[CHANNEL_PUT] = '/channel/put';
 apiList[CHANNEL_DEL] = '/channel/del';
+apiList[CHANNEL_DT_LIST] = '/channel/dt-list';
 
 apiList[ARTICLE_ADD] = '/cms/content/add';
 apiList[ARTICLE_TYPE_LIST] = '/cms/content/type-list';
@@ -285,11 +291,15 @@ apiList[REDEEM_DOWNLOAD] = '/redeem/download';
 apiList[BATCH_AWARD] = '/award/batch-award';
 apiList[BATCH_AWARD_LIST] = '/activity/batch-award-list';
 
-apiList[ADMIN_ADD] = '/admin/add';
-apiList[ADMIN_LIST] = '/admin/list';
-apiList[ADMIN_PUT] = '/admin/put';
-apiList[ADMIN_INFO] = '/admin/info';
-apiList[ADMIN_DEL] = '/admin/del';
+apiList[ADMIN_ADD] = '/admin/dt-add';
+apiList[ADMIN_LIST] = '/admin/dt-list';
+apiList[ADMIN_UPDATE] = '/admin/dt-update';
+apiList[ADMIN_DEL] = '/admin/dt-delete';
+
+apiList[PRIVILEGE_ADD] = '/privilege/dt-add';
+apiList[PRIVILEGE_LIST] = '/privilege/dt-list';
+apiList[PRIVILEGE_UPDATE] = '/privilege/dt-update';
+apiList[PRIVILEGE_DEL] = '/privilege/dt-delete';
 
 apiList[TEMPLATE_HELP] = '/template/help-list';
 apiList[TEMPLATE_NOTICE] = '/template/notice-list';
@@ -547,6 +557,7 @@ const channelClassTypes = {
 }
 
 const shareConfigTypes = {
+  share: '常规配置',
   taojin: '全民淘金',
 }
 

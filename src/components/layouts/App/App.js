@@ -14,6 +14,7 @@ import s from './App.css';
 import { Provider } from 'react-redux';
 
 import Header from '../Header';
+import Container from '../Container';
 import LeftList from '../LeftList';
 import Modal from '../Modal';
 import Main from '../Main';
@@ -74,12 +75,9 @@ class App extends Component {
           <Login />
           <Main>
             <Header />
-            <div id="left-column" className="col-sm-2 p-x-0">
-              <LeftList />
-            </div>
-            <div className="col-sm-10 m-t-1">
+            <Container>
               {this.props.children}
-            </div>
+            </Container>
             <Modal />
           </Main>
           <StatusBar />

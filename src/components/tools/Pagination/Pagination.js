@@ -37,7 +37,7 @@ class Pagination extends Component {
     const { currentPage, lastPage } = this.state;
     const arr = [];
     for (let i = 0; i < lastPage; i++) {
-      if ((i < currentPage - 5 && i !== 0) || (i > currentPage + 5 && i !== lastPage - 1)) {
+      if ((i < currentPage - 3 && i !== 0) || (i > currentPage + 1 && i !== lastPage - 1)) {
         continue;
       }
       arr.push(i + 1);

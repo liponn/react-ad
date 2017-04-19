@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { ACCOUNT_PROFILE } from '../../../constants';
-import { authentication } from '../../../config'
+import { authentication } from '../../../config';
 
 class Main extends Component {
   constructor(props) {

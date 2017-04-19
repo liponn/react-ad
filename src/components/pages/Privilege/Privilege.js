@@ -1,10 +1,10 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { ADMIN_UPDATE, ADMIN_ADD, ADMIN_LIST, ADMIN_DEL } from '../../../constants';
+import { PRIVILEGE_UPDATE, PRIVILEGE_ADD, PRIVILEGE_LIST, PRIVILEGE_DEL } from '../../../constants';
 import { DataTable } from '../../tools';
 
 
-class Admin extends Component {
+class Privilege extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,10 +14,10 @@ class Admin extends Component {
       errorMsg: '',
       addErrorMsg: '',
       dataTable: {
-        listType: ADMIN_LIST,
-        updateType: ADMIN_UPDATE,
-        addType: ADMIN_ADD,
-        deleteType: ADMIN_DEL,
+        listType: PRIVILEGE_LIST,
+        updateType: PRIVILEGE_UPDATE,
+        addType: PRIVILEGE_ADD,
+        deleteType: PRIVILEGE_DEL,
         order: {
           column: 0,
           dir: 'desc',
@@ -43,7 +43,7 @@ class Admin extends Component {
           },
           {
             name: 'name',
-            cname: '姓名',
+            cname: '组名称',
             type: 'text',
             searchable: true,
             orderable: true,
@@ -53,32 +53,10 @@ class Admin extends Component {
             },
           },
           {
-            name: 'mobile',
-            cname: '手机号',
-            type: 'text',
+            name: 'privilege',
+            cname: '权限',
+            type: 'textarea',
             searchable: true,
-            orderable: true,
-            search: {
-              value: '',
-              regex: false,
-            },
-          },
-          {
-            name: 'privilege_id',
-            cname: '权限组ID',
-            type: 'text',
-            searchable: false,
-            orderable: true,
-            search: {
-              value: '',
-              regex: false,
-            },
-          },
-          {
-            name: 'last_login',
-            cname: '上次登录',
-            type: 'none',
-            searchable: false,
             orderable: true,
             search: {
               value: '',
@@ -104,19 +82,19 @@ class Admin extends Component {
     return (
       <div>
         <DataTable
-          title="用户组"
+          title="权限组"
           config={this.state.dataTable}
         />
       </div>
     );
   }
 }
-Admin.propTypes = {
+Privilege.propTypes = {
   dispatch: PropTypes.func.isRequired,
 }
 
-Admin.defaultProps = {
+Privilege.defaultProps = {
 }
 
 
-export default connect(() => {})(Admin);
+export default connect(() => {})(Privilege);

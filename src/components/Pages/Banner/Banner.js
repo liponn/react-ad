@@ -21,6 +21,7 @@ class Banner extends Component {
     this.update = this.update.bind(this);
     this.showAdd = this.showAdd.bind(this);
     this.showUpdate = this.showUpdate.bind(this);
+    this.selectChange = this.selectChange.bind(this);
     const bannerTypes = (props.path === 'Banner' ? getConfig('bannerTypes') : getConfig('shareConfigTypes') );
     this.state = {
       bannerTypes,
@@ -163,7 +164,11 @@ class Banner extends Component {
 
   selectChange(e) {
     const value = e.target.value;
-    hisotry.push(`/banner/${value}`);
+    if (this.props.path === 'ShareConfig') {
+      hisotry.push(`/shareconfig/${value}`);
+    } else {
+      hisotry.push(`/banner/${value}`);
+    }
   }
   render() {
     const { banners, type } = this.props;
@@ -200,10 +205,13 @@ class Banner extends Component {
             <thead>
               <tr>
                 <th>ID</th>
-                {this.props.path !== 'ShareConfig' && <td>埋点说明</td>}
+                {this.props.path !== 'ShareConfig' && this.props.type !== 'pop' && <td>埋点说明</td>}
+                {this.props.path === 'ShareConfig' && this.props.type === 'share' && <th>tag</th>}
                 {this.props.path === 'ShareConfig' && <th>标题</th>}
                 {this.props.path === 'ShareConfig' && <th>分享内容</th>}
                 {this.props.path === 'ShareConfig' && <th>分享时说明</th>}
+                {this.props.type === 'pop' && <th>标题</th>}
+                {this.props.type === 'pop' && <th>附标题</th>}
                 <th>图片预览</th>
                 {this.props.type === 'cast_finish' && <th>跳转类型</th>}
                 {this.props.type === 'pop' && <th>跳转类型</th>}
@@ -221,10 +229,13 @@ class Banner extends Component {
             {items.map((item, index) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
-                {this.props.path !== 'ShareConfig' && <td>{item.name}</td>}
+                {this.props.path !== 'ShareConfig' && this.props.type !== 'pop' && <td>{item.name}</td>}
+                {this.props.path === 'ShareConfig' && this.props.type === 'share' && <td>{item.tag}</td>}
                 {this.props.path === 'ShareConfig' && <td>{item.name}</td>}
                 {this.props.path === 'ShareConfig' && <td>{item.desc}</td>}
                 {this.props.path === 'ShareConfig' && <td>{item.short_desc}</td>}
+                {this.props.type === 'pop' && <td>{item.name}</td>}
+                {this.props.type === 'pop' && <td>{item.short_desc}</td>}
                 <td><ImgBox src={item.img_path} /></td>
                 {this.props.type === 'discover' && <td>{getConfig('discoverTypes', item.type) || '——'}</td>}
                 {this.props.type === 'cast_finish' && <td>{getConfig('popTypes', item.type) || '不跳转'}</td>}
@@ -238,8 +249,8 @@ class Banner extends Component {
                 <td>
                   <button hidden={+item.can_use === 1} className="btn btn-sm btn-success-outline" data-id={item.id} onClick={this.enable}>上线</button>
                   <button hidden={+item.can_use === 0} className="btn btn-sm btn-warning-outline" data-id={item.id} onClick={this.disable}>下线</button>
-                  <button hidden={!item.can_use} className="btn btn-sm btn-info-outline" data-id={item.id} onClick={this.up}>上移</button>
-                  <button hidden={!item.can_use} className="btn btn-sm btn-info-outline" data-id={item.id} onClick={this.down}>下移</button>
+                  <button hidden={!item.can_use || this.props.type === 'share'} className="btn btn-sm btn-info-outline" data-id={item.id} onClick={this.up}>上移</button>
+                  <button hidden={!item.can_use || this.props.type === 'share'} className="btn btn-sm btn-info-outline" data-id={item.id} onClick={this.down}>下移</button>
                   <button className="btn btn-sm btn-success-outline" data-id={item.id} data-index={index} onClick={this.showUpdate}>编辑</button>
                   <button className="btn btn-sm btn-danger-outline" data-id={item.id} onClick={this.del}>删除</button>
                 </td>

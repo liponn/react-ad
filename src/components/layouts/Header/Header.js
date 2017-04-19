@@ -31,7 +31,7 @@ class Header extends Component {
   }
   render() {
     return (
-      <nav className="navbar navbar-dark bg-inverse" style={{ borderRadius: 0 }}>
+      <nav id="admin-top-navbar" className="navbar navbar-dark bg-inverse navbar-fixed-top" style={{ borderRadius: 0 }}>
         <a className="navbar-brand" href="/">运营管理后台</a>
         <ul hidden={!this.props.profile.display_name} className="nav navbar-nav pull-sm-right">
           <li className="nav-item "><span className="nav-link">欢迎: {this.props.profile.display_name}</span></li>
