@@ -165,6 +165,53 @@ import {
   HONGBAO_DISABLE,
   HONGBAO_DEL,
 
+  BBS_THREAD_DT_ADD,
+  BBS_THREAD_DT_LIST,
+  BBS_THREAD_DT_DEL,
+  BBS_THREAD_DT_UPDATE,
+  BBS_THREAD_TOGGLE_STATUS,
+  BBS_THREAD_UNVERIFY,
+
+  BBS_SECTION_CLOSE,
+  BBS_SECTION_DT_ADD,
+  BBS_SECTION_DT_DEL,
+  BBS_SECTION_DT_LIST,
+  BBS_SECTION_DT_UPDATE,
+  BBS_SECTION_OPEN,
+
+  BBS_USER_BLOCK,
+  BBS_USER_DT_ADD,
+  BBS_USER_DT_DEL,
+  BBS_USER_DT_LIST,
+  BBS_USER_DT_UPDATE,
+  BBS_USER_UNBLOCK,
+  BBS_USER_ADMIN,
+  BBS_USER_UNADMIN,
+  BBS_USER_ADMIN_LIST,
+
+  BBS_COMMENT_DT_ADD,
+  BBS_COMMENT_DT_DEL,
+  BBS_COMMENT_DT_LIST,
+  BBS_COMMENT_DT_UPDATE,
+  BBS_COMMENT_VERIFY,
+  BBS_COMMENT_UNVERIFY,
+
+  BBS_MESSAGE_DT_ADD,
+  BBS_MESSAGE_DT_DEL,
+  BBS_MESSAGE_DT_LIST,
+  BBS_MESSAGE_DT_UPDATE,
+
+  BBS_CONFIG_DT_ADD,
+  BBS_CONFIG_DT_DEL,
+  BBS_CONFIG_DT_LIST,
+  BBS_CONFIG_DT_UPDATE,
+
+  BBS_BLOCK_DT_ADD,
+  BBS_BLOCK_DT_DEL,
+  BBS_BLOCK_DT_LIST,
+  BBS_BLOCK_DT_UPDATE,
+  BBS_BLOCK_LIST,
+
 } from '../constants/index.js';
 
 import { hostname } from '../config.js';
@@ -335,6 +382,53 @@ apiList[HONGBAO_OPERATION] = '/money/operation';
 apiList[HONGBAO_ENABLE] = '/money/up-status';
 apiList[HONGBAO_DISABLE] = '/money/down-status';
 apiList[HONGBAO_DEL] = '/money/delete';
+
+apiList[BBS_THREAD_DT_LIST] = '/bbs/thread/dt-list';
+apiList[BBS_THREAD_DT_ADD] = '/bbs/thread/dt-add';
+apiList[BBS_THREAD_DT_DEL] = '/bbs/thread/dt-delete';
+apiList[BBS_THREAD_DT_UPDATE] = '/bbs/thread/dt-update';
+apiList[BBS_THREAD_TOGGLE_STATUS] = '/bbs/thread/toogle-status';
+apiList[BBS_THREAD_UNVERIFY] = '/bbs/thread/del';
+
+apiList[BBS_SECTION_DT_LIST] = '/bbs/section/dt-list';
+apiList[BBS_SECTION_DT_ADD] = '/bbs/section/dt-add';
+apiList[BBS_SECTION_DT_DEL] = '/bbs/section/dt-delete';
+apiList[BBS_SECTION_DT_UPDATE] = '/bbs/section/dt-update';
+apiList[BBS_SECTION_CLOSE] = '/bbs/section/close';
+apiList[BBS_SECTION_OPEN] = '/bbs/section/open';
+
+apiList[BBS_USER_DT_UPDATE] = '/bbs/user/dt-update';
+apiList[BBS_USER_UNBLOCK] = '/bbs/user/to-user';
+apiList[BBS_USER_DT_LIST] = '/bbs/user/dt-list';
+apiList[BBS_USER_DT_DEL] = '/bbs/user/dt-delete';
+apiList[BBS_USER_DT_ADD] = '/bbs/user/dt-add';
+apiList[BBS_USER_BLOCK] = '/bbs/user/to-black';
+apiList[BBS_USER_ADMIN] = '/bbs/user/add';
+apiList[BBS_USER_UNADMIN] = '/bbs/user/del';
+apiList[BBS_USER_ADMIN_LIST] = '/bbs/user/list';
+
+apiList[BBS_COMMENT_DT_ADD] = '/bbs/comment/dt-add';
+apiList[BBS_COMMENT_DT_UPDATE] = '/bbs/comment/dt-update';
+apiList[BBS_COMMENT_DT_DEL] = '/bbs/comment/dt-delete';
+apiList[BBS_COMMENT_DT_LIST] = '/bbs/comment/dt-list';
+apiList[BBS_COMMENT_VERIFY] = '/bbs/comment/check';
+apiList[BBS_COMMENT_UNVERIFY] = '/bbs/comment/check-fail';
+
+apiList[BBS_MESSAGE_DT_DEL] = '/bbs/pm/dt-delete';
+apiList[BBS_MESSAGE_DT_UPDATE] = '/bbs/pm/dt-update';
+apiList[BBS_MESSAGE_DT_ADD] = '/bbs/pm/dt-add';
+apiList[BBS_MESSAGE_DT_LIST] = '/bbs/pm/dt-list';
+
+apiList[BBS_CONFIG_DT_ADD] = '/bbs/global/dt-add';
+apiList[BBS_CONFIG_DT_DEL] = '/bbs/global/dt-delete';
+apiList[BBS_CONFIG_DT_LIST] = '/bbs/global/dt-list';
+apiList[BBS_CONFIG_DT_UPDATE] = '/bbs/global/update';
+
+apiList[BBS_BLOCK_DT_ADD] = '/bbs/replay/dt-add';
+apiList[BBS_BLOCK_DT_UPDATE] = '/bbs/replay/dt-update';
+apiList[BBS_BLOCK_DT_LIST] = '/bbs/replay/dt-list';
+apiList[BBS_BLOCK_DT_DEL] = '/bbs/replay/dt-delete';
+apiList[BBS_BLOCK_LIST] = '/bbs/replay/list';
 
 function getApi(type) {
   let apiHost = '';

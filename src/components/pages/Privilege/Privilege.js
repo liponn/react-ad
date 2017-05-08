@@ -14,6 +14,7 @@ class Privilege extends Component {
       errorMsg: '',
       addErrorMsg: '',
       dataTable: {
+        title: '权限',
         listType: PRIVILEGE_LIST,
         updateType: PRIVILEGE_UPDATE,
         addType: PRIVILEGE_ADD,
@@ -82,7 +83,6 @@ class Privilege extends Component {
     return (
       <div>
         <DataTable
-          title="权限组"
           config={this.state.dataTable}
         />
       </div>

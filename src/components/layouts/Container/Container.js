@@ -137,8 +137,55 @@ class Container extends Component {
         {
           title: '公告',
           url: '/notice',
-          tag: 'cms',
+          tag: 'notice',
           fontClass: 'fa-envelope',
+        },
+      ],
+    }, {
+      title: '社区',
+      isFold: true,
+      subItems: [
+        {
+          title: '帖子',
+          url: '/thread',
+          tag: 'bbs',
+          fontClass: 'fa-comment',
+        },
+        {
+          title: '评论',
+          url: '/reply',
+          tag: 'bbs',
+          fontClass: 'fa-comments',
+        },
+        {
+          title: '社区用户',
+          url: '/bbsuser',
+          tag: 'bbs',
+          fontClass: 'fa-users',
+        },
+        {
+          title: '板块',
+          url: '/section',
+          tag: 'bbs',
+          fontClass: 'fa-qrcode',
+        },
+        {
+          title: '社区消息',
+          url: '/bbsmessage',
+          tag: 'bbs',
+          fontClass: 'fa-rss',
+        },
+        {
+          title: '社区配置',
+          url: '/bbsconfig',
+          tag: 'bbs',
+          fontClass: 'fa-gears',
+        },
+        {
+          title: '拒审原因',
+          url: '/bbsblock',
+          tag: 'bbs',
+          fontClass: 'fa-ban',
         },
       ],
     }, {

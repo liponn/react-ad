@@ -1,12 +1,14 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { CHANNEL_DEL, CHANNEL_PUT, CHANNEL_ADD, CHANNEL_DT_LIST } from '../../../constants';
-import { DataTable } from '../../tools';
+import { fetchAction } from '../../../actions/omg';
+import { BBS_TOGGLE_STATUS, BBS_BLOCK_DT_UPDATE, BBS_BLOCK_DT_DEL, BBS_BLOCK_DT_ADD , BBS_BLOCK_DT_LIST } from '../../../constants';
+import { DataTable, Radio } from '../../tools';
 
 
-class Channel extends Component {
+class BbsBlock extends Component {
   constructor(props) {
     super(props);
+    this.getBtns = this.getBtns.bind(this);
     this.state = {
       name: '',
       alias_name: '',
@@ -14,11 +16,13 @@ class Channel extends Component {
       errorMsg: '',
       addErrorMsg: '',
       dataTable: {
-        title: '渠道',
-        listType: CHANNEL_DT_LIST,
-        updateType: CHANNEL_PUT,
-        addType: CHANNEL_ADD,
-        deleteType: CHANNEL_DEL,
+        title: '拒审原因',
+        listType: BBS_BLOCK_DT_LIST,
+        updateType: BBS_BLOCK_DT_UPDATE,
+        addType: BBS_BLOCK_DT_ADD,
+        deleteType: BBS_BLOCK_DT_DEL,
+        timeStamp: (new Date).getTime(),
+        getBtns: this.getBtns,
         order: {
           column: 0,
           dir: 'desc',
@@ -29,6 +33,7 @@ class Channel extends Component {
           value: '',
           regex: false,
         },
+        customSearch: false,
         idColumn: 0,
         columns: [
           {
@@ -44,7 +49,7 @@ class Channel extends Component {
           },
           {
             name: 'name',
-            cname: '备注名称',
+            cname: '名称',
             type: 'text',
             searchable: true,
             orderable: true,
@@ -54,9 +59,9 @@ class Channel extends Component {
             },
           },
           {
-            name: 'alias_name',
-            cname: '渠道名称',
-            type: 'text',
+            name: 'description',
+            cname: '描述',
+            type: 'textarea',
             searchable: true,
             orderable: true,
             search: {
@@ -79,6 +84,13 @@ class Channel extends Component {
       },
     };
   }
+  getBtns(item, callback) {
+    if (!this.list) {
+      this.list = callback;
+    }
+    return [
+    ];
+  }
   render() {
     return (
       <div>
@@ -89,14 +101,14 @@ class Channel extends Component {
     );
   }
 }
-Channel.propTypes = {
+BbsBlock.propTypes = {
   dispatch: PropTypes.func.isRequired,
 }
 
-Channel.defaultProps = {
+BbsBlock.defaultProps = {
 }
 
 
-export default connect(() => {})(Channel);
+export default connect()(BbsBlock);
 
 

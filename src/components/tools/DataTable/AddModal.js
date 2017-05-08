@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Modal, Input, Submit, Textarea } from '../../tools';
+import { Modal, Input, Textarea, AttachmentInput, Select } from '../../tools';
 
 class AddModal extends Component {
   constructor (props) {
@@ -34,6 +34,24 @@ class AddModal extends Component {
                   key={`filed_${index}`}
                   labelName={filed.cname}
                   name={filed.name}
+                  defaultValue={this.props.item[filed.name] || ''}
+                />);
+                break;
+              case 'attachment':
+                ret = (<AttachmentInput
+                  key={`filed_${index}`}
+                  labelName={filed.cname}
+                  name={filed.name}
+                  defaultValue={this.props.item[filed.name] || ''}
+                />);
+                break;
+              case 'select':
+                console.log(filed.getOptions());
+                ret = (<Select
+                  key={`filed_${index}`}
+                  labelName={filed.cname}
+                  name={filed.name}
+                  options={filed.getOptions()}
                   defaultValue={this.props.item[filed.name] || ''}
                 />);
                 break;

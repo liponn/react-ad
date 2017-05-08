@@ -1,12 +1,14 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { ADMIN_UPDATE, ADMIN_ADD, ADMIN_LIST, ADMIN_DEL } from '../../../constants';
-import { DataTable } from '../../tools';
+import { fetchAction } from '../../../actions/omg';
+import { BBS_MESSAGE_DT_UPDATE, BBS_MESSAGE_DT_DEL, BBS_MESSAGE_DT_ADD , BBS_MESSAGE_DT_LIST } from '../../../constants';
+import { DataTable, Radio } from '../../tools';
 
 
-class Admin extends Component {
+class BbsMessage extends Component {
   constructor(props) {
     super(props);
+    this.getBtns = this.getBtns.bind(this);
     this.state = {
       name: '',
       alias_name: '',
@@ -14,11 +16,13 @@ class Admin extends Component {
       errorMsg: '',
       addErrorMsg: '',
       dataTable: {
-        title: "用户组",
-        listType: ADMIN_LIST,
-        updateType: ADMIN_UPDATE,
-        addType: ADMIN_ADD,
-        deleteType: ADMIN_DEL,
+        title: '社区消息',
+        listType: BBS_MESSAGE_DT_LIST,
+        updateType: BBS_MESSAGE_DT_UPDATE,
+        addType: BBS_MESSAGE_DT_ADD,
+        deleteType: BBS_MESSAGE_DT_DEL,
+        timeStamp: (new Date).getTime(),
+        getBtns: this.getBtns,
         order: {
           column: 0,
           dir: 'desc',
@@ -29,6 +33,7 @@ class Admin extends Component {
           value: '',
           regex: false,
         },
+        customSearch: false,
         idColumn: 0,
         columns: [
           {
@@ -43,8 +48,8 @@ class Admin extends Component {
             },
           },
           {
-            name: 'name',
-            cname: '姓名',
+            name: 'user_id',
+            cname: '用户ID',
             type: 'text',
             searchable: true,
             orderable: true,
@@ -54,8 +59,8 @@ class Admin extends Component {
             },
           },
           {
-            name: 'mobile',
-            cname: '手机号',
+            name: 'from_user_id',
+            cname: '来源用户ID',
             type: 'text',
             searchable: true,
             orderable: true,
@@ -65,8 +70,41 @@ class Admin extends Component {
             },
           },
           {
-            name: 'privilege_id',
-            cname: '权限组ID',
+            name: 'tid',
+            cname: '帖子ID',
+            type: 'text',
+            searchable: true,
+            orderable: true,
+            search: {
+              value: '',
+              regex: false,
+            },
+          },
+          {
+            name: 'cid',
+            cname: '评论ID',
+            type: 'text',
+            searchable: true,
+            orderable: true,
+            search: {
+              value: '',
+              regex: false,
+            },
+          },
+          {
+            name: 'content',
+            cname: '内容',
+            type: 'text',
+            searchable: true,
+            orderable: true,
+            search: {
+              value: '',
+              regex: false,
+            },
+          },
+          {
+            name: 'created_at',
+            cname: '创建时间',
             type: 'text',
             searchable: false,
             orderable: true,
@@ -76,20 +114,9 @@ class Admin extends Component {
             },
           },
           {
-            name: 'last_login',
-            cname: '上次登录',
-            type: 'none',
-            searchable: false,
-            orderable: true,
-            search: {
-              value: '',
-              regex: false,
-            },
-          },
-          {
-            name: 'updated_at',
-            cname: '更新时间',
-            type: 'none',
+            name: 'isread',
+            cname: '是否已读',
+            type: 'text',
             searchable: false,
             orderable: true,
             search: {
@@ -101,6 +128,13 @@ class Admin extends Component {
       },
     };
   }
+  getBtns(item, callback) {
+    if (!this.list) {
+      this.list = callback;
+    }
+    return [
+    ];
+  }
   render() {
     return (
       <div>
@@ -111,12 +145,14 @@ class Admin extends Component {
     );
   }
 }
-Admin.propTypes = {
+BbsMessage.propTypes = {
   dispatch: PropTypes.func.isRequired,
 }
 
-Admin.defaultProps = {
+BbsMessage.defaultProps = {
 }
 
 
-export default connect(() => ({}))(Admin);
+export default connect()(BbsMessage);
+
+

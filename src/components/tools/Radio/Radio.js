@@ -30,4 +30,9 @@ Radio.propTypes = {
   onChange: PropTypes.func,
 }
 
+Radio.defaultProps = {
+  checked: false,
+  onChange: false,
+};
+
 export default Radio;

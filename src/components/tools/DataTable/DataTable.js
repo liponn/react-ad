@@ -1,8 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { commonFetch, fetchAction } from '../../../actions/omg';
+import { fetchAction } from '../../../actions/omg';
 import { showModal, hideModal } from '../../../actions/modal';
-import { Card, Text, Link, Pagination} from '../../tools';
+import { Pagination, ImgBox } from '../../tools';
 import AddModal from './AddModal';
 
 class DataTable extends Component {
@@ -20,19 +20,30 @@ class DataTable extends Component {
     this.changeOrder = this.changeOrder.bind(this);
     this.delete = this.delete.bind(this);
     this.add = this.add.bind(this);
-    this.state = Object.assign({
-      draw: 0,
-    }, props.config);
+    this.state = this.initState(props);
   }
   componentDidMount() {
     this.list();
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.config.timeStamp !== this.props.config.timeStamp) {
+      this.setState(this.initState(nextProps), () => { this.list(); });
+    }
+  }
+
+  initState(props) {
+    return Object.assign({
+      draw: 0,
+    }, props.config);
+  }
+
 
   list() {
     const queryObj = {};
     const columns = this.state.columns;
     const order = this.state.order;
     const draw = this.state.draw +1;
+    const customSearch = this.state.customSearch || false;
     queryObj.draw = draw;
     for (let i = 0; i < columns.length; i++){
       queryObj[`columns[${i}][data]`] = columns[i].name;
@@ -42,8 +53,13 @@ class DataTable extends Component {
       queryObj[`columns[${i}][search][value]`] = columns[i].search.value;
       queryObj[`columns[${i}][search][regex]`] = columns[i].search.regex.toString();
     }
-    queryObj[`order[0][column]`] = order.column;
-    queryObj[`order[0][dir]`] = order.dir;
+    if (customSearch) {
+      queryObj['customSearch[name]'] = customSearch.name;
+      queryObj['customSearch[pattern]'] = customSearch.pattern;
+      queryObj['customSearch[value]'] = customSearch.value;
+    }
+    queryObj['order[0][column]'] = order.column;
+    queryObj['order[0][dir]'] = order.dir;
     queryObj.start = this.state.start;
     queryObj.length = this.state.length;
     queryObj['search[value]'] = this.state.search.value;
@@ -214,12 +230,12 @@ class DataTable extends Component {
           <div className="card-block clearfix">
             <h4 className="card-title">
               <div className="pull-left">
-                {this.props.title}
+                {this.state.title}
                 <span className="total">
                   ({this.state.start + items.length}/{filterNum})
                 </span>
               </div>
-              <div className="pull-left m-l-1">
+              <div hidden={filterNum <= this.state.length} className="pull-left m-l-1">
                 <select
                   className="custom-select"
                   defaultValue={this.state.length}
@@ -233,7 +249,7 @@ class DataTable extends Component {
               <div className="pull-left">
                 <Pagination
                   onClick={this.changePage}
-                  currentPage={parseInt(this.state.start / this.state.length) + 1}
+                  currentPage={parseInt(this.state.start / this.state.length, 10) + 1}
                   lastPage={Math.ceil(filterNum / this.state.length)}
                   unurl
                 />
@@ -280,12 +296,24 @@ class DataTable extends Component {
             </tr>
             </thead>
             <tbody>
-            {items.map((item, index) => (
-              <tr key={`item_${index}`}>
-                {item.map((value, index2) => (
-                  <td key={`fileld_${index}_${index2}`}>{value}</td>
-                ))}
+            {items.map((item, index) => {
+              const tempItem = {};
+              return (<tr key={`item_${index}`}>
+                {item.map((value, index2) => {
+                  const columns = this.state.columns[index2] || {};
+                  tempItem[columns.name] = value;
+                  switch (columns.tableType) {
+                    case 'img_box':
+                      return (<td key={`fileld_${index}_${index2}`}>
+                        <ImgBox src={value} />
+                      </td>);
+                    default:
+                      return <td key={`fileld_${index}_${index2}`}>{value}</td>;
+                  }
+                })}
                 <td>
+                  {typeof this.state.getBtns === 'undefined' ?
+                   false : this.state.getBtns(tempItem, this.list)}
                   <button
                     className="btn btn-info-outline btn-sm"
                     data-index={index}
@@ -298,8 +326,8 @@ class DataTable extends Component {
                     onClick={this.delete}
                   >删除</button>
                 </td>
-              </tr>
-            ))}
+              </tr>);
+            })}
             </tbody>
           </table>
         </div>

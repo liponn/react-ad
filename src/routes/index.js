@@ -35,12 +35,26 @@ import integral from './integral';
 import oneyuan from './oneyuan';
 import hongbao from './hongbao';
 import privilege from './privilege';
+import thread from './thread';
+import section from './section';
+import reply from './reply';
+import bbsuser from './bbsuser';
+import bbsconfig from './bbsconfig';
+import bbsmessage from './bbsmessage';
+import bbsblock from './bbsblock';
 
 export default {
 
   path: '/',
 
   children: [
+    bbsblock,
+    bbsmessage,
+    bbsconfig,
+    bbsuser,
+    reply,
+    section,
+    thread,
     privilege,
     hongbao,
     oneyuan,

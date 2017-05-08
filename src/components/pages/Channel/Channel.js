@@ -14,6 +14,7 @@ class Channel extends Component {
       errorMsg: '',
       addErrorMsg: '',
       dataTable: {
+        title: '渠道',
         listType: CHANNEL_DT_LIST,
         updateType: CHANNEL_PUT,
         addType: CHANNEL_ADD,
@@ -82,7 +83,6 @@ class Channel extends Component {
     return (
       <div>
         <DataTable
-          title="渠道"
           config={this.state.dataTable}
         />
       </div>
