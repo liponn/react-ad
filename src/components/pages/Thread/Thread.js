@@ -103,6 +103,17 @@ class Thread extends Component {
             },
           },
           {
+            name: 'url',
+            cname: '跳转地址',
+            type: 'text',
+            searchable: true,
+            orderable: true,
+            search: {
+              value: '',
+              regex: false,
+            },
+          },
+          {
             name: 'cover',
             cname: '封面',
             tableType: 'img_box',
