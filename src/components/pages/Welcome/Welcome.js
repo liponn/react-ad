@@ -35,7 +35,7 @@ class Welcome extends Component {
         timeStamp: (new Date).getTime(),
         getBtns: this.getBtns,
         order: {
-          column: 0,
+          column: 2,
           dir: 'desc',
         },
         start: 0,
@@ -44,11 +44,7 @@ class Welcome extends Component {
           value: '',
           regex: false,
         },
-        customSearch: {
-          name: 'isverify',
-          pattern: 'equal',
-          value: 0,
-        },
+        customSearch: false,
         idColumn: 0,
         columns: [
           {
