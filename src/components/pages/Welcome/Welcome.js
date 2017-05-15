@@ -1,31 +1,41 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchAction } from '../../../actions/omg';
-import { BBS_SECTION_OPEN, BBS_SECTION_CLOSE, BBS_SECTION_DT_UPDATE, BBS_SECTION_DT_DEL, BBS_SECTION_DT_ADD , BBS_SECTION_DT_LIST } from '../../../constants';
+import { showModal, hideModal } from '../../../actions/modal';
+import {
+  WELCOME_DT_UPDATE,
+  WELCOME_DT_DEL,
+  WELCOME_DT_ADD,
+  WELCOME_DT_LIST,
+  WELCOME_ENABLE,
+  WELCOME_DISABLE,
+} from '../../../constants';
 import { DataTable, Radio } from '../../tools';
 
 
-class Section extends Component {
+class Welcome extends Component {
   constructor(props) {
     super(props);
-    this.toggleEnable = this.toggleEnable.bind(this);
+    this.enable = this.enable.bind(this);
+    this.disable = this.disable.bind(this);
     this.getBtns = this.getBtns.bind(this);
     this.state = {
       name: '',
       alias_name: '',
       pre: '',
       errorMsg: '',
+      admins: {},
       addErrorMsg: '',
       dataTable: {
-        title: '板块',
-        listType: BBS_SECTION_DT_LIST,
-        updateType: BBS_SECTION_DT_UPDATE,
-        addType: BBS_SECTION_DT_ADD,
-        deleteType: BBS_SECTION_DT_DEL,
+        title: '解锁页欢迎语',
+        listType: WELCOME_DT_LIST,
+        updateType: WELCOME_DT_UPDATE,
+        addType: WELCOME_DT_ADD,
+        deleteType: WELCOME_DT_DEL,
         timeStamp: (new Date).getTime(),
         getBtns: this.getBtns,
         order: {
-          column: 5,
+          column: 0,
           dir: 'desc',
         },
         start: 0,
@@ -34,7 +44,12 @@ class Section extends Component {
           value: '',
           regex: false,
         },
-        customSearch: false,
+        customSearch: {
+          name: 'isverify',
+          pattern: 'equal',
+          value: 0,
+        },
+        idColumn: 0,
         columns: [
           {
             name: 'id',
@@ -48,19 +63,8 @@ class Section extends Component {
             },
           },
           {
-            name: 'name',
-            cname: '名称',
-            type: 'text',
-            searchable: true,
-            orderable: true,
-            search: {
-              value: '',
-              regex: false,
-            },
-          },
-          {
-            name: 'description',
-            cname: '描述',
+            name: 'content',
+            cname: '内容',
             type: 'textarea',
             searchable: true,
             orderable: true,
@@ -70,10 +74,21 @@ class Section extends Component {
             },
           },
           {
-            name: 'isuse',
+            name: 'enable',
             cname: '是否可用',
             type: 'none',
-            searchable: true,
+            searchable: false,
+            orderable: true,
+            search: {
+              value: '',
+              regex: false,
+            },
+          },
+          {
+            name: 'updated_at',
+            cname: '更新时间',
+            type: 'none',
+            searchable: false,
             orderable: true,
             search: {
               value: '',
@@ -91,28 +106,6 @@ class Section extends Component {
               regex: false,
             },
           },
-          {
-            name: 'sort',
-            cname: '权重',
-            type: 'text',
-            searchable: false,
-            orderable: true,
-            search: {
-              value: '',
-              regex: false,
-            },
-          },
-          {
-            name: 'isban',
-            cname: '禁止发帖',
-            type: 'check',
-            searchable: false,
-            orderable: true,
-            search: {
-              value: '',
-              regex: false,
-            },
-          },
         ],
       },
     };
@@ -121,25 +114,47 @@ class Section extends Component {
     if (!this.list) {
       this.list = callback;
     }
+
     return [
       <button
-        key="btn-verify"
-        className={`btn ${item.isuse ? 'btn-warning-outline' : 'btn-success-outline'} btn-sm`}
+        key="btn-disable"
+        hidden={!item.enable}
+        className={'btn btn-danger-outline btn-sm'}
         data-id={item.id}
-        data-type="isuse"
-        data-tvalue={item.isuse ? 0 : 1}
-        onClick={this.toggleEnable}
-      >通过</button>,
+        onClick={this.disable}
+      >禁用</button>,
+      <button
+        key="btn-enable"
+        hidden={item.enable}
+        className={'btn btn-success-outline btn-sm'}
+        data-id={item.id}
+        onClick={this.enable}
+      >启用</button>,
     ];
   }
-  toggleEnable(e) {
+
+  disable(e) {
     const id = e.currentTarget.dataset.id;
-    const typeValue = +e.currentTarget.dataset.tvalue;
     const formData = new FormData;
-    const type = typeValue ? BBS_SECTION_OPEN : BBS_SECTION_CLOSE;
     formData.append('id', id);
     this.props.dispatch(fetchAction({
-      type,
+      type: WELCOME_DISABLE,
+      method: 'POST',
+      formData,
+    })).then(json => {
+      if (json.error_code === 0) {
+        this.list();
+      } else {
+        alert(json.error_msg);
+      }
+    });
+  }
+  enable(e) {
+    const id = e.currentTarget.dataset.id;
+    const formData = new FormData;
+    formData.append('id', id);
+    this.props.dispatch(fetchAction({
+      type: WELCOME_ENABLE,
       method: 'POST',
       formData,
     })).then(json => {
@@ -151,7 +166,6 @@ class Section extends Component {
     });
   }
   render() {
-    const customSearch = this.state.dataTable.customSearch;
     return (
       <div>
         <DataTable
@@ -161,14 +175,14 @@ class Section extends Component {
     );
   }
 }
-Section.propTypes = {
+Welcome.propTypes = {
   dispatch: PropTypes.func.isRequired,
 }
 
-Section.defaultProps = {
+Welcome.defaultProps = {
 }
 
 
-export default connect()(Section);
+export default connect()(Welcome);
 
 

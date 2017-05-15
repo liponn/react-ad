@@ -94,6 +94,12 @@ class Container extends Component {
       isFold: true,
       subItems: [
         {
+          title: '锁屏问候语',
+          url: '/welcome',
+          tag: 'cms',
+          fontClass: 'fa-bullseye',
+        },
+        {
           title: '成语管理',
           url: '/idiom',
           tag: 'cms',

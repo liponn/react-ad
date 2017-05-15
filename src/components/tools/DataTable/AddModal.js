@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Modal, Input, Textarea, AttachmentInput, Select } from '../../tools';
+import { Modal, Input, Textarea, AttachmentInput, Select, Checkbox } from '../../tools';
 
 class AddModal extends Component {
   constructor (props) {
@@ -46,12 +46,19 @@ class AddModal extends Component {
                 />);
                 break;
               case 'select':
-                console.log(filed.getOptions());
                 ret = (<Select
                   key={`filed_${index}`}
                   labelName={filed.cname}
                   name={filed.name}
                   options={filed.getOptions()}
+                  defaultValue={this.props.item[filed.name] || ''}
+                />);
+                break;
+              case 'check':
+                ret = (<Checkbox
+                  key={`filed_${index}`}
+                  labelName={filed.cname}
+                  name={filed.name}
                   defaultValue={this.props.item[filed.name] || ''}
                 />);
                 break;

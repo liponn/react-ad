@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchAction } from '../../../actions/omg';
 import { showModal, hideModal } from '../../../actions/modal';
 import {
+  BBS_SECTION_LIST,
   BBS_USER_ADMIN_LIST,
   BBS_THREAD_TOGGLE_STATUS,
   BBS_THREAD_DT_UPDATE,
@@ -21,6 +22,8 @@ class Thread extends Component {
     this.typeChange = this.typeChange.bind(this);
     this.verify = this.verify.bind(this);
     this.getBtns = this.getBtns.bind(this);
+    this.getSections = this.getSections.bind(this);
+    this.fetchSections = this.fetchSections.bind(this);
     this.getAdmins = this.getAdmins.bind(this);
     this.fetchAdmins = this.fetchAdmins.bind(this);
     this.unVerify = this.unVerify.bind(this);
@@ -31,6 +34,7 @@ class Thread extends Component {
       pre: '',
       errorMsg: '',
       admins: {},
+      sections: {},
       addErrorMsg: '',
       dataTable: {
         title: '帖子',
@@ -40,6 +44,7 @@ class Thread extends Component {
         deleteType: BBS_THREAD_DT_DEL,
         timeStamp: (new Date).getTime(),
         getBtns: this.getBtns,
+        withs: ['section', 'user'],
         order: {
           column: 0,
           dir: 'desc',
@@ -96,6 +101,18 @@ class Thread extends Component {
             cname: '内容',
             type: 'textarea',
             searchable: true,
+            orderable: true,
+            search: {
+              value: '',
+              regex: false,
+            },
+          },
+          {
+            name: 'type_id',
+            cname: '板块id',
+            type: 'select',
+            getOptions: this.getSections,
+            searchable: false,
             orderable: true,
             search: {
               value: '',
@@ -191,12 +208,39 @@ class Thread extends Component {
               regex: false,
             },
           },
+          {
+            name: 'section',
+            cname: '板块',
+            type: 'none',
+            tableType: 'object',
+            tableShow: (object) => (object && object.name),
+            searchable: false,
+            orderable: false,
+            search: {
+              value: '',
+              regex: false,
+            },
+          },
+          {
+            name: 'user',
+            cname: '用户',
+            type: 'none',
+            tableType: 'object',
+            tableShow: (object) => (object && object.nickname),
+            searchable: false,
+            orderable: false,
+            search: {
+              value: '',
+              regex: false,
+            },
+          },
         ],
       },
     };
   }
   componentDidMount() {
     this.fetchAdmins();
+    this.fetchSections();
   }
   getBtns(item, callback) {
     if (!this.list) {
@@ -253,7 +297,9 @@ class Thread extends Component {
   getAdmins() {
     return this.state.admins;
   }
-
+  getSections() {
+    return this.state.sections;
+  }
   fetchAdmins() {
     this.props.dispatch(fetchAction({
       type: BBS_USER_ADMIN_LIST,
@@ -266,6 +312,24 @@ class Thread extends Component {
         }
         this.setState({
           admins,
+        });
+      } else {
+        alert(json.error_msg);
+      }
+    });
+  }
+  fetchSections() {
+    this.props.dispatch(fetchAction({
+      type: BBS_SECTION_LIST,
+      method: 'GET',
+    })).then(json => {
+      if (json.error_code === 0) {
+        const sections = {};
+        for (let i = 0; i < json.data.length; i++) {
+          sections[json.data[i].id] = json.data[i].name;
+        }
+        this.setState({
+          sections,
         });
       } else {
         alert(json.error_msg);

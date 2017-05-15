@@ -23,6 +23,8 @@ import ChannelBlist from '../../rules/ChannelBlist';
 import CastType from '../../rules/CastType';
 import JoinNum from '../../rules/JoinNum';
 import PaymentDate from '../../rules/PaymentDate';
+import PaymentNum from '../../rules/PaymentNum';
+import CastNum from '../../rules/CastNum';
 
 class RuleAddModal extends Component {
   constructor(props) {
@@ -117,6 +119,12 @@ class RuleAddModal extends Component {
         break;
       case 'paymentdate':
         ruleView = <PaymentDate submit={this.submit} activityId={this.props.item.id} />;
+        break;
+      case 'paymentnum':
+        ruleView = <PaymentNum submit={this.submit} activityId={this.props.item.id} />;
+        break;
+      case 'castnum':
+        ruleView = <CastNum submit={this.submit} activityId={this.props.item.id} />;
         break;
       default:
         ruleView = this.state.currentRule;

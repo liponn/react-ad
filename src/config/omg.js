@@ -178,6 +178,7 @@ import {
   BBS_SECTION_DT_LIST,
   BBS_SECTION_DT_UPDATE,
   BBS_SECTION_OPEN,
+  BBS_SECTION_LIST,
 
   BBS_USER_BLOCK,
   BBS_USER_DT_ADD,
@@ -211,6 +212,13 @@ import {
   BBS_BLOCK_DT_LIST,
   BBS_BLOCK_DT_UPDATE,
   BBS_BLOCK_LIST,
+
+  WELCOME_DT_ADD,
+  WELCOME_DT_DEL,
+  WELCOME_DT_LIST,
+  WELCOME_DT_UPDATE,
+  WELCOME_DISABLE,
+  WELCOME_ENABLE,
 
 } from '../constants/index.js';
 
@@ -396,6 +404,7 @@ apiList[BBS_SECTION_DT_DEL] = '/bbs/section/dt-delete';
 apiList[BBS_SECTION_DT_UPDATE] = '/bbs/section/dt-update';
 apiList[BBS_SECTION_CLOSE] = '/bbs/section/close';
 apiList[BBS_SECTION_OPEN] = '/bbs/section/open';
+apiList[BBS_SECTION_LIST] = '/bbs/section/list';
 
 apiList[BBS_USER_DT_UPDATE] = '/bbs/user/dt-update';
 apiList[BBS_USER_UNBLOCK] = '/bbs/user/to-user';
@@ -429,6 +438,13 @@ apiList[BBS_BLOCK_DT_UPDATE] = '/bbs/replay/dt-update';
 apiList[BBS_BLOCK_DT_LIST] = '/bbs/replay/dt-list';
 apiList[BBS_BLOCK_DT_DEL] = '/bbs/replay/dt-delete';
 apiList[BBS_BLOCK_LIST] = '/bbs/replay/list';
+
+apiList[WELCOME_DT_DEL] = '/cms/welcome/dt-delete';
+apiList[WELCOME_DT_ADD] = '/cms/welcome/dt-add';
+apiList[WELCOME_DT_UPDATE] = '/cms/welcome/dt-update';
+apiList[WELCOME_DT_LIST] = '/cms/welcome/dt-list';
+apiList[WELCOME_ENABLE] = '/cms/welcome/online';
+apiList[WELCOME_DISABLE] = '/cms/welcome/offline';
 
 function getApi(type) {
   let apiHost = '';
@@ -581,6 +597,8 @@ const ruleFileds = {
   type: '类型',
   min_paymentdate: '最小天数 >=',
   max_paymentdate: '最大天数 <',
+  min_num: '最小次数 >',
+  max_num: '最大次数 <=',
 }
 
 const activityTriggers = {
@@ -617,6 +635,8 @@ const ruleTypes = {
   castall: '投资总金额',
   rechargeall: '充值总金额',
   joinnum: '参与人数上限',
+  castnum: '投资次数',
+  paymentnum: '回款次数',
 }
 
 const bannerTypes = {

@@ -42,12 +42,15 @@ import bbsuser from './bbsuser';
 import bbsconfig from './bbsconfig';
 import bbsmessage from './bbsmessage';
 import bbsblock from './bbsblock';
+import welcome from './welcome';
+
 
 export default {
 
   path: '/',
 
   children: [
+    welcome,
     bbsblock,
     bbsmessage,
     bbsconfig,

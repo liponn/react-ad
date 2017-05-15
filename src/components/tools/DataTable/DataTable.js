@@ -44,6 +44,7 @@ class DataTable extends Component {
     const order = this.state.order;
     const draw = this.state.draw +1;
     const customSearch = this.state.customSearch || false;
+    const withs = this.state.withs || false;
     queryObj.draw = draw;
     for (let i = 0; i < columns.length; i++){
       queryObj[`columns[${i}][data]`] = columns[i].name;
@@ -57,6 +58,11 @@ class DataTable extends Component {
       queryObj['customSearch[name]'] = customSearch.name;
       queryObj['customSearch[pattern]'] = customSearch.pattern;
       queryObj['customSearch[value]'] = customSearch.value;
+    }
+    if (withs) {
+      for (let i = 0; i < withs.length; i++) {
+        queryObj[`withs[${i}]`] = withs[i];
+      }
     }
     queryObj['order[0][column]'] = order.column;
     queryObj['order[0][dir]'] = order.dir;
@@ -307,6 +313,10 @@ class DataTable extends Component {
                       return (<td key={`fileld_${index}_${index2}`}>
                         <ImgBox src={value} />
                       </td>);
+                    case 'object':
+                      return (<td key={`fileld_${index}_${index2}`}>
+                        {columns.tableShow && columns.tableShow(value)}
+                      </td>);
                     default:
                       return <td key={`fileld_${index}_${index2}`}>{value}</td>;
                   }
@@ -322,7 +332,7 @@ class DataTable extends Component {
                   <button
                     className="btn btn-danger-outline btn-sm"
                     data-index={index}
-                    data-id={item[this.state.idColumn]}
+                    data-id={item[0]}
                     onClick={this.delete}
                   >删除</button>
                 </td>
