@@ -82,6 +82,7 @@ class Thread extends Component {
             name: 'user_id',
             cname: '用户ID',
             type: 'select',
+            updateType: 'text',
             getOptions: this.getAdmins,
             searchable: true,
             orderable: true,

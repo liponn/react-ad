@@ -31,6 +31,9 @@ class ImgBox extends Component {
   }
   render() {
     this.getSize();
+    if (!this.props.src || this.props.src === '') {
+      return <span>—</span>;
+    }
     return (
       <div className="img-pop" title="点击查看大图" data-url={this.url(this.props.src)} style={{ background: '#f5f5f5 center center no-repeat', backgroundImage: `url("${this.url(this.props.src)}")`, backgroundSize: 'contain' }}>
         <div style={{ paddingTop: '75%' }} >

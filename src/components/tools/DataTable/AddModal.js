@@ -12,7 +12,13 @@ class AddModal extends Component {
         <form onSubmit={this.props.submit}>
           {this.props.columns.map((filed, index) => {
             let ret = false;
-            switch (filed.type) {
+            let type = 'none';
+            if(this.props.update && filed.updateType) {
+              type = filed.updateType;
+            } else {
+              type = filed.type;
+            }
+            switch (type) {
               case 'hidden':
                 ret = (<input
                   key={`filed_${index}`}

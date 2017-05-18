@@ -65,7 +65,8 @@ class Bbsuser extends Component {
           {
             name: 'head_img',
             cname: '头像',
-            type: 'text',
+            type: 'attachment',
+            tableType: 'img_box',
             searchable: true,
             orderable: true,
             search: {

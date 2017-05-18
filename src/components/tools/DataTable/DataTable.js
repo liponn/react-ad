@@ -122,9 +122,9 @@ class DataTable extends Component {
   changeOrder(e) {
     const index = +e.currentTarget.dataset.index;
     const order = this.state.order;
-    if(order.column === index) {
+    if (order.column === index) {
       order.dir = order.dir === 'asc' ? 'desc' : 'asc';
-    }else{
+    } else {
       order.column = index;
       order.dir = 'desc';
     }
@@ -150,7 +150,14 @@ class DataTable extends Component {
   showUpdateModel(e) {
     const index = e.target.dataset.index;
     const omg = this.props.omg;
-    const dtList = omg[this.state.listType] || {};
+
+    let dtList = {}
+    if (typeof this.state.identify === 'undefined') {
+      dtList = omg[this.state.listType] || {};
+    } else {
+      const tempDtList = omg[this.state.listType] || [];
+      dtList = tempDtList[this.state.identify] || {};
+    }
     const items = dtList.data || [];
     const preItem = items[index] || {};
     const columns = this.state.columns;
