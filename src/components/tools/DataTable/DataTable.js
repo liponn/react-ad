@@ -44,6 +44,7 @@ class DataTable extends Component {
     const order = this.state.order;
     const draw = this.state.draw +1;
     const customSearch = this.state.customSearch || false;
+    const onlyTrashed = this.state.onlyTrashed || false;
     const withs = this.state.withs || false;
     queryObj.draw = draw;
     for (let i = 0; i < columns.length; i++){
@@ -58,6 +59,9 @@ class DataTable extends Component {
       queryObj['customSearch[name]'] = customSearch.name;
       queryObj['customSearch[pattern]'] = customSearch.pattern;
       queryObj['customSearch[value]'] = customSearch.value;
+    }
+    if (onlyTrashed) {
+      queryObj.onlyTrashed = 1;
     }
     if (withs) {
       for (let i = 0; i < withs.length; i++) {
@@ -75,11 +79,14 @@ class DataTable extends Component {
     this.setState({
       draw,
     })
-
-    this.props.dispatch(fetchAction({
+    const request =  {
       type: this.state.listType,
       queryObj,
-    }));
+    };
+    if(typeof this.state.identify !== 'undefined') {
+      request.key = this.state.identify;
+    }
+    this.props.dispatch(fetchAction(request));
   }
 
   changePage(page) {
@@ -227,7 +234,13 @@ class DataTable extends Component {
 
   render() {
     const omg = this.props.omg;
-    const dtList = omg[this.state.listType] || {};
+    let dtList  = {}
+    if (this.state.identify == 'undefined') {
+      dtList = omg[this.state.listType] || {};
+    } else {
+      const tempDtList = omg[this.state.listType] || [];
+      dtList = tempDtList[this.state.identify] || {};
+    }
     const items = dtList.data || [];
     const filterNum = dtList.recordsFiltered || 0;
     return (
@@ -326,11 +339,13 @@ class DataTable extends Component {
                    false : this.state.getBtns(tempItem, this.list)}
                   <button
                     className="btn btn-info-outline btn-sm"
+                    hidden={this.state.forbiddenDefaultBtns || false}
                     data-index={index}
                     onClick={this.showUpdateModel}
                   >编辑</button>
                   <button
                     className="btn btn-danger-outline btn-sm"
+                    hidden={this.state.forbiddenDefaultBtns || false}
                     data-index={index}
                     data-id={item[0]}
                     onClick={this.delete}

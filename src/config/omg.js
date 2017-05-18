@@ -171,6 +171,7 @@ import {
   BBS_THREAD_DT_UPDATE,
   BBS_THREAD_TOGGLE_STATUS,
   BBS_THREAD_UNVERIFY,
+  BBS_THREAD_RESTORE,
 
   BBS_SECTION_CLOSE,
   BBS_SECTION_DT_ADD,
@@ -397,6 +398,7 @@ apiList[BBS_THREAD_DT_DEL] = '/bbs/thread/dt-delete';
 apiList[BBS_THREAD_DT_UPDATE] = '/bbs/thread/dt-update';
 apiList[BBS_THREAD_TOGGLE_STATUS] = '/bbs/thread/toogle-status';
 apiList[BBS_THREAD_UNVERIFY] = '/bbs/thread/del';
+apiList[BBS_THREAD_RESTORE] = '/bbs/thread/restore';
 
 apiList[BBS_SECTION_DT_LIST] = '/bbs/section/dt-list';
 apiList[BBS_SECTION_DT_ADD] = '/bbs/section/dt-add';

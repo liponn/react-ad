@@ -5,6 +5,7 @@ import { showModal, hideModal } from '../../../actions/modal';
 import {
   BBS_SECTION_LIST,
   BBS_USER_ADMIN_LIST,
+  BBS_THREAD_RESTORE,
   BBS_THREAD_TOGGLE_STATUS,
   BBS_THREAD_DT_UPDATE,
   BBS_THREAD_DT_DEL,
@@ -27,6 +28,7 @@ class Thread extends Component {
     this.getAdmins = this.getAdmins.bind(this);
     this.fetchAdmins = this.fetchAdmins.bind(this);
     this.unVerify = this.unVerify.bind(this);
+    this.restore = this.restore.bind(this);
     this.showUnVerifyModal = this.showUnVerifyModal.bind(this);
     this.state = {
       name: '',
@@ -44,6 +46,9 @@ class Thread extends Component {
         deleteType: BBS_THREAD_DT_DEL,
         timeStamp: (new Date).getTime(),
         getBtns: this.getBtns,
+        forbiddenDefaultBtns: false,
+        onlyTrashed: false,
+        identify: 0,
         withs: ['section', 'user'],
         order: {
           column: 0,
@@ -246,7 +251,16 @@ class Thread extends Component {
     if (!this.list) {
       this.list = callback;
     }
-
+    if (this.state.dataTable.onlyTrashed) {
+      return [
+        <button
+          key="btn-"
+          className={'btn btn-success-outline btn-sm'}
+          data-id={item.id}
+          onClick={this.restore}
+        >恢复</button>
+      ];
+    }
     if (!this.state.dataTable.customSearch.value) {
       return [
         <button
@@ -266,6 +280,7 @@ class Thread extends Component {
           onClick={this.showUnVerifyModal}
         >拒绝</button>];
     }
+
     return [
       <button
         key="btn-top"
@@ -337,6 +352,22 @@ class Thread extends Component {
     });
   }
 
+  restore(e) {
+    const id = e.currentTarget.dataset.id;
+    const formData = new FormData;
+    formData.append('id', id);
+    this.props.dispatch(fetchAction({
+      type: BBS_THREAD_RESTORE,
+      method: 'POST',
+      formData,
+    })).then(json => {
+      if (json.error_code === 0) {
+        this.list();
+      } else {
+        alert(json.error_msg);
+      }
+    });
+  }
   verify(e) {
     const id = e.currentTarget.dataset.id;
     const type = e.currentTarget.dataset.type;
@@ -385,17 +416,37 @@ class Thread extends Component {
   }
   typeChange(e) {
     const value = +e.currentTarget.value;
-    const customSearch = Object.assign({}, this.state.dataTable.customSearch, { value });
-    const dataTable = Object.assign({}, this.state.dataTable, {
-      customSearch,
-      timeStamp: (new Date).getTime(),
-    });
+    let dataTable = {};
+    if (value !== 2) {
+      const customSearch = Object.assign({}, this.state.dataTable.customSearch, {
+        name: 'isverify',
+        pattern: 'equal',
+        value,
+      });
+      dataTable = Object.assign({}, this.state.dataTable, {
+        forbiddenDefaultBtns: false,
+        customSearch,
+        onlyTrashed: false,
+        identify: value,
+        timeStamp: (new Date).getTime(),
+      });
+    } else {
+      dataTable = Object.assign({}, this.state.dataTable, {
+        forbiddenDefaultBtns: true,
+        customSearch: false,
+        onlyTrashed: true,
+        identify: value,
+        timeStamp: (new Date).getTime(),
+      });
+    }
+
     this.setState({
       dataTable,
     });
   }
   render() {
     const customSearch = this.state.dataTable.customSearch;
+    const onlyTrashed = this.state.dataTable.onlyTrashed;
     return (
       <div>
         <Radio
@@ -410,6 +461,13 @@ class Thread extends Component {
           name="isVerify"
           value="1"
           checked={customSearch.value === 1}
+          onChange={this.typeChange}
+        />
+        <Radio
+          labelName="已删除"
+          name="isDelete"
+          value="2"
+          checked={onlyTrashed === true}
           onChange={this.typeChange}
         />
         <hr />

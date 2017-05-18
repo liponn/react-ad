@@ -36,6 +36,7 @@ class Reply extends Component {
         deleteType: BBS_COMMENT_DT_DEL,
         timeStamp: (new Date).getTime(),
         getBtns: this.getBtns,
+        identify: 0,
         order: {
           column: 0,
           dir: 'desc',
@@ -198,6 +199,7 @@ class Reply extends Component {
     const customSearch = Object.assign({}, this.state.dataTable.customSearch, { value });
     const dataTable = Object.assign({}, this.state.dataTable, {
       customSearch,
+      identify: value,
       timeStamp: (new Date).getTime(),
     });
     this.setState({
