@@ -20,6 +20,7 @@ class Bbsuser extends Component {
       addErrorMsg: '',
       dataTable: {
         title: '论坛用户',
+        identify: 0,
         listType: BBS_USER_DT_LIST,
         updateType: BBS_USER_DT_UPDATE,
         addType: BBS_USER_DT_ADD,
@@ -193,9 +194,11 @@ class Bbsuser extends Component {
   typeChange(e) {
     const value = e.currentTarget.value;
     let customSearch = {};
+    let identify = 0;
     switch (value) {
       case 'all':
         customSearch = false;
+        identify = 0;
         break;
       case 'admin':
         customSearch = Object.assign({}, this.state.dataTable.customSearch, {
@@ -203,6 +206,7 @@ class Bbsuser extends Component {
           pattern: 'equal',
           value: 1,
         });
+        identify = 1;
         break;
       case 'black':
         customSearch = Object.assign({}, this.state.dataTable.customSearch, {
@@ -210,13 +214,16 @@ class Bbsuser extends Component {
           pattern: 'equal',
           value: 1,
         });
+        identify = 2;
         break;
       default:
+        identify = 0;
         customSearch = false;
         break;
     }
     const dataTable = Object.assign({}, this.state.dataTable, {
       customSearch,
+      identify,
       timeStamp: (new Date).getTime(),
     });
     this.setState({

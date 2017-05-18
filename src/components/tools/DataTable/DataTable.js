@@ -83,7 +83,7 @@ class DataTable extends Component {
       type: this.state.listType,
       queryObj,
     };
-    if(typeof this.state.identify !== 'undefined') {
+    if (typeof this.state.identify !== 'undefined') {
       request.key = this.state.identify;
     }
     this.props.dispatch(fetchAction(request));
@@ -235,7 +235,7 @@ class DataTable extends Component {
   render() {
     const omg = this.props.omg;
     let dtList  = {}
-    if (this.state.identify == 'undefined') {
+    if (typeof this.state.identify === 'undefined') {
       dtList = omg[this.state.listType] || {};
     } else {
       const tempDtList = omg[this.state.listType] || [];
