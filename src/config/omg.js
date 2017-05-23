@@ -561,6 +561,7 @@ const awardTypes = {
   4: '用户积分',
   // 5: '实物',
   6: '优惠券',
+  7: '现金',
 }
 
 const templateTypes = {
@@ -569,6 +570,7 @@ const templateTypes = {
   3: '恭喜您在\'{{sourcename}}\'活动中获得\'{{awardname}}\'奖励。',
   4: '恭喜您在\'{{sourcename}}\'活动中获得\'{{awardname}}\'奖励。',
   6: '恭喜您在\'{{sourcename}}\'活动中获得\'{{awardname}}\'奖励,兑换码为\'{{code}}\'。',
+  7: '恭喜您在\'{{sourcename}}\'活动中获得\'{{awardname}}\'奖励。',
 }
 
 const ruleFileds = {
