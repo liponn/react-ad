@@ -221,6 +221,22 @@ import {
   WELCOME_DISABLE,
   WELCOME_ENABLE,
 
+  GLOBALATTR_DT_ADD,
+  GLOBALATTR_DT_DEL,
+  GLOBALATTR_DT_LIST,
+  GLOBALATTR_DT_UPDATE,
+
+  USERATTR_DT_ADD,
+  USERATTR_DT_DEL,
+  USERATTR_DT_LIST,
+  USERATTR_DT_UPDATE,
+
+  JIANMIANHUI_DT_ADD,
+  JIANMIANHUI_DT_DEL,
+  JIANMIANHUI_DT_LIST,
+  JIANMIANHUI_DT_UPDATE,
+
+
 } from '../constants/index.js';
 
 import { hostname } from '../config.js';
@@ -447,6 +463,22 @@ apiList[WELCOME_DT_UPDATE] = '/cms/welcome/dt-update';
 apiList[WELCOME_DT_LIST] = '/cms/welcome/dt-list';
 apiList[WELCOME_ENABLE] = '/cms/welcome/online';
 apiList[WELCOME_DISABLE] = '/cms/welcome/offline';
+
+
+apiList[GLOBALATTR_DT_LIST] = '/globalattr/dt-list';
+apiList[GLOBALATTR_DT_UPDATE] = '/globalattr/dt-update';
+apiList[GLOBALATTR_DT_DEL] = '/globalattr/dt-delete';
+apiList[GLOBALATTR_DT_ADD] = '/globalattr/dt-add';
+
+apiList[USERATTR_DT_UPDATE] = '/userattr/dt-update';
+apiList[USERATTR_DT_LIST] = '/userattr/dt-list';
+apiList[USERATTR_DT_DEL] = '/userattr/dt-delete';
+apiList[USERATTR_DT_ADD] = '/userattr/dt-add';
+
+apiList[JIANMIANHUI_DT_UPDATE] = '/jianmianhui/dt-update';
+apiList[JIANMIANHUI_DT_LIST] = '/jianmianhui/dt-list';
+apiList[JIANMIANHUI_DT_DEL] = '/jianmianhui/dt-delete';
+apiList[JIANMIANHUI_DT_ADD] = '/jianmianhui/dt-add';
 
 function getApi(type) {
   let apiHost = '';
@@ -778,6 +810,7 @@ const projectTypes = {
   0: '不限',
   1: '散标',
   2: '月利宝',
+  3: '优选投',
   11: '产融通',
   12: '好房赚',
   13: '好车盈',

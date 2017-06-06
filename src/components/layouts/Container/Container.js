@@ -54,6 +54,12 @@ class Container extends Component {
       isFold: true,
       subItems: [
         {
+          title: '见面会',
+          url: '/jianmianhui',
+          tag: 'Jianmianhui',
+          fontClass: 'fa-star',
+        },
+        {
           title: '积分商城',
           url: '/integral',
           tag: 'integral',
@@ -198,12 +204,23 @@ class Container extends Component {
       title: '其它',
       isFold: true,
       subItems: [
-
         {
           title: '用户反馈',
           url: '/feedback',
           tag: 'cms',
           fontClass: 'fa-twitch',
+        },
+        {
+          title: '用户属性',
+          url: '/userattr',
+          tag: 'userattr',
+          fontClass: 'fa-gears',
+        },
+        {
+          title: '全局属性',
+          url: '/globalattr',
+          tag: 'globalattr',
+          fontClass: 'fa-gear',
         },
       ],
     }, {

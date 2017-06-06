@@ -65,7 +65,7 @@ class AddModal extends Component {
                   key={`filed_${index}`}
                   labelName={filed.cname}
                   name={filed.name}
-                  defaultValue={this.props.item[filed.name] || ''}
+                  checked={this.props.item[filed.name] || ''}
                 />);
                 break;
               default:

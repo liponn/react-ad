@@ -43,6 +43,9 @@ import bbsconfig from './bbsconfig';
 import bbsmessage from './bbsmessage';
 import bbsblock from './bbsblock';
 import welcome from './welcome';
+import jianmianhui from './jianmianhui';
+import userattr from './userattr';
+import globalattr from './globalattr';
 
 
 export default {
@@ -50,6 +53,9 @@ export default {
   path: '/',
 
   children: [
+    jianmianhui,
+    userattr,
+    globalattr,
     welcome,
     bbsblock,
     bbsmessage,
