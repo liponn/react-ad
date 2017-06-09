@@ -36,6 +36,7 @@ class Reply extends Component {
         deleteType: BBS_COMMENT_DT_DEL,
         timeStamp: (new Date).getTime(),
         getBtns: this.getBtns,
+        withs: ['thread'],
         identify: 0,
         order: {
           column: 0,
@@ -115,6 +116,19 @@ class Reply extends Component {
             type: 'none',
             searchable: false,
             orderable: true,
+            search: {
+              value: '',
+              regex: false,
+            },
+          },
+          {
+            name: 'thread',
+            cname: '帖子详情',
+            type: 'none',
+            tableType: 'object',
+            tableShow: (object) => (object && object.content),
+            searchable: false,
+            orderable: false,
             search: {
               value: '',
               regex: false,

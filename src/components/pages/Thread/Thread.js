@@ -12,9 +12,13 @@ import {
   BBS_THREAD_DT_ADD,
   BBS_THREAD_DT_LIST,
   BBS_THREAD_UNVERIFY,
+  BBS_COMMENT_DT_ADD,
+  BBS_COMMENT_VERIFY,
 } from '../../../constants';
 import { DataTable, Radio } from '../../tools';
 import UnVerifyModal from './UnVerifyModal';
+import ReplayModal from './ReplayModal';
+
 
 
 class Thread extends Component {
@@ -30,6 +34,9 @@ class Thread extends Component {
     this.unVerify = this.unVerify.bind(this);
     this.restore = this.restore.bind(this);
     this.showUnVerifyModal = this.showUnVerifyModal.bind(this);
+    this.showReplayModal = this.showReplayModal.bind(this);
+    this.replay = this.replay.bind(this);
+    this.verifyReplay = this.verifyReplay.bind(this);
     this.state = {
       name: '',
       alias_name: '',
@@ -284,6 +291,12 @@ class Thread extends Component {
 
     return [
       <button
+        key="btn-replay"
+        className="btn btn-success-outline btn-sm"
+        data-id={item.id}
+        onClick={this.showReplayModal}
+      >评论</button>,
+      <button
         key="btn-top"
         className={`btn ${item.istop ? 'btn-warning-outline' : 'btn-success-outline'} btn-sm`}
         data-id={item.id}
@@ -378,6 +391,51 @@ class Thread extends Component {
     formData.append(type, typeValue);
     this.props.dispatch(fetchAction({
       type: BBS_THREAD_TOGGLE_STATUS,
+      method: 'POST',
+      formData,
+    })).then(json => {
+      if (json.error_code === 0) {
+        this.list();
+      } else {
+        alert(json.error_msg);
+      }
+    });
+  }
+  showReplayModal(e) {
+    const id = e.currentTarget.dataset.id;
+    this.props.dispatch(
+      showModal(
+        <ReplayModal
+          submit={this.replay}
+          getAdmins={this.getAdmins}
+          id={id}
+        />
+      )
+    );
+  }
+  replay(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    this.props.dispatch(fetchAction({
+      type: BBS_COMMENT_DT_ADD,
+      method: 'POST',
+      formData,
+    })).then((json) => {
+      if (json.error_code === 0) {
+        this.props.dispatch(hideModal(true));
+        if (json.data.id) {
+          this.verifyReplay(json.data.id);
+        }
+      } else {
+        alert(json.data.error_msg);
+      }
+    });
+  }
+  verifyReplay(id) {
+    const formData = new FormData;
+    formData.append('id', id);
+    this.props.dispatch(fetchAction({
+      type: BBS_COMMENT_VERIFY,
       method: 'POST',
       formData,
     })).then(json => {
