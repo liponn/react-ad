@@ -14,6 +14,7 @@ import {
   BBS_THREAD_UNVERIFY,
   BBS_COMMENT_DT_ADD,
   BBS_COMMENT_VERIFY,
+  BBS_THREAD_VERIFY,
 } from '../../../constants';
 import { DataTable, Radio } from '../../tools';
 import UnVerifyModal from './UnVerifyModal';
@@ -26,6 +27,7 @@ class Thread extends Component {
     super(props);
     this.typeChange = this.typeChange.bind(this);
     this.verify = this.verify.bind(this);
+    this.toggleStatus = this.toggleStatus.bind(this);
     this.getBtns = this.getBtns.bind(this);
     this.getSections = this.getSections.bind(this);
     this.fetchSections = this.fetchSections.bind(this);
@@ -46,7 +48,7 @@ class Thread extends Component {
       sections: {},
       addErrorMsg: '',
       dataTable: {
-        title: '帖子',
+        title: '帖子管理',
         listType: BBS_THREAD_DT_LIST,
         updateType: BBS_THREAD_DT_UPDATE,
         addType: BBS_THREAD_DT_ADD,
@@ -54,6 +56,7 @@ class Thread extends Component {
         timeStamp: (new Date).getTime(),
         getBtns: this.getBtns,
         forbiddenDefaultBtns: false,
+        noDelete: true,
         onlyTrashed: false,
         identify: 0,
         withs: ['section', 'user'],
@@ -100,7 +103,7 @@ class Thread extends Component {
           },
           {
             name: 'title',
-            cname: '标题',
+            cname: '帖子标题',
             type: 'text',
             searchable: true,
             orderable: true,
@@ -111,7 +114,7 @@ class Thread extends Component {
           },
           {
             name: 'content',
-            cname: '内容',
+            cname: '帖子内容',
             type: 'textarea',
             searchable: true,
             orderable: true,
@@ -269,6 +272,18 @@ class Thread extends Component {
         >恢复</button>
       ];
     }
+    if (this.state.dataTable.customSearch.value === 2) {
+      return [
+        <button
+          key="btn-verify"
+          className={'btn btn-success-outline btn-sm'}
+          data-id={item.id}
+          data-type="isverify"
+          data-tvalue={1}
+          onClick={this.verify}
+        >恢复</button>,
+      ];
+    }
     if (!this.state.dataTable.customSearch.value) {
       return [
         <button
@@ -276,7 +291,7 @@ class Thread extends Component {
           className={'btn btn-success-outline btn-sm'}
           data-id={item.id}
           data-type="isverify"
-          data-tvalue={item.isverify ? 0 : 1}
+          data-tvalue={1}
           onClick={this.verify}
         >通过</button>,
         <button
@@ -284,8 +299,8 @@ class Thread extends Component {
           className={'btn btn-warning-outline btn-sm'}
           data-id={item.id}
           data-type="isverify"
-          data-tvalue={item.isverify ? 0 : 1}
-          onClick={this.showUnVerifyModal}
+          data-tvalue={2}
+          onClick={this.verify}
         >拒绝</button>];
     }
 
@@ -295,14 +310,14 @@ class Thread extends Component {
         className="btn btn-success-outline btn-sm"
         data-id={item.id}
         onClick={this.showReplayModal}
-      >评论</button>,
+      >回复</button>,
       <button
         key="btn-top"
         className={`btn ${item.istop ? 'btn-warning-outline' : 'btn-success-outline'} btn-sm`}
         data-id={item.id}
         data-type="istop"
         data-tvalue={item.istop ? 0 : 1}
-        onClick={this.verify}
+        onClick={this.toggleStatus}
       >置顶</button>,
       <button
         key="btn-great"
@@ -310,7 +325,7 @@ class Thread extends Component {
         data-id={item.id}
         data-type="isgreat"
         data-tvalue={item.isgreat ? 0 : 1}
-        onClick={this.verify}
+        onClick={this.toggleStatus}
       >加精</button>,
       <button
         key="btn-hot"
@@ -318,8 +333,16 @@ class Thread extends Component {
         data-id={item.id}
         data-type="ishot"
         data-tvalue={item.ishot ? 0 : 1}
-        onClick={this.verify}
+        onClick={this.toggleStatus}
       >最热</button>,
+      <button
+          key="btn-unverify"
+          className={'btn btn-warning-outline btn-sm'}
+          data-id={item.id}
+          data-type="isverify"
+          data-tvalue={2}
+          onClick={this.verify}
+      >拒绝</button>,
     ];
   }
 
@@ -383,6 +406,25 @@ class Thread extends Component {
     });
   }
   verify(e) {
+    const id = e.currentTarget.dataset.id;
+    const type = e.currentTarget.dataset.type;
+    const typeValue = +e.currentTarget.dataset.tvalue;
+    const formData = new FormData;
+    formData.append('id', id);
+    formData.append(type, typeValue);
+    this.props.dispatch(fetchAction({
+      type: BBS_THREAD_VERIFY,
+      method: 'POST',
+      formData,
+    })).then(json => {
+      if (json.error_code === 0) {
+        this.list();
+      } else {
+        alert(json.error_msg);
+      }
+    });
+  }
+  toggleStatus(e) {
     const id = e.currentTarget.dataset.id;
     const type = e.currentTarget.dataset.type;
     const typeValue = +e.currentTarget.dataset.tvalue;
@@ -476,7 +518,7 @@ class Thread extends Component {
   typeChange(e) {
     const value = +e.currentTarget.value;
     let dataTable = {};
-    if (value !== 2) {
+    if (value !== 3) {
       const customSearch = Object.assign({}, this.state.dataTable.customSearch, {
         name: 'isverify',
         pattern: 'equal',
@@ -523,10 +565,10 @@ class Thread extends Component {
           onChange={this.typeChange}
         />
         <Radio
-          labelName="已删除"
-          name="isDelete"
+          labelName="已拒绝"
+          name="isVerify"
           value="2"
-          checked={onlyTrashed === true}
+          checked={customSearch.value === 2}
           onChange={this.typeChange}
         />
         <hr />

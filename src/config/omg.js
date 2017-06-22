@@ -172,6 +172,7 @@ import {
   BBS_THREAD_TOGGLE_STATUS,
   BBS_THREAD_UNVERIFY,
   BBS_THREAD_RESTORE,
+  BBS_THREAD_VERIFY,
 
   BBS_SECTION_CLOSE,
   BBS_SECTION_DT_ADD,
@@ -415,6 +416,7 @@ apiList[BBS_THREAD_DT_UPDATE] = '/bbs/thread/dt-update';
 apiList[BBS_THREAD_TOGGLE_STATUS] = '/bbs/thread/toogle-status';
 apiList[BBS_THREAD_UNVERIFY] = '/bbs/thread/del';
 apiList[BBS_THREAD_RESTORE] = '/bbs/thread/restore';
+apiList[BBS_THREAD_VERIFY] = '/bbs/thread/verify-put';
 
 apiList[BBS_SECTION_DT_LIST] = '/bbs/section/dt-list';
 apiList[BBS_SECTION_DT_ADD] = '/bbs/section/dt-add';
@@ -438,8 +440,7 @@ apiList[BBS_COMMENT_DT_ADD] = '/bbs/comment/dt-add';
 apiList[BBS_COMMENT_DT_UPDATE] = '/bbs/comment/dt-update';
 apiList[BBS_COMMENT_DT_DEL] = '/bbs/comment/dt-delete';
 apiList[BBS_COMMENT_DT_LIST] = '/bbs/comment/dt-list';
-apiList[BBS_COMMENT_VERIFY] = '/bbs/comment/check';
-apiList[BBS_COMMENT_UNVERIFY] = '/bbs/comment/check-fail';
+apiList[BBS_COMMENT_VERIFY] = '/bbs/comment/verify-put';
 
 apiList[BBS_MESSAGE_DT_DEL] = '/bbs/pm/dt-delete';
 apiList[BBS_MESSAGE_DT_UPDATE] = '/bbs/pm/dt-update';
@@ -678,6 +679,7 @@ const ruleTypes = {
 const bannerTypes = {
   mobile: '移动端轮播图',
   discover: '发现页',
+  discover_feature: '发现页功能区',
   pc: 'PC端轮播图',
   pop: '活动弹窗',
   cast_finish: '投资完成页',

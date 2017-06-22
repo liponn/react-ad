@@ -158,13 +158,13 @@ class Container extends Component {
       isFold: true,
       subItems: [
         {
-          title: '帖子',
+          title: '帖子管理',
           url: '/thread',
           tag: 'bbs',
           fontClass: 'fa-comment',
         },
         {
-          title: '评论',
+          title: '回复',
           url: '/reply',
           tag: 'bbs',
           fontClass: 'fa-comments',

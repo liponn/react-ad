@@ -352,7 +352,7 @@ class DataTable extends Component {
                   >编辑</button>
                   <button
                     className="btn btn-danger-outline btn-sm"
-                    hidden={this.state.forbiddenDefaultBtns || false}
+                    hidden={this.state.forbiddenDefaultBtns || this.state.noDelete || false}
                     data-index={index}
                     data-id={item[0]}
                     onClick={this.delete}

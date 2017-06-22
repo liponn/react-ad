@@ -20,8 +20,6 @@ class Reply extends Component {
     this.typeChange = this.typeChange.bind(this);
     this.verify = this.verify.bind(this);
     this.getBtns = this.getBtns.bind(this);
-    this.showUnVerifyModal = this.showUnVerifyModal.bind(this);
-    this.unVerify = this.unVerify.bind(this);
     this.state = {
       name: '',
       alias_name: '',
@@ -35,6 +33,7 @@ class Reply extends Component {
         addType: BBS_COMMENT_DT_ADD,
         deleteType: BBS_COMMENT_DT_DEL,
         timeStamp: (new Date).getTime(),
+        noDelete: true,
         getBtns: this.getBtns,
         withs: ['thread'],
         identify: 0,
@@ -139,39 +138,33 @@ class Reply extends Component {
       },
     };
   }
-  showUnVerifyModal(e) {
-    const id = e.currentTarget.dataset.id;
-    this.props.dispatch(
-      showModal(
-        <UnVerifyModal
-          submit={this.unVerify}
-          id={id}
-        />
-      )
-    );
-  }
-  unVerify(e) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    this.props.dispatch(fetchAction({
-      type: BBS_COMMENT_UNVERIFY,
-      method: 'POST',
-      formData,
-    })).then((json) => {
-      if (json.error_code === 0) {
-        this.props.dispatch(hideModal(true));
-        this.list();
-      } else {
-        alert(json.data.error_msg);
-      }
-    });
-  }
   getBtns(item, callback) {
     if (!this.list) {
       this.list = callback;
     }
-    if (this.state.dataTable.customSearch.value)  {
-      return [];
+    if (this.state.dataTable.customSearch.value === 1) {
+      return [
+        <button
+          key="btn-unverify"
+          className={'btn btn-warning-outline btn-sm'}
+          data-id={item.id}
+          data-type="isverify"
+          data-tvalue={2}
+          onClick={this.verify}
+        >拒绝</button>,
+      ];
+    }
+    if (this.state.dataTable.customSearch.value === 2) {
+      return [
+        <button
+          key="btn-verify"
+          className={'btn btn-success-outline btn-sm'}
+          data-id={item.id}
+          data-type="isverify"
+          data-tvalue={1}
+          onClick={this.verify}
+        >恢复</button>,
+      ];
     }
     return [
       <button
@@ -179,7 +172,7 @@ class Reply extends Component {
         className={'btn btn-success-outline btn-sm'}
         data-id={item.id}
         data-type="isverify"
-        data-tvalue={item.isverify ? 0 : 1}
+        data-tvalue={1}
         onClick={this.verify}
       >通过</button>,
       <button
@@ -187,15 +180,17 @@ class Reply extends Component {
         className={'btn btn-warning-outline btn-sm'}
         data-id={item.id}
         data-type="isverify"
-        data-tvalue={item.isverify ? 0 : 1}
-        onClick={this.showUnVerifyModal}
+        data-tvalue={2}
+        onClick={this.verify}
       >拒绝</button>,
     ];
   }
   verify(e) {
     const id = e.currentTarget.dataset.id;
     const formData = new FormData;
+    const typeValue = +e.currentTarget.dataset.tvalue;
     formData.append('id', id);
+    formData.append('isverify', typeValue);
     this.props.dispatch(fetchAction({
       type: BBS_COMMENT_VERIFY,
       method: 'POST',
@@ -236,6 +231,13 @@ class Reply extends Component {
           name="isVerify"
           value="1"
           checked={customSearch.value === 1}
+          onChange={this.typeChange}
+        />
+        <Radio
+          labelName="已拒绝"
+          name="isVerify"
+          value="2"
+          checked={customSearch.value === 2}
           onChange={this.typeChange}
         />
         <hr />

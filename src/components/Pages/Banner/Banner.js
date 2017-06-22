@@ -205,12 +205,17 @@ class Banner extends Component {
             <thead>
               <tr>
                 <th>ID</th>
-                {this.props.path !== 'ShareConfig' && this.props.type !== 'pop' && <td>埋点说明</td>}
+                {this.props.path !== 'ShareConfig'
+                  && this.props.type !== 'pop'
+                  && this.props.type !== 'discover_feature'
+                  && <td>埋点说明</td>
+                }
                 {this.props.path === 'ShareConfig' && this.props.type === 'share' && <th>tag</th>}
                 {this.props.path === 'ShareConfig' && <th>标题</th>}
                 {this.props.path === 'ShareConfig' && <th>分享内容</th>}
                 {this.props.path === 'ShareConfig' && <th>分享时说明</th>}
                 {this.props.type === 'pop' && <th>标题</th>}
+                {this.props.type === 'discover_feature' && <th>名称</th>}
                 {this.props.type === 'pop' && <th>附标题</th>}
                 <th>图片预览</th>
                 {this.props.type === 'cast_finish' && <th>跳转类型</th>}
