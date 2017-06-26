@@ -164,7 +164,7 @@ class Container extends Component {
           fontClass: 'fa-comment',
         },
         {
-          title: '回复',
+          title: '评论',
           url: '/reply',
           tag: 'bbs',
           fontClass: 'fa-comments',

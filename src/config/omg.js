@@ -690,6 +690,7 @@ const bannerTypes = {
   pc_channel: 'pc渠道落地页',
   annualreport: '运营报告_PC',
   annualreport_app: '运营报告_APP',
+  jifen: '积分活动',
 }
 
 const channelStatusTypes = {

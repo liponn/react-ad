@@ -336,12 +336,12 @@ class Thread extends Component {
         onClick={this.toggleStatus}
       >最热</button>,
       <button
-          key="btn-unverify"
-          className={'btn btn-warning-outline btn-sm'}
-          data-id={item.id}
-          data-type="isverify"
-          data-tvalue={2}
-          onClick={this.verify}
+        key="btn-unverify"
+        className={'btn btn-warning-outline btn-sm'}
+        data-id={item.id}
+        data-type="isverify"
+        data-tvalue={2}
+        onClick={this.verify}
       >拒绝</button>,
     ];
   }
@@ -476,6 +476,7 @@ class Thread extends Component {
   verifyReplay(id) {
     const formData = new FormData;
     formData.append('id', id);
+    formData.append('isverify', 1);
     this.props.dispatch(fetchAction({
       type: BBS_COMMENT_VERIFY,
       method: 'POST',
