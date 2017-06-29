@@ -21,6 +21,9 @@ html .modal-dialog {overflow:hidden;}
   right:0;
   z-index:-1;
 }
+.ellipsis {
+  width:20em;
+}
 
 
 .btn-file {

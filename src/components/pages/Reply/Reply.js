@@ -125,7 +125,7 @@ class Reply extends Component {
             cname: '帖子详情',
             type: 'none',
             tableType: 'object',
-            tableShow: (object) => (object && object.content),
+            tableShow: (object) => (object && <div title={object.content} className="ellipsis">{object.content.substring(0,100)}{object.content.length > 100 ? '...': ''}</div>),
             searchable: false,
             orderable: false,
             search: {
