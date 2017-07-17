@@ -125,7 +125,6 @@ class ActivityList extends Component {
     const key = `${this.props.typeId}_${this.props.page}`;
     const groups = groupList[key] || {};
     const items = groups.data || [];
-    
     const addBtn = (
       <button
         type="button"

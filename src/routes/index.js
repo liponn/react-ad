@@ -46,6 +46,7 @@ import welcome from './welcome';
 import jianmianhui from './jianmianhui';
 import userattr from './userattr';
 import globalattr from './globalattr';
+import bbstask from './bbstask';
 
 
 export default {
@@ -58,6 +59,7 @@ export default {
     globalattr,
     welcome,
     bbsblock,
+    bbstask,
     bbsmessage,
     bbsconfig,
     bbsuser,

@@ -1,0 +1,6 @@
+{
+  "name": "ZanNum",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ZanNum.js"
+}

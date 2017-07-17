@@ -25,6 +25,11 @@ import JoinNum from '../../rules/JoinNum';
 import PaymentDate from '../../rules/PaymentDate';
 import PaymentNum from '../../rules/PaymentNum';
 import CastNum from '../../rules/CastNum';
+/*import PostNum from '../../rules/PostNum';
+import ZanNum from '../../rules/ZanNum';
+import GreatNum from '../../rules/GreatNum';
+import CommentZanNum from '../../rules/CommentZanNum';
+import ThreadZanNum from '../../rules/ThreadZanNum';*/
 
 class RuleAddModal extends Component {
   constructor(props) {
@@ -126,6 +131,21 @@ class RuleAddModal extends Component {
       case 'castnum':
         ruleView = <CastNum submit={this.submit} activityId={this.props.item.id} />;
         break;
+     /* case 'postnum':
+        ruleView = <PostNum submit={this.submit} astivityId={this.props.item.id}/>;
+        break;
+      case 'zannum':
+        ruleView = <ZanNum submit={this.submit} astivityId={this.props.item.id}/>;
+        break;
+      case 'greatnum':
+        ruleView = <GreatNum submit={this.submit} astivityId={this.props.item.id}/>;
+        break;
+      case 'commentzannum':
+        ruleView = <CommentZanNum submit={this.submit} astivityId={this.props.item.id}/>;
+        break;
+      case 'threadzannum':
+        ruleView = <ThreadZanNum submit={this.submit} astivityId={this.props.item.id}/>;
+        break;*/
       default:
         ruleView = this.state.currentRule;
     }

@@ -253,6 +253,11 @@ export const BBS_BLOCK_DT_ADD = 'BBS_BLOCK_DT_ADD';
 export const BBS_BLOCK_DT_UPDATE = 'BBS_BLOCK_DT_UPDATE';
 export const BBS_BLOCK_LIST = 'BBS_BLOCK_LIST';
 
+//论坛#任务
+export const BBS_TASK_DT_LIST = 'BBS_TASK_DT_LIST';
+export const BBS_TASK_DT_UPDATE = 'BBS_TASK_DT_LIST';
+export const BBS_TASK_DT_ADD = 'BBS_TASK_DT_ADD';
+export const BBS_TASK_DT_DEL = 'BBS_TASK_DT_DEL';
 // 锁屏问候语
 export const WELCOME_DT_LIST = 'WELCOME_DT_LIST';
 export const WELCOME_DT_DEL = 'WELCOME_DT_DEL';
