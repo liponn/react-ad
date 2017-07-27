@@ -36,15 +36,7 @@ class AddModal extends Component {
   }
   render() {
     const item = this.props.item || {};
-    let operatorTypeFileds = false;
-    switch (this.state.type) {
-      case 1:
-        operatorTypeFileds = [
-          <input type="hidden" name="operator_type" defaultValue="0" />
-        ];
-        break;
-      case 2:
-        operatorTypeFileds = [
+        let operatorTypeFileds = [
           <Fieldset>
             <Select
                 labelName="运营商类型"
@@ -54,9 +46,6 @@ class AddModal extends Component {
             />
           </Fieldset>
         ];
-        break;
-      default:
-    }
     return (
         <Modal title="添加">
           <form method="post" ref="form" onSubmit={this.props.submit}>
