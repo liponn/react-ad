@@ -18,6 +18,7 @@ class Feefloworder extends Component {
         this.pageSelect = this.pageSelect.bind(this);
         this.OrderRepair = this.OrderRepair.bind(this);
         this.exports = this.exports.bind(this);
+        this.reset = this.reset.bind(this);
         const feeFlowConfigTypes = getConfig('feeFlowConfigTypes');
         const page = props.page || 1;
         this.state = {
@@ -109,16 +110,26 @@ class Feefloworder extends Component {
             this.freshData(this.props.type,this.props.page);
         });
     }
+
     exports() {
-        const queryObj = this.state.searchObj
+        const queryObj = this.state.searchObj;
         this.props.dispatch(fetchAction({
             type: FEEFLOWCONFIG_ORDER_EXPORT,
             key: this.props.type,
             queryObj,
-        })).then(() => {
-            location.reload();
+        })).then((json) => {
+            if (json.error_code === 0) {
+                const url = json.data.url;
+                alert(url);
+                window.open(url);
+            } else {
+                this.setState({
+                    addErrorMsg: json.data.error_msg,
+                });
+            }
         });
     }
+
     pageSelect(page) {
         this.setState({
             page,
@@ -129,13 +140,12 @@ class Feefloworder extends Component {
         this.setState({
             searchObj: {},
         });
-        this.fresh(this.props.page, {});
+        this.freshData(this.props.type,this.props.page, {});
     }
   render() {
     const { feeOrders, type } = this.props;
     const { feeFlowConfigTypes } = this.state;
     const key = `${type}_${this.state.page}`;
-      console.log(key);
     const feeorderlist = feeOrders[key] || {};
     const items = feeorderlist.data || [];
     this.items = items;
@@ -159,8 +169,8 @@ class Feefloworder extends Component {
         <hr />
           <form className="form-inline m-b-1" onSubmit={this.search} onReset={this.reset}>
               <div className="form-group">
-                  <DateTimeInput  labelName="订单时间"  name="start_time" />
-                  <DateTimeInput  labelName=""  name="end_time" />
+                  <DateTimeInput  labelName="开始时间"  name="start_time" />
+                  <DateTimeInput  labelName="结束时间"  name="end_time" />
               </div>
               <br />
               <br />
@@ -264,7 +274,9 @@ Feefloworder.defaultProps = {
 export default connect(state => {
   const { omg } = state;
   const feeOrders = omg[FEEFLOWCONFIG_ORDER_LIST] || {};
+  const exports = omg[FEEFLOWCONFIG_ORDER_EXPORT] || {};
   return {
       feeOrders,
+      exports,
   };
 })(Feefloworder);
