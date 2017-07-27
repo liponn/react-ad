@@ -120,7 +120,6 @@ class Feefloworder extends Component {
         })).then((json) => {
             if (json.error_code === 0) {
                 const url = json.data.url;
-                alert(url);
                 window.open(url);
             } else {
                 this.setState({
