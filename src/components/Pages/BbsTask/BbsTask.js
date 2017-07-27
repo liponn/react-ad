@@ -1,197 +1,135 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { BBS_TASK_DT_LIST,BBS_TASK_DT_UPDATE,BBS_TASK_DT_DEL,BBS_TASK_DT_ADD } from '../../../constants';
-import { DataTable , Radio} from '../../tools';
+import { commonFetch, fetchAction } from '../../../actions/omg';
+import { showModal, hideModal } from '../../../actions/modal';
+import { BBS_TASK_INFO,BBS_TASK_TRIGGER_TYPES,BBS_TASK_DT_UPDATE } from '../../../constants';
+import { Card, Text, Link } from '../../tools';
+import TaskAddModal from '../../modals/TaskAddModal';
+import { getConfig } from '../../../config/omg';
 
-class BbsTask extends Component{
-    constructor(props){
+class BbsTask extends Component {
+    constructor(props) {
         super(props);
-        this.typeChange = this.typeChange.bind(this);
+        this.showUpdateTask = this.showUpdateTask.bind(this);
+        this.freshTaskInfo = this.freshTaskInfo.bind(this);
+        this.getTaskTriggerTypes = this.getTaskTriggerTypes.bind(this);
+        this.updateTask = this.updateTask.bind(this);
+
+        const awardTypes = getConfig('awardTypes');
+        const frequencyTypes = getConfig('frequencyTypes');
 
         this.state = {
-            name: '',
-            alias_name: '',
-            pre: '',
-            errorMsg: '',
-            addErrorMsg: '',
-            dataTable: {
-                title: '社区任务',
-                listType: BBS_TASK_DT_LIST,
-                updateType: BBS_TASK_DT_UPDATE,
-                addType: BBS_TASK_DT_ADD,
-                deleteType: BBS_TASK_DT_DEL,
-                timeStamp: (new Date).getTime(),
-                getBtns: this.getBtns,
-                order: {
-                    column: 0,
-                    dir: 'desc',
-                },
-                start: 0,
-                length: 20,
-                search: {
-                    value: '',
-                    regex: false,
-                },
-                customSearch: {
-                    name:'task_type',
-                    parent:'equal',
-                    value:1
-                },
-                idColumn: 0,
-                columns: [
-                    {
-                        name: 'id',
-                        cname: 'id',
-                        type: 'hidden',
-                        searchable: false,
-                        orderable: true,
-                        search: {
-                            value: '',
-                            regex: false,
-                        },
-                    },
-                    {
-                        name: 'user_id',
-                        cname: '用户ID',
-                        type: 'text',
-                        searchable: true,
-                        orderable: true,
-                        search: {
-                            value: '',
-                            regex: false,
-                        },
-                    },
-                    {
-                        name: 'from_user_id',
-                        cname: '来源用户ID',
-                        type: 'text',
-                        searchable: true,
-                        orderable: true,
-                        search: {
-                            value: '',
-                            regex: false,
-                        },
-                    },
-                    {
-                        name: 'tid',
-                        cname: '帖子ID',
-                        type: 'text',
-                        searchable: true,
-                        orderable: true,
-                        search: {
-                            value: '',
-                            regex: false,
-                        },
-                    },
-                    {
-                        name: 'cid',
-                        cname: '评论ID',
-                        type: 'text',
-                        searchable: true,
-                        orderable: true,
-                        search: {
-                            value: '',
-                            regex: false,
-                        },
-                    },
-                    {
-                        name: 'content',
-                        cname: '内容',
-                        type: 'text',
-                        searchable: true,
-                        orderable: true,
-                        search: {
-                            value: '',
-                            regex: false,
-                        },
-                    },
-                    {
-                        name: 'created_at',
-                        cname: '创建时间',
-                        type: 'text',
-                        searchable: false,
-                        orderable: true,
-                        search: {
-                            value: '',
-                            regex: false,
-                        },
-                    },
-                    {
-                        name: 'isread',
-                        cname: '是否已读',
-                        type: 'text',
-                        searchable: false,
-                        orderable: true,
-                        search: {
-                            value: '',
-                            regex: false,
-                        },
-                    },
-                ],
-            },
+            awardTypes,
+            frequencyTypes,
+            addAwardErrorMsg: '',
         };
     }
-    typeChange(e) {
-        const value = +e.currentTarget.value;
-        let dataTable = {};
-        if (value !== 3) {
-            const customSearch = Object.assign({}, this.state.dataTable.customSearch, {
-                name: 'task_type',
-                pattern: 'equal',
-                value,
-            });
-            dataTable = Object.assign({}, this.state.dataTable, {
-                forbiddenDefaultBtns: false,
-                customSearch,
-                onlyTrashed: false,
-                identify: value,
-                timeStamp: (new Date).getTime(),
-            });
-        } else {
-            dataTable = Object.assign({}, this.state.dataTable, {
-                forbiddenDefaultBtns: true,
-                customSearch: false,
-                onlyTrashed: true,
-                identify: value,
-                timeStamp: (new Date).getTime(),
-            });
-        }
 
-        this.setState({
-            dataTable,
+    getTaskTriggerTypes(){
+        this.props.dispatch(fetchAction({
+            type:BBS_TASK_TRIGGER_TYPES,
+        }));
+    }
+
+    componentDidMount() {
+        this.freshTaskInfo();
+        this.getTaskTriggerTypes();
+    }
+    // 刷新活动信息
+    freshTaskInfo() {
+        this.props.dispatch(fetchAction({
+            type: BBS_TASK_INFO,
+            suffix: `/${this.props.taskId}`,
+            key: this.props.taskId,
+        }));
+    }
+
+    // 更新活动
+    updateTask(e) {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        this.props.dispatch(fetchAction({
+            type: BBS_TASK_DT_UPDATE,
+            method: 'POST',
+            formData,
+        })).then(json => {
+            if (json.error_code === 0) {
+                this.props.dispatch(hideModal(true));
+                this.freshTaskInfo();
+            }
         });
     }
+    // 更新活动
+    showUpdateTask() {
+        if (!this.task || !this.task.id) {
+            alert('获取任务详情失败');
+            return;
+        }
+        this.props.dispatch(showModal(<TaskAddModal item={this.task} types={this.taskTriggerTypes} update submit={this.updateTask} />));
+    }
+
     render() {
-        const customSearch = this.state.dataTable.customSearch;
+        const task = this.props.tasks[this.props.taskId] || {};
+        this.task = task;
+
+        this.taskTriggerTypes = this.props.taskTriggerTypes || {};
+        const updateTaskyBtn = (
+            <button
+                onClick={this.showUpdateTask}
+                className="btn btn-sm btn-info pull-right"
+            >
+                <i className="fa fa-edit">编辑</i>
+            </button>
+        );
+
         return (
             <div>
-                <Radio
-                    labelName="每日任务"
-                    name="task_type"
-                    value="1"
-                    checked={customSearch.value === 1}
-                    onChange={this.typeChange}
-                />
-                <Radio
-                    labelName="成就任务"
-                    name="task_type"
-                    value="2"
-                    checked={customSearch.value === 2}
-                    onChange={this.typeChange}
-                />
-                <hr />
-                <DataTable
-                    config={this.state.dataTable}
-                />
+                <ol className="breadcrumb">
+                    <li className="breadcrumb-item"><Link to="/">首页</Link></li>
+                    <li className="breadcrumb-item"><Link to="/bbstask/1">任务列表</Link></li>
+                    <li className="breadcrumb-item active">{task.name || '—'}</li>
+                </ol>
+                <Card title="任务详情" btn={updateTaskyBtn} >
+                    <Text name="任务名称" value={task.name} />
+                    <Text name="任务标识" value={task.task_mark || '—'} />
+
+                    <Text name="ID" value={task.id} />
+                    <Text name="状态" value={+task.enable ? '上线' : '下线'} />
+
+                    <Text name="触发类型" value={this.taskTriggerTypes[task.trigger_type]} />
+                    <Text name="触发条件" value={task.number} />
+
+                    <Text name="奖品类型" value={this.state.awardTypes[task.award_type]}/>
+                    <Text name="奖品数量" value={task.award}/>
+
+                    <Text name="发奖频次" value={this.state.frequencyTypes[task.frequency]} />
+                    <Text name="奖品有效期" value={task.exp_day}/>
+
+                    {/*<Text name="所属任务组" value={group.name}/>*/}
+                    <Text name="活动说明" value={task.remark || '—'} />
+
+                    <div className="m-b-1 clearfix"></div>
+                </Card>
             </div>
         );
     }
 }
+
 BbsTask.propTypes = {
     dispatch: PropTypes.func.isRequired,
-}
+    tasks: PropTypes.object.isRequired,
+    taskId: PropTypes.number.isRequired,
+};
 
 BbsTask.defaultProps = {
 }
 
-export default connect()(BbsTask);
+export default connect(state => {
+    const { omg } = state;
+    const tasks = omg[BBS_TASK_INFO] || {};
+    const taskTriggerTypes = omg[BBS_TASK_TRIGGER_TYPES] || {};
+    return {
+        tasks,
+        taskTriggerTypes,
+    };
+})(BbsTask);

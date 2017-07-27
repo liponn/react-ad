@@ -201,7 +201,7 @@ class Container extends Component {
         },
           {
               title: '社区任务',
-              url: '/bbstask',
+              url: '/bbstask/1',
               tag: 'bbs',
               fontClass: 'fa-tasks',
           },
