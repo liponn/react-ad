@@ -61,6 +61,7 @@ class Feeflowconfig extends Component {
             if (json.error_code === 0) {
                 this.props.dispatch(hideModal(true));
                 hisotry.push(`/feeflowconfig/${formData.get('type')}`);
+                this.freshData(formData.get('type'),this.props.page);
             } else {
                 this.setState({
                     addErrorMsg: json.data.error_msg,

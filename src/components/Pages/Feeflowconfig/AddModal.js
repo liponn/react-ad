@@ -57,7 +57,7 @@ class AddModal extends Component {
               <Select
                   labelName="商品类型"
                   name="type"
-                  defaultValue={item.type}
+                  defaultValue={this.props.type}
                   options={this.state.feeFlowConfigChildTypes}
                   onChange={this.typeChange}
               />

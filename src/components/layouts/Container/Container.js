@@ -247,13 +247,13 @@ class Container extends Component {
         {
           title: '话费流量类型设置',
           url: '/feeflowconfig/1',
-          tag: 'feeflowconfig',
+          tag: 'activity',
           fontClass: 'fa-users',
         },
         {
           title: '话费流量订单列表',
           url: '/feefloworder/1',
-          tag: 'feefloworder',
+          tag: 'activity',
           fontClass: 'fa-user-secret',
         },
       ],
