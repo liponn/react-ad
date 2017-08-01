@@ -159,6 +159,17 @@ class Thread extends Component {
             },
           },
           {
+              name: 'video_code',
+              cname: '视频代码',
+              type: 'textarea',
+              searchable: false,
+              orderable: false,
+              search: {
+                 value: '',
+                 regex: false,
+              },
+          },
+          {
             name: 'created_at',
             cname: '创建时间',
             type: 'none',
