@@ -48,6 +48,7 @@ import userattr from './userattr';
 import globalattr from './globalattr';
 import feeflowconfig from './feeflowconfig';
 import feefloworder from './feefloworder';
+import bbstask from './bbstask';
 
 export default {
 
@@ -61,6 +62,7 @@ export default {
     globalattr,
     welcome,
     bbsblock,
+    bbstask,
     bbsmessage,
     bbsconfig,
     bbsuser,

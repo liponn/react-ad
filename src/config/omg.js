@@ -215,6 +215,21 @@ import {
   BBS_BLOCK_DT_UPDATE,
   BBS_BLOCK_LIST,
 
+  BBS_TASK_DT_ADD,
+  BBS_TASK_DT_DEL,
+  BBS_TASK_DT_LIST,
+  BBS_TASK_DT_UPDATE,
+  BBS_TASK_INFO,
+  BBS_TASK_TRIGGER_TYPES,
+  BBS_GROUP_TASK_LIST,
+  BBS_GROUP_TASK_ADD,
+  BBS_GROUP_TASK_DEL,
+  BBS_GROUP_TASK_PUT,
+  BBS_GROUP_TASK_INFO,
+  BBS_TASK_OFFLINE,
+  BBS_TASK_ONLINE,
+  BBS_TASK_DEL,
+
   WELCOME_DT_ADD,
   WELCOME_DT_DEL,
   WELCOME_DT_LIST,
@@ -465,6 +480,23 @@ apiList[BBS_BLOCK_DT_LIST] = '/bbs/replay/dt-list';
 apiList[BBS_BLOCK_DT_DEL] = '/bbs/replay/dt-delete';
 apiList[BBS_BLOCK_LIST] = '/bbs/replay/list';
 
+apiList[BBS_TASK_DT_LIST] = '/bbs/task/dt-list';
+apiList[BBS_TASK_DT_ADD] = '/bbs/task/dt-add';
+apiList[BBS_TASK_DT_DEL] = '/bbs/task/dt-delete';
+apiList[BBS_TASK_INFO] = '/bbs/task/detail'
+apiList[BBS_TASK_DT_UPDATE] = '/bbs/task/dt-update';
+apiList[BBS_TASK_TRIGGER_TYPES] = '/bbs/task/trigger-type';
+apiList[BBS_GROUP_TASK_LIST] = '/bbs/task/group-list';
+apiList[BBS_GROUP_TASK_ADD] = '/bbs/task/group-add';
+apiList[BBS_GROUP_TASK_DEL] = '/bbs/task/group-del';
+apiList[BBS_GROUP_TASK_PUT] = '/bbs/task/group-put';
+apiList[BBS_GROUP_TASK_INFO] = '/bbs/task/group-info';
+apiList[BBS_TASK_OFFLINE] = '/bbs/task/offline';
+apiList[BBS_TASK_ONLINE] = '/bbs/task/online';
+apiList[BBS_TASK_DEL] = '/bbs/task/dt-delete';
+
+
+
 apiList[WELCOME_DT_DEL] = '/cms/welcome/dt-delete';
 apiList[WELCOME_DT_ADD] = '/cms/welcome/dt-add';
 apiList[WELCOME_DT_UPDATE] = '/cms/welcome/dt-update';
@@ -537,6 +569,10 @@ const activityTypes = {
   4: '加急活动',
 }
 
+const taskTypes = {
+    1:"每日任务",
+    2:"成就任务",
+}
 const sendAwardTypes = {
   1: '全部发放',
   2: '概率发放',
@@ -662,7 +698,12 @@ const activityTriggers = {
   6: '实名',
   7: '微信绑定',
   8: '签到',
+  9: '社区发帖',
+  10: '社区点赞',
+  11: '社区评论',
+  12: '主题加精',
 }
+
 
 const triggerRuleFileds = {
   0: {},
@@ -673,6 +714,9 @@ const triggerRuleFileds = {
   5: { payment: '回款金额', paymentdate: '项目天数' },
   6: {},
   7: {},
+  9: {postnum:'发帖数量'},
+  10:{zannum:'点赞数量',commentzannum:'评论获得点赞数量',threadzannum:'帖子获得点赞数量'},
+  11:{greatnum:'加精数量'}
 }
 
 const ruleTypes = {
@@ -884,6 +928,7 @@ const config = {
   interestTimeTypes,
   bannerTypes,
   platform,
+  taskTypes,
   release,
   activityTypes,
   frequencyTypes,

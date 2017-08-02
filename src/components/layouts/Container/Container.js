@@ -199,6 +199,12 @@ class Container extends Component {
           tag: 'bbs',
           fontClass: 'fa-ban',
         },
+          {
+              title: '社区任务',
+              url: '/bbstask/1',
+              tag: 'bbs',
+              fontClass: 'fa-tasks',
+          },
       ],
     }, {
       title: '其它',

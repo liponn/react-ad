@@ -23,7 +23,7 @@ export const analytics = {
 };
 
 // 是否需要验证登录
-export const authentication = true;
+export const authentication = false;
 
 // 当前host,用来区分调用API
 export const hostname = process.env.YYADMIN_HOSTNAME || 'localhost';
