@@ -1,6 +1,0 @@
-{
-  "name":"BbsMessage",
-  "version":"0.0.0",
-  "private":true,
-  "main":"./BbsMessage.js"
-}

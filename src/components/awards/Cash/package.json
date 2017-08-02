@@ -1,6 +1,0 @@
-{
-  "name": "Cash",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./Cash.js"
-}

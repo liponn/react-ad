@@ -1,6 +1,0 @@
-{
-  "name": "AwardSend",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./AwardSend.js"
-}

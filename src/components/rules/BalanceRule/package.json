@@ -1,6 +1,0 @@
-{
-  "name": "BalanceRule",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./BalanceRule.js"
-}

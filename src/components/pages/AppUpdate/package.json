@@ -1,6 +1,0 @@
-{
-  "name": "AppUpdate",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./AppUpdate.js"
-}

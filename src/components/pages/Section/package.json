@@ -1,6 +1,0 @@
-{
-  "name":"Section",
-  "version":"0.0.0",
-  "private":true,
-  "main":"./Section.js"
-}

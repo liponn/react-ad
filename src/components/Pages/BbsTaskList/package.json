@@ -1,6 +1,0 @@
-{
-  "name":"BbsTaskList",
-  "version":"0.0.0",
-  "private":true,
-  "main":"./BbsTaskList.js"
-}
