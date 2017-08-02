@@ -544,7 +544,7 @@ class Thread extends Component {
         timeStamp: (new Date).getTime(),
       });
     } else {
-        dataTable = Object.assign({}, this.state.dataTable, {
+      dataTable = Object.assign({}, this.state.dataTable, {
         forbiddenDefaultBtns: true,
         customSearch: false,
         onlyTrashed: true,
