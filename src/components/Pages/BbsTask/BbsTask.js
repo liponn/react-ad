@@ -65,7 +65,8 @@ class BbsTask extends Component {
             alert('获取任务详情失败');
             return;
         }
-        this.props.dispatch(showModal(<TaskAddModal item={this.task} types={this.taskTriggerTypes} update submit={this.updateTask} />));
+        const aliasName = this.task.task_mark;
+        this.props.dispatch(showModal(<TaskAddModal item={this.task} aliasName={aliasName} types={this.taskTriggerTypes} update submit={this.updateTask} />));
     }
 
     render() {
