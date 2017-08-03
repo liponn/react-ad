@@ -1,6 +1,0 @@
-{
-  "name": "ChannelRule",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./ChannelRule.js"
-}
