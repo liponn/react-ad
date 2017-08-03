@@ -1,0 +1,6 @@
+{
+  "name": "PaymentNum",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./PaymentNum.js"
+}

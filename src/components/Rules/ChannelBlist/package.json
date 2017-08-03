@@ -1,0 +1,6 @@
+{
+  "name": "ChannelBlist",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ChannelBlist.js"
+}

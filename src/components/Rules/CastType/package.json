@@ -1,0 +1,6 @@
+{
+  "name": "CastType",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./CastType.js"
+}

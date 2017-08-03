@@ -1,0 +1,6 @@
+{
+  "name":"Startup",
+  "version":"0.0.0",
+  "private":true,
+  "main":"./Startup.js"
+}

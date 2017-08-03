@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "name": "getHost",
+  "main": "./getHost.server.js",
+  "browser": "./getHost.client.js"
+}
