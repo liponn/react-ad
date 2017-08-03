@@ -26,21 +26,15 @@ class TaskAddModal extends Component {
         <form method="post" onSubmit={this.props.submit}>
           <Alert msg={this.props.errorMsg} />
           <input type="hidden" name="id" value={item.id} />
+          <input type="hidden" name="task_mark" value={this.props.aliasName}/>
           <input name="group_id" type="hidden" value={item.group_id || this.props.groupId} className="form-control" />
           <Input required labelName="任务名称" name="name" defaultValue={item.name} />
-          <Input labelName="任务标识" name="task_mark" placeholder="唯一" defaultValue={item.task_mark} />
           <Select labelName="触发类型" name="trigger_type" options={types} defaultValue={item.trigger_type} />
           <Input  name="number" labelName="触发条件" defaultValue={item.number}/>
           <Select labelName="奖品类型" name="award_type" options={this.state.awardTypes} defaultValue={item.award_type} />
           <Input labelName="奖品数量" name="award" placeholder="奖品数量" defaultValue={item.award} />
           <Select labelName="发奖频次" name="frequency" options={this.state.frequencyTypes} defaultValue={item.frequency} />
           <Input labelName="奖品有效期" name="exp_day" placeholder="奖品有效期(天)" defaultValue={item.exp_day} />
-          <div className="form-group row">
-            <label className="col-sm-4 text-xs-right">说明:</label>
-            <div className="col-sm-6">
-              <textarea name="remark" className="form-control" defaultValue={item.remark}></textarea>
-            </div>
-          </div>
           <Submit />
         </form>
       </Modal>
@@ -54,6 +48,7 @@ TaskAddModal.propTypes = {
   submit: PropTypes.func.isRequired,
   errorMsg: PropTypes.string,
   update: PropTypes.bool,
+  aliasName:PropTypes.string.isRequired,
 }
 
 TaskAddModal.defaultProps = {

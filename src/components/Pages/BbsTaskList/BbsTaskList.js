@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { commonFetch, fetchAction } from '../../../actions/omg';
 import { showModal, hideModal } from '../../../actions/modal';
-import { BBS_GROUP_TASK_LIST, BBS_TASK_DEL, BBS_TASK_DT_DEL,BBS_TASK_DT_ADD,BBS_TASK_TRIGGER_TYPES,BBS_GROUP_TASK_INFO,BBS_TASK_OFFLINE,BBS_TASK_ONLINE } from '../../../constants';
+import { BBS_GROUP_TASK_LIST, BBS_TASK_DEL, BBS_TASK_DT_DEL,BBS_TASK_ADD,BBS_TASK_TRIGGER_TYPES,BBS_GROUP_TASK_INFO,BBS_TASK_OFFLINE,BBS_TASK_ONLINE } from '../../../constants';
 import { Link, Card, Modal, Radio, Pagination } from '../../tools';
 import history from '../../../core/history';
 import { getConfig } from '../../../config/omg';
@@ -78,11 +78,11 @@ class BbsTaskList extends Component{
     saveTask(e) {
         e.preventDefault();
         const formData = new FormData(e.target);
-        this.props.dispatch(commonFetch(BBS_TASK_DT_ADD, 'POST', formData))
+        this.props.dispatch(commonFetch(BBS_TASK_ADD, 'POST', formData))
             .then((json) => {
                 if (json.error_code === 0) {
                     this.props.dispatch(hideModal());
-                    history.push(`/bbstask/id/${json.data.id}`);
+                    history.push(`/bbstask/id/${json.data.insert_id}`);
                 }
             });
     }
@@ -100,8 +100,10 @@ class BbsTaskList extends Component{
 
     showTaskAddModal(e){
         const id = +$(e.target).data('id');
+        const index = $(e.target).data('index');
+        const aliasName = this.taskGroupInfo[index].alias_name;
         const modalView = (
-            <TaskAddModal  submit={this.saveTask} types={this.props.taskTriggerTypes} groupId={id} />
+            <TaskAddModal  submit={this.saveTask} aliasName={aliasName} types={this.props.taskTriggerTypes} groupId={id} />
         );
         this.props.dispatch(showModal(modalView));
     }
@@ -214,12 +216,13 @@ class BbsTaskList extends Component{
                                         {item.name} ({item.tasks.length})
                                     </td>
                                     <td>{item.id}</td>
-                                    <td>—</td>
+                                    <td>{item.alias_name}</td>
                                     <td>{item.tip}</td>
                                     <td>—</td>
                                     <td>—</td>
                                     <td>
                                         <button
+                                            data-index={index}
                                             data-id={item.id}
                                             onClick={this.showTaskAddModal}
                                             className="btn btn-sm btn-info-outline"
@@ -245,7 +248,7 @@ class BbsTaskList extends Component{
                                 <tr hidden={this.state.group[item.id] === false} key={`activity${task.id}`} title={task.name}>
                                     <td>&nbsp;&nbsp;{task.name}</td>
                                     <td>{task.id ? task.id : '—'}</td>
-                                    <td>{task.alias_name ? task.alias_name : '—'}</td>
+                                    <td>{task.remark ? task.remark : '—'}</td>
                                     <td>—</td>
                                     <td>{task.created_at}</td>
                                     <td>

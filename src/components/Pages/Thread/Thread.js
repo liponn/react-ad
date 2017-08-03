@@ -135,7 +135,18 @@ class Thread extends Component {
               regex: false,
             },
           },
-          {
+            {
+                name: 'video_code',
+                cname: '视频链接',
+                type: 'text',
+                searchable: false,
+                orderable: true,
+                search: {
+                    value: '',
+                    regex: false,
+                },
+            },
+          /*{
             name: 'url',
             cname: '跳转地址',
             type: 'text',
@@ -157,7 +168,7 @@ class Thread extends Component {
               value: '',
               regex: false,
             },
-          },
+          },*/
           {
             name: 'created_at',
             cname: '创建时间',
@@ -172,7 +183,7 @@ class Thread extends Component {
           {
             name: 'istop',
             cname: '置顶',
-            type: 'none',
+            type: 'check',
             searchable: false,
             orderable: true,
             search: {
@@ -205,7 +216,7 @@ class Thread extends Component {
           {
             name: 'isverify',
             cname: '审核',
-            type: 'none',
+            type: 'check',
             searchable: false,
             orderable: true,
             search: {
@@ -215,7 +226,7 @@ class Thread extends Component {
           },
           {
             name: 'comment_num',
-            cname: '评论',
+            cname: '评论数',
             type: 'none',
             searchable: false,
             orderable: true,
@@ -224,6 +235,28 @@ class Thread extends Component {
               regex: false,
             },
           },
+            {
+                name: 'zan_num',
+                cname: '点赞数',
+                type: 'none',
+                searchable: false,
+                orderable: true,
+                search: {
+                    value: '',
+                    regex: false,
+                },
+            },
+            {
+                name: 'collection_num',
+                cname: '收藏数',
+                type: 'none',
+                searchable: false,
+                orderable: true,
+                search: {
+                    value: '',
+                    regex: false,
+                },
+            },
           {
             name: 'section',
             cname: '板块',

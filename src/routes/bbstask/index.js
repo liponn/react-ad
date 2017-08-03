@@ -1,15 +1,16 @@
 import React from 'react';
 import BbsTaskList from '../../components/pages/BbsTaskList';
 import BbsTask from '../../components/pages/BbsTask';
+import Video from '../../components/Tools/Video';
 
 export default {
 
     path: '/Bbstask',
     children: [
         {
-            path: '/',
+            path: '/video',
             action() {
-                return "ok";
+                return <Video src="https://v.qq.com/iframe/player.html?vid=p0532mc1bvu&tiny=0&auto=0"/>;
             },
         },  {
             path: '/:typeId',
