@@ -252,6 +252,13 @@ import {
   JIANMIANHUI_DT_LIST,
   JIANMIANHUI_DT_UPDATE,
 
+  FEEFLOWCONFIG_ADD,
+  FEEFLOWCONFIG_LIST,
+  FEEFLOWCONFIG_UP_STATUS,
+  FEEFLOWCONFIG_ORDER_LIST,
+  FEEFLOWCONFIG_ORDER_STATUS_UPDATE,
+  FEEFLOWCONFIG_ORDER_REPAIR,
+  FEEFLOWCONFIG_ORDER_EXPORT,
 
 } from '../constants/index.js';
 
@@ -512,6 +519,14 @@ apiList[JIANMIANHUI_DT_UPDATE] = '/jianmianhui/dt-update';
 apiList[JIANMIANHUI_DT_LIST] = '/jianmianhui/dt-list';
 apiList[JIANMIANHUI_DT_DEL] = '/jianmianhui/dt-delete';
 apiList[JIANMIANHUI_DT_ADD] = '/jianmianhui/dt-add';
+
+apiList[FEEFLOWCONFIG_ADD] = '/feeflow/add-type';
+apiList[FEEFLOWCONFIG_LIST] = '/feeflow/type-list';
+apiList[FEEFLOWCONFIG_UP_STATUS] = '/feeflow/update-type';
+apiList[FEEFLOWCONFIG_ORDER_LIST] = '/feeflow/order-list';
+apiList[FEEFLOWCONFIG_ORDER_STATUS_UPDATE] = '/feeflow/order-status-update';
+apiList[FEEFLOWCONFIG_ORDER_REPAIR] = '/feeflow/order-repair';
+apiList[FEEFLOWCONFIG_ORDER_EXPORT] = '/feeflow/order-export';
 
 function getApi(type) {
   let apiHost = '';
@@ -864,7 +879,35 @@ const projectTypes = {
   14: '银行优选',
   15: '黄金精选',
 }
+const feeFlowConfigTypes = {
+  1: '充话费',
+  2: '充流量',
+}
+const feeFlowConfigChildTypes = {
+  1: '话费',
+  2: '流量',
+}
+const feeFlowConfigChildOperator = {
+  1: '移动',
+  2: '联通',
+  3: '电信',
+}
 
+const feeFlowDebitStatus = {
+  0: '未扣款',
+  1: '已扣款',
+}
+const feeFlowOrderStatus = {
+  0: '未充值',
+  1: '正在充值',
+  2: '充值失败',
+  3: '充值成功',
+  4: '订单异常',
+}
+const feeFlowOrderRepairStatus = {
+  0: '未补单',
+  1: '已补单',
+}
 function getAllRuleTypes() {
   const allRuleTypes = {};
   Object.assign(allRuleTypes, ruleTypes);
@@ -915,6 +958,12 @@ const config = {
   castDateTypes,
   channelStatusTypes,
   channelClassTypes,
+  feeFlowConfigTypes,
+  feeFlowConfigChildTypes,
+  feeFlowConfigChildOperator,
+  feeFlowDebitStatus,
+  feeFlowOrderStatus,
+  feeFlowOrderRepairStatus,
 };
 
 function getConfig(type, key = false) {

@@ -47,6 +47,8 @@ import jianmianhui from './jianmianhui';
 import userattr from './userattr';
 import globalattr from './globalattr';
 import bbstask from './bbstask';
+import feeflowconfig from './feeflowconfig';
+import feefloworder from './feefloworder';
 
 
 export default {
@@ -54,6 +56,8 @@ export default {
   path: '/',
 
   children: [
+    feefloworder,
+    feeflowconfig,
     jianmianhui,
     userattr,
     globalattr,
