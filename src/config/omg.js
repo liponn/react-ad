@@ -215,6 +215,21 @@ import {
   BBS_BLOCK_DT_UPDATE,
   BBS_BLOCK_LIST,
 
+  BBS_TASK_DT_ADD,
+  BBS_TASK_DT_DEL,
+  BBS_TASK_DT_LIST,
+  BBS_TASK_DT_UPDATE,
+  BBS_TASK_INFO,
+  BBS_TASK_TRIGGER_TYPES,
+  BBS_GROUP_TASK_LIST,
+  BBS_GROUP_TASK_ADD,
+  BBS_GROUP_TASK_DEL,
+  BBS_GROUP_TASK_PUT,
+  BBS_GROUP_TASK_INFO,
+  BBS_TASK_OFFLINE,
+  BBS_TASK_ONLINE,
+  BBS_TASK_DEL,
+
   WELCOME_DT_ADD,
   WELCOME_DT_DEL,
   WELCOME_DT_LIST,
@@ -237,13 +252,6 @@ import {
   JIANMIANHUI_DT_LIST,
   JIANMIANHUI_DT_UPDATE,
 
-  FEEFLOWCONFIG_ADD,
-  FEEFLOWCONFIG_LIST,
-  FEEFLOWCONFIG_UP_STATUS,
-  FEEFLOWCONFIG_ORDER_LIST,
-  FEEFLOWCONFIG_ORDER_STATUS_UPDATE,
-  FEEFLOWCONFIG_ORDER_REPAIR,
-  FEEFLOWCONFIG_ORDER_EXPORT,
 
 } from '../constants/index.js';
 
@@ -465,6 +473,23 @@ apiList[BBS_BLOCK_DT_LIST] = '/bbs/replay/dt-list';
 apiList[BBS_BLOCK_DT_DEL] = '/bbs/replay/dt-delete';
 apiList[BBS_BLOCK_LIST] = '/bbs/replay/list';
 
+apiList[BBS_TASK_DT_LIST] = '/bbs/task/dt-list';
+apiList[BBS_TASK_DT_ADD] = '/bbs/task/dt-add';
+apiList[BBS_TASK_DT_DEL] = '/bbs/task/dt-delete';
+apiList[BBS_TASK_INFO] = '/bbs/task/detail'
+apiList[BBS_TASK_DT_UPDATE] = '/bbs/task/dt-update';
+apiList[BBS_TASK_TRIGGER_TYPES] = '/bbs/task/trigger-type';
+apiList[BBS_GROUP_TASK_LIST] = '/bbs/task/group-list';
+apiList[BBS_GROUP_TASK_ADD] = '/bbs/task/group-add';
+apiList[BBS_GROUP_TASK_DEL] = '/bbs/task/group-del';
+apiList[BBS_GROUP_TASK_PUT] = '/bbs/task/group-put';
+apiList[BBS_GROUP_TASK_INFO] = '/bbs/task/group-info';
+apiList[BBS_TASK_OFFLINE] = '/bbs/task/offline';
+apiList[BBS_TASK_ONLINE] = '/bbs/task/online';
+apiList[BBS_TASK_DEL] = '/bbs/task/dt-delete';
+
+
+
 apiList[WELCOME_DT_DEL] = '/cms/welcome/dt-delete';
 apiList[WELCOME_DT_ADD] = '/cms/welcome/dt-add';
 apiList[WELCOME_DT_UPDATE] = '/cms/welcome/dt-update';
@@ -488,13 +513,6 @@ apiList[JIANMIANHUI_DT_LIST] = '/jianmianhui/dt-list';
 apiList[JIANMIANHUI_DT_DEL] = '/jianmianhui/dt-delete';
 apiList[JIANMIANHUI_DT_ADD] = '/jianmianhui/dt-add';
 
-apiList[FEEFLOWCONFIG_ADD] = '/feeflow/add-type';
-apiList[FEEFLOWCONFIG_LIST] = '/feeflow/type-list';
-apiList[FEEFLOWCONFIG_UP_STATUS] = '/feeflow/update-type';
-apiList[FEEFLOWCONFIG_ORDER_LIST] = '/feeflow/order-list';
-apiList[FEEFLOWCONFIG_ORDER_STATUS_UPDATE] = '/feeflow/order-status-update';
-apiList[FEEFLOWCONFIG_ORDER_REPAIR] = '/feeflow/order-repair';
-apiList[FEEFLOWCONFIG_ORDER_EXPORT] = '/feeflow/order-export';
 function getApi(type) {
   let apiHost = '';
   const host = typeof window !== 'undefined' ? window.location.hostname : hostname;
@@ -537,6 +555,10 @@ const activityTypes = {
   4: '加急活动',
 }
 
+const taskTypes = {
+    1:"每日任务",
+    2:"成就任务",
+}
 const sendAwardTypes = {
   1: '全部发放',
   2: '概率发放',
@@ -662,7 +684,12 @@ const activityTriggers = {
   6: '实名',
   7: '微信绑定',
   8: '签到',
+  9: '社区发帖',
+  10: '社区点赞',
+  11: '社区评论',
+  12: '主题加精',
 }
+
 
 const triggerRuleFileds = {
   0: {},
@@ -673,6 +700,9 @@ const triggerRuleFileds = {
   5: { payment: '回款金额', paymentdate: '项目天数' },
   6: {},
   7: {},
+  9: {postnum:'发帖数量'},
+  10:{zannum:'点赞数量',commentzannum:'评论获得点赞数量',threadzannum:'帖子获得点赞数量'},
+  11:{greatnum:'加精数量'}
 }
 
 const ruleTypes = {
@@ -835,34 +865,6 @@ const projectTypes = {
   15: '黄金精选',
 }
 
-const feeFlowConfigTypes = {
-  1: '充话费',
-  2: '充流量',
-}
-const feeFlowConfigChildTypes = {
-  1: '话费',
-  2: '流量',
-}
-const feeFlowConfigChildOperator = {
-  1: '移动',
-  2: '联通',
-  3: '电信',
-}
-const feeFlowDebitStatus = {
-  0: '未扣款',
-  1: '已扣款',
-}
-const feeFlowOrderStatus = {
-  0: '未充值',
-  1: '正在充值',
-  2: '充值失败',
-  3: '充值成功',
-  4: '订单异常',
-}
-const feeFlowOrderRepairStatus = {
-  0: '未补单',
-  1: '已补单',
-}
 function getAllRuleTypes() {
   const allRuleTypes = {};
   Object.assign(allRuleTypes, ruleTypes);
@@ -884,6 +886,7 @@ const config = {
   interestTimeTypes,
   bannerTypes,
   platform,
+  taskTypes,
   release,
   activityTypes,
   frequencyTypes,
@@ -912,12 +915,6 @@ const config = {
   castDateTypes,
   channelStatusTypes,
   channelClassTypes,
-  feeFlowConfigTypes,
-  feeFlowConfigChildTypes,
-  feeFlowConfigChildOperator,
-  feeFlowDebitStatus,
-  feeFlowOrderStatus,
-  feeFlowOrderRepairStatus,
 };
 
 function getConfig(type, key = false) {

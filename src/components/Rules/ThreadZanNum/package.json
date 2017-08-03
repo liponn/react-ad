@@ -1,0 +1,6 @@
+{
+  "name": "ThreadZanNum",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ThreadZanNum.js"
+}

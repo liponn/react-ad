@@ -46,21 +46,20 @@ import welcome from './welcome';
 import jianmianhui from './jianmianhui';
 import userattr from './userattr';
 import globalattr from './globalattr';
-import feeflowconfig from './feeflowconfig';
-import feefloworder from './feefloworder';
+import bbstask from './bbstask';
+
 
 export default {
 
   path: '/',
 
   children: [
-    feefloworder,
-    feeflowconfig,
     jianmianhui,
     userattr,
     globalattr,
     welcome,
     bbsblock,
+    bbstask,
     bbsmessage,
     bbsconfig,
     bbsuser,

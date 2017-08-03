@@ -199,6 +199,12 @@ class Container extends Component {
           tag: 'bbs',
           fontClass: 'fa-ban',
         },
+          {
+              title: '社区任务',
+              url: '/bbstask/1',
+              tag: 'bbs',
+              fontClass: 'fa-tasks',
+          },
       ],
     }, {
       title: '其它',
@@ -237,23 +243,6 @@ class Container extends Component {
           title: '权限组',
           url: '/privilege',
           tag: 'privilege',
-          fontClass: 'fa-user-secret',
-        },
-      ],
-    },{
-      title: '话费流量',
-      isFold: true,
-      subItems: [
-        {
-          title: '话费流量类型设置',
-          url: '/feeflowconfig/1',
-          tag: 'activity',
-          fontClass: 'fa-users',
-        },
-        {
-          title: '话费流量订单列表',
-          url: '/feefloworder/1',
-          tag: 'activity',
           fontClass: 'fa-user-secret',
         },
       ],
