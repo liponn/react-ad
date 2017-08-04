@@ -8,10 +8,12 @@ import {
   BBS_COMMENT_DT_UPDATE,
   BBS_COMMENT_DT_DEL,
   BBS_COMMENT_DT_ADD,
-  BBS_COMMENT_DT_LIST
+  BBS_COMMENT_DT_LIST,
+  BBS_USER_ADMIN_LIST,
+  BBS_COMMENT_REPLY,
 } from '../../../constants';
 import { DataTable, Radio } from '../../tools';
-import UnVerifyModal from './UnVerifyModal';
+import ReplayModal from './ReplayModal';
 
 
 class Reply extends Component {
@@ -20,12 +22,17 @@ class Reply extends Component {
     this.typeChange = this.typeChange.bind(this);
     this.verify = this.verify.bind(this);
     this.getBtns = this.getBtns.bind(this);
+    this.showReplayModal = this.showReplayModal.bind(this);
+    this.fetchAdmins = this.fetchAdmins.bind(this);
+    this.replay = this.replay.bind(this);
+    this.getAdmins = this.getAdmins.bind(this);
     this.state = {
       name: '',
       alias_name: '',
       pre: '',
       errorMsg: '',
       addErrorMsg: '',
+      admins:{},
       dataTable: {
         title: '评论',
         listType: BBS_COMMENT_DT_LIST,
@@ -138,12 +145,22 @@ class Reply extends Component {
       },
     };
   }
+
+  componentDidMount(){
+      this.fetchAdmins();
+  }
   getBtns(item, callback) {
     if (!this.list) {
       this.list = callback;
     }
     if (this.state.dataTable.customSearch.value === 1) {
       return [
+          <button
+              key="btn-replay"
+              className="btn btn-success-outline btn-sm"
+              data-id={item.id}
+              onClick={this.showReplayModal}
+          >回复</button>,
         <button
           key="btn-unverify"
           className={'btn btn-warning-outline btn-sm'}
@@ -185,6 +202,60 @@ class Reply extends Component {
       >拒绝</button>,
     ];
   }
+
+  fetchAdmins(){
+      this.props.dispatch(fetchAction({
+          type: BBS_USER_ADMIN_LIST,
+          method: 'GET',
+      })).then(json => {
+          if (json.error_code === 0) {
+              const admins = {};
+              for (let i = 0; i < json.data.length; i++) {
+                  admins[json.data[i].user_id] = json.data[i].nickname;
+              }
+              this.setState({
+                  admins,
+              });
+          } else {
+              alert(json.error_msg);
+          }
+      });
+  }
+
+  getAdmins(){
+      return this.state.admins;
+  }
+
+  showReplayModal(e) {
+      const id = e.currentTarget.dataset.id;
+      this.props.dispatch(
+          showModal(
+              <ReplayModal
+                  submit={this.replay}
+                  getAdmins={this.getAdmins}
+                  id={id}
+              />
+          )
+      );
+  }
+
+  replay(e) {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      this.props.dispatch(fetchAction({
+          type: BBS_COMMENT_REPLY,
+          method: 'POST',
+          formData,
+      })).then((json) => {
+          if (json.error_code === 0) {
+              this.props.dispatch(hideModal(true));
+              alert('回复成功');
+          } else {
+              alert(json.data.error_msg);
+          }
+      });
+  }
+
   verify(e) {
     const id = e.currentTarget.dataset.id;
     const formData = new FormData;
@@ -203,6 +274,7 @@ class Reply extends Component {
       }
     });
   }
+
   typeChange(e) {
     const value = +e.currentTarget.value;
     const customSearch = Object.assign({}, this.state.dataTable.customSearch, { value });

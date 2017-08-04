@@ -164,7 +164,7 @@ class Container extends Component {
           fontClass: 'fa-comment',
         },
         {
-          title: '评论',
+          title: '社区评论',
           url: '/reply',
           tag: 'bbs',
           fontClass: 'fa-comments',
@@ -176,7 +176,7 @@ class Container extends Component {
           fontClass: 'fa-users',
         },
         {
-          title: '板块',
+          title: '社区版块',
           url: '/section',
           tag: 'bbs',
           fontClass: 'fa-qrcode',
@@ -192,13 +192,13 @@ class Container extends Component {
           url: '/bbsconfig',
           tag: 'bbs',
           fontClass: 'fa-gears',
-        },
+        },/*
         {
           title: '拒审原因',
           url: '/bbsblock',
           tag: 'bbs',
           fontClass: 'fa-ban',
-        },
+        },*/
           {
               title: '社区任务',
               url: '/bbstask/1',
