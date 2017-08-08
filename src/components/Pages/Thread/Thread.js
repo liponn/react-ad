@@ -224,6 +224,17 @@ class Thread extends Component {
               regex: false,
             },
           },
+            {
+                name: 'isofficial',
+                cname: '官方帖',
+                type: 'check',
+                searchable: false,
+                orderable: true,
+                search: {
+                    value: '',
+                    regex: false,
+                },
+            },
           {
             name: 'comment_num',
             cname: '评论数',
