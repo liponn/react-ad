@@ -270,7 +270,7 @@ export const BBS_GROUP_TASK_PUT = 'BBS_GROUP_TASK_PUT';
 export const BBS_GROUP_TASK_INFO = 'BBS_GROUP_TASK_INFO';
 export const BBS_TASK_OFFLINE = 'BBS_TASK_OFFLINE';
 export const BBS_TASK_ONLINE = 'BBS_TASK_ONLINE';
-export const BBS_TASK_DEL = 'BBS_TASK_ONLINE';
+export const BBS_TASK_DEL = 'BBS_TASK_DEL';
 
 // 锁屏问候语
 export const WELCOME_DT_LIST = 'WELCOME_DT_LIST';

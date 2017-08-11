@@ -487,7 +487,7 @@ apiList[BBS_BLOCK_LIST] = '/bbs/replay/list';
 
 apiList[BBS_TASK_DT_LIST] = '/bbs/task/dt-list';
 apiList[BBS_TASK_DT_ADD] = '/bbs/task/dt-add';
-apiList[BBS_TASK_DT_DEL] = '/bbs/task/dt-delete';
+apiList[BBS_TASK_DT_DEL] = '/bbs/task/group-del';
 apiList[BBS_TASK_INFO] = '/bbs/task/detail';
 apiList[BBS_TASK_ADD] = '/bbs/task/add';
 apiList[BBS_TASK_UPDATE] = '/bbs/task/put';

@@ -123,8 +123,11 @@ class BbsTaskList extends Component{
         const id = $(e.target).data('id');
         const formData = new FormData;
         formData.append('id', id);
-        this.props.dispatch(commonFetch(BBS_TASK_ONLINE, 'POST', formData))
-            .then(() => (this.freshGroupTaskList()));
+        this.props.dispatch(fetchAction({
+            type:BBS_TASK_ONLINE,
+            method:'POST',
+            formData
+        })).then(() => (this.freshGroupTaskList()));
     }
 
     taskOffline(e) {
