@@ -757,6 +757,7 @@ const bannerTypes = {
   annualreport: '运营报告_PC',
   annualreport_app: '运营报告_APP',
   jifen: '积分活动',
+  index_icon:'首页图标',
 }
 
 const channelStatusTypes = {

@@ -208,14 +208,18 @@ class Banner extends Component {
                 {this.props.path !== 'ShareConfig'
                   && this.props.type !== 'pop'
                   && this.props.type !== 'discover_feature'
+                  &&  this.props.type !== 'index_icon'
                   && <td>埋点说明</td>
                 }
+
                 {this.props.path === 'ShareConfig' && this.props.type === 'share' && <th>tag</th>}
                 {this.props.path === 'ShareConfig' && <th>标题</th>}
                 {this.props.path === 'ShareConfig' && <th>分享内容</th>}
                 {this.props.path === 'ShareConfig' && <th>分享时说明</th>}
+                {this.props.type === 'index_icon' && <th>名称</th>}
                 {this.props.type === 'pop' && <th>标题</th>}
                 {this.props.type === 'discover_feature' && <th>名称</th>}
+                {this.props.type === 'index_icon' && <th>附标题</th>}
                 {this.props.type === 'pop' && <th>附标题</th>}
                 <th>图片预览</th>
                 {this.props.type === 'cast_finish' && <th>跳转类型</th>}
@@ -234,11 +238,13 @@ class Banner extends Component {
             {items.map((item, index) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
-                {this.props.path !== 'ShareConfig' && this.props.type !== 'pop' && <td>{item.name}</td>}
+                {this.props.path !== 'ShareConfig' && this.props.type !== 'pop' && this.props.type !== 'index_icon' && <td>{item.name}</td>}
                 {this.props.path === 'ShareConfig' && this.props.type === 'share' && <td>{item.tag}</td>}
                 {this.props.path === 'ShareConfig' && <td>{item.name}</td>}
                 {this.props.path === 'ShareConfig' && <td>{item.desc}</td>}
                 {this.props.path === 'ShareConfig' && <td>{item.short_desc}</td>}
+                {this.props.type === 'index_icon' && <td>{item.name}</td>}
+                {this.props.type === 'index_icon' && <td>{item.short_desc}</td>}
                 {this.props.type === 'pop' && <td>{item.name}</td>}
                 {this.props.type === 'pop' && <td>{item.short_desc}</td>}
                 <td><ImgBox src={item.img_path} /></td>
