@@ -245,8 +245,8 @@ class Feefloworder extends Component {
                     <td>{item.amount_of}</td>
                     <td>{item.created_at}</td>
                     <td>
-                        <button className="btn btn-sm btn-success-outline" data-id={item.id} data-index={index} onClick={this.showUpdate}>修改状态</button>
-                        <button className="btn btn-sm btn-success-outline" data-id={item.id} data-index={index} onClick={this.OrderRepair}>补单</button>
+                        <button hidden={item.order_status == 3 ? 'hidden':''} className="btn btn-sm btn-success-outline" data-id={item.id} data-index={index} onClick={this.showUpdate}>修改状态</button>
+                        <button hidden={item.order_status == 2 && item.repair_status == 0 ? '': 'hidden'} className="btn btn-sm btn-success-outline" data-id={item.id} data-index={index} onClick={this.OrderRepair}>补单</button>
                     </td>
                 </tr>
             ))}

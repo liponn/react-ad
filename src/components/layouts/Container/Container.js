@@ -229,23 +229,6 @@ class Container extends Component {
           fontClass: 'fa-gear',
         },
       ],
-    }, {
-      title: '后台管理',
-      isFold: true,
-      subItems: [
-        {
-          title: '用户组',
-          url: '/admin',
-          tag: 'admin',
-          fontClass: 'fa-users',
-        },
-        {
-          title: '权限组',
-          url: '/privilege',
-          tag: 'privilege',
-          fontClass: 'fa-user-secret',
-        },
-      ],
     },{
       title: '话费流量',
       isFold: true,
@@ -260,6 +243,23 @@ class Container extends Component {
           title: '话费流量订单列表',
           url: '/feefloworder/1',
           tag: 'activity',
+          fontClass: 'fa-user-secret',
+        },
+      ],
+    }, {
+      title: '后台管理',
+      isFold: true,
+      subItems: [
+        {
+          title: '用户组',
+          url: '/admin',
+          tag: 'admin',
+          fontClass: 'fa-users',
+        },
+        {
+          title: '权限组',
+          url: '/privilege',
+          tag: 'privilege',
           fontClass: 'fa-user-secret',
         },
       ],
