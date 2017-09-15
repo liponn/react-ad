@@ -230,7 +230,7 @@ class BbsTaskList extends Component{
                                             onClick={this.showTaskAddModal}
                                             className="btn btn-sm btn-info-outline"
                                         >
-                                            <i data-id={item.id} className="fa fa-plus"></i>子任务
+                                            <i data-id={item.id} data-index={index} className="fa fa-plus"></i>子任务
                                         </button>
                                         <button
                                             hidden={item.tasks.length}
