@@ -100,7 +100,7 @@ class BbsTaskList extends Component{
 
     showTaskAddModal(e){
         const id = +$(e.target).data('id');
-        const index = $(e.target).data('index');
+        const index = +$(e.target).data('index');
         const aliasName = this.taskGroupInfo[index].alias_name;
         const modalView = (
             <TaskAddModal  submit={this.saveTask} aliasName={aliasName} types={this.props.taskTriggerTypes} groupId={id} />
@@ -230,7 +230,7 @@ class BbsTaskList extends Component{
                                             onClick={this.showTaskAddModal}
                                             className="btn btn-sm btn-info-outline"
                                         >
-                                            <i data-id={item.id} className="fa fa-plus"></i>子任务
+                                            <i data-id={item.id} data-index={index} className="fa fa-plus"></i>子任务
                                         </button>
                                         <button
                                             hidden={item.tasks.length}
