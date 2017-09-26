@@ -221,6 +221,8 @@ class Banner extends Component {
                 {this.props.type === 'discover_feature' && <th>名称</th>}
                 {this.props.type === 'index_icon' && <th>附标题</th>}
                 {this.props.type === 'pop' && <th>附标题</th>}
+                {this.props.type === 'index_icon' && <th>TAG</th>}
+                {this.props.type === 'index_icon' && <th>是否分享</th>}
                 {this.props.type !== 'index_icon' && <th>图片预览</th>}
                 {this.props.type === 'index_icon' && <th>未选中图</th>}
                 {this.props.type === 'index_icon' && <th>选中图</th>}
@@ -247,8 +249,11 @@ class Banner extends Component {
                 {this.props.path === 'ShareConfig' && <td>{item.short_desc}</td>}
                 {this.props.type === 'index_icon' && <td>{item.name}</td>}
                 {this.props.type === 'index_icon' && <td>{item.short_desc}</td>}
+                {this.props.type === 'index_icon' && <td>{item.tag}</td>}
+                {this.props.type === 'index_icon' && <td>{item.short_des ? "是" : "否"}</td>}
                 {this.props.type === 'pop' && <td>{item.name}</td>}
                 {this.props.type === 'pop' && <td>{item.short_desc}</td>}
+
                 <td><ImgBox src={item.img_path} /></td>
                 {this.props.type === 'index_icon' && <td><ImgBox src={item.desc} /></td>}
                 {this.props.type === 'discover' && <td>{getConfig('discoverTypes', item.type) || '——'}</td>}
