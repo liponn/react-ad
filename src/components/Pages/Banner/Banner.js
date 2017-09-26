@@ -250,7 +250,7 @@ class Banner extends Component {
                 {this.props.type === 'index_icon' && <td>{item.name}</td>}
                 {this.props.type === 'index_icon' && <td>{item.short_desc}</td>}
                 {this.props.type === 'index_icon' && <td>{item.tag}</td>}
-                {this.props.type === 'index_icon' && <td>{item.short_des ? "是" : "否"}</td>}
+                {this.props.type === 'index_icon' && <td>{item.short_des == 1 ? "是" : "否"}</td>}
                 {this.props.type === 'pop' && <td>{item.name}</td>}
                 {this.props.type === 'pop' && <td>{item.short_desc}</td>}
 
