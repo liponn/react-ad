@@ -221,7 +221,9 @@ class Banner extends Component {
                 {this.props.type === 'discover_feature' && <th>名称</th>}
                 {this.props.type === 'index_icon' && <th>附标题</th>}
                 {this.props.type === 'pop' && <th>附标题</th>}
-                <th>图片预览</th>
+                {this.props.type !== 'index_icon' && <th>图片预览</th>}
+                {this.props.type === 'index_icon' && <th>未选中图</th>}
+                {this.props.type === 'index_icon' && <th>选中图</th>}
                 {this.props.type === 'cast_finish' && <th>跳转类型</th>}
                 {this.props.type === 'pop' && <th>跳转类型</th>}
                 {this.props.type === 'discover' && <th>tag</th>}
@@ -248,6 +250,7 @@ class Banner extends Component {
                 {this.props.type === 'pop' && <td>{item.name}</td>}
                 {this.props.type === 'pop' && <td>{item.short_desc}</td>}
                 <td><ImgBox src={item.img_path} /></td>
+                {this.props.type === 'index_icon' && <td><ImgBox src={item.desc} /></td>}
                 {this.props.type === 'discover' && <td>{getConfig('discoverTypes', item.type) || '——'}</td>}
                 {this.props.type === 'cast_finish' && <td>{getConfig('popTypes', item.type) || '不跳转'}</td>}
                 {this.props.type === 'pop' && <td>{getConfig('popTypes', item.type) || '不跳转'}</td>}

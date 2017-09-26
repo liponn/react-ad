@@ -65,7 +65,9 @@ class AddModal extends Component {
           <input type="hidden" name="id" value={this.props.item.id} />
           <input type="hidden" name="position" value={this.props.item.position || this.props.type} />
           {fileds}
-          <AttachmentInput labelName="banner图片" position={`banner_${this.props.item.position}`} name="img_path" defaultValue={this.props.item.img_path} />
+          <AttachmentInput labelName={this.props.type === 'index_icon' ? "未选中图" : "banner图片" } position={`banner_${this.props.item.position}`} name="img_path" defaultValue={this.props.item.img_path} />
+          {this.props.type === 'index_icon' && <AttachmentInput labelName="选中图" position={`banner_${this.props.item.position}`} name="desc" defaultValue={this.props.item.desc} />}
+
           <Input labelName="跳转链接" name="url" defaultValue={this.props.item.url} />
           <DateTimeInput labelName="开始时间" name="start" defaultValue={this.props.item.start} />
           <DateTimeInput labelName="结束时间" name="end" defaultValue={this.props.item.end} />
