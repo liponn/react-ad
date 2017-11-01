@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { commonFetch, fetchAction } from '../../../actions/omg';
 import { showModal, hideModal } from '../../../actions/modal';
-import { BBS_TASK_INFO,BBS_TASK_TRIGGER_TYPES,BBS_TASK_DT_UPDATE } from '../../../constants';
+import { BBS_TASK_INFO,BBS_TASK_TRIGGER_TYPES,BBS_TASK_UPDATE } from '../../../constants';
 import { Card, Text, Link } from '../../tools';
 import TaskAddModal from '../../modals/TaskAddModal';
 import { getConfig } from '../../../config/omg';
@@ -49,7 +49,7 @@ class BbsTask extends Component {
         e.preventDefault();
         const formData = new FormData(e.target);
         this.props.dispatch(fetchAction({
-            type: BBS_TASK_DT_UPDATE,
+            type: BBS_TASK_UPDATE,
             method: 'POST',
             formData,
         })).then(json => {
