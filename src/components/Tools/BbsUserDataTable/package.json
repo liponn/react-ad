@@ -1,0 +1,6 @@
+{
+  "name": "BbsUserDataTable",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./BbsUserDataTable.js"
+}
