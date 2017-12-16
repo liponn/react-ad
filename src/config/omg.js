@@ -191,8 +191,10 @@ import {
   BBS_USER_ADMIN,
   BBS_USER_UNADMIN,
   BBS_USER_ADMIN_LIST,
+  BBS_USER_SEARCH_LIST,
 
-  BBS_COMMENT_DT_ADD,
+
+BBS_COMMENT_DT_ADD,
   BBS_COMMENT_DT_DEL,
   BBS_COMMENT_DT_LIST,
   BBS_COMMENT_DT_UPDATE,
@@ -461,6 +463,7 @@ apiList[BBS_USER_BLOCK] = '/bbs/user/to-black';
 apiList[BBS_USER_ADMIN] = '/bbs/user/add';
 apiList[BBS_USER_UNADMIN] = '/bbs/user/del';
 apiList[BBS_USER_ADMIN_LIST] = '/bbs/user/list';
+apiList[BBS_USER_SEARCH_LIST] = '/bbs/user/search-list';
 
 apiList[BBS_COMMENT_DT_ADD] = '/bbs/comment/dt-add';
 apiList[BBS_COMMENT_DT_UPDATE] = '/bbs/comment/dt-update';

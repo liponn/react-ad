@@ -184,6 +184,7 @@ class Thread extends Component {
             name: 'istop',
             cname: '置顶',
             type: 'check',
+            tableType:'radio',
             searchable: false,
             orderable: true,
             search: {
@@ -195,6 +196,7 @@ class Thread extends Component {
             name: 'isgreat',
             cname: '加精',
             type: 'none',
+            tableType:'radio',
             searchable: false,
             orderable: true,
             search: {
@@ -206,6 +208,7 @@ class Thread extends Component {
             name: 'ishot',
             cname: '最热',
             type: 'none',
+            tableType: 'radio',
             searchable: false,
             orderable: true,
             search: {
@@ -217,6 +220,7 @@ class Thread extends Component {
             name: 'isverify',
             cname: '审核',
             type: 'check',
+            tableType: 'radio',
             searchable: false,
             orderable: true,
             search: {
@@ -228,6 +232,7 @@ class Thread extends Component {
                 name: 'isofficial',
                 cname: '官方帖',
                 type: 'check',
+                tableType: 'radio',
                 searchable: false,
                 orderable: true,
                 search: {

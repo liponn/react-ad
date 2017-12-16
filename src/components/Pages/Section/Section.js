@@ -17,7 +17,7 @@ class Section extends Component {
       errorMsg: '',
       addErrorMsg: '',
       dataTable: {
-        title: '板块',
+        title: '版块',
         listType: BBS_SECTION_DT_LIST,
         updateType: BBS_SECTION_DT_UPDATE,
         addType: BBS_SECTION_DT_ADD,
@@ -59,6 +59,18 @@ class Section extends Component {
             },
           },
           {
+              name: 'icon',
+              cname: '图标',
+              type: 'attachment',
+              tableType:'img_box',
+              searchable: false,
+              orderable: false,
+              search: {
+                  value: '',
+                  regex: false,
+              },
+          },
+          {
             name: 'description',
             cname: '描述',
             type: 'textarea',
@@ -73,6 +85,7 @@ class Section extends Component {
             name: 'isuse',
             cname: '是否可用',
             type: 'none',
+            tableType:'radio',
             searchable: true,
             orderable: true,
             search: {
@@ -93,7 +106,7 @@ class Section extends Component {
           },
           {
             name: 'sort',
-            cname: '权重',
+            cname: '显示顺序',
             type: 'text',
             searchable: false,
             orderable: true,
@@ -106,6 +119,7 @@ class Section extends Component {
             name: 'isban',
             cname: '禁止发帖',
             type: 'check',
+            tableType:'radio',
             searchable: false,
             orderable: true,
             search: {
@@ -129,7 +143,7 @@ class Section extends Component {
         data-type="isuse"
         data-tvalue={item.isuse ? 0 : 1}
         onClick={this.toggleEnable}
-      >通过</button>,
+      >{item.isuse ? "隐藏" : "显示"}</button>,
     ];
   }
   toggleEnable(e) {
