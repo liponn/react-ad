@@ -197,7 +197,7 @@ export const HONGBAO_DISABLE = 'HONGBAO_DISABLE';
 export const HONGBAO_DEL = 'HONGBAO_DEL';
 
 // 论坛#帖子
-export const BBS_THREAD_DT_LIST = 'BBS_THREAD_DT_LIST';
+export const BBS_THREAD_LIST = 'BBS_THREAD_LIST';
 export const BBS_THREAD_DT_DEL = 'BBS_THREAD_DT_DEL';
 export const BBS_THREAD_DT_ADD = 'BBS_THREAD_DT_ADD';
 export const BBS_THREAD_DT_UPDATE = 'BBS_THREAD_DT_UPDATE';

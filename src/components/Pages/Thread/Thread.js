@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { commonFetch, fetchAction } from '../../../actions/omg';
 import { showModal, hideModal } from '../../../actions/modal';
-import { ACTIVITY_INFO, ACTIVITY_RULE_LIST, ACTIVITY_AWARD_LIST, ACTIVITY_RULE_DEL, ACTIVITY_AWARD_ADD, ACTIVITY_AWARD_DEL, ACTIVITY_PUT, ACTIVITY_INVITE_AWARD_ADD, ACTIVITY_INVITE_AWARD_DEL, ACTIVITY_INVITE_AWARD_LIST } from '../../../constants';
+import { BBS_THREAD_LIST } from '../../../constants';
 import { Radio,Pagination } from '../../tools';
 import ActivityAddModal from '../../modals/ActivityAddModal';
 import { getConfig } from '../../../config/omg';
@@ -10,38 +10,46 @@ import { getConfig } from '../../../config/omg';
 class Thread extends Component {
     constructor(props) {
         super(props);
-        this.freshActivityInfo = this.freshActivityInfo.bind(this);
-        this.updateActivity = this.updateActivity.bind(this);
+        this.list = this.list.bind(this);
+        //this.freshThreadList = this.freshThreadList.bind(this);
+        //this.updateThread = this.updateThread.bind(this);
 
-        const awardTypes = getConfig('awardTypes');
-        const activityTriggers = getConfig('activityTriggers');
-        const frequencyTypes = getConfig('frequencyTypes');
-        const ruleTypes = getConfig('ruleTypes');
-        const ruleFileds = getConfig('ruleFileds');
-        this.state = {
-            awardTypes,
-            activityTriggers,
-            frequencyTypes,
-            ruleTypes,
-            ruleFileds,
-            addAwardErrorMsg: '',
-        };
     }
     componentDidMount() {
-        this.freshActivityInfo();
+        this.list();
     }
-    // 刷新活动信息
-    freshActivityInfo() {
-        this.props.dispatch(fetchAction({
-            type: ACTIVITY_INFO,
-            suffix: `/${this.props.activityId}`,
-            key: this.props.activityId,
-        }));
+
+    list(){
+        const queryObj = {};
+        const isVerify = this.props.isVerify || 0;
+        switch (isVerify){
+            case 0:
+                this.verifyName = "noverify";
+                break;
+            case 1:
+                this.verifyName = "verifyed";
+                break;
+            case 2:
+                this.verifyName = "refused";
+                break;
+            default:
+                this.verifyName = "noverify";
+                break;
+        }
+        queryObj[`data[filter][isverify]`] = isVerify;
+        const requert = {
+            type:BBS_THREAD_LIST,
+            key:isVerify,
+            queryObj
+
+        }
+        this.props.dispatch(fetchAction(requert));
     }
+
 
 
     // 更新活动
-    updateActivity(e) {
+    /* updateActivity(e) {
         e.preventDefault();
         const formData = new FormData(e.target);
         this.props.dispatch(fetchAction({
@@ -55,7 +63,7 @@ class Thread extends Component {
             }
         });
     }
-    /*// 更新活动
+    // 更新活动
     showUpdateActivity() {
         if (!this.activity || !this.activity.id) {
             alert('获取活动详情失败');
@@ -66,12 +74,12 @@ class Thread extends Component {
 
 
     render() {
-        const activity = this.props.activityList[this.props.activityId] || {};
-        this.activity = activity;
+        const threadList = this.props.threadList[this.props.isVerify] || {};
+        this.threadList = threadList;
 
         const updateActivityBtn = (
             <button
-                onClick={this.showUpdateActivity}
+                /*onClick={this.showUpdateActivity}*/
                 className="btn btn-sm btn-info pull-right"
             >
                 <i className="fa fa-edit">编辑</i>
@@ -84,6 +92,7 @@ class Thread extends Component {
             <Radio
                 labelName="全部"
                 name="userfilter"
+                checked={}
                 value="all"
             />
             <Radio
@@ -106,8 +115,8 @@ class Thread extends Component {
                             <div className="pull-left">
                                 帖子管理
                                 <span className="total">
-                  (123/20)
-                </span>
+                                    (123/20)
+                                </span>
                             </div>
                             <div className="pull-left m-l-1">
                                 <select className="custom-select">
@@ -125,6 +134,27 @@ class Thread extends Component {
                             </div>
                         </h4>
                     </div>
+                    <table className="table table-bordered m-b-0 table-hover data-table">
+                        <thead>
+                        <tr>
+                            <th>字段名</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td>字段值</td>
+                                <td>
+                                    <button
+                                        className="btn btn-info-outline btn-sm"
+                                    >编辑</button>
+                                    <button
+                                        className="btn btn-danger-outline btn-sm"
+                                    >删除</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -134,8 +164,6 @@ class Thread extends Component {
 
 Thread.propTypes = {
     dispatch: PropTypes.func.isRequired,
-    activityList: PropTypes.object.isRequired,
-    activityId: PropTypes.number.isRequired,
 };
 
 Thread.defaultProps = {
@@ -143,14 +171,10 @@ Thread.defaultProps = {
 
 export default connect(state => {
     const { omg } = state;
-    const activityList = omg[ACTIVITY_INFO] || {};
-    const ruleList = omg[ACTIVITY_RULE_LIST] || {};
-    const awardList = omg[ACTIVITY_AWARD_LIST] || {};
-    const inviteAwardList = omg[ACTIVITY_INVITE_AWARD_LIST] || {};
+    const threadList = omg[BBS_THREAD_LIST] || {};
+
+
     return {
-        activityList,
-        ruleList,
-        awardList,
-        inviteAwardList,
+        threadList,
     };
 })(Thread);

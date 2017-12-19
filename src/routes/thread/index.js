@@ -5,7 +5,8 @@ export default {
 
   path: '/thread',
 
-  action() {
+  action({ context }) {
+    context.setTitle('运营后台 | 社区管理');
     return <Thread />;
   },
 };

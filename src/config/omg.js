@@ -166,7 +166,7 @@ import {
   HONGBAO_DEL,
 
   BBS_THREAD_DT_ADD,
-  BBS_THREAD_DT_LIST,
+  BBS_THREAD_LIST,
   BBS_THREAD_DT_DEL,
   BBS_THREAD_DT_UPDATE,
   BBS_THREAD_TOGGLE_STATUS,
@@ -195,7 +195,7 @@ import {
   BBS_USER_SEARCH_LIST,
 
 
-BBS_COMMENT_DT_ADD,
+  BBS_COMMENT_DT_ADD,
   BBS_COMMENT_DT_DEL,
   BBS_COMMENT_DT_LIST,
   BBS_COMMENT_DT_UPDATE,
@@ -438,7 +438,7 @@ apiList[HONGBAO_ENABLE] = '/money/up-status';
 apiList[HONGBAO_DISABLE] = '/money/down-status';
 apiList[HONGBAO_DEL] = '/money/delete';
 
-apiList[BBS_THREAD_DT_LIST] = '/bbs/thread/dt-list';
+apiList[BBS_THREAD_LIST] = '/bbs/thread/list';
 apiList[BBS_THREAD_DT_ADD] = '/bbs/thread/dt-add';
 apiList[BBS_THREAD_DT_DEL] = '/bbs/thread/dt-delete';
 apiList[BBS_THREAD_DT_UPDATE] = '/bbs/thread/dt-update';
