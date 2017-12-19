@@ -296,8 +296,6 @@ class BbsUserDataTable extends Component {
                   <div className="pull-left m-l-1">
                       <select name="searchType"
                           className="custom-select"
-                          /*defaultValue={this.state.length}
-                           onChange={this.changeLength}*/
                       >
                           <option value="user_id">用户ID</option>
                           <option value="phone">手机号</option>
@@ -305,8 +303,6 @@ class BbsUserDataTable extends Component {
                       </select>&nbsp;
                       <select name="searchPattern"
                           className="custom-select"
-                          /*defaultValue={this.state.length}
-                           onChange={this.changeLength}*/
                       >
                           <option value="like">模糊查询</option>
                           <option value="equal">精确查询</option>
@@ -413,6 +409,35 @@ class BbsUserDataTable extends Component {
             })}
             </tbody>
           </table>
+          <div className="card-block clearfix">
+                <h4 className="card-title">
+                    <div className="pull-left">
+                        {this.state.title}
+                        <span className="total">
+                  ({this.state.start + items.length}/{filterNum})
+                </span>
+                    </div>
+                    <div hidden={filterNum <= this.state.length} className="pull-left m-l-1">
+                        <select
+                            className="custom-select"
+                            defaultValue={this.state.length}
+                            onChange={this.changeLength}
+                        >
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="80">80</option>
+                        </select>
+                    </div>
+                    <div className="pull-left">
+                        <Pagination
+                            onClick={this.changePage}
+                            currentPage={parseInt(this.state.start / this.state.length, 10) + 1}
+                            lastPage={Math.ceil(filterNum / this.state.length)}
+                            unurl
+                        />
+                    </div>
+                </h4>
+            </div>
         </div>
       </div>
     );

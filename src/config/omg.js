@@ -187,6 +187,7 @@ import {
   BBS_USER_DT_DEL,
   BBS_USER_DT_LIST,
   BBS_USER_DT_UPDATE,
+  BBS_USER_UPDATE,
   BBS_USER_UNBLOCK,
   BBS_USER_ADMIN,
   BBS_USER_UNADMIN,
@@ -455,6 +456,7 @@ apiList[BBS_SECTION_OPEN] = '/bbs/section/open';
 apiList[BBS_SECTION_LIST] = '/bbs/section/list';
 
 apiList[BBS_USER_DT_UPDATE] = '/bbs/user/dt-update';
+apiList[BBS_USER_UPDATE] = '/bbs/user/put';
 apiList[BBS_USER_UNBLOCK] = '/bbs/user/to-user';
 apiList[BBS_USER_DT_LIST] = '/bbs/user/dt-list';
 apiList[BBS_USER_DT_DEL] = '/bbs/user/dt-delete';

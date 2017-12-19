@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchAction } from '../../../actions/omg';
-import { BBS_USER_ADMIN, BBS_USER_UNADMIN, BBS_USER_BLOCK, BBS_USER_UNBLOCK, BBS_USER_DT_UPDATE, BBS_USER_DT_DEL, BBS_USER_DT_ADD , BBS_USER_DT_LIST, BBS_USER_SEARCH_LIST
+import { BBS_USER_ADMIN,BBS_USER_UPDATE, BBS_USER_UNADMIN, BBS_USER_BLOCK, BBS_USER_UNBLOCK, BBS_USER_DT_UPDATE, BBS_USER_DT_DEL, BBS_USER_DT_ADD , BBS_USER_DT_LIST, BBS_USER_SEARCH_LIST
 } from '../../../constants';
 import { BbsUserDataTable, Radio } from '../../tools';
 
@@ -13,6 +13,7 @@ class Bbsuser extends Component {
     this.toggleBlock = this.toggleBlock.bind(this);
     this.toggleAdmin = this.toggleAdmin.bind(this);
     this.getBtns = this.getBtns.bind(this);
+    this.getUserTypes = this.getUserTypes.bind(this);
     this.state = {
       name: '',
       alias_name: '',
@@ -23,7 +24,7 @@ class Bbsuser extends Component {
         title: '论坛用户',
         identify: 0,
         listType: BBS_USER_SEARCH_LIST,
-        updateType: BBS_USER_DT_UPDATE,
+        updateType: BBS_USER_UPDATE,
         addType: BBS_USER_DT_ADD,
         deleteType: BBS_USER_DT_DEL,
         timeStamp: (new Date).getTime(),
@@ -124,9 +125,10 @@ class Bbsuser extends Component {
           {
             name: 'isadmin',
             cname: '用户类型',
-            type: 'none',
+            type: 'select',
             tableType:'radio3',
             searchable: false,
+            getOptions:this.getUserTypes,
             orderable: false,
             search: {
               value: '',
@@ -160,6 +162,15 @@ class Bbsuser extends Component {
       >马甲</button>,
     ];
   }
+
+  getUserTypes() {
+      return {
+          0:"普通用户",
+          1:"官方号",
+          2:"马甲号"
+      };
+  }
+
   toggleBlock(e) {
     const id = e.currentTarget.dataset.id;
     const typeValue = +e.currentTarget.dataset.tvalue;
