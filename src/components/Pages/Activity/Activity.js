@@ -244,6 +244,7 @@ class Activity extends Component {
     ), { priority: 0 });
     const inviteAwards = this.props.inviteAwardList[this.props.activityId] || [];
     const rules = this.props.ruleList[this.props.activityId] || [];
+    console.log(rules);
     const updateActivityBtn = (
       <button
         onClick={this.showUpdateActivity}

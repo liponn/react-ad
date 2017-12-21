@@ -2,52 +2,76 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { commonFetch, fetchAction } from '../../../actions/omg';
 import { showModal, hideModal } from '../../../actions/modal';
-import { BBS_THREAD_LIST } from '../../../constants';
-import { Radio,Pagination } from '../../tools';
+import { BBS_THREAD_LIST,BBS_SECTION_LIST } from '../../../constants';
+import { Radio,Pagination,DateTimeInput } from '../../tools';
 import ActivityAddModal from '../../modals/ActivityAddModal';
 import { getConfig } from '../../../config/omg';
 
 class Thread extends Component {
     constructor(props) {
         super(props);
+        this.freshSectionList = this.freshSectionList.bind(this);
         this.list = this.list.bind(this);
+        this.typeChange = this.typeChange.bind(this);
+        this.changeLength = this.changeLength.bind(this);
+        this.changePage = this.changePage.bind(this);
         //this.freshThreadList = this.freshThreadList.bind(this);
         //this.updateThread = this.updateThread.bind(this);
-
+        this.state = {
+            isVerify:0
+        }
     }
     componentDidMount() {
+        this.freshSectionList();
         this.list();
     }
 
     list(){
         const queryObj = {};
-        const isVerify = this.props.isVerify || 0;
-        switch (isVerify){
-            case 0:
-                this.verifyName = "noverify";
-                break;
-            case 1:
-                this.verifyName = "verifyed";
-                break;
-            case 2:
-                this.verifyName = "refused";
-                break;
-            default:
-                this.verifyName = "noverify";
-                break;
-        }
+        const isVerify = this.state.isVerify || 0;
+        const page = this.state.page || 1;
+        const pageNum = this.state.pageNum || 20;
+        queryObj[`page`] = page;
         queryObj[`data[filter][isverify]`] = isVerify;
+        if(pageNum !== 20){
+            queryObj[`data[pagenum]`] = pageNum;
+        }
         const requert = {
             type:BBS_THREAD_LIST,
             key:isVerify,
             queryObj
-
         }
         this.props.dispatch(fetchAction(requert));
     }
 
+    typeChange(e){
+        const value = e.target.value;
+        this.setState({
+            isVerify:value,
+            page:1,
+        },() => {this.list()}
+        );
+    }
 
+    changeLength(e){
+        const length = e.target.value;
+        this.setState({
+            pageNum:length
+        },() => {this.list()});
+    }
 
+    changePage(page){
+        this.setState({
+            page:page
+        },()=>{this.list()});
+    }
+
+    freshSectionList() {
+        this.props.dispatch(fetchAction({
+            type: BBS_SECTION_LIST,
+            key: 'type',
+        }));
+    }
     // 更新活动
     /* updateActivity(e) {
         e.preventDefault();
@@ -74,9 +98,10 @@ class Thread extends Component {
 
 
     render() {
-        const threadList = this.props.threadList[this.props.isVerify] || {};
-        this.threadList = threadList;
-
+        const threadList = this.props.threadList[this.state.isVerify] || {};
+        const sectionList = this.props.sectionList || {};
+        const sections = sectionList.type || [];
+        const items = threadList.data;
         const updateActivityBtn = (
             <button
                 /*onClick={this.showUpdateActivity}*/
@@ -86,40 +111,42 @@ class Thread extends Component {
             </button>
         );
 
-
         return (
         <div>
             <Radio
-                labelName="全部"
+                labelName="未审核"
                 name="userfilter"
-                checked={}
-                value="all"
+                checked={items && items[0].isverify === 0}
+                onChange={this.typeChange}
+                value={0}
             />
             <Radio
-                labelName="马甲"
+                labelName="已审核"
                 name="userfilter"
-                value="admin"
+                checked={items && items[0].isverify === 1}
+                onChange={this.typeChange}
+                value={1}
             />
             <Radio
-                labelName="已拉黑"
+                labelName="已拒绝"
                 name="userfilter"
-                value="black"
-               /* checked=
-                onChange=*/
+                value={2}
+                checked={items && items[0].isverify === 2}
+                onChange={this.typeChange}
             />
             <hr />
             <div>
                 <div className="card clearfix">
-                    <div className="card-block clearfix">
+                    <div className="clearfix">
                         <h4 className="card-title">
-                            <div className="pull-left">
+                            <div className="pull-left m-l-1">
                                 帖子管理
                                 <span className="total">
-                                    (123/20)
+                                    ({threadList.total}/{threadList.per_page})
                                 </span>
                             </div>
                             <div className="pull-left m-l-1">
-                                <select className="custom-select">
+                                <select className="custom-select" onChange={this.changeLength}>
                                     <option value="20">20</option>
                                     <option value="50">50</option>
                                     <option value="80">80</option>
@@ -127,11 +154,39 @@ class Thread extends Component {
                             </div>
                             <div className="pull-left">
                                 <Pagination
-                                /* currentPage={parseInt(this.state.start / this.state.length, 10) + 1}*/
-                                    /*lastPage={Math.ceil(filterNum / this.state.length)}*/
+                                    onClick={this.changePage}
+                                    currentPage={threadList.current_page}
+                                    lastPage={threadList.last_page}
                                     unurl
                                 />
                             </div>
+                        </h4>
+                    </div>
+                    <div className="clearfix">
+                        <h4 className="card-title">
+                            <form className="form-inline pull-left" onSubmit={this.changeSearch}>
+                                <div className="pull-left m-l-1 m-b-1">
+                                    <select className="custom-select">
+                                        {sections.map((item) => (
+                                            <option key={item.id} value={item.id}>{item.name}</option>
+                                        ))}
+                                    </select>&nbsp;
+                                    <DateTimeInput name="created_at" labelName="起始时间"/>
+                                    <DateTimeInput name="created_at" labelName="结束时间"/>
+                                </div>
+                                &nbsp;
+                                <input
+                                    className="form-control form-control-sm mr-sm-2"
+                                    type="text"
+                                    name="searchValue"
+                                    placeholder="搜索"
+                                />&nbsp;
+                                <button type="submit"
+                                        className="btn btn-sm btn-info-outline pull-right"
+                                >
+                                    <i className="fa fa-search">搜索</i>
+                                </button>
+                            </form>
                         </h4>
                     </div>
                     <table className="table table-bordered m-b-0 table-hover data-table">
@@ -155,6 +210,31 @@ class Thread extends Component {
                             </tr>
                         </tbody>
                     </table>
+                    <div className="card-block clearfix">
+                        <h4 className="card-title">
+                            <div className="pull-left">
+                                帖子管理
+                                <span className="total">
+                                    ({threadList.total}/{threadList.per_page})
+                                </span>
+                            </div>
+                            <div className="pull-left m-l-1">
+                                <select className="custom-select">
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                    <option value="80">80</option>
+                                </select>
+                            </div>
+                            <div className="pull-left">
+                                <Pagination
+                                    onClick={this.changePage}
+                                    currentPage={threadList.current_page}
+                                    lastPage={threadList.last_page}
+                                    unurl
+                                />
+                            </div>
+                        </h4>
+                    </div>
                 </div>
             </div>
         </div>
@@ -164,6 +244,7 @@ class Thread extends Component {
 
 Thread.propTypes = {
     dispatch: PropTypes.func.isRequired,
+    sectionList: PropTypes.object.isRequired,
 };
 
 Thread.defaultProps = {
@@ -172,9 +253,9 @@ Thread.defaultProps = {
 export default connect(state => {
     const { omg } = state;
     const threadList = omg[BBS_THREAD_LIST] || {};
-
-
+    const sectionList = omg[BBS_SECTION_LIST] || {};
     return {
+        sectionList,
         threadList,
     };
 })(Thread);
