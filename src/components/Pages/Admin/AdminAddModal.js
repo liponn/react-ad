@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Input, Select, Alert, Submit, Modal } from '../../tools';
 import { ADMIN_ADD } from '../../../constants';

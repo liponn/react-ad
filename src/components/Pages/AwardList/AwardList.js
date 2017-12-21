@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Card, Pagination, Input, Button } from '../../tools';
 import { fetchAction } from '../../../actions/omg';

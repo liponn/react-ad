@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { CHANNEL_DEL, CHANNEL_PUT, CHANNEL_ADD, CHANNEL_DT_LIST } from '../../../constants';
 import { DataTable } from '../../tools';

@@ -1,8 +1,10 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { analytics } from '../config';
 import { imgHost } from '../config'
 
 function Html({ title, description, style, script, children, state }) {
+
   return (
     <html className="no-js" lang="">
       <head>
@@ -51,7 +53,7 @@ function Html({ title, description, style, script, children, state }) {
 }
 
 Html.propTypes = {
-  title: PropTypes.string.isRequired,
+  title:  PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   style: PropTypes.string.isRequired,
   script: PropTypes.string,

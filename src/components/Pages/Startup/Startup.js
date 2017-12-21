@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ImgBox, Card, Radio, Status } from '../../tools';
 import { showModal, hideModal } from '../../../actions/modal';

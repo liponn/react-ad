@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { commonFetch, fetchAction } from '../../../actions/omg';
 import { getConfig } from '../../../config/omg';
@@ -7,6 +8,7 @@ import history from '../../../core/history';
 import { showModal, hideModal } from '../../../actions/modal';
 import ArticleAddModal from './ArticleAddModal';
 import { ARTICLE_LIST, ARTICLE_ADD, ARTICLE_PUT, ARTICLE_TYPE_LIST, ARTICLE_DEL, ARTICLE_RELEASE, ARTICLE_OFFLINE, ARTICLE_DOWN, ARTICLE_UP, TEMPLATE_HELP, TEMPLATE_DYNAMIC, TEMPLATE_MEDIA, TEMPLATE_CLASSROOM } from '../../../constants';
+import { DatePicker } from 'antd';
 
 class Article extends Component {
   constructor(props) {
@@ -236,11 +238,10 @@ class Article extends Component {
           />
         ))}
         <Link
-          className="btn btn-sm  btn-info-outline pull-right"
-          to="/article/type"
-        >
+          className="btn btn-sm  btn-info-outline pull-right" to="/article/type">
           <i className="fa fa-pencil">类型管理</i>
         </Link>
+        <DatePicker />
         <hr />
         {subItems.map(item => (
           <Radio

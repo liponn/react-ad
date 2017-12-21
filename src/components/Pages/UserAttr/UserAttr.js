@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { USERATTR_DT_LIST, USERATTR_DT_UPDATE, USERATTR_DT_ADD, USERATTR_DT_DEL } from '../../../constants';
 import { DataTable } from '../../tools';
