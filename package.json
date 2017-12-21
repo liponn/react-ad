@@ -46,7 +46,6 @@
     "antd": "^3.0.0"
   },
   "devDependencies": {
-    "antd": "^1.6.5",
     "assets-webpack-plugin": "^3.4.0",
     "autoprefixer": "^6.3.6",
     "babel-cli": "^6.9.0",
@@ -127,15 +126,15 @@
           "rewire"
         ]
       }
-    },
-    "plugins": [
-        ["antd",
-         { "style": true }
-     ]
-    ]
-
+    }
   },
   "eslintConfig": {
+    "plugins": [
+      [
+        "antd",
+        { "style": true }
+      ]
+    ],
     "parser": "babel-eslint",
     "extends": "airbnb",
     "globals": {

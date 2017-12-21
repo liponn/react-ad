@@ -120,15 +120,15 @@ module.exports =
   
   var _routes2 = _interopRequireDefault(_routes);
   
-  var _assets = __webpack_require__(243);
+  var _assets = __webpack_require__(242);
   
   var _assets2 = _interopRequireDefault(_assets);
   
-  var _configureStore = __webpack_require__(244);
+  var _configureStore = __webpack_require__(243);
   
   var _configureStore2 = _interopRequireDefault(_configureStore);
   
-  var _runtime = __webpack_require__(254);
+  var _runtime = __webpack_require__(253);
   
   var _config = __webpack_require__(16);
   
@@ -206,7 +206,7 @@ module.exports =
   // Register server-side rendering middleware
   // -----------------------------------------------------------------------------
   app.get('*', function () {
-    var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, res, next) {
+    var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, res, next) {
       var css, statusCode, data, store, html;
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
@@ -457,6 +457,7 @@ module.exports =
         _react2.default.createElement('link', { rel: 'stylesheet', type: 'text/css', href: '/css/picker/default.css' }),
         _react2.default.createElement('link', { rel: 'stylesheet', type: 'text/css', href: '/css/picker/default.date.css' }),
         _react2.default.createElement('link', { rel: 'stylesheet', type: 'text/css', href: '/css/picker/default.time.css' }),
+        _react2.default.createElement('link', { rel: 'stylesheet', type: 'text/css', href: '/css/antd.min.css' }),
         _react2.default.createElement('link', { rel: 'stylesheet', type: 'text/css', href: '/lib/fancybox/jquery.fancybox.css' }),
         _react2.default.createElement('style', { id: 'css', dangerouslySetInnerHTML: { __html: style } })
       ),
@@ -1061,7 +1062,7 @@ module.exports =
   var _assign2 = _interopRequireDefault(_assign);
   
   var resolveExtension = function () {
-    var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(path, extension) {
+    var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(path, extension) {
       var fileNameBase, ext, fileName;
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
@@ -1116,7 +1117,7 @@ module.exports =
   }();
   
   var resolveFileName = function () {
-    var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(path) {
+    var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(path) {
       var extensions, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, extension, maybeFileName;
   
       return _regenerator2.default.wrap(function _callee2$(_context2) {
@@ -1279,7 +1280,7 @@ module.exports =
   
       var request = _ref3.request;
       var path = _ref4.path;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3() {
         var _ref5, success, fileName, extension, source;
   
         return _regenerator2.default.wrap(function _callee3$(_context3) {
@@ -1606,127 +1607,127 @@ module.exports =
   
   var _article2 = _interopRequireDefault(_article);
   
-  var _banner = __webpack_require__(161);
+  var _banner = __webpack_require__(160);
   
   var _banner2 = _interopRequireDefault(_banner);
   
-  var _startup = __webpack_require__(164);
+  var _startup = __webpack_require__(163);
   
   var _startup2 = _interopRequireDefault(_startup);
   
-  var _awardsend = __webpack_require__(167);
+  var _awardsend = __webpack_require__(166);
   
   var _awardsend2 = _interopRequireDefault(_awardsend);
   
-  var _appupdate = __webpack_require__(169);
+  var _appupdate = __webpack_require__(168);
   
   var _appupdate2 = _interopRequireDefault(_appupdate);
   
-  var _feedback = __webpack_require__(171);
+  var _feedback = __webpack_require__(170);
   
   var _feedback2 = _interopRequireDefault(_feedback);
   
-  var _notice = __webpack_require__(173);
+  var _notice = __webpack_require__(172);
   
   var _notice2 = _interopRequireDefault(_notice);
   
-  var _redeem = __webpack_require__(176);
+  var _redeem = __webpack_require__(175);
   
   var _redeem2 = _interopRequireDefault(_redeem);
   
-  var _shareconfig = __webpack_require__(179);
+  var _shareconfig = __webpack_require__(178);
   
   var _shareconfig2 = _interopRequireDefault(_shareconfig);
   
-  var _sendawards = __webpack_require__(180);
+  var _sendawards = __webpack_require__(179);
   
   var _sendawards2 = _interopRequireDefault(_sendawards);
   
-  var _activityjoins = __webpack_require__(183);
+  var _activityjoins = __webpack_require__(182);
   
   var _activityjoins2 = _interopRequireDefault(_activityjoins);
   
-  var _awardlist = __webpack_require__(185);
+  var _awardlist = __webpack_require__(184);
   
   var _awardlist2 = _interopRequireDefault(_awardlist);
   
-  var _admin = __webpack_require__(187);
+  var _admin = __webpack_require__(186);
   
   var _admin2 = _interopRequireDefault(_admin);
   
-  var _idiom = __webpack_require__(189);
+  var _idiom = __webpack_require__(188);
   
   var _idiom2 = _interopRequireDefault(_idiom);
   
-  var _integral = __webpack_require__(192);
+  var _integral = __webpack_require__(191);
   
   var _integral2 = _interopRequireDefault(_integral);
   
-  var _oneyuan = __webpack_require__(195);
+  var _oneyuan = __webpack_require__(194);
   
   var _oneyuan2 = _interopRequireDefault(_oneyuan);
   
-  var _hongbao = __webpack_require__(200);
+  var _hongbao = __webpack_require__(199);
   
   var _hongbao2 = _interopRequireDefault(_hongbao);
   
-  var _privilege = __webpack_require__(203);
+  var _privilege = __webpack_require__(202);
   
   var _privilege2 = _interopRequireDefault(_privilege);
   
-  var _thread = __webpack_require__(205);
+  var _thread = __webpack_require__(204);
   
   var _thread2 = _interopRequireDefault(_thread);
   
-  var _section = __webpack_require__(209);
+  var _section = __webpack_require__(208);
   
   var _section2 = _interopRequireDefault(_section);
   
-  var _reply = __webpack_require__(211);
+  var _reply = __webpack_require__(210);
   
   var _reply2 = _interopRequireDefault(_reply);
   
-  var _bbsuser = __webpack_require__(214);
+  var _bbsuser = __webpack_require__(213);
   
   var _bbsuser2 = _interopRequireDefault(_bbsuser);
   
-  var _bbsconfig = __webpack_require__(216);
+  var _bbsconfig = __webpack_require__(215);
   
   var _bbsconfig2 = _interopRequireDefault(_bbsconfig);
   
-  var _bbsmessage = __webpack_require__(218);
+  var _bbsmessage = __webpack_require__(217);
   
   var _bbsmessage2 = _interopRequireDefault(_bbsmessage);
   
-  var _bbsblock = __webpack_require__(220);
+  var _bbsblock = __webpack_require__(219);
   
   var _bbsblock2 = _interopRequireDefault(_bbsblock);
   
-  var _welcome = __webpack_require__(222);
+  var _welcome = __webpack_require__(221);
   
   var _welcome2 = _interopRequireDefault(_welcome);
   
-  var _jianmianhui = __webpack_require__(224);
+  var _jianmianhui = __webpack_require__(223);
   
   var _jianmianhui2 = _interopRequireDefault(_jianmianhui);
   
-  var _userattr = __webpack_require__(226);
+  var _userattr = __webpack_require__(225);
   
   var _userattr2 = _interopRequireDefault(_userattr);
   
-  var _globalattr = __webpack_require__(228);
+  var _globalattr = __webpack_require__(227);
   
   var _globalattr2 = _interopRequireDefault(_globalattr);
   
-  var _bbstask = __webpack_require__(230);
+  var _bbstask = __webpack_require__(229);
   
   var _bbstask2 = _interopRequireDefault(_bbstask);
   
-  var _feeflowconfig = __webpack_require__(237);
+  var _feeflowconfig = __webpack_require__(236);
   
   var _feeflowconfig2 = _interopRequireDefault(_feeflowconfig);
   
-  var _feefloworder = __webpack_require__(240);
+  var _feefloworder = __webpack_require__(239);
   
   var _feefloworder2 = _interopRequireDefault(_feefloworder);
   
@@ -1755,7 +1756,7 @@ module.exports =
           render = _ref.render,
           context = _ref.context,
           path = _ref.path;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -8150,7 +8151,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -15749,7 +15750,7 @@ module.exports =
     action: function action() {
       var _this = this;
   
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var data;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -15979,7 +15980,7 @@ module.exports =
       var _this = this;
   
       var path = _ref.path;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var resp, _ref2, data;
   
         return _regenerator2.default.wrap(function _callee$(_context) {
@@ -16467,7 +16468,7 @@ module.exports =
       var _this = this;
   
       var next = _ref.next;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -16516,7 +16517,7 @@ module.exports =
   
   var _Article2 = _interopRequireDefault(_Article);
   
-  var _ArticleType = __webpack_require__(158);
+  var _ArticleType = __webpack_require__(157);
   
   var _ArticleType2 = _interopRequireDefault(_ArticleType);
   
@@ -16550,7 +16551,7 @@ module.exports =
       var _this = this;
   
       var next = _ref.next;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -16632,8 +16633,6 @@ module.exports =
   var _constants = __webpack_require__(59);
   
   var _antd = __webpack_require__(156);
-  
-  __webpack_require__(157);
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
@@ -16948,7 +16947,6 @@ module.exports =
               '\u7C7B\u578B\u7BA1\u7406'
             )
           ),
-          _react2.default.createElement(_antd.DatePicker, null),
           _react2.default.createElement('hr', null),
           subItems.map(function (item) {
             return _react2.default.createElement(_tools.Radio, {
@@ -17294,12 +17292,6 @@ module.exports =
 
 /***/ }),
 /* 157 */
-/***/ (function(module, exports) {
-
-  module.exports = require("antd/dist/antd.css");
-
-/***/ }),
-/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -17344,11 +17336,11 @@ module.exports =
   
   var _constants = __webpack_require__(59);
   
-  var _ArticleTypeAddModal = __webpack_require__(159);
+  var _ArticleTypeAddModal = __webpack_require__(158);
   
   var _ArticleTypeAddModal2 = _interopRequireDefault(_ArticleTypeAddModal);
   
-  var _ArticleTypePutModal = __webpack_require__(160);
+  var _ArticleTypePutModal = __webpack_require__(159);
   
   var _ArticleTypePutModal2 = _interopRequireDefault(_ArticleTypePutModal);
   
@@ -17633,7 +17625,7 @@ module.exports =
   })(ArticleType);
 
 /***/ }),
-/* 159 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -17769,7 +17761,7 @@ module.exports =
   exports.default = (0, _reactRedux.connect)()(ArticleTypeAddModal);
 
 /***/ }),
-/* 160 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -17935,7 +17927,7 @@ module.exports =
   })(ArticleTypePutModal);
 
 /***/ }),
-/* 161 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -17956,7 +17948,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _Banner = __webpack_require__(162);
+  var _Banner = __webpack_require__(161);
   
   var _Banner2 = _interopRequireDefault(_Banner);
   
@@ -17979,7 +17971,7 @@ module.exports =
       var _this = this;
   
       var next = _ref.next;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -18003,7 +17995,7 @@ module.exports =
   };
 
 /***/ }),
-/* 162 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -18060,7 +18052,7 @@ module.exports =
   
   var _history2 = _interopRequireDefault(_history);
   
-  var _AddModal = __webpack_require__(163);
+  var _AddModal = __webpack_require__(162);
   
   var _AddModal2 = _interopRequireDefault(_AddModal);
   
@@ -18655,7 +18647,7 @@ module.exports =
   })(Banner);
 
 /***/ }),
-/* 163 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -18792,7 +18784,7 @@ module.exports =
   exports.default = (0, _reactRedux.connect)()(AddModal);
 
 /***/ }),
-/* 164 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -18813,7 +18805,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _Startup = __webpack_require__(165);
+  var _Startup = __webpack_require__(164);
   
   var _Startup2 = _interopRequireDefault(_Startup);
   
@@ -18837,7 +18829,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -18862,7 +18854,7 @@ module.exports =
   };
 
 /***/ }),
-/* 165 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -18913,7 +18905,7 @@ module.exports =
   
   var _constants = __webpack_require__(59);
   
-  var _StartupAddModal = __webpack_require__(166);
+  var _StartupAddModal = __webpack_require__(165);
   
   var _StartupAddModal2 = _interopRequireDefault(_StartupAddModal);
   
@@ -19342,7 +19334,7 @@ module.exports =
   })(Startup);
 
 /***/ }),
-/* 166 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -19445,7 +19437,7 @@ module.exports =
   exports.default = (0, _reactRedux.connect)()(StartupAddModal);
 
 /***/ }),
-/* 167 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -19458,7 +19450,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _AwardSend = __webpack_require__(168);
+  var _AwardSend = __webpack_require__(167);
   
   var _AwardSend2 = _interopRequireDefault(_AwardSend);
   
@@ -19472,7 +19464,7 @@ module.exports =
   };
 
 /***/ }),
-/* 168 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -19661,7 +19653,7 @@ module.exports =
   exports.default = (0, _reactRedux.connect)()(AwardSend);
 
 /***/ }),
-/* 169 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -19682,7 +19674,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _AppUpdate = __webpack_require__(170);
+  var _AppUpdate = __webpack_require__(169);
   
   var _AppUpdate2 = _interopRequireDefault(_AppUpdate);
   
@@ -19706,7 +19698,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -19731,7 +19723,7 @@ module.exports =
   };
 
 /***/ }),
-/* 170 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -20219,7 +20211,7 @@ module.exports =
   };
 
 /***/ }),
-/* 171 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -20240,7 +20232,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _Feedback = __webpack_require__(172);
+  var _Feedback = __webpack_require__(171);
   
   var _Feedback2 = _interopRequireDefault(_Feedback);
   
@@ -20260,7 +20252,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -20285,7 +20277,7 @@ module.exports =
   };
 
 /***/ }),
-/* 172 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -20489,7 +20481,7 @@ module.exports =
   })(Feedback);
 
 /***/ }),
-/* 173 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -20510,7 +20502,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _Notice = __webpack_require__(174);
+  var _Notice = __webpack_require__(173);
   
   var _Notice2 = _interopRequireDefault(_Notice);
   
@@ -20530,7 +20522,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -20555,7 +20547,7 @@ module.exports =
   };
 
 /***/ }),
-/* 174 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -20602,7 +20594,7 @@ module.exports =
   
   var _modal = __webpack_require__(70);
   
-  var _NoticeAddModal = __webpack_require__(175);
+  var _NoticeAddModal = __webpack_require__(174);
   
   var _NoticeAddModal2 = _interopRequireDefault(_NoticeAddModal);
   
@@ -20986,7 +20978,7 @@ module.exports =
   })(Notice);
 
 /***/ }),
-/* 175 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -21089,7 +21081,7 @@ module.exports =
   })(NoticeAddModal);
 
 /***/ }),
-/* 176 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -21110,7 +21102,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _Redeem = __webpack_require__(177);
+  var _Redeem = __webpack_require__(176);
   
   var _Redeem2 = _interopRequireDefault(_Redeem);
   
@@ -21130,7 +21122,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -21155,7 +21147,7 @@ module.exports =
   };
 
 /***/ }),
-/* 177 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -21200,7 +21192,7 @@ module.exports =
   
   var _constants = __webpack_require__(59);
   
-  var _RedeemAddModal = __webpack_require__(178);
+  var _RedeemAddModal = __webpack_require__(177);
   
   var _RedeemAddModal2 = _interopRequireDefault(_RedeemAddModal);
   
@@ -21469,7 +21461,7 @@ module.exports =
   })(Redeem);
 
 /***/ }),
-/* 178 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -21615,7 +21607,7 @@ module.exports =
   })(RedeemAddModal);
 
 /***/ }),
-/* 179 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -21636,7 +21628,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _Banner = __webpack_require__(162);
+  var _Banner = __webpack_require__(161);
   
   var _Banner2 = _interopRequireDefault(_Banner);
   
@@ -21659,7 +21651,7 @@ module.exports =
       var _this = this;
   
       var next = _ref.next;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -21683,7 +21675,7 @@ module.exports =
   };
 
 /***/ }),
-/* 180 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -21704,7 +21696,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _SendAwards = __webpack_require__(181);
+  var _SendAwards = __webpack_require__(180);
   
   var _SendAwards2 = _interopRequireDefault(_SendAwards);
   
@@ -21724,7 +21716,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -21749,7 +21741,7 @@ module.exports =
   };
 
 /***/ }),
-/* 181 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -21796,7 +21788,7 @@ module.exports =
   
   var _modal = __webpack_require__(70);
   
-  var _AwardsAddModal = __webpack_require__(182);
+  var _AwardsAddModal = __webpack_require__(181);
   
   var _AwardsAddModal2 = _interopRequireDefault(_AwardsAddModal);
   
@@ -22042,7 +22034,7 @@ module.exports =
   })(SendAwards);
 
 /***/ }),
-/* 182 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -22217,7 +22209,7 @@ module.exports =
   })(AwardsAddModal);
 
 /***/ }),
-/* 183 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -22238,7 +22230,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _ActivityJoins = __webpack_require__(184);
+  var _ActivityJoins = __webpack_require__(183);
   
   var _ActivityJoins2 = _interopRequireDefault(_ActivityJoins);
   
@@ -22258,7 +22250,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -22283,7 +22275,7 @@ module.exports =
   };
 
 /***/ }),
-/* 184 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -22604,7 +22596,7 @@ module.exports =
   })(Feedback);
 
 /***/ }),
-/* 185 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -22625,7 +22617,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _AwardList = __webpack_require__(186);
+  var _AwardList = __webpack_require__(185);
   
   var _AwardList2 = _interopRequireDefault(_AwardList);
   
@@ -22645,7 +22637,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -22670,7 +22662,7 @@ module.exports =
   };
 
 /***/ }),
-/* 186 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -23165,7 +23157,7 @@ module.exports =
   })(AwardList);
 
 /***/ }),
-/* 187 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -23186,7 +23178,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _Admin = __webpack_require__(188);
+  var _Admin = __webpack_require__(187);
   
   var _Admin2 = _interopRequireDefault(_Admin);
   
@@ -23206,7 +23198,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -23231,7 +23223,7 @@ module.exports =
   };
 
 /***/ }),
-/* 188 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -23399,7 +23391,7 @@ module.exports =
   })(Admin);
 
 /***/ }),
-/* 189 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -23412,7 +23404,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _Idiom = __webpack_require__(190);
+  var _Idiom = __webpack_require__(189);
   
   var _Idiom2 = _interopRequireDefault(_Idiom);
   
@@ -23428,7 +23420,7 @@ module.exports =
   };
 
 /***/ }),
-/* 190 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -23479,7 +23471,7 @@ module.exports =
   
   var _tools = __webpack_require__(73);
   
-  var _AddModal = __webpack_require__(191);
+  var _AddModal = __webpack_require__(190);
   
   var _AddModal2 = _interopRequireDefault(_AddModal);
   
@@ -23781,7 +23773,7 @@ module.exports =
   })(Idiom);
 
 /***/ }),
-/* 191 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -23869,7 +23861,7 @@ module.exports =
   exports.default = (0, _reactRedux.connect)()(AddModal);
 
 /***/ }),
-/* 192 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -23882,7 +23874,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _Integral = __webpack_require__(193);
+  var _Integral = __webpack_require__(192);
   
   var _Integral2 = _interopRequireDefault(_Integral);
   
@@ -23898,7 +23890,7 @@ module.exports =
   };
 
 /***/ }),
-/* 193 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -23949,7 +23941,7 @@ module.exports =
   
   var _tools = __webpack_require__(73);
   
-  var _AddModal = __webpack_require__(194);
+  var _AddModal = __webpack_require__(193);
   
   var _AddModal2 = _interopRequireDefault(_AddModal);
   
@@ -24379,7 +24371,7 @@ module.exports =
   })(Integral);
 
 /***/ }),
-/* 194 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -24475,7 +24467,7 @@ module.exports =
   exports.default = (0, _reactRedux.connect)()(AddModal);
 
 /***/ }),
-/* 195 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -24488,7 +24480,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _OneYuan = __webpack_require__(196);
+  var _OneYuan = __webpack_require__(195);
   
   var _OneYuan2 = _interopRequireDefault(_OneYuan);
   
@@ -24504,7 +24496,7 @@ module.exports =
   };
 
 /***/ }),
-/* 196 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -24555,15 +24547,15 @@ module.exports =
   
   var _tools = __webpack_require__(73);
   
-  var _AddModal = __webpack_require__(197);
+  var _AddModal = __webpack_require__(196);
   
   var _AddModal2 = _interopRequireDefault(_AddModal);
   
-  var _OpenModal = __webpack_require__(198);
+  var _OpenModal = __webpack_require__(197);
   
   var _OpenModal2 = _interopRequireDefault(_OpenModal);
   
-  var _AddChanceModal = __webpack_require__(199);
+  var _AddChanceModal = __webpack_require__(198);
   
   var _AddChanceModal2 = _interopRequireDefault(_AddChanceModal);
   
@@ -25047,7 +25039,7 @@ module.exports =
   })(OneYuan);
 
 /***/ }),
-/* 197 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -25138,7 +25130,7 @@ module.exports =
   exports.default = (0, _reactRedux.connect)()(AddModal);
 
 /***/ }),
-/* 198 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -25219,7 +25211,7 @@ module.exports =
   exports.default = (0, _reactRedux.connect)()(OpenModal);
 
 /***/ }),
-/* 199 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -25298,7 +25290,7 @@ module.exports =
   exports.default = (0, _reactRedux.connect)()(AddChanceModal);
 
 /***/ }),
-/* 200 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -25311,7 +25303,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _HongBao = __webpack_require__(201);
+  var _HongBao = __webpack_require__(200);
   
   var _HongBao2 = _interopRequireDefault(_HongBao);
   
@@ -25327,7 +25319,7 @@ module.exports =
   };
 
 /***/ }),
-/* 201 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -25378,7 +25370,7 @@ module.exports =
   
   var _tools = __webpack_require__(73);
   
-  var _AddModal = __webpack_require__(202);
+  var _AddModal = __webpack_require__(201);
   
   var _AddModal2 = _interopRequireDefault(_AddModal);
   
@@ -25792,7 +25784,7 @@ module.exports =
   })(HongBao);
 
 /***/ }),
-/* 202 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -25887,7 +25879,7 @@ module.exports =
   exports.default = (0, _reactRedux.connect)()(AddModal);
 
 /***/ }),
-/* 203 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -25900,7 +25892,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _Privilege = __webpack_require__(204);
+  var _Privilege = __webpack_require__(203);
   
   var _Privilege2 = _interopRequireDefault(_Privilege);
   
@@ -25916,7 +25908,7 @@ module.exports =
   };
 
 /***/ }),
-/* 204 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -26064,7 +26056,7 @@ module.exports =
   })(Privilege);
 
 /***/ }),
-/* 205 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -26077,7 +26069,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _Thread = __webpack_require__(206);
+  var _Thread = __webpack_require__(205);
   
   var _Thread2 = _interopRequireDefault(_Thread);
   
@@ -26093,7 +26085,7 @@ module.exports =
   };
 
 /***/ }),
-/* 206 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -26144,11 +26136,11 @@ module.exports =
   
   var _tools = __webpack_require__(73);
   
-  var _UnVerifyModal = __webpack_require__(207);
+  var _UnVerifyModal = __webpack_require__(206);
   
   var _UnVerifyModal2 = _interopRequireDefault(_UnVerifyModal);
   
-  var _ReplayModal = __webpack_require__(208);
+  var _ReplayModal = __webpack_require__(207);
   
   var _ReplayModal2 = _interopRequireDefault(_ReplayModal);
   
@@ -26824,7 +26816,7 @@ module.exports =
   exports.default = (0, _reactRedux.connect)()(Thread);
 
 /***/ }),
-/* 207 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -26954,7 +26946,7 @@ module.exports =
   })(UnVerifyModal);
 
 /***/ }),
-/* 208 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -27080,7 +27072,7 @@ module.exports =
   })(UnVerifyModal);
 
 /***/ }),
-/* 209 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -27093,7 +27085,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _Section = __webpack_require__(210);
+  var _Section = __webpack_require__(209);
   
   var _Section2 = _interopRequireDefault(_Section);
   
@@ -27109,7 +27101,7 @@ module.exports =
   };
 
 /***/ }),
-/* 210 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -27333,7 +27325,7 @@ module.exports =
   exports.default = (0, _reactRedux.connect)()(Section);
 
 /***/ }),
-/* 211 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -27346,7 +27338,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _Reply = __webpack_require__(212);
+  var _Reply = __webpack_require__(211);
   
   var _Reply2 = _interopRequireDefault(_Reply);
   
@@ -27362,7 +27354,7 @@ module.exports =
   };
 
 /***/ }),
-/* 212 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -27413,7 +27405,7 @@ module.exports =
   
   var _tools = __webpack_require__(73);
   
-  var _ReplayModal = __webpack_require__(213);
+  var _ReplayModal = __webpack_require__(212);
   
   var _ReplayModal2 = _interopRequireDefault(_ReplayModal);
   
@@ -27765,7 +27757,7 @@ module.exports =
   exports.default = (0, _reactRedux.connect)()(Reply);
 
 /***/ }),
-/* 213 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -27866,7 +27858,7 @@ module.exports =
   })(ReplayModal);
 
 /***/ }),
-/* 214 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -27879,7 +27871,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _Bbsuser = __webpack_require__(215);
+  var _Bbsuser = __webpack_require__(214);
   
   var _Bbsuser2 = _interopRequireDefault(_Bbsuser);
   
@@ -27895,7 +27887,7 @@ module.exports =
   };
 
 /***/ }),
-/* 215 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -28234,7 +28226,7 @@ module.exports =
   exports.default = (0, _reactRedux.connect)()(Bbsuser);
 
 /***/ }),
-/* 216 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -28247,7 +28239,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _BbsConfig = __webpack_require__(217);
+  var _BbsConfig = __webpack_require__(216);
   
   var _BbsConfig2 = _interopRequireDefault(_BbsConfig);
   
@@ -28263,7 +28255,7 @@ module.exports =
   };
 
 /***/ }),
-/* 217 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -28448,7 +28440,7 @@ module.exports =
   exports.default = (0, _reactRedux.connect)()(BbsConfig);
 
 /***/ }),
-/* 218 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -28461,7 +28453,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _BbsMessage = __webpack_require__(219);
+  var _BbsMessage = __webpack_require__(218);
   
   var _BbsMessage2 = _interopRequireDefault(_BbsMessage);
   
@@ -28477,7 +28469,7 @@ module.exports =
   };
 
 /***/ }),
-/* 219 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -28677,7 +28669,7 @@ module.exports =
   exports.default = (0, _reactRedux.connect)()(BbsMessage);
 
 /***/ }),
-/* 220 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -28690,7 +28682,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _BbsBlock = __webpack_require__(221);
+  var _BbsBlock = __webpack_require__(220);
   
   var _BbsBlock2 = _interopRequireDefault(_BbsBlock);
   
@@ -28706,7 +28698,7 @@ module.exports =
   };
 
 /***/ }),
-/* 221 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -28866,7 +28858,7 @@ module.exports =
   exports.default = (0, _reactRedux.connect)()(BbsBlock);
 
 /***/ }),
-/* 222 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -28879,7 +28871,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _Welcome = __webpack_require__(223);
+  var _Welcome = __webpack_require__(222);
   
   var _Welcome2 = _interopRequireDefault(_Welcome);
   
@@ -28895,7 +28887,7 @@ module.exports =
   };
 
 /***/ }),
-/* 223 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -29131,7 +29123,7 @@ module.exports =
   exports.default = (0, _reactRedux.connect)()(Welcome);
 
 /***/ }),
-/* 224 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -29144,7 +29136,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _Jianmianhui = __webpack_require__(225);
+  var _Jianmianhui = __webpack_require__(224);
   
   var _Jianmianhui2 = _interopRequireDefault(_Jianmianhui);
   
@@ -29160,7 +29152,7 @@ module.exports =
   };
 
 /***/ }),
-/* 225 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -29347,7 +29339,7 @@ module.exports =
   exports.default = (0, _reactRedux.connect)(function () {})(Jianmianhui);
 
 /***/ }),
-/* 226 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -29360,7 +29352,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _UserAttr = __webpack_require__(227);
+  var _UserAttr = __webpack_require__(226);
   
   var _UserAttr2 = _interopRequireDefault(_UserAttr);
   
@@ -29376,7 +29368,7 @@ module.exports =
   };
 
 /***/ }),
-/* 227 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -29562,7 +29554,7 @@ module.exports =
   exports.default = (0, _reactRedux.connect)(function () {})(UserAttr);
 
 /***/ }),
-/* 228 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -29575,7 +29567,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _GlobalAttr = __webpack_require__(229);
+  var _GlobalAttr = __webpack_require__(228);
   
   var _GlobalAttr2 = _interopRequireDefault(_GlobalAttr);
   
@@ -29591,7 +29583,7 @@ module.exports =
   };
 
 /***/ }),
-/* 229 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -29767,7 +29759,7 @@ module.exports =
   exports.default = (0, _reactRedux.connect)(function () {})(GlobalAttr);
 
 /***/ }),
-/* 230 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -29788,15 +29780,15 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _BbsTaskList = __webpack_require__(231);
+  var _BbsTaskList = __webpack_require__(230);
   
   var _BbsTaskList2 = _interopRequireDefault(_BbsTaskList);
   
-  var _BbsTask = __webpack_require__(235);
+  var _BbsTask = __webpack_require__(234);
   
   var _BbsTask2 = _interopRequireDefault(_BbsTask);
   
-  var _Video = __webpack_require__(236);
+  var _Video = __webpack_require__(235);
   
   var _Video2 = _interopRequireDefault(_Video);
   
@@ -29828,7 +29820,7 @@ module.exports =
   
           var next = _ref.next,
               context = _ref.context;
-          return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+          return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
               var component;
               return _regenerator2.default.wrap(function _callee$(_context) {
                   while (1) {
@@ -29853,7 +29845,7 @@ module.exports =
   };
 
 /***/ }),
-/* 231 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -29918,15 +29910,15 @@ module.exports =
   
   var _omg2 = __webpack_require__(58);
   
-  var _TaskGroupAddModal = __webpack_require__(232);
+  var _TaskGroupAddModal = __webpack_require__(231);
   
   var _TaskGroupAddModal2 = _interopRequireDefault(_TaskGroupAddModal);
   
-  var _TaskGroupUpdateModal = __webpack_require__(233);
+  var _TaskGroupUpdateModal = __webpack_require__(232);
   
   var _TaskGroupUpdateModal2 = _interopRequireDefault(_TaskGroupUpdateModal);
   
-  var _TaskAddModal = __webpack_require__(234);
+  var _TaskAddModal = __webpack_require__(233);
   
   var _TaskAddModal2 = _interopRequireDefault(_TaskAddModal);
   
@@ -30415,7 +30407,7 @@ module.exports =
   })(BbsTaskList);
 
 /***/ }),
-/* 232 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -30575,7 +30567,7 @@ module.exports =
   exports.default = (0, _reactRedux.connect)()(TaskGroupAddModal);
 
 /***/ }),
-/* 233 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -30736,7 +30728,7 @@ module.exports =
   exports.default = (0, _reactRedux.connect)()(TaskGroupUpdateModal);
 
 /***/ }),
-/* 234 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -30855,7 +30847,7 @@ module.exports =
   })(TaskAddModal);
 
 /***/ }),
-/* 235 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -30902,7 +30894,7 @@ module.exports =
   
   var _tools = __webpack_require__(73);
   
-  var _TaskAddModal = __webpack_require__(234);
+  var _TaskAddModal = __webpack_require__(233);
   
   var _TaskAddModal2 = _interopRequireDefault(_TaskAddModal);
   
@@ -31083,7 +31075,7 @@ module.exports =
   })(BbsTask);
 
 /***/ }),
-/* 236 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -31158,7 +31150,7 @@ module.exports =
   exports.default = Text;
 
 /***/ }),
-/* 237 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -31179,7 +31171,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _Feeflowconfig = __webpack_require__(238);
+  var _Feeflowconfig = __webpack_require__(237);
   
   var _Feeflowconfig2 = _interopRequireDefault(_Feeflowconfig);
   
@@ -31198,7 +31190,7 @@ module.exports =
       var _this = this;
   
       var next = _ref.next;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -31222,7 +31214,7 @@ module.exports =
   };
 
 /***/ }),
-/* 238 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -31279,7 +31271,7 @@ module.exports =
   
   var _history2 = _interopRequireDefault(_history);
   
-  var _AddModal = __webpack_require__(239);
+  var _AddModal = __webpack_require__(238);
   
   var _AddModal2 = _interopRequireDefault(_AddModal);
   
@@ -31614,7 +31606,7 @@ module.exports =
   })(Feeflowconfig);
 
 /***/ }),
-/* 239 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -31745,7 +31737,7 @@ module.exports =
   exports.default = (0, _reactRedux.connect)()(AddModal);
 
 /***/ }),
-/* 240 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -31766,7 +31758,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _Feefloworder = __webpack_require__(241);
+  var _Feefloworder = __webpack_require__(240);
   
   var _Feefloworder2 = _interopRequireDefault(_Feefloworder);
   
@@ -31785,7 +31777,7 @@ module.exports =
       var _this = this;
   
       var next = _ref.next;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -31809,7 +31801,7 @@ module.exports =
   };
 
 /***/ }),
-/* 241 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -31874,7 +31866,7 @@ module.exports =
   
   var _history2 = _interopRequireDefault(_history);
   
-  var _UpdateModal = __webpack_require__(242);
+  var _UpdateModal = __webpack_require__(241);
   
   var _UpdateModal2 = _interopRequireDefault(_UpdateModal);
   
@@ -32407,7 +32399,7 @@ module.exports =
   })(Feefloworder);
 
 /***/ }),
-/* 242 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -32540,13 +32532,13 @@ module.exports =
   exports.default = (0, _reactRedux.connect)()(UpdateModal);
 
 /***/ }),
-/* 243 */
+/* 242 */
 /***/ (function(module, exports) {
 
   module.exports = require("./assets");
 
 /***/ }),
-/* 244 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -32556,21 +32548,21 @@ module.exports =
   });
   exports.default = configureStore;
   
-  var _redux = __webpack_require__(245);
+  var _redux = __webpack_require__(244);
   
-  var _reduxThunk = __webpack_require__(246);
+  var _reduxThunk = __webpack_require__(245);
   
   var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
   
-  var _reducers = __webpack_require__(247);
+  var _reducers = __webpack_require__(246);
   
   var _reducers2 = _interopRequireDefault(_reducers);
   
-  var _createHelpers = __webpack_require__(251);
+  var _createHelpers = __webpack_require__(250);
   
   var _createHelpers2 = _interopRequireDefault(_createHelpers);
   
-  var _logger = __webpack_require__(252);
+  var _logger = __webpack_require__(251);
   
   var _logger2 = _interopRequireDefault(_logger);
   
@@ -32613,19 +32605,19 @@ module.exports =
   }
 
 /***/ }),
-/* 245 */
+/* 244 */
 /***/ (function(module, exports) {
 
   module.exports = require("redux");
 
 /***/ }),
-/* 246 */
+/* 245 */
 /***/ (function(module, exports) {
 
   module.exports = require("redux-thunk");
 
 /***/ }),
-/* 247 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -32634,17 +32626,17 @@ module.exports =
     value: true
   });
   
-  var _redux = __webpack_require__(245);
+  var _redux = __webpack_require__(244);
   
-  var _runtime = __webpack_require__(248);
+  var _runtime = __webpack_require__(247);
   
   var _runtime2 = _interopRequireDefault(_runtime);
   
-  var _omg = __webpack_require__(249);
+  var _omg = __webpack_require__(248);
   
   var _omg2 = _interopRequireDefault(_omg);
   
-  var _modal = __webpack_require__(250);
+  var _modal = __webpack_require__(249);
   
   var _modal2 = _interopRequireDefault(_modal);
   
@@ -32657,7 +32649,7 @@ module.exports =
   });
 
 /***/ }),
-/* 248 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -32695,7 +32687,7 @@ module.exports =
   }
 
 /***/ }),
-/* 249 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -32794,7 +32786,7 @@ module.exports =
   }
 
 /***/ }),
-/* 250 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -32855,7 +32847,7 @@ module.exports =
   }
 
 /***/ }),
-/* 251 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -32890,7 +32882,7 @@ module.exports =
   
   function createGraphqlRequest(fetchKnowingCookie) {
     return function () {
-      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(query, variables) {
+      var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(query, variables) {
         var fetchConfig, resp;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -32977,7 +32969,7 @@ module.exports =
   }
 
 /***/ }),
-/* 252 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -32987,7 +32979,7 @@ module.exports =
   });
   exports.default = createLogger;
   
-  var _util = __webpack_require__(253);
+  var _util = __webpack_require__(252);
   
   // Server side redux action logger
   function createLogger() {
@@ -33006,13 +32998,13 @@ module.exports =
   }
 
 /***/ }),
-/* 253 */
+/* 252 */
 /***/ (function(module, exports) {
 
   module.exports = require("util");
 
 /***/ }),
-/* 254 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
   'use strict';

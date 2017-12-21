@@ -21,6 +21,7 @@ function Html({ title, description, style, script, children, state }) {
         <link rel="stylesheet" type="text/css" href="/css/picker/default.css" />
         <link rel="stylesheet" type="text/css" href="/css/picker/default.date.css" />
         <link rel="stylesheet" type="text/css" href="/css/picker/default.time.css" />
+          <link rel="stylesheet" type="text/css" href="/css/antd.min.css" />
         <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
 
         <style id="css" dangerouslySetInnerHTML={{ __html: style }} />
