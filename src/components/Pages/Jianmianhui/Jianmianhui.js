@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { JIANMIANHUI_DT_DEL, JIANMIANHUI_DT_UPDATE, JIANMIANHUI_DT_ADD, JIANMIANHUI_DT_LIST } from '../../../constants';
 import { DataTable } from '../../tools';

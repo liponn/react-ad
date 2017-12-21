@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchAction } from '../../../actions/omg';
 import { BBS_CONFIG_DT_UPDATE, BBS_CONFIG_DT_DEL, BBS_CONFIG_DT_ADD , BBS_CONFIG_DT_LIST } from '../../../constants';

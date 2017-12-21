@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { PRIVILEGE_UPDATE, PRIVILEGE_ADD, PRIVILEGE_LIST, PRIVILEGE_DEL } from '../../../constants';
 import { DataTable } from '../../tools';

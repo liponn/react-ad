@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { showModal, hideModal } from '../../../actions/modal';
 import { Modal, Card, Input, Submit, Alert, Success, Select } from '../../tools';

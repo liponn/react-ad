@@ -7,11 +7,17 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './ErrorPage.css';
 
-export function ErrorPage({ error }, context) {
+
+
+
+
+
+export function ErrorPage({error} , context) {
   let title = 'Error';
   let content = 'Sorry, a critical error occurred on this page.';
   let errorMessage = null;
@@ -36,7 +42,11 @@ export function ErrorPage({ error }, context) {
   );
 }
 
-ErrorPage.propTypes = { error: PropTypes.object.isRequired };
-ErrorPage.contextTypes = { setTitle: PropTypes.func.isRequired };
+ErrorPage.propTypes = {
+  error: PropTypes.object.isRequired 
+};
+ErrorPage.contextTypes = { 
+  setTitle: PropTypes.func.isRequired 
+};
 
-export default withStyles(s)(ErrorPage);
+export default withStyles(s)(withStyles);
