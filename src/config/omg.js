@@ -166,6 +166,7 @@ import {
   HONGBAO_DEL,
 
   BBS_THREAD_DT_ADD,
+  BBS_THREAD_ADD,
   BBS_THREAD_LIST,
   BBS_THREAD_DT_DEL,
   BBS_THREAD_DT_UPDATE,
@@ -193,6 +194,7 @@ import {
   BBS_USER_UNADMIN,
   BBS_USER_ADMIN_LIST,
   BBS_USER_SEARCH_LIST,
+  BBS_USER_VEST_LIST,
 
 
   BBS_COMMENT_DT_ADD,
@@ -440,6 +442,7 @@ apiList[HONGBAO_DEL] = '/money/delete';
 
 apiList[BBS_THREAD_LIST] = '/bbs/thread/list';
 apiList[BBS_THREAD_DT_ADD] = '/bbs/thread/dt-add';
+apiList[BBS_THREAD_ADD] = '/bbs/thread/add';
 apiList[BBS_THREAD_DT_DEL] = '/bbs/thread/dt-delete';
 apiList[BBS_THREAD_DT_UPDATE] = '/bbs/thread/dt-update';
 apiList[BBS_THREAD_TOGGLE_STATUS] = '/bbs/thread/toogle-status';
@@ -465,6 +468,7 @@ apiList[BBS_USER_BLOCK] = '/bbs/user/to-black';
 apiList[BBS_USER_ADMIN] = '/bbs/user/add';
 apiList[BBS_USER_UNADMIN] = '/bbs/user/del';
 apiList[BBS_USER_ADMIN_LIST] = '/bbs/user/list';
+apiList[BBS_USER_VEST_LIST] = '/bbs/user/vest-list';
 apiList[BBS_USER_SEARCH_LIST] = '/bbs/user/search-list';
 
 apiList[BBS_COMMENT_DT_ADD] = '/bbs/comment/dt-add';

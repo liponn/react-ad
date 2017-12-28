@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { commonFetch, fetchAction } from '../../../actions/omg';
+import { fetchAction } from '../../../actions/omg';
 import { showModal, hideModal } from '../../../actions/modal';
-import { BBS_THREAD_LIST,BBS_SECTION_LIST } from '../../../constants';
+import { BBS_THREAD_LIST,BBS_SECTION_LIST,BBS_THREAD_DT_DEL,BBS_THREAD_DT_UPDATE,BBS_USER_VEST_LIST,BBS_USER_ADMIN_LIST,BBS_THREAD_ADD } from '../../../constants';
 import { Radio,Pagination } from '../../tools';
-import { DatePicker,Select,Form,Input } from "antd";
+import ThreadAddModal from '../../modals/ThreadAddModal';
+import { DatePicker,Select,Form } from "antd";
 
 class Thread extends Component {
     constructor(props) {
@@ -16,14 +17,29 @@ class Thread extends Component {
         this.changeLength = this.changeLength.bind(this);
         this.changePage = this.changePage.bind(this);
         this.changeSearch= this.changeSearch.bind(this);
-        //this.componentDidMount = this.componentDidMount.bind(this);
-        //this.updateThread = this.updateThread.bind(this);
+        this.passThread = this.passThread.bind(this);
+        this.holdThread = this.holdThread.bind(this);
+        this.delThread = this.delThread.bind(this);
+        this.updateThread = this.updateThread.bind(this);
+        this.showUpdateModal = this.showUpdateModal.bind(this);
+        this.showAddModal = this.showAddModal.bind(this);
+        this.addThread = this.addThread.bind(this);
+        this.getAdminList = this.getAdminList.bind(this);
+        this.getVestList = this.getVestList.bind(this);
+        this.showReplyModal = this.showReplyModal.bind(this);
+        this.showRemoveModal = this.showRemoveModal.bind(this);
+        this.topThread = this.topThread.bind(this);
+        this.superTopThread = this.superTopThread.bind(this);
+        this.greatThread = this.greatThread.bind(this);
+        this.componentDidMount = this.componentDidMount.bind(this);
         this.state = {
             isVerify:0,
         }
     }
     componentDidMount() {
         this.freshSectionList();
+        this.getAdminList();
+        this.getVestList();
         this.list();
     }
 
@@ -48,36 +64,48 @@ class Thread extends Component {
         if(searchParams.end_at){
             queryObj[`data[filter][end_at]`] = searchParams.end_at.format('YYYY-MM-DD');
         }
-        const requert = {
+        const request = {
             type:BBS_THREAD_LIST,
             key:isVerify,
             queryObj
         }
-        this.props.dispatch(fetchAction(requert));
+        this.props.dispatch(fetchAction(request));
     }
 
     typeChange(e){
         const isVerify = e.target.value;
         this.setState({
-            isVerify,
+            formData:{},
+            isVerify:isVerify,
             page:1,
-        });
-        this.list();
+        },() => {this.list()});
+
+    }
+
+    getVestList(){
+        this.props.dispatch(fetchAction({
+            type: BBS_USER_VEST_LIST,
+        }));
+    }
+
+    getAdminList(){
+        this.props.dispatch(fetchAction({
+            type: BBS_USER_ADMIN_LIST,
+        }));
     }
 
     changeLength(e){
         const length = e.target.value;
         this.setState({
             pageNum:length
-        });
-        this.list();
+        },()=>{this.list()});
     }
 
     changePage(page){
         this.setState({
             page:page
-        });
-        this.list()
+        },()=>{this.list()});
+
     }
 
     changeSearch(e){
@@ -85,45 +113,128 @@ class Thread extends Component {
         const  formData = this.props.form.getFieldsValue();
         this.setState({
             formData:formData,
-        });
-        this.list()
+        },()=>{this.list()});
     }
 
     freshSectionList() {
         this.props.dispatch(fetchAction({
             type: BBS_SECTION_LIST,
-            key: 'type',
         }));
     }
 
+    delThread(e){
+        if (!confirm('确定删除吗?')) {
+            return false;
+        }
+        const id = e.target.dataset.id;
+        const formData = new FormData;
+        formData.append('id', id);
+        this.props.dispatch(fetchAction({type:BBS_THREAD_DT_DEL, method:'POST',formData:formData}))
+            .then(() => (this.list()));
+    }
+
+    passThread(e){
+        const id = e.target.dataset.id;
+        const formData = new FormData;
+        formData.append('id', id);
+        formData.append('isverify',1);
+        this.props.dispatch(fetchAction({type:BBS_THREAD_DT_UPDATE, method:'POST',formData:formData}))
+            .then(() => (this.list()));
+    }
+
+    holdThread(e){
+        const id = e.target.dataset.id;
+        const formData = new FormData;
+        formData.append('id', id);
+        formData.append('isverify',2);
+        this.props.dispatch(fetchAction({type:BBS_THREAD_DT_UPDATE, method:'POST',formData:formData}))
+            .then(() => (this.list()));
+    }
+
+    showUpdateModal(e){
+        const index = e.target.dataset.index;
+        this.props.dispatch(showModal(<ThreadAddModal submit={this.updateThread} item={this.items[index]} types={this.sections} update  />));
+    }
+
+    addThread(e){
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const { dispatch } = this.props;
+        dispatch(fetchAction({type:BBS_THREAD_ADD,method:'POST',formData:formData}))
+        .then(json=>{
+            if(json.error_code === 0){
+                dispatch(hideModal(true));
+                this.list();
+            }else{
+                alert(json.error_msg);
+            }
+        })
+    }
+
+    updateThread(e){
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const { dispatch } = this.props;
+        dispatch(fetchAction({type:BBS_THREAD_DT_UPDATE,method:'POST',formData:formData}))
+        .then(json =>{
+            if (json.error_code === 0) {
+                dispatch(hideModal(true));
+                this.list();
+            } else {
+                alert(json.data.error_msg);
+            }
+        });
+    }
+    
+    showReplyModal(){
+
+    }
+
+    showRemoveModal(){
+
+    }
+
+    topThread(){
+
+    }
+
+    superTopThread(){
+
+    }
+
+    greatThread(){
+
+    }
+
+    showAddModal(e){
+        this.props.dispatch(showModal(<ThreadAddModal admins={this.admins} vests={this.vests} types={this.sections} submit={this.addThread} /> ))
+    }
+   
     render() {
         const threadList = this.props.threadList[this.state.isVerify] || {};
-        const sectionList = this.props.sectionList || {};
-        const sections = sectionList.type || [];
+        const sectionList = this.props.sectionList || [];
+        const sections = sectionList || [];
         const items = threadList.data || [];
+        this.items = items;
+        this.sections = sections;
+        this.admins = this.props.adminList || [];
+        this.vests = this.props.vestList || [];
+        const Option = Select.Option;
         const { getFieldDecorator,getFieldsValue } = this.props.form;
-
-        const updateActivityBtn = (
-            <button
-                /*onClick={this.showUpdateActivity}*/
-                className="btn btn-sm btn-info pull-right"
-            >
-                <i className="fa fa-edit">编辑</i>
-            </button>
-        );
+       
         return (
             <div>
                 <Radio
                     labelName="未审核"
                     name="userfilter"
-                    checked={this.state.isVerify ===  0}
+                    checked={parseInt(this.state.isVerify) === 0 }
                     onChange={this.typeChange}
                     value={0}
                 />
                 <Radio
                     labelName="已审核"
                     name="userfilter"
-                    checked={this.state.isVerify === 1}
+                    checked={parseInt(this.state.isVerify) === 1}
                     onChange={this.typeChange}
                     value={1}
                 />
@@ -131,7 +242,7 @@ class Thread extends Component {
                     labelName="已拒绝"
                     name="userfilter"
                     value={2}
-                    checked={this.state.isVerify === 2}
+                    checked={parseInt(this.state.isVerify) === 2}
                     onChange={this.typeChange}
                 />
                 <hr />
@@ -193,6 +304,13 @@ class Thread extends Component {
                                         <i className="fa fa-search">搜索</i>
                                     </button>
                                 </Form>
+                                { this.state.isVerify == 1 ? <button
+                                onClick={this.showAddModal}
+                                className="btn btn-sm btn-info pull-right"
+                            >
+                                <i className="fa fa-plus">添加</i>
+                            </button> : ""}
+                                
                             </h4>
                         </div>
                         <table className="table table-bordered m-b-0 table-hover data-table">
@@ -216,20 +334,58 @@ class Thread extends Component {
                                     <td>{item.content}</td>
                                     <td>{item.user_id}</td>
                                     <td>{item.user.nickname}</td>
-                                    <td>
-                                        <button data-id={item.id} onClick={this.updateThread}
-                                                className="btn btn-info-outline btn-sm"
-                                        >编辑</button>
-                                        <button data-id={item.id} onClick={this.updateThread}
-                                                className="btn btn-info-outline btn-sm"
-                                        >编辑</button>
-                                        <button data-id={item.id} onClick={this.updateThread}
-                                                className="btn btn-info-outline btn-sm"
-                                        >编辑</button>
-                                        <button data-id={item.id} onClick={this.delThread}
-                                                className="btn btn-danger-outline btn-sm"
-                                        >删除</button>
-                                    </td>
+                                    
+                                    { 
+                                        this.state.isVerify == 0 ? 
+                                            <td>
+                                                <button data-id={item.id} onClick={this.passThread}
+                                                        className="btn btn-success-outline btn-sm"
+                                                >通过</button>
+                                                <button data-id={item.id} onClick={this.holdThread}
+                                                        className="btn btn-sm btn-warning-outline"
+                                                >拒绝</button>
+                                                <button data-index={index} data-id={item.id} onClick={this.showUpdateModal}
+                                                        className="btn btn-info-outline btn-sm"
+                                                >编辑</button>
+                                                <button data-id={item.id} onClick={this.delThread}
+                                                        className="btn btn-danger-outline btn-sm"
+                                                >删除</button>
+                                            </td> 
+                                        : 
+                                        this.state.isVerify == 1 ? 
+                                            <td>
+                                                <button data-id={item.id} onClick={this.showReplyModal}
+                                                        className="btn btn-primary-outline btn-sm"
+                                                >回复</button>
+                                                <button data-index={index} data-id={item.id} onClick={this.showUpdateModal}
+                                                        className="btn btn-warning-outline btn-sm"
+                                                >编辑</button>
+                                                <button data-id={item.id} onClick={this.showRemoveModal}
+                                                        className="btn btn-sm btn-info-outline"
+                                                >移动</button>
+                                                <button data-id={item.id} onClick={this.holdThread}
+                                                        className="btn btn-sm btn-secondary-outline"
+                                                >拒绝</button>
+                                                <button data-id={item.id} onClick={this.greatThread}
+                                                        className="btn btn-success-outline btn-sm"
+                                                >加精</button>
+                                                {
+                                                    item.istop ? 
+                                                    <button data-id={item.id} onClick={this.superTopThread}
+                                                        className="btn btn-danger-outline btn-sm"
+                                                    >特定帖</button> : 
+                                                    <button data-id={item.id} onClick={this.topThread}
+                                                        className="btn btn-danger-outline btn-sm"
+                                                    >置顶</button>
+                                                }
+                                            </td> 
+                                        : 
+                                        this.state.isVerify == 2 ? 
+                                            <td>
+                                                2222
+                                            </td> 
+                                        : <td></td>
+                                    }
                                 </tr>
                             ))}
                             </tbody>
@@ -268,7 +424,7 @@ class Thread extends Component {
 Thread = Form.create()(Thread);
 Thread.propTypes = {
     dispatch: PropTypes.func.isRequired,
-    sectionList: PropTypes.object.isRequired,
+    sectionList: PropTypes.array.isRequired,
 };
 
 Thread.defaultProps = {
@@ -277,9 +433,13 @@ Thread.defaultProps = {
 export default connect(state => {
     const { omg } = state;
     const threadList = omg[BBS_THREAD_LIST] || {};
-    const sectionList = omg[BBS_SECTION_LIST] || {};
+    const sectionList = omg[BBS_SECTION_LIST] || [];
+    const adminList = omg[BBS_USER_ADMIN_LIST] || [];
+    const vestList = omg[BBS_USER_VEST_LIST] || [];
     return {
         sectionList,
         threadList,
+        adminList,
+        vestList,
     };
 })(Thread);

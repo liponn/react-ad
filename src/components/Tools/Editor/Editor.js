@@ -52,13 +52,12 @@ class Editor extends Component {
 
   render() {
     const imgUploadClick = this.imgUploadClick;
-    console.log('aa');
     return (
       <div className="form-group row">
         <div className="col-sm-12">
           <TinyMce
             config={{
-              height: 500,
+              height: 300,
               plugins: [
                 'advlist autolink lists link image charmap preview anchor',
                 'searchreplace visualblocks code fullscreen',
