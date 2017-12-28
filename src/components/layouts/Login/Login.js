@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Input, Card, Submit, Alert } from '../../tools';
 import { fetchAction } from '../../../actions/omg';
 import { ACCOUNT_LOGIN, ACCOUNT_PROFILE, ACCOUNT_CAPTCHA } from '../../../constants';
-import { authentication } from '../../../config';
+import { authentication } from '../../../config.js';
 
 class Login extends Component {
   constructor(props) {
@@ -36,6 +36,7 @@ class Login extends Component {
   submit(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
+    formData.append("img_key",this.props.captcha.key);
     this.props.dispatch(fetchAction({
       type: ACCOUNT_LOGIN,
       method: 'POST',
@@ -73,18 +74,17 @@ class Login extends Component {
     }
     return (
       <div>
-        <div
-          className="row m-t-3"
-          hidden={this.props.profile.id || (!this.state.fetching && this.props.fetching)}
+        <div className="row m-t-3" 
         >
           <div className="col-md-offset-4 col-md-4" >
             <Card title="登录">
               <Alert msg={this.state.errorMsg} />
               <form className="m-t-1" onSubmit={this.submit}>
-                <input type="hidden" name="img_key" value={this.props.captcha.key} />
+                
                 <Input labelName="手机号" name="username" />
                 <Input labelName="密码" type="password" name="password" />
-                <div hidden={!this.state.showCaptcha} className="form-group row">
+                {this.state.showCaptcha ?
+                <div  className="form-group row">
                   <label
                     className="col-sm-4 form-control-label text-xs-right">验证码:</label>
                   <div className="col-sm-3">
@@ -103,7 +103,8 @@ class Login extends Component {
                       src={this.props.captcha.img_src}
                     />
                   </div>
-                </div>
+                </div> :''
+                }
                 <Submit value="登录" />
               </form>
             </Card>
@@ -122,6 +123,7 @@ Login.propTypes = {
 }
 
 Login.defaultProps = {
+
 }
 
 export default connect(state => {
