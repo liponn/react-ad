@@ -37,7 +37,7 @@ class ThreadAddModal extends Component {
         <div className="form-group row">
             <label className="col-sm-4 form-control-label text-xs-right">官方号:</label>
             <div className="col-sm-6">
-              <select ref="select" name="user_id" className="form-control c-select" defaultValue={item.type_id}>
+              <select ref="select" name="user_id" className="form-control c-select" defaultValue={admins[0].user_id}>
                 {admins.map((admin,index)=>(
                      <option key={index} value={admin.user_id}>{admin.nickname}</option>
                   ))};
@@ -51,7 +51,7 @@ class ThreadAddModal extends Component {
         <div className="form-group row">
             <label className="col-sm-4 form-control-label text-xs-right">马甲号:</label>
             <div className="col-sm-6">
-              <select ref="select" name="user_id" className="form-control c-select" defaultValue={item.type_id}>
+              <select ref="select" name="user_id" className="form-control c-select" defaultValue={vests[0].user_id}>
                 {vests.map((vest,index)=>(
                   <option key={index} value={vest.user_id}>{vest.nickname}</option>
                 ))};
@@ -67,6 +67,7 @@ class ThreadAddModal extends Component {
             <form name="formupdate" method="post" onSubmit={this.props.submit}>
                 <Alert msg={this.props.errorMsg} />
                 {this.props.update ? <input type="hidden" name="id" value={item.id} /> : ""}
+                {this.props.update ? "" : <input type="hidden" name="id" value={item.id} />}
                 <Input required labelName="标题" name="title" defaultValue={item.title} />
                 {
                   this.props.update ? "" :

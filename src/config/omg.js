@@ -204,6 +204,7 @@ import {
   BBS_COMMENT_VERIFY,
   BBS_COMMENT_UNVERIFY,
   BBS_COMMENT_REPLY,
+  BBS_COMMENT_ADD,
 
   BBS_MESSAGE_DT_ADD,
   BBS_MESSAGE_DT_DEL,
@@ -477,6 +478,8 @@ apiList[BBS_COMMENT_DT_DEL] = '/bbs/comment/dt-delete';
 apiList[BBS_COMMENT_DT_LIST] = '/bbs/comment/dt-list';
 apiList[BBS_COMMENT_VERIFY] = '/bbs/comment/verify-put';
 apiList[BBS_COMMENT_REPLY] = '/bbs/comment/admin-reply';
+apiList[BBS_COMMENT_ADD] = '/bbs/comment/add';
+
 
 apiList[BBS_MESSAGE_DT_DEL] = '/bbs/pm/dt-delete';
 apiList[BBS_MESSAGE_DT_UPDATE] = '/bbs/pm/dt-update';

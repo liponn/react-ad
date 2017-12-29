@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchAction } from '../../../actions/omg';
 import { showModal, hideModal } from '../../../actions/modal';
-import { BBS_THREAD_LIST,BBS_SECTION_LIST,BBS_THREAD_DT_DEL,BBS_THREAD_DT_UPDATE,BBS_USER_VEST_LIST,BBS_USER_ADMIN_LIST,BBS_THREAD_ADD } from '../../../constants';
+import { BBS_THREAD_LIST,BBS_SECTION_LIST,BBS_COMMENT_ADD,BBS_THREAD_TOGGLE_STATUS,BBS_THREAD_DT_DEL,BBS_THREAD_DT_UPDATE,BBS_USER_VEST_LIST,BBS_USER_ADMIN_LIST,BBS_THREAD_ADD } from '../../../constants';
 import { Radio,Pagination } from '../../tools';
 import ThreadAddModal from '../../modals/ThreadAddModal';
+import ThreadMoveModal from '../../modals/ThreadMoveModal';
+import ThreadReplyModal from '../../modals/ThreadReplyModal';
 import { DatePicker,Select,Form } from "antd";
 
 class Thread extends Component {
@@ -27,15 +29,18 @@ class Thread extends Component {
         this.getAdminList = this.getAdminList.bind(this);
         this.getVestList = this.getVestList.bind(this);
         this.showReplyModal = this.showReplyModal.bind(this);
-        this.showRemoveModal = this.showRemoveModal.bind(this);
+        this.replyThread = this.replyThread.bind(this);
+        this.showMoveModal = this.showMoveModal.bind(this);
         this.topThread = this.topThread.bind(this);
         this.superTopThread = this.superTopThread.bind(this);
         this.greatThread = this.greatThread.bind(this);
+        this.moveThread = this.moveThread.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
         this.state = {
             isVerify:0,
         }
     }
+
     componentDidMount() {
         this.freshSectionList();
         this.getAdminList();
@@ -185,25 +190,71 @@ class Thread extends Component {
             }
         });
     }
-    
-    showReplyModal(){
 
+    replyThread(e){
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        this.props.dispatch(fetchAction({type:BBS_COMMENT_ADD,method:'POST',formData:formData}))
+        .then(json =>{
+            if (json.error_code === 0) {
+                this.props.dispatch(hideModal(true));
+                this.list();
+            } else {
+                alert(json.data.error_msg);
+            }
+        });
+        
     }
 
-    showRemoveModal(){
-
+    showReplyModal(e){
+        const id = e.target.dataset.id;
+        this.props.dispatch(showModal(<ThreadReplyModal vests={this.vests} id={id} submit={this.replyThread}/>));
     }
 
-    topThread(){
-
+    moveThread(e){
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        this.props.dispatch(fetchAction({type:BBS_THREAD_DT_UPDATE, method:'POST',formData:formData}))
+            .then(json=>{
+                if(json.error_code === 0){
+                    this.props.dispatch(hideModal(true));
+                    this.list();
+                }else{
+                    alert(json.error_msg);
+                }
+            });
     }
 
-    superTopThread(){
-
+    topThread(e){
+        const id = e.target.dataset.id;
+        const formData = new FormData;
+        formData.append('id', id);
+        formData.append('istop',1);
+        this.props.dispatch(fetchAction({type:BBS_THREAD_TOGGLE_STATUS, method:'POST',formData:formData}))
+            .then(() => (this.list()));
     }
 
-    greatThread(){
+    superTopThread(e){
+        const id = e.target.dataset.id;
+        const formData = new FormData;
+        formData.append('id', id);
+        formData.append('is_special',1);
+        this.props.dispatch(fetchAction({type:BBS_THREAD_TOGGLE_STATUS, method:'POST',formData:formData}))
+            .then(() => (this.list()));
+    }
 
+    greatThread(e){
+        const id = e.target.dataset.id;
+        const formData = new FormData;
+        formData.append('id', id);
+        formData.append('isgreat',1);
+        this.props.dispatch(fetchAction({type:BBS_THREAD_TOGGLE_STATUS, method:'POST',formData:formData}))
+            .then(() => (this.list()));
+    }
+
+    showMoveModal(e){
+        const index = e.target.dataset.index;
+        this.props.dispatch(showModal(<ThreadMoveModal types={this.sections} currentType={this.items[index].type_id} item={this.items[index]} submit={this.moveThread}/>));
     }
 
     showAddModal(e){
@@ -215,6 +266,7 @@ class Thread extends Component {
         const sectionList = this.props.sectionList || [];
         const sections = sectionList || [];
         const items = threadList.data || [];
+        const appUrl = threadList.app_url || '';
         this.items = items;
         this.sections = sections;
         this.admins = this.props.adminList || [];
@@ -315,15 +367,47 @@ class Thread extends Component {
                         </div>
                         <table className="table table-bordered m-b-0 table-hover data-table">
                             <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>所属版块</th>
-                                <th>贴子标题</th>
-                                <th>贴子内容</th>
-                                <th>用户ID</th>
-                                <th>用户昵称</th>
-                                <th>操作</th>
-                            </tr>
+                            {
+                                this.state.isVerify == 0 ? 
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>所属版块</th>
+                                        <th>贴子标题</th>
+                                        <th>贴子内容</th>
+                                        <th>用户ID</th>
+                                        <th>用户昵称</th>
+                                        <th>操作</th>
+                                    </tr> :
+                                this.state.isVerify == 1 ?
+                                     <tr>
+                                        <th>ID</th>
+                                        <th>所属版块</th>
+                                        <th>贴子标题</th>
+                                        <th>贴子内容</th>
+                                        <th>用户ID</th>
+                                        <th>用户昵称</th>
+                                        <th>评论数</th>
+                                        <th>点赞数</th>
+                                        <th>收藏数</th>
+                                        <th>视频链接</th>
+                                        <th>图片</th>
+                                        <th>是否置顶</th>
+                                        <th>是否加精</th>
+                                        <th>是否最热</th>
+                                        <th>官方帖</th>
+                                        <th>操作</th>
+                                    </tr> :
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>所属版块</th>
+                                        <th>贴子标题</th>
+                                        <th>贴子内容</th>
+                                        <th>用户ID</th>
+                                        <th>用户昵称</th>
+                                        <th>操作</th>
+                                    </tr>
+                            }
+                            
                             </thead>
                             <tbody>
                             { items.map((item,index) => (
@@ -334,7 +418,16 @@ class Thread extends Component {
                                     <td>{item.content}</td>
                                     <td>{item.user_id}</td>
                                     <td>{item.user.nickname}</td>
-                                    
+                                    { this.state.isVerify == 1 ? <td>{item.comment_num}</td> : "" }
+                                    { this.state.isVerify == 1 ? <td>{item.zan_num}</td> : ""}
+                                    { this.state.isVerify == 1 ? <td>{item.collection_num}</td> : "" }
+                                    { this.state.isVerify == 1 ? <td>{item.video_code ? item.video_code : "无"}</td> : "" }
+                                    { this.state.isVerify == 1 ? <td>{ item.cover ? <a href={appUrl+"/thread/img/"+item.id} target="_blank">查看</a> : "—"}</td> : "" }
+                                    { this.state.isVerify == 1 ? <td>{item.istop ? "是" : "否"}</td> : "" }
+                                    { this.state.isVerify == 1 ? <td>{item.isgreat ? "是" : "否"}</td> : "" }
+                                    { this.state.isVerify == 1 ? <td>{item.ishot ? "是" : "否"}</td> : "" }
+                                    { this.state.isVerify == 1 ? <td>{item.isofficial ? "是" : "否"}</td> : "" }
+                                   
                                     { 
                                         this.state.isVerify == 0 ? 
                                             <td>
@@ -360,7 +453,7 @@ class Thread extends Component {
                                                 <button data-index={index} data-id={item.id} onClick={this.showUpdateModal}
                                                         className="btn btn-warning-outline btn-sm"
                                                 >编辑</button>
-                                                <button data-id={item.id} onClick={this.showRemoveModal}
+                                                <button data-id={item.id} data-index={index} onClick={this.showMoveModal}
                                                         className="btn btn-sm btn-info-outline"
                                                 >移动</button>
                                                 <button data-id={item.id} onClick={this.holdThread}
@@ -368,22 +461,30 @@ class Thread extends Component {
                                                 >拒绝</button>
                                                 <button data-id={item.id} onClick={this.greatThread}
                                                         className="btn btn-success-outline btn-sm"
-                                                >加精</button>
+                                                >{item.isgreat ? "取消" : "加精"}</button>
                                                 {
-                                                    item.istop ? 
+                                                    item.istop && !item.is_special  ?  
                                                     <button data-id={item.id} onClick={this.superTopThread}
                                                         className="btn btn-danger-outline btn-sm"
                                                     >特定帖</button> : 
-                                                    <button data-id={item.id} onClick={this.topThread}
+                                                    <button data-id={item.id} data-number={item.istop} onClick={this.topThread}
                                                         className="btn btn-danger-outline btn-sm"
                                                     >置顶</button>
                                                 }
                                             </td> 
                                         : 
                                         this.state.isVerify == 2 ? 
-                                            <td>
-                                                2222
-                                            </td> 
+                                             <td>
+                                                <button data-id={item.id} onClick={this.passThread}
+                                                        className="btn btn-success-outline btn-sm"
+                                                >通过</button>
+                                                <button data-index={index} data-id={item.id} onClick={this.showUpdateModal}
+                                                        className="btn btn-info-outline btn-sm"
+                                                >编辑</button>
+                                                <button data-id={item.id} onClick={this.delThread}
+                                                        className="btn btn-danger-outline btn-sm"
+                                                >删除</button>
+                                            </td>  
                                         : <td></td>
                                     }
                                 </tr>

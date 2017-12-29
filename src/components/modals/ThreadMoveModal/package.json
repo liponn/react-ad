@@ -1,0 +1,6 @@
+{
+  "name": "ThreadMoveModal",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ThreadMoveModal.js"
+}
