@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Link from '../../tools/Link';
 import cookie from 'react-cookie';
 import { ACCOUNT_PROFILE } from '../../../constants';
-import { authentication } from '../../../config';
+import { authentication } from '../../../config.js';
 
 class Container extends Component {
   constructor(props) {
@@ -280,7 +280,8 @@ class Container extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.type !== '') {
+    
+    if (nextProps.type !== 'undefined') {
       this.setState({
         currentType: nextProps.type,
       });
@@ -392,6 +393,7 @@ class Container extends Component {
 
   render() {
     const items = this.state.items;
+    console.log(this.props);
     return (
       <div className={this.state.isFold ? 'left-panel-max' : 'left-panel-mix'}>
         <div onMouseOver={this.panelHover} onMouseOut={this.panelHover} className="left-panel">
@@ -436,7 +438,6 @@ class Container extends Component {
 Container.propTypes = {
   children: PropTypes.any,
   dispatch: PropTypes.func.isRequired,
-  type: PropTypes.string.isRequired,
   modal: PropTypes.bool.isRequired,
   profile: PropTypes.object.isRequired,
 }
