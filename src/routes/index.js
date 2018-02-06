@@ -49,13 +49,14 @@ import globalattr from './globalattr';
 import bbstask from './bbstask';
 import feeflowconfig from './feeflowconfig';
 import feefloworder from './feefloworder';
-
+import examine from './examine';
 
 export default {
 
   path: '/',
 
   children: [
+    examine,
     feefloworder,
     feeflowconfig,
     jianmianhui,
