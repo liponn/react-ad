@@ -108,6 +108,9 @@ class RedEnvelopeAddModal extends Component {
           <PercentInput key="3" required placeholder="请输入小数,例:2.5为2.5%" labelName="红包百分比" defaultValue={item.percentage && (item.percentage * 100).toFixed(1)} name="percentage" />,
         ];
         break;
+      case 3:
+        typeFileds = [<Input required key="1" type="number" labelName="红包金额" defaultValue={item.red_money} name="red_money" />];
+        break;
       default:
     }
     // 根绝有效期类型显示相应字段
