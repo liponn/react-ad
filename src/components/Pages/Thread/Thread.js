@@ -485,7 +485,7 @@ class Thread extends Component {
                                                         className="btn btn-danger-outline btn-sm"
                                                 >删除</button>
                                             </td>  
-                                        : <td></td>
+                                        : <td>——</td>
                                     }
                                 </tr>
                             ))}

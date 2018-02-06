@@ -12,6 +12,7 @@ import {
   BBS_COMMENT_DT_LIST,
   BBS_USER_ADMIN_LIST,
   BBS_COMMENT_REPLY,
+  BBS_USER_VEST_LIST,
 } from '../../../constants';
 import { DataTable, Radio } from '../../tools';
 import ReplayModal from './ReplayModal';
@@ -206,7 +207,7 @@ class Reply extends Component {
 
   fetchAdmins(){
       this.props.dispatch(fetchAction({
-          type: BBS_USER_ADMIN_LIST,
+          type: BBS_USER_VEST_LIST,
           method: 'GET',
       })).then(json => {
           if (json.error_code === 0) {
