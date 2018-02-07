@@ -59,7 +59,7 @@ class AddModal extends Component {
                   options={this.state.ExamineTypes}
               />
             </Fieldset>
-            <Input labelName="首页上线活动图" name="home_banner" defaultValue={item.discover_banner} />
+            <Input labelName="首页上线活动图" name="home_banner" defaultValue={item.home_banner} />
             <Input labelName="发现页上线活动图" name="discover_banner" defaultValue={item.discover_banner} />
             <Submit />
           </form>
