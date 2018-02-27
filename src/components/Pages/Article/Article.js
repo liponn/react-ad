@@ -8,7 +8,6 @@ import history from '../../../core/history';
 import { showModal, hideModal } from '../../../actions/modal';
 import ArticleAddModal from './ArticleAddModal';
 import { ARTICLE_LIST, ARTICLE_ADD, ARTICLE_PUT, ARTICLE_TYPE_LIST, ARTICLE_DEL, ARTICLE_RELEASE, ARTICLE_OFFLINE, ARTICLE_DOWN, ARTICLE_UP, TEMPLATE_HELP, TEMPLATE_DYNAMIC, TEMPLATE_MEDIA, TEMPLATE_CLASSROOM } from '../../../constants';
-import { DatePicker } from 'antd';
 
 class Article extends Component {
   constructor(props) {
