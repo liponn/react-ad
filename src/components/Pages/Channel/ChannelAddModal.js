@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { CHANNEL_LIST, CHANNEL_DEL, CHANNEL_INFO, CHANNEL_PUT, CHANNEL_ADD } from '../../../constants';
 import { Modal, Input, Submit, Select } from '../../tools';

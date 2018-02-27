@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { GLOBALATTR_DT_LIST, GLOBALATTR_DT_UPDATE, GLOBALATTR_DT_ADD, GLOBALATTR_DT_DEL } from '../../../constants';
 import { DataTable } from '../../tools';

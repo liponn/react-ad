@@ -1,6 +1,7 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Modal, Submit, Select, Textarea } from '../../tools';
+import { Modal, Submit, Select, Textarea,Checkbox} from '../../tools';
 import { fetchAction, } from '../../../actions/omg';
 import { BBS_BLOCK_LIST, Radio } from '../../../constants';
 
@@ -25,6 +26,7 @@ class ReplayModal extends Component {
             name="content"
             defaultValue=""
           />
+          <Checkbox name="comment_type"  checked={false} labelName="官方回复" />
           <Submit value="确认" />
         </form>
       </Modal>

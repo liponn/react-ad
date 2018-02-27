@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Card, Popover } from '../../tools';
 import { AWARD_LIST, AWARD_UPDATE, AWARD_ADD, AWARD_COUPON_TOTAL, AWARD_COUPON_EXPORT, AWARD_COUPON_DOWNLOAD, AWARD_INVALIDE_COUPON } from '../../../constants';

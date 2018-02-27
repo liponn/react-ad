@@ -1,8 +1,10 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { analytics } from '../config';
 import { imgHost } from '../config'
 
 function Html({ title, description, style, script, children, state }) {
+
   return (
     <html className="no-js" lang="">
       <head>
@@ -19,6 +21,7 @@ function Html({ title, description, style, script, children, state }) {
         <link rel="stylesheet" type="text/css" href="/css/picker/default.css" />
         <link rel="stylesheet" type="text/css" href="/css/picker/default.date.css" />
         <link rel="stylesheet" type="text/css" href="/css/picker/default.time.css" />
+          <link rel="stylesheet" type="text/css" href="/css/antd.min.css" />
         <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
 
         <style id="css" dangerouslySetInnerHTML={{ __html: style }} />
@@ -51,7 +54,7 @@ function Html({ title, description, style, script, children, state }) {
 }
 
 Html.propTypes = {
-  title: PropTypes.string.isRequired,
+  title:  PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   style: PropTypes.string.isRequired,
   script: PropTypes.string,

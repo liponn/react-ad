@@ -3,9 +3,9 @@ import Thread from '../../components/pages/Thread';
 
 export default {
 
-  path: '/thread',
+    path: '/thread',
 
-  action() {
-    return <Thread />;
-  },
+    action() {
+        return <Thread />;
+    },
 };

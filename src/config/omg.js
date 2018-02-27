@@ -166,7 +166,8 @@ import {
   HONGBAO_DEL,
 
   BBS_THREAD_DT_ADD,
-  BBS_THREAD_DT_LIST,
+  BBS_THREAD_ADD,
+  BBS_THREAD_LIST,
   BBS_THREAD_DT_DEL,
   BBS_THREAD_DT_UPDATE,
   BBS_THREAD_TOGGLE_STATUS,
@@ -187,10 +188,14 @@ import {
   BBS_USER_DT_DEL,
   BBS_USER_DT_LIST,
   BBS_USER_DT_UPDATE,
+  BBS_USER_UPDATE,
   BBS_USER_UNBLOCK,
   BBS_USER_ADMIN,
   BBS_USER_UNADMIN,
   BBS_USER_ADMIN_LIST,
+  BBS_USER_SEARCH_LIST,
+  BBS_USER_VEST_LIST,
+
 
   BBS_COMMENT_DT_ADD,
   BBS_COMMENT_DT_DEL,
@@ -199,6 +204,7 @@ import {
   BBS_COMMENT_VERIFY,
   BBS_COMMENT_UNVERIFY,
   BBS_COMMENT_REPLY,
+  BBS_COMMENT_ADD,
 
   BBS_MESSAGE_DT_ADD,
   BBS_MESSAGE_DT_DEL,
@@ -441,8 +447,9 @@ apiList[HONGBAO_ENABLE] = '/money/up-status';
 apiList[HONGBAO_DISABLE] = '/money/down-status';
 apiList[HONGBAO_DEL] = '/money/delete';
 
-apiList[BBS_THREAD_DT_LIST] = '/bbs/thread/dt-list';
+apiList[BBS_THREAD_LIST] = '/bbs/thread/list';
 apiList[BBS_THREAD_DT_ADD] = '/bbs/thread/dt-add';
+apiList[BBS_THREAD_ADD] = '/bbs/thread/add';
 apiList[BBS_THREAD_DT_DEL] = '/bbs/thread/dt-delete';
 apiList[BBS_THREAD_DT_UPDATE] = '/bbs/thread/dt-update';
 apiList[BBS_THREAD_TOGGLE_STATUS] = '/bbs/thread/toogle-status';
@@ -459,6 +466,7 @@ apiList[BBS_SECTION_OPEN] = '/bbs/section/open';
 apiList[BBS_SECTION_LIST] = '/bbs/section/list';
 
 apiList[BBS_USER_DT_UPDATE] = '/bbs/user/dt-update';
+apiList[BBS_USER_UPDATE] = '/bbs/user/put';
 apiList[BBS_USER_UNBLOCK] = '/bbs/user/to-user';
 apiList[BBS_USER_DT_LIST] = '/bbs/user/dt-list';
 apiList[BBS_USER_DT_DEL] = '/bbs/user/dt-delete';
@@ -467,6 +475,8 @@ apiList[BBS_USER_BLOCK] = '/bbs/user/to-black';
 apiList[BBS_USER_ADMIN] = '/bbs/user/add';
 apiList[BBS_USER_UNADMIN] = '/bbs/user/del';
 apiList[BBS_USER_ADMIN_LIST] = '/bbs/user/list';
+apiList[BBS_USER_VEST_LIST] = '/bbs/user/vest-list';
+apiList[BBS_USER_SEARCH_LIST] = '/bbs/user/search-list';
 
 apiList[BBS_COMMENT_DT_ADD] = '/bbs/comment/dt-add';
 apiList[BBS_COMMENT_DT_UPDATE] = '/bbs/comment/dt-update';
@@ -474,6 +484,8 @@ apiList[BBS_COMMENT_DT_DEL] = '/bbs/comment/dt-delete';
 apiList[BBS_COMMENT_DT_LIST] = '/bbs/comment/dt-list';
 apiList[BBS_COMMENT_VERIFY] = '/bbs/comment/verify-put';
 apiList[BBS_COMMENT_REPLY] = '/bbs/comment/admin-reply';
+apiList[BBS_COMMENT_ADD] = '/bbs/comment/add';
+
 
 apiList[BBS_MESSAGE_DT_DEL] = '/bbs/pm/dt-delete';
 apiList[BBS_MESSAGE_DT_UPDATE] = '/bbs/pm/dt-update';
