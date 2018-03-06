@@ -489,7 +489,7 @@ apiList[BBS_MESSAGE_DT_LIST] = '/bbs/pm/dt-list';
 apiList[BBS_CONFIG_DT_ADD] = '/bbs/global/dt-add';
 apiList[BBS_CONFIG_DT_DEL] = '/bbs/global/dt-delete';
 apiList[BBS_CONFIG_DT_LIST] = '/bbs/global/dt-list';
-apiList[BBS_CONFIG_DT_UPDATE] = '/bbs/global/update';
+apiList[BBS_CONFIG_DT_UPDATE] = '/bbs/global/dt-update';
 
 apiList[BBS_BLOCK_DT_ADD] = '/bbs/replay/dt-add';
 apiList[BBS_BLOCK_DT_UPDATE] = '/bbs/replay/dt-update';
