@@ -570,7 +570,7 @@ function getApi(type) {
       apiHost = 'http://yunying.dev.wanglibao.com';
       break;
     case 'yyadmin.wanglibao.com': // 测试环境
-      apiHost = 'https://test1.wanglibao.com/yunying';
+      apiHost = 'https://php1.wanglibao.com/yunying';
       break;
     case 'yyadmin3.wanglibao.com': // 预上线环境
       apiHost = 'https://php3.wanglibao.com/yunying';
