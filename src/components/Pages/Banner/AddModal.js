@@ -41,6 +41,7 @@ class AddModal extends Component {
         fileds.push(<Input key="name" name="name" labelName="标题" defaultValue={this.props.item.name} />);
         fileds.push(<Input key="share_name" name="short_desc" labelName="副标题" defaultValue={this.props.item.short_desc} />);
         fileds.push(<Select key="pop_type" labelName="跳转类型" name="type" defaultValue={this.props.item.type} options={this.state.popTypes} />);
+        fileds.push(<Input labelName="IOS跳转链接(下面跳转链接为安卓)" name="url_ios" defaultValue={this.props.item.url_ios} />);
         break;
       case 'cast_finish':
         fileds.push(<Input key="share_name" name="name" labelName="埋点说明" defaultValue={this.props.item.name} />);
