@@ -267,6 +267,8 @@ import {
   EXAMINECONFIG_LIST,
   EXAMINECONFIG_UP_STATUS,
 
+  USER_LOG,
+
 
 } from '../constants/index.js';
 
@@ -542,6 +544,8 @@ apiList[FEEFLOWCONFIG_ORDER_EXPORT] = '/feeflow/order-export';
 apiList[EXAMINECONFIG_ADD] = '/examine/add';
 apiList[EXAMINECONFIG_LIST] = '/examine/config-list';
 apiList[EXAMINECONFIG_UP_STATUS] = '/examine/update-status';
+
+apiList[USER_LOG] = '/log';
 
 function getApi(type) {
   let apiHost = '';
