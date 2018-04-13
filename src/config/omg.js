@@ -174,6 +174,8 @@ import {
   BBS_THREAD_UNVERIFY,
   BBS_THREAD_RESTORE,
   BBS_THREAD_VERIFY,
+  BBS_THREAD_IMG_ADD,
+  BBS_THREAD_UPDATE,
 
   BBS_SECTION_CLOSE,
   BBS_SECTION_DT_ADD,
@@ -456,6 +458,10 @@ apiList[BBS_THREAD_TOGGLE_STATUS] = '/bbs/thread/toogle-status';
 apiList[BBS_THREAD_UNVERIFY] = '/bbs/thread/del';
 apiList[BBS_THREAD_RESTORE] = '/bbs/thread/restore';
 apiList[BBS_THREAD_VERIFY] = '/bbs/thread/verify-put';
+apiList[BBS_THREAD_IMG_ADD] = '/upload/img';
+apiList[BBS_THREAD_UPDATE] = '/bbs/thread/update';
+
+
 
 apiList[BBS_SECTION_DT_LIST] = '/bbs/section/dt-list';
 apiList[BBS_SECTION_DT_ADD] = '/bbs/section/dt-add';
