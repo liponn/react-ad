@@ -136,6 +136,12 @@ class Container extends Component {
           tag: 'app',
           fontClass: 'fa-level-up',
         },
+        {
+          title: 'ios过审配置',
+          url: '/examine',
+          tag: 'app',
+          fontClass: 'fa-level-up',
+        },
       ],
     }, {
       title: 'CMS编辑',

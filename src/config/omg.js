@@ -271,6 +271,12 @@ import {
   FEEFLOWCONFIG_ORDER_REPAIR,
   FEEFLOWCONFIG_ORDER_EXPORT,
 
+  EXAMINECONFIG_ADD,
+  EXAMINECONFIG_LIST,
+  EXAMINECONFIG_UP_STATUS,
+
+  USER_LOG,
+
 
 } from '../constants/index.js';
 
@@ -553,6 +559,12 @@ apiList[FEEFLOWCONFIG_ORDER_STATUS_UPDATE] = '/feeflow/order-status-update';
 apiList[FEEFLOWCONFIG_ORDER_REPAIR] = '/feeflow/order-repair';
 apiList[FEEFLOWCONFIG_ORDER_EXPORT] = '/feeflow/order-export';
 
+apiList[EXAMINECONFIG_ADD] = '/examine/add';
+apiList[EXAMINECONFIG_LIST] = '/examine/config-list';
+apiList[EXAMINECONFIG_UP_STATUS] = '/examine/update-status';
+
+apiList[USER_LOG] = '/log';
+
 function getApi(type) {
   let apiHost = '';
   const host = typeof window !== 'undefined' ? window.location.hostname : hostname;
@@ -613,6 +625,7 @@ const frequencyTypes = {
 const redEnvelopeTypes = {
   1: '直抵红包',
   2: '百分比红包',
+  3: '新手直抵红包',
 }
 
 const redEnvelopeTimeTypes = {
@@ -934,6 +947,11 @@ const feeFlowOrderRepairStatus = {
   0: '未补单',
   1: '已补单',
 }
+
+const examineTypes = {
+  0: '否',
+  1: '是',
+}
 function getAllRuleTypes() {
   const allRuleTypes = {};
   Object.assign(allRuleTypes, ruleTypes);
@@ -990,6 +1008,7 @@ const config = {
   feeFlowDebitStatus,
   feeFlowOrderStatus,
   feeFlowOrderRepairStatus,
+  examineTypes,
 };
 
 function getConfig(type, key = false) {
