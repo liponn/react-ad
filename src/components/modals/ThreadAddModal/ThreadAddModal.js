@@ -181,7 +181,7 @@ class ThreadAddModal extends Component {
                 <div className="form-group row">
                   <label className="col-sm-4 form-control-label text-xs-right">帖子内容:</label>
                   <div className="col-sm-8">
-                     <textarea name="content" defaultValue={item.content}></textarea>
+                     <textarea cols='38' rows='15' name="content" defaultValue={item.content}></textarea>
                   </div>
                 </div>
                 <Checkbox className="pull-left" key="isofficial"  name="isofficial" labelName="官方帖" checked={item.isofficial == 1 ? true : false} />
