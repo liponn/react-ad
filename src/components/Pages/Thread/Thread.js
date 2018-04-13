@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchAction } from '../../../actions/omg';
 import { showModal, hideModal } from '../../../actions/modal';
-import { BBS_THREAD_LIST,BBS_SECTION_LIST,BBS_COMMENT_ADD,BBS_THREAD_TOGGLE_STATUS,BBS_THREAD_DT_DEL,BBS_THREAD_DT_UPDATE,BBS_USER_VEST_LIST,BBS_USER_ADMIN_LIST,BBS_THREAD_ADD } from '../../../constants';
+import { BBS_THREAD_LIST,BBS_SECTION_LIST,BBS_COMMENT_ADD,BBS_THREAD_TOGGLE_STATUS,BBS_THREAD_DT_DEL,BBS_THREAD_UPDATE,BBS_THREAD_DT_UPDATE,BBS_USER_VEST_LIST,BBS_USER_ADMIN_LIST,BBS_THREAD_ADD } from '../../../constants';
 import { Radio,Pagination } from '../../tools';
 import ThreadAddModal from '../../modals/ThreadAddModal';
 import ThreadMoveModal from '../../modals/ThreadMoveModal';
@@ -158,7 +158,7 @@ class Thread extends Component {
 
     showUpdateModal(e){
         const index = e.target.dataset.index;
-        this.props.dispatch(showModal(<ThreadAddModal submit={this.updateThread} item={this.items[index]} types={this.sections} update  />));
+        this.props.dispatch(showModal(<ThreadAddModal submit={this.updateThread} item={this.items[index]} types={this.sections} admins={this.admins} vests={this.vests} update  />));
     }
 
     addThread(e){
@@ -180,7 +180,7 @@ class Thread extends Component {
         e.preventDefault();
         const formData = new FormData(e.target);
         const { dispatch } = this.props;
-        dispatch(fetchAction({type:BBS_THREAD_DT_UPDATE,method:'POST',formData:formData}))
+        dispatch(fetchAction({type:BBS_THREAD_UPDATE,method:'POST',formData:formData}))
         .then(json =>{
             if (json.error_code === 0) {
                 dispatch(hideModal(true));

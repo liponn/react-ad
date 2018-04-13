@@ -1,21 +1,84 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Upload, Icon} from 'antd';
+import { getApi } from '../../../config/omg';
+import { BBS_THREAD_IMG_ADD } from '../../../constants';
 import { connect } from 'react-redux';
-import { Input, Select, Submit, Alert, Modal,Editor,Checkbox,Radio } from '../../tools';
+import { fetchAction } from '../../../actions/omg';
+import { Input, Select, Submit, Alert, Modal,Editor,Checkbox,Radio,Text } from '../../tools';
 
 class ThreadAddModal extends Component {
   constructor(props) {
     super(props);
     this.changUserType = this.changUserType.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.initUpdate = this.initUpdate.bind(this);
     this.state ={
-      usertype:1
+      usertype:1,
+      fileList:[],
+      imgData:[]
     }
+  }
+  componentDidMount() {
+    if(this.props.update && this.props.item.cover != null){
+      this.initUpdate();
+    }
+  }
+  initUpdate(){
+    const imgurl = [];
+    let imgItem = {};
+    let imgdata = [];
+    const coverObj = new String(this.props.item.cover);
+    const regx = /\/\d+\.[a-zA-z]+/
+    var arr = coverObj.match(regx);
+    arr.map((item)=>{
+        imgItem = {
+            uid: -1,
+            name:'xxx.png',
+            status: 'done',
+            url: 'http://wlbyunying.oss-cn-beijing.aliyuncs.com/wlbimage'+item,
+        }
+        imgurl.push(imgItem);
+        imgdata.push('http://wlbyunying.oss-cn-beijing.aliyuncs.com/wlbimage'+item);
+    });
+
+    this.setState({
+      fileList:imgurl,
+      imgData:imgdata
+    });
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.value && nextProps.value !== this.props.value) {
       this.refs.select.value = nextProps.value;
     }
+  }
+
+  handlePreview = (file) => {
+    this.setState({
+      previewImage: file.url || file.thumbUrl,
+    });
+  }
+
+  handleChange = ({ file,fileList }) => {
+    const imgdata = this.state.imgData;
+    if(file.status == 'done'){
+      if(file.response != undefined){
+        if(file.response.data != null){
+          imgdata.push(file.response.data.picUrl);
+        }
+      }
+    }else if(file.status == 'removed'){
+      if(file.response != undefined){
+        imgdata.splice(imgdata.indexOf(file.response.data.picUrl),1);
+      }else{
+        imgdata.splice(imgdata.indexOf(file.url),1);
+       
+      }
+      
+    }
+    
+    this.setState({ fileList });
   }
 
   changUserType(e){
@@ -26,10 +89,18 @@ class ThreadAddModal extends Component {
   }
 
   render() {
+    const requestUri_add = getApi('BBS_THREAD_IMG_ADD');
+    const { fileList,previewImage } = this.state;
     const item = this.props.item || {};
     const types = this.props.types || [];
     const admins = this.props.admins || [];
     const vests = this.props.vests || [];
+    const uploadButton = (
+      <div>
+        <Icon type="plus" />
+        <div className="ant-upload-text">上传</div>
+      </div>
+    );
     let typeFileds = false;
     switch(this.state.usertype){
       case 1:
@@ -67,7 +138,7 @@ class ThreadAddModal extends Component {
             <form name="formupdate" method="post" onSubmit={this.props.submit}>
                 <Alert msg={this.props.errorMsg} />
                 {this.props.update ? <input type="hidden" name="id" value={item.id} /> : ""}
-                {this.props.update ? "" : <input type="hidden" name="id" value={item.id} />}
+                <input type="hidden" name="imgdata" value={this.state.imgData} />
                 <Input required labelName="标题" name="title" defaultValue={item.title} />
                 {
                   this.props.update ? "" :
@@ -92,8 +163,28 @@ class ThreadAddModal extends Component {
                     </select>
                   </div>
                 </div>
-                <Editor name="content" defaultValue={item.content} />
-                {this.props.update ? "" : <Checkbox className="pull-left" key="isofficial"  name="isofficial" labelName="官方帖" checked={item.isofficial == 1 ? true : false} />}
+                <div className="form-group row">
+                  <label className="col-sm-4 form-control-label text-xs-right">图片:</label>
+                  <div className="col-sm-8">
+                   <Upload name='img'
+                      action={requestUri_add}
+                      listType="picture-card"
+                      onPreview={this.handlePreview}
+                      onChange={this.handleChange}
+                      fileList={fileList}
+                     >
+          {fileList.length >= 6 ? null : uploadButton}
+        </Upload>
+                  </div>
+                </div>
+                <Input labelName="视频代码" name="video_code" defaultValue={item.video_code} />
+                <div className="form-group row">
+                  <label className="col-sm-4 form-control-label text-xs-right">帖子内容:</label>
+                  <div className="col-sm-8">
+                     <textarea name="content" defaultValue={item.content}></textarea>
+                  </div>
+                </div>
+                <Checkbox className="pull-left" key="isofficial"  name="isofficial" labelName="官方帖" checked={item.isofficial == 1 ? true : false} />
                 <Submit />
             </form>
         </Modal>
