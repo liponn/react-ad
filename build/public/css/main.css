@@ -193,3 +193,11 @@ body {
 
 .left-panel-max .left-panel { width: 180px; }
 .left-panel-max .main-content { left: 180px; }
+
+
+.ant-upload-list-picture-card .ant-upload-list-item-thumbnail, .ant-upload-list-picture-card .ant-upload-list-item-thumbnail img{
+  object-fit: contain;
+}
+.ant-upload-list-item-info>span{
+  height: 100% !important;;
+}
