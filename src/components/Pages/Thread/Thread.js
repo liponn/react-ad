@@ -34,6 +34,7 @@ class Thread extends Component {
         this.topThread = this.topThread.bind(this);
         this.superTopThread = this.superTopThread.bind(this);
         this.greatThread = this.greatThread.bind(this);
+        this.hotThread = this.hotThread.bind(this);
         this.moveThread = this.moveThread.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
         this.state = {
@@ -252,6 +253,15 @@ class Thread extends Component {
             .then(() => (this.list()));
     }
 
+    hotThread(e){
+        const id = e.target.dataset.id;
+        const formData = new FormData;
+        formData.append('id', id);
+        formData.append('ishot',1);
+        this.props.dispatch(fetchAction({type:BBS_THREAD_TOGGLE_STATUS, method:'POST',formData:formData}))
+            .then(() => (this.list()));
+    }
+
     showMoveModal(e){
         const index = e.target.dataset.index;
         this.props.dispatch(showModal(<ThreadMoveModal types={this.sections} currentType={this.items[index].type_id} item={this.items[index]} submit={this.moveThread}/>));
@@ -462,6 +472,9 @@ class Thread extends Component {
                                                 <button data-id={item.id} onClick={this.greatThread}
                                                         className="btn btn-success-outline btn-sm"
                                                 >{item.isgreat ? "取消" : "加精"}</button>
+                                                <button data-id={item.id} onClick={this.hotThread}
+                                                        className="btn btn-warning-outline btn-sm"
+                                                >{item.ishot ? "取消" : "最热"}</button>
                                                 {
                                                     item.istop && !item.is_special  ?  
                                                     <button data-id={item.id} onClick={this.superTopThread}
