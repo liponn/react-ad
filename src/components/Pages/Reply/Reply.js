@@ -42,7 +42,7 @@ class Reply extends Component {
         addType: BBS_COMMENT_DT_ADD,
         deleteType: BBS_COMMENT_DT_DEL,
         timeStamp: (new Date).getTime(),
-        noDelete: true,
+        noDelete: false,
         getBtns: this.getBtns,
         withs: ['thread'],
         identify: 0,
