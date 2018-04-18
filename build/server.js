@@ -2327,7 +2327,7 @@ module.exports =
     // body...
     var logUri = (0, _omg.getApi)('USER_LOG');
     var logParams = {};
-    if (formData) {
+    if (formData != false) {
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
       var _iteratorError = undefined;
@@ -2409,6 +2409,7 @@ module.exports =
         } else {
           dispatch(fetchError(type, json.error_code, json.data.error_msg, key));
         }
+  
         userLog(type, params, json.error_code, formData, queryObj); //日志请求
         return json;
       });

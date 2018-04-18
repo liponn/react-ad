@@ -35,7 +35,7 @@ function userLog(type,params,status,formData,queryObj) {
   // body...
   const logUri = getApi('USER_LOG');
   let logParams = {};
-  if(formData){
+  if(formData != false){
       for(var pair of formData.entries()) {
       logParams[pair[0]] = pair[1]; 
     }
@@ -88,7 +88,8 @@ export function fetchAction({
           dispatch(fetchSuccess(type, json.data, key));
         } else {
           dispatch(fetchError(type, json.error_code, json.data.error_msg, key));
-        }    
+        }   
+        
         userLog(type,params,json.error_code,formData,queryObj);//日志请求
         return json;
       });
