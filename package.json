@@ -132,7 +132,9 @@
     "plugins": [
       [
         "antd",
-        { "style": true }
+        {
+          "style": true
+        }
       ]
     ],
     "parser": "babel-eslint",

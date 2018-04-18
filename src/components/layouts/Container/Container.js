@@ -399,7 +399,6 @@ class Container extends Component {
 
   render() {
     const items = this.state.items;
-    console.log(this.props);
     return (
       <div className={this.state.isFold ? 'left-panel-max' : 'left-panel-mix'}>
         <div onMouseOver={this.panelHover} onMouseOut={this.panelHover} className="left-panel">
