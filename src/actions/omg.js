@@ -31,18 +31,19 @@ function fetchError(type, code, msg, key = false) {
     key,
   };
 }
-function userLog(type,params,status,formData,queryObj) {
+function userLog(type,params,status,formDatas,queryObj) {
   // body...
   const logUri = getApi('USER_LOG');
   let logParams = {};
-  if(formData != false){
-      for(var pair of formData.entries()) {
+  if(formDatas != false){
+      for(var pair of formDatas.entries()) {
       logParams[pair[0]] = pair[1]; 
     }
   }else{
 
     logParams = queryObj
   }
+  console.log(type);
   let logFormData =  new FormData();
   logFormData.append('type',type);
   logFormData.append('data',JSON.stringify(logParams));
@@ -89,8 +90,9 @@ export function fetchAction({
         } else {
           dispatch(fetchError(type, json.error_code, json.data.error_msg, key));
         }   
-        
-        userLog(type,params,json.error_code,formData,queryObj);//日志请求
+        if(type != 'ACCOUNT_PROFILE'){
+          userLog(type,params,json.error_code,formData,queryObj);//日志请求
+        }
         return json;
       });
   };

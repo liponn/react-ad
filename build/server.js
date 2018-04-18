@@ -2323,17 +2323,17 @@ module.exports =
       key: key
     };
   }
-  function userLog(type, params, status, formData, queryObj) {
+  function userLog(type, params, status, formDatas, queryObj) {
     // body...
     var logUri = (0, _omg.getApi)('USER_LOG');
     var logParams = {};
-    if (formData != false) {
+    if (formDatas != false) {
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
       var _iteratorError = undefined;
   
       try {
-        for (var _iterator = (0, _getIterator3.default)(formData.entries()), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        for (var _iterator = (0, _getIterator3.default)(formDatas.entries()), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var pair = _step.value;
   
           logParams[pair[0]] = pair[1];
@@ -2356,6 +2356,7 @@ module.exports =
   
       logParams = queryObj;
     }
+    console.log(type);
     var logFormData = new FormData();
     logFormData.append('type', type);
     logFormData.append('data', (0, _stringify2.default)(logParams));
@@ -2409,8 +2410,9 @@ module.exports =
         } else {
           dispatch(fetchError(type, json.error_code, json.data.error_msg, key));
         }
-  
-        userLog(type, params, json.error_code, formData, queryObj); //日志请求
+        if (type != 'ACCOUNT_PROFILE') {
+          userLog(type, params, json.error_code, formData, queryObj); //日志请求
+        }
         return json;
       });
     };
