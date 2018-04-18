@@ -31,15 +31,18 @@ function fetchError(type, code, msg, key = false) {
     key,
   };
 }
-function userLog(type,params,status,formData) {
+function userLog(type,params,status,formData,queryObj) {
   // body...
   const logUri = getApi('USER_LOG');
-  let regex = new RegExp("LIST");//正则匹配list 不需要记录的日志
-  let regexResult  = regex.exec(type);
   let logParams = {};
-  for(var pair of formData.entries()) {
-   logParams[pair[0]] = pair[1]; 
- }
+  if(formData){
+      for(var pair of formData.entries()) {
+      logParams[pair[0]] = pair[1]; 
+    }
+  }else{
+
+    logParams = queryObj
+  }
   let logFormData =  new FormData();
   logFormData.append('type',type);
   logFormData.append('data',JSON.stringify(logParams));
@@ -48,11 +51,7 @@ function userLog(type,params,status,formData) {
     credentials: 'include',
     body:logFormData
   };
-  fetch(logUri , param)
-  .then(response => response.json())
-  .then(json=>{
-    console.log('json',json);
-  });
+  fetch(logUri , param);
 }
 export function fetchAction({
   type,
@@ -65,8 +64,10 @@ export function fetchAction({
   const requestUri = getApi(type);
 
   const keys = Object.keys(queryObj);
+
   const queryArr = keys.map(key => (`${key}=${queryObj[key]}`));
   let queryString = queryArr.join('&');
+  
   if (queryString !== '') {
     queryString = `?${queryString}`;
   }
@@ -78,7 +79,6 @@ export function fetchAction({
   if (method === 'POST') {
     params.body = formData;
   }
-
   return dispatch => {
     dispatch(fetchRequest(type));
     return fetch(requestUri + suffix + queryString, params)
@@ -86,15 +86,10 @@ export function fetchAction({
       .then(json => {
         if (json.error_code === 0) {
           dispatch(fetchSuccess(type, json.data, key));
-          if(formData){
-            userLog(type,params,1,formData);
-          }
         } else {
           dispatch(fetchError(type, json.error_code, json.data.error_msg, key));
-          if(formData){
-            userLog(type,params,0,formData);
-          }
-        }
+        }    
+        userLog(type,params,json.error_code,formData,queryObj);//日志请求
         return json;
       });
   };
