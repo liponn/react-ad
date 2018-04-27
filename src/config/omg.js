@@ -939,6 +939,12 @@ const examineTypes = {
   0: '否',
   1: '是',
 }
+const bannerPopFrequencyTypes = {
+  0: '不限',
+  1: '每日显示一次',
+  2: '只显示一次',
+  3: '每日三次',
+}
 function getAllRuleTypes() {
   const allRuleTypes = {};
   Object.assign(allRuleTypes, ruleTypes);
