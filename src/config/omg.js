@@ -1002,6 +1002,7 @@ const config = {
   feeFlowOrderStatus,
   feeFlowOrderRepairStatus,
   examineTypes,
+  bannerPopFrequencyTypes,
 };
 
 function getConfig(type, key = false) {
