@@ -869,6 +869,7 @@ const platformTypes = {
 const appUpdateTypes = {
   1: '安卓',
   2: 'IOS',
+  3: 'IOS马甲包',
 }
 
 const castTypes = {
