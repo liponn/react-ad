@@ -12,6 +12,7 @@ class Coupon extends Component {
     super(props);
     this.showAddModal = this.showAddModal.bind(this);
     this.showUpdateModal = this.showUpdateModal.bind(this);
+    this.pageSelect = this.pageSelect.bind(this);
     this.fresh = this.fresh.bind(this);
     this.list = this.list.bind(this);
     this.add = this.add.bind(this);
