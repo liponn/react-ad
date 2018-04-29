@@ -42,7 +42,6 @@ class AwardsAddModal extends Component {
   }
 
   changeSelect(e) {
-    console.log(111);
     this.setState({
       awardType: e.target.value,
     });
