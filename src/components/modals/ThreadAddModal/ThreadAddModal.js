@@ -195,7 +195,6 @@ class ThreadAddModal extends Component {
 ThreadAddModal.propTypes = {
   submit: PropTypes.func.isRequired,
   errorMsg: PropTypes.string,
-  update: PropTypes.bool.isRequired,
 }
 
 ThreadAddModal.defaultProps = {

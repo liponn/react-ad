@@ -206,7 +206,7 @@ module.exports =
   // Register server-side rendering middleware
   // -----------------------------------------------------------------------------
   app.get('*', function () {
-    var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, res, next) {
+    var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, res, next) {
       var css, statusCode, data, store, html;
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
@@ -1062,7 +1062,7 @@ module.exports =
   var _assign2 = _interopRequireDefault(_assign);
   
   var resolveExtension = function () {
-    var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(path, extension) {
+    var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(path, extension) {
       var fileNameBase, ext, fileName;
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
@@ -1117,7 +1117,7 @@ module.exports =
   }();
   
   var resolveFileName = function () {
-    var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(path) {
+    var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(path) {
       var extensions, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, extension, maybeFileName;
   
       return _regenerator2.default.wrap(function _callee2$(_context2) {
@@ -1280,7 +1280,7 @@ module.exports =
   
       var request = _ref3.request;
       var path = _ref4.path;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3() {
         var _ref5, success, fileName, extension, source;
   
         return _regenerator2.default.wrap(function _callee3$(_context3) {
@@ -1750,7 +1750,7 @@ module.exports =
           render = _ref.render,
           context = _ref.context,
           path = _ref.path;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -2782,6 +2782,10 @@ module.exports =
         // 测试环境
         apiHost = 'https://php1.wanglibao.com/yunying';
         break;
+      case 'ttadmin.wanglibao.com':
+        // 测试环境test1
+        apiHost = 'https://test1.wanglibao.com/yunying';
+        break;
       case 'yyadmin3.wanglibao.com':
         // 预上线环境
         apiHost = 'https://php3.wanglibao.com/yunying';
@@ -2994,7 +2998,9 @@ module.exports =
     annualreport: '运营报告_PC',
     annualreport_app: '运营报告_APP',
     jifen: '积分活动',
-    index_icon: '首页图标'
+    index_icon: '首页图标',
+    xcx: '小程序轮播图',
+    xcx_icon: "小程序图标"
   };
   
   var channelStatusTypes = {
@@ -9120,7 +9126,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -16723,7 +16729,7 @@ module.exports =
     action: function action() {
       var _this = this;
   
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var data;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -16953,7 +16959,7 @@ module.exports =
       var _this = this;
   
       var path = _ref.path;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var resp, _ref2, data;
   
         return _regenerator2.default.wrap(function _callee$(_context) {
@@ -17441,7 +17447,7 @@ module.exports =
       var _this = this;
   
       var next = _ref.next;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -17524,7 +17530,7 @@ module.exports =
       var _this = this;
   
       var next = _ref.next;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -18936,7 +18942,7 @@ module.exports =
       var _this = this;
   
       var next = _ref.next;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -19292,7 +19298,7 @@ module.exports =
                     null,
                     'ID'
                   ),
-                  this.props.path !== 'ShareConfig' && this.props.type !== 'pop' && this.props.type !== 'discover_feature' && this.props.type !== 'index_icon' && _react2.default.createElement(
+                  this.props.path !== 'ShareConfig' && this.props.type !== 'pop' && this.props.type !== 'discover_feature' && this.props.type !== 'xcx' && this.props.type !== 'xcx_icon' && this.props.type !== 'index_icon' && _react2.default.createElement(
                     'td',
                     null,
                     '\u57CB\u70B9\u8BF4\u660E'
@@ -19327,7 +19333,7 @@ module.exports =
                     null,
                     '\u6807\u9898'
                   ),
-                  this.props.type === 'discover_feature' && _react2.default.createElement(
+                  (this.props.type === 'discover_feature' || this.props.type === 'xcx' || this.props.type === 'xcx_icon') && _react2.default.createElement(
                     'th',
                     null,
                     '\u540D\u79F0'
@@ -19396,6 +19402,11 @@ module.exports =
                     'th',
                     null,
                     '\u8DF3\u8F6CURL'
+                  ),
+                  this.props.type === 'pop' && _react2.default.createElement(
+                    'th',
+                    null,
+                    'IOS\u8DF3\u8F6CURL'
                   ),
                   _react2.default.createElement(
                     'th',
@@ -19527,6 +19538,15 @@ module.exports =
                       _react2.default.createElement(
                         'a',
                         { hidden: !item.url, title: item.url, href: item.url, target: '_blank' },
+                        '\u67E5\u770B'
+                      )
+                    ),
+                    _this9.props.type === 'pop' && _react2.default.createElement(
+                      'td',
+                      null,
+                      _react2.default.createElement(
+                        'a',
+                        { hidden: !item.url_ios, title: item.url_ios, href: item.url_ios, target: '_blank' },
                         '\u67E5\u770B'
                       )
                     ),
@@ -19694,6 +19714,7 @@ module.exports =
             fileds.push(_react2.default.createElement(_tools.Input, { key: 'name', name: 'name', labelName: '\u6807\u9898', defaultValue: this.props.item.name }));
             fileds.push(_react2.default.createElement(_tools.Input, { key: 'share_name', name: 'short_desc', labelName: '\u526F\u6807\u9898', defaultValue: this.props.item.short_desc }));
             fileds.push(_react2.default.createElement(_tools.Select, { key: 'pop_type', labelName: '\u8DF3\u8F6C\u7C7B\u578B', name: 'type', defaultValue: this.props.item.type, options: this.state.popTypes }));
+            fileds.push(_react2.default.createElement(_tools.Input, { labelName: 'IOS\u8DF3\u8F6C\u94FE\u63A5(\u4E0B\u9762\u8DF3\u8F6C\u94FE\u63A5\u4E3A\u5B89\u5353)', name: 'url_ios', defaultValue: this.props.item.url_ios }));
             break;
           case 'cast_finish':
             fileds.push(_react2.default.createElement(_tools.Input, { key: 'share_name', name: 'name', labelName: '\u57CB\u70B9\u8BF4\u660E', defaultValue: this.props.item.name }));
@@ -19710,6 +19731,12 @@ module.exports =
             fileds.push(_react2.default.createElement(_tools.Input, { key: 'short_desc', name: 'short_desc', labelName: '\u526F\u6807\u9898', defaultValue: this.props.item.short_desc }));
             fileds.push(_react2.default.createElement(_tools.Input, { key: 'tag', name: 'tag', labelName: 'TAG', defaultValue: this.props.item.tag }));
             fileds.push(_react2.default.createElement(_tools.Checkbox, { key: 'short_des', name: 'short_des', labelName: '\u662F\u5426\u5206\u4EAB', checked: this.props.item.short_des == 1 ? true : false }));
+            break;
+          case 'xcx':
+            fileds.push(_react2.default.createElement(_tools.Input, { key: 'name', name: 'name', labelName: '\u540D\u79F0', defaultValue: this.props.item.name }));
+            break;
+          case 'xcx_icon':
+            fileds.push(_react2.default.createElement(_tools.Input, { key: 'name', name: 'name', labelName: '\u540D\u79F0', defaultValue: this.props.item.name }));
             break;
           default:
             fileds.push(_react2.default.createElement(_tools.Input, { key: 'share_name', name: 'name', labelName: '\u57CB\u70B9\u8BF4\u660E', defaultValue: this.props.item.name }));
@@ -19794,7 +19821,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -20663,7 +20690,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -21153,7 +21180,7 @@ module.exports =
             _react2.default.createElement(_tools.Input, { labelName: '\u7248\u672C\u53F7', name: 'version', defaultValue: this.props.item.version || '' }),
             _react2.default.createElement(_tools.Select, { labelName: '\u5F3A\u5236\u5347\u7EA7', name: 'force', options: this.state.forceTypes, defaultValue: this.props.item.force || '' }),
             _react2.default.createElement(_tools.Input, { labelName: '\u66F4\u65B0\u65F6\u95F4', placeholder: 'YYYY-MM-DD', name: 'update_time', defaultValue: this.props.item.update_time || '' }),
-            this.props.type === 2 ? false : _react2.default.createElement(_tools.Input, { labelName: '\u4E0B\u8F7D\u94FE\u63A5', name: 'url', defaultValue: this.props.item.url || '' }),
+            _react2.default.createElement(_tools.Input, { labelName: '\u4E0B\u8F7D\u94FE\u63A5', name: 'url', defaultValue: this.props.item.url || '' }),
             _react2.default.createElement(_tools.Input, { labelName: '\u5B89\u88C5\u5305\u5927\u5C0F', name: 'size', defaultValue: this.props.item.size || '' }),
             _react2.default.createElement(_tools.Textarea, { labelName: '\u5347\u7EA7\u63CF\u8FF0', name: 'description', defaultValue: this.props.item.description || '' }),
             _react2.default.createElement(_tools.Submit, null)
@@ -21217,7 +21244,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -21487,7 +21514,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -22087,7 +22114,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -22616,7 +22643,7 @@ module.exports =
       var _this = this;
   
       var next = _ref.next;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -22681,7 +22708,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -23215,7 +23242,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -23602,7 +23629,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -24163,7 +24190,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -27034,7 +27061,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _Thread = __webpack_require__(206);
+  var _Thread = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../../components/pages/Thread\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
   
   var _Thread2 = _interopRequireDefault(_Thread);
   
@@ -27050,1593 +27077,11 @@ module.exports =
   };
 
 /***/ }),
-/* 206 */
-/***/ (function(module, exports, __webpack_require__) {
-
-  'use strict';
-  
-  Object.defineProperty(exports, "__esModule", {
-      value: true
-  });
-  
-  var _getPrototypeOf = __webpack_require__(44);
-  
-  var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-  
-  var _classCallCheck2 = __webpack_require__(45);
-  
-  var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-  
-  var _createClass2 = __webpack_require__(46);
-  
-  var _createClass3 = _interopRequireDefault(_createClass2);
-  
-  var _possibleConstructorReturn2 = __webpack_require__(47);
-  
-  var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-  
-  var _inherits2 = __webpack_require__(48);
-  
-  var _inherits3 = _interopRequireDefault(_inherits2);
-  
-  var _react = __webpack_require__(11);
-  
-  var _react2 = _interopRequireDefault(_react);
-  
-  var _propTypes = __webpack_require__(15);
-  
-  var _propTypes2 = _interopRequireDefault(_propTypes);
-  
-  var _reactRedux = __webpack_require__(52);
-  
-  var _omg = __webpack_require__(56);
-  
-  var _modal = __webpack_require__(70);
-  
-  var _constants = __webpack_require__(59);
-  
-  var _tools = __webpack_require__(73);
-  
-  var _ThreadAddModal = __webpack_require__(207);
-  
-  var _ThreadAddModal2 = _interopRequireDefault(_ThreadAddModal);
-  
-  var _ThreadMoveModal = __webpack_require__(209);
-  
-  var _ThreadMoveModal2 = _interopRequireDefault(_ThreadMoveModal);
-  
-  var _ThreadReplyModal = __webpack_require__(210);
-  
-  var _ThreadReplyModal2 = _interopRequireDefault(_ThreadReplyModal);
-  
-  var _antd = __webpack_require__(208);
-  
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-  
-  var Thread = function (_Component) {
-      (0, _inherits3.default)(Thread, _Component);
-  
-      function Thread(props) {
-          (0, _classCallCheck3.default)(this, Thread);
-  
-          var _this = (0, _possibleConstructorReturn3.default)(this, (Thread.__proto__ || (0, _getPrototypeOf2.default)(Thread)).call(this, props));
-  
-          _this.freshSectionList = _this.freshSectionList.bind(_this);
-          _this.list = _this.list.bind(_this);
-          _this.typeChange = _this.typeChange.bind(_this);
-          _this.changeLength = _this.changeLength.bind(_this);
-          _this.changePage = _this.changePage.bind(_this);
-          _this.changeSearch = _this.changeSearch.bind(_this);
-          _this.passThread = _this.passThread.bind(_this);
-          _this.holdThread = _this.holdThread.bind(_this);
-          _this.delThread = _this.delThread.bind(_this);
-          _this.updateThread = _this.updateThread.bind(_this);
-          _this.showUpdateModal = _this.showUpdateModal.bind(_this);
-          _this.showAddModal = _this.showAddModal.bind(_this);
-          _this.addThread = _this.addThread.bind(_this);
-          _this.getAdminList = _this.getAdminList.bind(_this);
-          _this.getVestList = _this.getVestList.bind(_this);
-          _this.showReplyModal = _this.showReplyModal.bind(_this);
-          _this.replyThread = _this.replyThread.bind(_this);
-          _this.showMoveModal = _this.showMoveModal.bind(_this);
-          _this.topThread = _this.topThread.bind(_this);
-          _this.superTopThread = _this.superTopThread.bind(_this);
-          _this.greatThread = _this.greatThread.bind(_this);
-          _this.hotThread = _this.hotThread.bind(_this);
-          _this.moveThread = _this.moveThread.bind(_this);
-          _this.componentDidMount = _this.componentDidMount.bind(_this);
-          _this.state = {
-              isVerify: 0
-          };
-          return _this;
-      }
-  
-      (0, _createClass3.default)(Thread, [{
-          key: 'componentDidMount',
-          value: function componentDidMount() {
-              this.freshSectionList();
-              this.getAdminList();
-              this.getVestList();
-              this.list();
-          }
-      }, {
-          key: 'list',
-          value: function list() {
-              var queryObj = {};
-              var page = this.state.page || 1;
-              var isVerify = this.state.isVerify || 0;
-              var pageNum = this.state.pageNum || 20;
-              var searchParams = this.state.formData || [];
-              queryObj['page'] = page;
-              queryObj['data[filter][isverify]'] = isVerify;
-              if (pageNum !== 20) {
-                  queryObj['data[pagenum]'] = pageNum;
-              }
-              if (searchParams.type_id) {
-                  queryObj['data[filter][type_id]'] = searchParams.type_id;
-              }
-              if (searchParams.created_at) {
-                  queryObj['data[filter][created_at]'] = searchParams.created_at.format('YYYY-MM-DD');
-                  queryObj['data[filter][created_at_pattern]'] = "min_equal_max";
-              }
-              if (searchParams.end_at) {
-                  queryObj['data[filter][end_at]'] = searchParams.end_at.format('YYYY-MM-DD');
-              }
-              var request = {
-                  type: _constants.BBS_THREAD_LIST,
-                  key: isVerify,
-                  queryObj: queryObj
-              };
-              this.props.dispatch((0, _omg.fetchAction)(request));
-          }
-      }, {
-          key: 'typeChange',
-          value: function typeChange(e) {
-              var _this2 = this;
-  
-              var isVerify = e.target.value;
-              this.setState({
-                  formData: {},
-                  isVerify: isVerify,
-                  page: 1
-              }, function () {
-                  _this2.list();
-              });
-          }
-      }, {
-          key: 'getVestList',
-          value: function getVestList() {
-              this.props.dispatch((0, _omg.fetchAction)({
-                  type: _constants.BBS_USER_VEST_LIST
-              }));
-          }
-      }, {
-          key: 'getAdminList',
-          value: function getAdminList() {
-              this.props.dispatch((0, _omg.fetchAction)({
-                  type: _constants.BBS_USER_ADMIN_LIST
-              }));
-          }
-      }, {
-          key: 'changeLength',
-          value: function changeLength(e) {
-              var _this3 = this;
-  
-              var length = e.target.value;
-              this.setState({
-                  pageNum: length
-              }, function () {
-                  _this3.list();
-              });
-          }
-      }, {
-          key: 'changePage',
-          value: function changePage(page) {
-              var _this4 = this;
-  
-              this.setState({
-                  page: page
-              }, function () {
-                  _this4.list();
-              });
-          }
-      }, {
-          key: 'changeSearch',
-          value: function changeSearch(e) {
-              var _this5 = this;
-  
-              e.preventDefault();
-              var formData = this.props.form.getFieldsValue();
-              this.setState({
-                  formData: formData
-              }, function () {
-                  _this5.list();
-              });
-          }
-      }, {
-          key: 'freshSectionList',
-          value: function freshSectionList() {
-              this.props.dispatch((0, _omg.fetchAction)({
-                  type: _constants.BBS_SECTION_LIST
-              }));
-          }
-      }, {
-          key: 'delThread',
-          value: function delThread(e) {
-              var _this6 = this;
-  
-              if (!confirm('确定删除吗?')) {
-                  return false;
-              }
-              var id = e.target.dataset.id;
-              var formData = new FormData();
-              formData.append('id', id);
-              this.props.dispatch((0, _omg.fetchAction)({ type: _constants.BBS_THREAD_DT_DEL, method: 'POST', formData: formData })).then(function () {
-                  return _this6.list();
-              });
-          }
-      }, {
-          key: 'passThread',
-          value: function passThread(e) {
-              var _this7 = this;
-  
-              var id = e.target.dataset.id;
-              var formData = new FormData();
-              formData.append('id', id);
-              formData.append('isverify', 1);
-              this.props.dispatch((0, _omg.fetchAction)({ type: _constants.BBS_THREAD_DT_UPDATE, method: 'POST', formData: formData })).then(function () {
-                  return _this7.list();
-              });
-          }
-      }, {
-          key: 'holdThread',
-          value: function holdThread(e) {
-              var _this8 = this;
-  
-              var id = e.target.dataset.id;
-              var formData = new FormData();
-              formData.append('id', id);
-              formData.append('isverify', 2);
-              this.props.dispatch((0, _omg.fetchAction)({ type: _constants.BBS_THREAD_DT_UPDATE, method: 'POST', formData: formData })).then(function () {
-                  return _this8.list();
-              });
-          }
-      }, {
-          key: 'showUpdateModal',
-          value: function showUpdateModal(e) {
-              var index = e.target.dataset.index;
-              this.props.dispatch((0, _modal.showModal)(_react2.default.createElement(_ThreadAddModal2.default, { submit: this.updateThread, item: this.items[index], types: this.sections, admins: this.admins, vests: this.vests, update: true })));
-          }
-      }, {
-          key: 'addThread',
-          value: function addThread(e) {
-              var _this9 = this;
-  
-              e.preventDefault();
-              var formData = new FormData(e.target);
-              var dispatch = this.props.dispatch;
-  
-              dispatch((0, _omg.fetchAction)({ type: _constants.BBS_THREAD_ADD, method: 'POST', formData: formData })).then(function (json) {
-                  if (json.error_code === 0) {
-                      dispatch((0, _modal.hideModal)(true));
-                      _this9.list();
-                  } else {
-                      alert(json.error_msg);
-                  }
-              });
-          }
-      }, {
-          key: 'updateThread',
-          value: function updateThread(e) {
-              var _this10 = this;
-  
-              e.preventDefault();
-              var formData = new FormData(e.target);
-              var dispatch = this.props.dispatch;
-  
-              dispatch((0, _omg.fetchAction)({ type: _constants.BBS_THREAD_UPDATE, method: 'POST', formData: formData })).then(function (json) {
-                  if (json.error_code === 0) {
-                      dispatch((0, _modal.hideModal)(true));
-                      _this10.list();
-                  } else {
-                      alert(json.data.error_msg);
-                  }
-              });
-          }
-      }, {
-          key: 'replyThread',
-          value: function replyThread(e) {
-              var _this11 = this;
-  
-              e.preventDefault();
-              var formData = new FormData(e.target);
-              this.props.dispatch((0, _omg.fetchAction)({ type: _constants.BBS_COMMENT_ADD, method: 'POST', formData: formData })).then(function (json) {
-                  if (json.error_code === 0) {
-                      _this11.props.dispatch((0, _modal.hideModal)(true));
-                      _this11.list();
-                  } else {
-                      alert(json.data.error_msg);
-                  }
-              });
-          }
-      }, {
-          key: 'showReplyModal',
-          value: function showReplyModal(e) {
-              var id = e.target.dataset.id;
-              this.props.dispatch((0, _modal.showModal)(_react2.default.createElement(_ThreadReplyModal2.default, { vests: this.vests, id: id, submit: this.replyThread })));
-          }
-      }, {
-          key: 'moveThread',
-          value: function moveThread(e) {
-              var _this12 = this;
-  
-              e.preventDefault();
-              var formData = new FormData(e.target);
-              this.props.dispatch((0, _omg.fetchAction)({ type: _constants.BBS_THREAD_DT_UPDATE, method: 'POST', formData: formData })).then(function (json) {
-                  if (json.error_code === 0) {
-                      _this12.props.dispatch((0, _modal.hideModal)(true));
-                      _this12.list();
-                  } else {
-                      alert(json.error_msg);
-                  }
-              });
-          }
-      }, {
-          key: 'topThread',
-          value: function topThread(e) {
-              var _this13 = this;
-  
-              var id = e.target.dataset.id;
-              var formData = new FormData();
-              formData.append('id', id);
-              formData.append('istop', 1);
-              this.props.dispatch((0, _omg.fetchAction)({ type: _constants.BBS_THREAD_TOGGLE_STATUS, method: 'POST', formData: formData })).then(function () {
-                  return _this13.list();
-              });
-          }
-      }, {
-          key: 'superTopThread',
-          value: function superTopThread(e) {
-              var _this14 = this;
-  
-              var id = e.target.dataset.id;
-              var formData = new FormData();
-              formData.append('id', id);
-              formData.append('is_special', 1);
-              this.props.dispatch((0, _omg.fetchAction)({ type: _constants.BBS_THREAD_TOGGLE_STATUS, method: 'POST', formData: formData })).then(function () {
-                  return _this14.list();
-              });
-          }
-      }, {
-          key: 'greatThread',
-          value: function greatThread(e) {
-              var _this15 = this;
-  
-              var id = e.target.dataset.id;
-              var formData = new FormData();
-              formData.append('id', id);
-              formData.append('isgreat', 1);
-              this.props.dispatch((0, _omg.fetchAction)({ type: _constants.BBS_THREAD_TOGGLE_STATUS, method: 'POST', formData: formData })).then(function () {
-                  return _this15.list();
-              });
-          }
-      }, {
-          key: 'hotThread',
-          value: function hotThread(e) {
-              var _this16 = this;
-  
-              var id = e.target.dataset.id;
-              var formData = new FormData();
-              formData.append('id', id);
-              formData.append('ishot', 1);
-              this.props.dispatch((0, _omg.fetchAction)({ type: _constants.BBS_THREAD_TOGGLE_STATUS, method: 'POST', formData: formData })).then(function () {
-                  return _this16.list();
-              });
-          }
-      }, {
-          key: 'showMoveModal',
-          value: function showMoveModal(e) {
-              var index = e.target.dataset.index;
-              this.props.dispatch((0, _modal.showModal)(_react2.default.createElement(_ThreadMoveModal2.default, { types: this.sections, currentType: this.items[index].type_id, item: this.items[index], submit: this.moveThread })));
-          }
-      }, {
-          key: 'showAddModal',
-          value: function showAddModal(e) {
-              this.props.dispatch((0, _modal.showModal)(_react2.default.createElement(_ThreadAddModal2.default, { admins: this.admins, vests: this.vests, types: this.sections, submit: this.addThread })));
-          }
-      }, {
-          key: 'render',
-          value: function render() {
-              var _this17 = this;
-  
-              var threadList = this.props.threadList[this.state.isVerify] || {};
-              var sectionList = this.props.sectionList || [];
-              var sections = sectionList || [];
-              var items = threadList.data || [];
-              var appUrl = threadList.app_url || '';
-              this.items = items;
-              this.sections = sections;
-              this.admins = this.props.adminList || [];
-              this.vests = this.props.vestList || [];
-              var Option = _antd.Select.Option;
-              var _props$form = this.props.form,
-                  getFieldDecorator = _props$form.getFieldDecorator,
-                  getFieldsValue = _props$form.getFieldsValue;
-  
-  
-              return _react2.default.createElement(
-                  'div',
-                  null,
-                  _react2.default.createElement(_tools.Radio, {
-                      labelName: '\u672A\u5BA1\u6838',
-                      name: 'userfilter',
-                      checked: parseInt(this.state.isVerify) === 0,
-                      onChange: this.typeChange,
-                      value: 0
-                  }),
-                  _react2.default.createElement(_tools.Radio, {
-                      labelName: '\u5DF2\u5BA1\u6838',
-                      name: 'userfilter',
-                      checked: parseInt(this.state.isVerify) === 1,
-                      onChange: this.typeChange,
-                      value: 1
-                  }),
-                  _react2.default.createElement(_tools.Radio, {
-                      labelName: '\u5DF2\u62D2\u7EDD',
-                      name: 'userfilter',
-                      value: 2,
-                      checked: parseInt(this.state.isVerify) === 2,
-                      onChange: this.typeChange
-                  }),
-                  _react2.default.createElement('hr', null),
-                  _react2.default.createElement(
-                      'div',
-                      null,
-                      _react2.default.createElement(
-                          'div',
-                          { className: 'card clearfix ' },
-                          _react2.default.createElement(
-                              'div',
-                              { className: 'clearfix m-t-1' },
-                              _react2.default.createElement(
-                                  'h4',
-                                  { className: 'card-title' },
-                                  _react2.default.createElement(
-                                      'div',
-                                      { className: 'pull-left m-l-1' },
-                                      '\u5E16\u5B50\u7BA1\u7406',
-                                      _react2.default.createElement(
-                                          'span',
-                                          { className: 'total' },
-                                          '(',
-                                          threadList.total,
-                                          '/',
-                                          threadList.per_page,
-                                          ')'
-                                      )
-                                  ),
-                                  _react2.default.createElement(
-                                      'div',
-                                      { className: 'pull-left m-l-1' },
-                                      _react2.default.createElement(
-                                          'select',
-                                          { className: 'custom-select', onChange: this.changeLength },
-                                          _react2.default.createElement(
-                                              'option',
-                                              { value: '20' },
-                                              '20'
-                                          ),
-                                          _react2.default.createElement(
-                                              'option',
-                                              { value: '50' },
-                                              '50'
-                                          ),
-                                          _react2.default.createElement(
-                                              'option',
-                                              { value: '80' },
-                                              '80'
-                                          )
-                                      )
-                                  ),
-                                  _react2.default.createElement(
-                                      'div',
-                                      { className: 'pull-left' },
-                                      _react2.default.createElement(_tools.Pagination, {
-                                          onClick: this.changePage,
-                                          currentPage: threadList.current_page,
-                                          lastPage: threadList.last_page,
-                                          unurl: true
-                                      })
-                                  ),
-                                  _react2.default.createElement(
-                                      _antd.Form,
-                                      { className: 'form-inline pull-right', onSubmit: this.changeSearch },
-                                      _react2.default.createElement(
-                                          'div',
-                                          { className: 'pull-left m-l-1 m-b-1' },
-                                          getFieldDecorator('type_id', {
-                                              rules: []
-                                          })(_react2.default.createElement(
-                                              _antd.Select,
-                                              { style: { width: 120 } },
-                                              sections.map(function (item, index) {
-                                                  return _react2.default.createElement(
-                                                      Option,
-                                                      { key: index, value: item.id },
-                                                      item.name
-                                                  );
-                                              })
-                                          )),
-                                          '\xA0',
-                                          getFieldDecorator('created_at', { rules: [] })(_react2.default.createElement(_antd.DatePicker, { placeholder: 'START' })),
-                                          getFieldDecorator("end_at", { rules: [] })(_react2.default.createElement(_antd.DatePicker, { placeholder: 'END' }))
-                                      ),
-                                      '\xA0',
-                                      _react2.default.createElement(
-                                          'button',
-                                          { type: 'submit',
-                                              className: 'btn btn-sm btn-info-outline pull-right'
-                                          },
-                                          _react2.default.createElement(
-                                              'i',
-                                              { className: 'fa fa-search' },
-                                              '\u641C\u7D22'
-                                          )
-                                      )
-                                  ),
-                                  this.state.isVerify == 1 ? _react2.default.createElement(
-                                      'button',
-                                      {
-                                          onClick: this.showAddModal,
-                                          className: 'btn btn-sm btn-info pull-right'
-                                      },
-                                      _react2.default.createElement(
-                                          'i',
-                                          { className: 'fa fa-plus' },
-                                          '\u6DFB\u52A0'
-                                      )
-                                  ) : ""
-                              )
-                          ),
-                          _react2.default.createElement(
-                              'table',
-                              { className: 'table table-bordered m-b-0 table-hover data-table' },
-                              _react2.default.createElement(
-                                  'thead',
-                                  null,
-                                  this.state.isVerify == 0 ? _react2.default.createElement(
-                                      'tr',
-                                      null,
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          'ID'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u6240\u5C5E\u7248\u5757'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u8D34\u5B50\u6807\u9898'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u8D34\u5B50\u5185\u5BB9'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u7528\u6237ID'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u7528\u6237\u6635\u79F0'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u64CD\u4F5C'
-                                      )
-                                  ) : this.state.isVerify == 1 ? _react2.default.createElement(
-                                      'tr',
-                                      null,
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          'ID'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u6240\u5C5E\u7248\u5757'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u8D34\u5B50\u6807\u9898'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u8D34\u5B50\u5185\u5BB9'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u7528\u6237ID'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u7528\u6237\u6635\u79F0'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u8BC4\u8BBA\u6570'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u70B9\u8D5E\u6570'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u6536\u85CF\u6570'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u89C6\u9891\u94FE\u63A5'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u56FE\u7247'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u662F\u5426\u7F6E\u9876'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u662F\u5426\u52A0\u7CBE'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u662F\u5426\u6700\u70ED'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u5B98\u65B9\u5E16'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u64CD\u4F5C'
-                                      )
-                                  ) : _react2.default.createElement(
-                                      'tr',
-                                      null,
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          'ID'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u6240\u5C5E\u7248\u5757'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u8D34\u5B50\u6807\u9898'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u8D34\u5B50\u5185\u5BB9'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u7528\u6237ID'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u7528\u6237\u6635\u79F0'
-                                      ),
-                                      _react2.default.createElement(
-                                          'th',
-                                          null,
-                                          '\u64CD\u4F5C'
-                                      )
-                                  )
-                              ),
-                              _react2.default.createElement(
-                                  'tbody',
-                                  null,
-                                  items.map(function (item, index) {
-                                      return _react2.default.createElement(
-                                          'tr',
-                                          { key: 'group-' + index },
-                                          _react2.default.createElement(
-                                              'td',
-                                              null,
-                                              item.id
-                                          ),
-                                          _react2.default.createElement(
-                                              'td',
-                                              null,
-                                              item.section.name
-                                          ),
-                                          _react2.default.createElement(
-                                              'td',
-                                              null,
-                                              item.title
-                                          ),
-                                          _react2.default.createElement(
-                                              'td',
-                                              null,
-                                              item.content
-                                          ),
-                                          _react2.default.createElement(
-                                              'td',
-                                              null,
-                                              item.user_id
-                                          ),
-                                          _react2.default.createElement(
-                                              'td',
-                                              null,
-                                              item.user.nickname
-                                          ),
-                                          _this17.state.isVerify == 1 ? _react2.default.createElement(
-                                              'td',
-                                              null,
-                                              item.comment_num
-                                          ) : "",
-                                          _this17.state.isVerify == 1 ? _react2.default.createElement(
-                                              'td',
-                                              null,
-                                              item.zan_num
-                                          ) : "",
-                                          _this17.state.isVerify == 1 ? _react2.default.createElement(
-                                              'td',
-                                              null,
-                                              item.collection_num
-                                          ) : "",
-                                          _this17.state.isVerify == 1 ? _react2.default.createElement(
-                                              'td',
-                                              null,
-                                              item.video_code ? item.video_code : "无"
-                                          ) : "",
-                                          _this17.state.isVerify == 1 ? _react2.default.createElement(
-                                              'td',
-                                              null,
-                                              item.cover ? _react2.default.createElement(
-                                                  'a',
-                                                  { href: appUrl + "/thread/img/" + item.id, target: '_blank' },
-                                                  '\u67E5\u770B'
-                                              ) : "—"
-                                          ) : "",
-                                          _this17.state.isVerify == 1 ? _react2.default.createElement(
-                                              'td',
-                                              null,
-                                              item.istop ? "是" : "否"
-                                          ) : "",
-                                          _this17.state.isVerify == 1 ? _react2.default.createElement(
-                                              'td',
-                                              null,
-                                              item.isgreat ? "是" : "否"
-                                          ) : "",
-                                          _this17.state.isVerify == 1 ? _react2.default.createElement(
-                                              'td',
-                                              null,
-                                              item.ishot ? "是" : "否"
-                                          ) : "",
-                                          _this17.state.isVerify == 1 ? _react2.default.createElement(
-                                              'td',
-                                              null,
-                                              item.isofficial ? "是" : "否"
-                                          ) : "",
-                                          _this17.state.isVerify == 0 ? _react2.default.createElement(
-                                              'td',
-                                              null,
-                                              _react2.default.createElement(
-                                                  'button',
-                                                  { 'data-id': item.id, onClick: _this17.passThread,
-                                                      className: 'btn btn-success-outline btn-sm'
-                                                  },
-                                                  '\u901A\u8FC7'
-                                              ),
-                                              _react2.default.createElement(
-                                                  'button',
-                                                  { 'data-id': item.id, onClick: _this17.holdThread,
-                                                      className: 'btn btn-sm btn-warning-outline'
-                                                  },
-                                                  '\u62D2\u7EDD'
-                                              ),
-                                              _react2.default.createElement(
-                                                  'button',
-                                                  { 'data-index': index, 'data-id': item.id, onClick: _this17.showUpdateModal,
-                                                      className: 'btn btn-info-outline btn-sm'
-                                                  },
-                                                  '\u7F16\u8F91'
-                                              ),
-                                              _react2.default.createElement(
-                                                  'button',
-                                                  { 'data-id': item.id, onClick: _this17.delThread,
-                                                      className: 'btn btn-danger-outline btn-sm'
-                                                  },
-                                                  '\u5220\u9664'
-                                              )
-                                          ) : _this17.state.isVerify == 1 ? _react2.default.createElement(
-                                              'td',
-                                              null,
-                                              _react2.default.createElement(
-                                                  'button',
-                                                  { 'data-id': item.id, onClick: _this17.showReplyModal,
-                                                      className: 'btn btn-primary-outline btn-sm'
-                                                  },
-                                                  '\u56DE\u590D'
-                                              ),
-                                              _react2.default.createElement(
-                                                  'button',
-                                                  { 'data-index': index, 'data-id': item.id, onClick: _this17.showUpdateModal,
-                                                      className: 'btn btn-warning-outline btn-sm'
-                                                  },
-                                                  '\u7F16\u8F91'
-                                              ),
-                                              _react2.default.createElement(
-                                                  'button',
-                                                  { 'data-id': item.id, 'data-index': index, onClick: _this17.showMoveModal,
-                                                      className: 'btn btn-sm btn-info-outline'
-                                                  },
-                                                  '\u79FB\u52A8'
-                                              ),
-                                              _react2.default.createElement(
-                                                  'button',
-                                                  { 'data-id': item.id, onClick: _this17.holdThread,
-                                                      className: 'btn btn-sm btn-secondary-outline'
-                                                  },
-                                                  '\u62D2\u7EDD'
-                                              ),
-                                              _react2.default.createElement(
-                                                  'button',
-                                                  { 'data-id': item.id, onClick: _this17.greatThread,
-                                                      className: 'btn btn-success-outline btn-sm'
-                                                  },
-                                                  item.isgreat ? "取消" : "加精"
-                                              ),
-                                              _react2.default.createElement(
-                                                  'button',
-                                                  { 'data-id': item.id, onClick: _this17.hotThread,
-                                                      className: 'btn btn-warning-outline btn-sm'
-                                                  },
-                                                  item.ishot ? "取消" : "最热"
-                                              ),
-                                              item.istop && !item.is_special ? _react2.default.createElement(
-                                                  'button',
-                                                  { 'data-id': item.id, onClick: _this17.superTopThread,
-                                                      className: 'btn btn-danger-outline btn-sm'
-                                                  },
-                                                  '\u7279\u5B9A\u5E16'
-                                              ) : _react2.default.createElement(
-                                                  'button',
-                                                  { 'data-id': item.id, 'data-number': item.istop, onClick: _this17.topThread,
-                                                      className: 'btn btn-danger-outline btn-sm'
-                                                  },
-                                                  '\u7F6E\u9876'
-                                              )
-                                          ) : _this17.state.isVerify == 2 ? _react2.default.createElement(
-                                              'td',
-                                              null,
-                                              _react2.default.createElement(
-                                                  'button',
-                                                  { 'data-id': item.id, onClick: _this17.passThread,
-                                                      className: 'btn btn-success-outline btn-sm'
-                                                  },
-                                                  '\u901A\u8FC7'
-                                              ),
-                                              _react2.default.createElement(
-                                                  'button',
-                                                  { 'data-index': index, 'data-id': item.id, onClick: _this17.showUpdateModal,
-                                                      className: 'btn btn-info-outline btn-sm'
-                                                  },
-                                                  '\u7F16\u8F91'
-                                              ),
-                                              _react2.default.createElement(
-                                                  'button',
-                                                  { 'data-id': item.id, onClick: _this17.delThread,
-                                                      className: 'btn btn-danger-outline btn-sm'
-                                                  },
-                                                  '\u5220\u9664'
-                                              )
-                                          ) : _react2.default.createElement(
-                                              'td',
-                                              null,
-                                              '\u2014\u2014'
-                                          )
-                                      );
-                                  })
-                              )
-                          ),
-                          _react2.default.createElement(
-                              'div',
-                              { className: 'card-block clearfix' },
-                              _react2.default.createElement(
-                                  'h4',
-                                  { className: 'card-title' },
-                                  _react2.default.createElement(
-                                      'div',
-                                      { className: 'pull-left' },
-                                      '\u5E16\u5B50\u7BA1\u7406',
-                                      _react2.default.createElement(
-                                          'span',
-                                          { className: 'total' },
-                                          '(',
-                                          threadList.total,
-                                          '/',
-                                          threadList.per_page,
-                                          ')'
-                                      )
-                                  ),
-                                  _react2.default.createElement(
-                                      'div',
-                                      { className: 'pull-left m-l-1' },
-                                      _react2.default.createElement(
-                                          'select',
-                                          { className: 'custom-select' },
-                                          _react2.default.createElement(
-                                              'option',
-                                              { value: '20' },
-                                              '20'
-                                          ),
-                                          _react2.default.createElement(
-                                              'option',
-                                              { value: '50' },
-                                              '50'
-                                          ),
-                                          _react2.default.createElement(
-                                              'option',
-                                              { value: '80' },
-                                              '80'
-                                          )
-                                      )
-                                  ),
-                                  _react2.default.createElement(
-                                      'div',
-                                      { className: 'pull-left' },
-                                      _react2.default.createElement(_tools.Pagination, {
-                                          onClick: this.changePage,
-                                          currentPage: threadList.current_page,
-                                          lastPage: threadList.last_page,
-                                          unurl: true
-                                      })
-                                  )
-                              )
-                          )
-                      )
-                  )
-              );
-          }
-      }]);
-      return Thread;
-  }(_react.Component);
-  
-  Thread = _antd.Form.create()(Thread);
-  Thread.propTypes = {
-      dispatch: _propTypes2.default.func.isRequired,
-      sectionList: _propTypes2.default.array.isRequired
-  };
-  
-  Thread.defaultProps = {};
-  
-  exports.default = (0, _reactRedux.connect)(function (state) {
-      var omg = state.omg;
-  
-      var threadList = omg[_constants.BBS_THREAD_LIST] || {};
-      var sectionList = omg[_constants.BBS_SECTION_LIST] || [];
-      var adminList = omg[_constants.BBS_USER_ADMIN_LIST] || [];
-      var vestList = omg[_constants.BBS_USER_VEST_LIST] || [];
-      return {
-          sectionList: sectionList,
-          threadList: threadList,
-          adminList: adminList,
-          vestList: vestList
-      };
-  })(Thread);
-
-/***/ }),
-/* 207 */
-/***/ (function(module, exports, __webpack_require__) {
-
-  'use strict';
-  
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  
-  var _getPrototypeOf = __webpack_require__(44);
-  
-  var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-  
-  var _classCallCheck2 = __webpack_require__(45);
-  
-  var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-  
-  var _createClass2 = __webpack_require__(46);
-  
-  var _createClass3 = _interopRequireDefault(_createClass2);
-  
-  var _possibleConstructorReturn2 = __webpack_require__(47);
-  
-  var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-  
-  var _inherits2 = __webpack_require__(48);
-  
-  var _inherits3 = _interopRequireDefault(_inherits2);
-  
-  var _react = __webpack_require__(11);
-  
-  var _react2 = _interopRequireDefault(_react);
-  
-  var _propTypes = __webpack_require__(15);
-  
-  var _propTypes2 = _interopRequireDefault(_propTypes);
-  
-  var _antd = __webpack_require__(208);
-  
-  var _omg = __webpack_require__(58);
-  
-  var _constants = __webpack_require__(59);
-  
-  var _reactRedux = __webpack_require__(52);
-  
-  var _omg2 = __webpack_require__(56);
-  
-  var _tools = __webpack_require__(73);
-  
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-  
-  var ThreadAddModal = function (_Component) {
-    (0, _inherits3.default)(ThreadAddModal, _Component);
-  
-    function ThreadAddModal(props) {
-      (0, _classCallCheck3.default)(this, ThreadAddModal);
-  
-      var _this = (0, _possibleConstructorReturn3.default)(this, (ThreadAddModal.__proto__ || (0, _getPrototypeOf2.default)(ThreadAddModal)).call(this, props));
-  
-      _this.handlePreview = function (file) {
-        _this.setState({
-          previewImage: file.url || file.thumbUrl
-        });
-      };
-  
-      _this.handleChange = function (_ref) {
-        var file = _ref.file,
-            fileList = _ref.fileList;
-  
-        var imgdata = _this.state.imgData;
-        if (file.status == 'done') {
-          if (file.response != undefined) {
-            if (file.response.data != null) {
-              imgdata.push(file.response.data.picUrl);
-            }
-          }
-        } else if (file.status == 'removed') {
-          if (file.response != undefined) {
-            imgdata.splice(imgdata.indexOf(file.response.data.picUrl), 1);
-          } else {
-            imgdata.splice(imgdata.indexOf(file.url), 1);
-          }
-        }
-  
-        _this.setState({ fileList: fileList });
-      };
-  
-      _this.changUserType = _this.changUserType.bind(_this);
-      _this.handleChange = _this.handleChange.bind(_this);
-      _this.initUpdate = _this.initUpdate.bind(_this);
-      _this.state = {
-        usertype: 1,
-        fileList: [],
-        imgData: []
-      };
-      return _this;
-    }
-  
-    (0, _createClass3.default)(ThreadAddModal, [{
-      key: 'componentDidMount',
-      value: function componentDidMount() {
-        if (this.props.update && this.props.item.cover != null) {
-          this.initUpdate();
-        }
-      }
-    }, {
-      key: 'initUpdate',
-      value: function initUpdate() {
-        var imgurl = [];
-        var imgItem = {};
-        var imgdata = [];
-        var coverObj = new String(this.props.item.cover);
-        var regx = /\/\d+\.[a-zA-z]+/;
-        var arr = coverObj.match(regx);
-        arr.map(function (item) {
-          imgItem = {
-            uid: -1,
-            name: 'xxx.png',
-            status: 'done',
-            url: 'http://wlbyunying.oss-cn-beijing.aliyuncs.com/wlbimage' + item
-          };
-          imgurl.push(imgItem);
-          imgdata.push('http://wlbyunying.oss-cn-beijing.aliyuncs.com/wlbimage' + item);
-        });
-  
-        this.setState({
-          fileList: imgurl,
-          imgData: imgdata
-        });
-      }
-    }, {
-      key: 'componentWillReceiveProps',
-      value: function componentWillReceiveProps(nextProps) {
-        if (nextProps.value && nextProps.value !== this.props.value) {
-          this.refs.select.value = nextProps.value;
-        }
-      }
-    }, {
-      key: 'changUserType',
-      value: function changUserType(e) {
-        var type = e.target.value;
-        this.setState({
-          usertype: +type
-        });
-      }
-    }, {
-      key: 'render',
-      value: function render() {
-        var requestUri_add = (0, _omg.getApi)('BBS_THREAD_IMG_ADD');
-        var _state = this.state,
-            fileList = _state.fileList,
-            previewImage = _state.previewImage;
-  
-        var item = this.props.item || {};
-        var types = this.props.types || [];
-        var admins = this.props.admins || [];
-        var vests = this.props.vests || [];
-        var uploadButton = _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(_antd.Icon, { type: 'plus' }),
-          _react2.default.createElement(
-            'div',
-            { className: 'ant-upload-text' },
-            '\u4E0A\u4F20'
-          )
-        );
-        var typeFileds = false;
-        switch (this.state.usertype) {
-          case 1:
-            typeFileds = [_react2.default.createElement(
-              'div',
-              { className: 'form-group row' },
-              _react2.default.createElement(
-                'label',
-                { className: 'col-sm-4 form-control-label text-xs-right' },
-                '\u5B98\u65B9\u53F7:'
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'col-sm-6' },
-                _react2.default.createElement(
-                  'select',
-                  { ref: 'select', name: 'user_id', className: 'form-control c-select', defaultValue: admins[0].user_id },
-                  admins.map(function (admin, index) {
-                    return _react2.default.createElement(
-                      'option',
-                      { key: index, value: admin.user_id },
-                      admin.nickname
-                    );
-                  }),
-                  ';'
-                )
-              )
-            )];
-            break;
-          case 2:
-            typeFileds = [_react2.default.createElement(
-              'div',
-              { className: 'form-group row' },
-              _react2.default.createElement(
-                'label',
-                { className: 'col-sm-4 form-control-label text-xs-right' },
-                '\u9A6C\u7532\u53F7:'
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'col-sm-6' },
-                _react2.default.createElement(
-                  'select',
-                  { ref: 'select', name: 'user_id', className: 'form-control c-select', defaultValue: vests[0].user_id },
-                  vests.map(function (vest, index) {
-                    return _react2.default.createElement(
-                      'option',
-                      { key: index, value: vest.user_id },
-                      vest.nickname
-                    );
-                  }),
-                  ';'
-                )
-              )
-            )];
-            break;
-          default:
-        }
-        return _react2.default.createElement(
-          _tools.Modal,
-          { key: item.id, title: this.props.update ? '编辑帖子' : '添加帖子' },
-          _react2.default.createElement(
-            'form',
-            { name: 'formupdate', method: 'post', onSubmit: this.props.submit },
-            _react2.default.createElement(_tools.Alert, { msg: this.props.errorMsg }),
-            this.props.update ? _react2.default.createElement('input', { type: 'hidden', name: 'id', value: item.id }) : "",
-            _react2.default.createElement('input', { type: 'hidden', name: 'imgdata', value: this.state.imgData }),
-            _react2.default.createElement(_tools.Input, { required: true, labelName: '\u6807\u9898', name: 'title', defaultValue: item.title }),
-            this.props.update ? "" : _react2.default.createElement(
-              'div',
-              { className: 'form-group row' },
-              _react2.default.createElement(
-                'label',
-                { className: 'col-sm-4 form-control-label text-xs-right' },
-                '\u7528\u6237\u7C7B\u578B:'
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'col-sm-6' },
-                _react2.default.createElement(
-                  'select',
-                  { ref: 'select', onChange: this.changUserType, className: 'form-control c-select', defaultValue: item.type_id },
-                  _react2.default.createElement(
-                    'option',
-                    { key: 1, value: 1 },
-                    '\u5B98\u65B9\u53F7'
-                  ),
-                  _react2.default.createElement(
-                    'option',
-                    { key: 2, value: 2 },
-                    '\u9A6C\u7532\u53F7'
-                  )
-                )
-              )
-            ),
-            this.props.update ? "" : typeFileds,
-            _react2.default.createElement(
-              'div',
-              { className: 'form-group row' },
-              _react2.default.createElement(
-                'label',
-                { className: 'col-sm-4 form-control-label text-xs-right' },
-                '\u6240\u5C5E\u677F\u5757:'
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'col-sm-6' },
-                _react2.default.createElement(
-                  'select',
-                  { ref: 'select', name: 'type_id', className: 'form-control c-select', defaultValue: item.type_id },
-                  types.map(function (type, index) {
-                    return _react2.default.createElement(
-                      'option',
-                      { key: index, value: type.id },
-                      type.name
-                    );
-                  })
-                )
-              )
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'form-group row' },
-              _react2.default.createElement(
-                'label',
-                { className: 'col-sm-4 form-control-label text-xs-right' },
-                '\u56FE\u7247:'
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'col-sm-8' },
-                _react2.default.createElement(
-                  _antd.Upload,
-                  { name: 'img',
-                    action: requestUri_add,
-                    listType: 'picture-card',
-                    onPreview: this.handlePreview,
-                    onChange: this.handleChange,
-                    fileList: fileList
-                  },
-                  fileList.length >= 6 ? null : uploadButton
-                )
-              )
-            ),
-            _react2.default.createElement(_tools.Input, { labelName: '\u89C6\u9891\u4EE3\u7801', name: 'video_code', defaultValue: item.video_code }),
-            _react2.default.createElement(
-              'div',
-              { className: 'form-group row' },
-              _react2.default.createElement(
-                'label',
-                { className: 'col-sm-4 form-control-label text-xs-right' },
-                '\u5E16\u5B50\u5185\u5BB9:'
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'col-sm-8' },
-                _react2.default.createElement('textarea', { cols: '38', rows: '15', name: 'content', defaultValue: item.content })
-              )
-            ),
-            _react2.default.createElement(_tools.Checkbox, { className: 'pull-left', key: 'isofficial', name: 'isofficial', labelName: '\u5B98\u65B9\u5E16', checked: item.isofficial == 1 ? true : false }),
-            _react2.default.createElement(_tools.Submit, null)
-          )
-        );
-      }
-    }]);
-    return ThreadAddModal;
-  }(_react.Component);
-  
-  ThreadAddModal.propTypes = {
-    submit: _propTypes2.default.func.isRequired,
-    errorMsg: _propTypes2.default.string,
-    update: _propTypes2.default.bool.isRequired
-  };
-  
-  ThreadAddModal.defaultProps = {
-    errorMsg: ''
-  };
-  
-  exports.default = ThreadAddModal;
-
-/***/ }),
-/* 208 */
-/***/ (function(module, exports) {
-
-  module.exports = require("antd");
-
-/***/ }),
-/* 209 */
-/***/ (function(module, exports, __webpack_require__) {
-
-  'use strict';
-  
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  
-  var _getPrototypeOf = __webpack_require__(44);
-  
-  var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-  
-  var _classCallCheck2 = __webpack_require__(45);
-  
-  var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-  
-  var _createClass2 = __webpack_require__(46);
-  
-  var _createClass3 = _interopRequireDefault(_createClass2);
-  
-  var _possibleConstructorReturn2 = __webpack_require__(47);
-  
-  var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-  
-  var _inherits2 = __webpack_require__(48);
-  
-  var _inherits3 = _interopRequireDefault(_inherits2);
-  
-  var _react = __webpack_require__(11);
-  
-  var _react2 = _interopRequireDefault(_react);
-  
-  var _propTypes = __webpack_require__(15);
-  
-  var _propTypes2 = _interopRequireDefault(_propTypes);
-  
-  var _reactRedux = __webpack_require__(52);
-  
-  var _tools = __webpack_require__(73);
-  
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-  
-  var ThreadMoveModal = function (_Component) {
-    (0, _inherits3.default)(ThreadMoveModal, _Component);
-  
-    function ThreadMoveModal(props) {
-      (0, _classCallCheck3.default)(this, ThreadMoveModal);
-  
-      var _this = (0, _possibleConstructorReturn3.default)(this, (ThreadMoveModal.__proto__ || (0, _getPrototypeOf2.default)(ThreadMoveModal)).call(this, props));
-  
-      _this.state = {
-        currentType: props.currentType
-      };
-      _this.change = _this.change.bind(_this);
-      return _this;
-    }
-  
-    (0, _createClass3.default)(ThreadMoveModal, [{
-      key: 'change',
-      value: function change(e) {
-        var value = e.target.value;
-        this.setState({
-          currentType: +value
-        });
-      }
-    }, {
-      key: 'render',
-      value: function render() {
-        var _this2 = this;
-  
-        var item = this.props.item || {};
-        var types = this.props.types || [];
-        var currentType = this.state.currentType;
-        return _react2.default.createElement(
-          _tools.Modal,
-          { key: item.id, title: '\u79FB\u52A8\u5E16\u5B50' },
-          _react2.default.createElement(
-            'form',
-            { name: 'formmove', method: 'post', onSubmit: this.props.submit },
-            _react2.default.createElement(_tools.Alert, { msg: this.props.errorMsg }),
-            _react2.default.createElement('input', { type: 'hidden', name: 'id', value: item.id }),
-            _react2.default.createElement(
-              'div',
-              null,
-              types.map(function (type, index) {
-                return _react2.default.createElement(_tools.Radio, { onChange: _this2.change, key: index, labelName: type.name, value: type.id, name: 'type_id', checked: currentType === type.id ? true : false });
-              })
-            ),
-            _react2.default.createElement('br', null),
-            _react2.default.createElement(_tools.Submit, null)
-          )
-        );
-      }
-    }]);
-    return ThreadMoveModal;
-  }(_react.Component);
-  
-  ThreadMoveModal.propTypes = {
-    submit: _propTypes2.default.func.isRequired,
-    item: _propTypes2.default.object.isRequired,
-    errorMsg: _propTypes2.default.string
-  };
-  
-  ThreadMoveModal.defaultProps = {
-    errorMsg: ''
-  };
-  
-  exports.default = ThreadMoveModal;
-
-/***/ }),
-/* 210 */
-/***/ (function(module, exports, __webpack_require__) {
-
-  'use strict';
-  
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  
-  var _getPrototypeOf = __webpack_require__(44);
-  
-  var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-  
-  var _classCallCheck2 = __webpack_require__(45);
-  
-  var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-  
-  var _createClass2 = __webpack_require__(46);
-  
-  var _createClass3 = _interopRequireDefault(_createClass2);
-  
-  var _possibleConstructorReturn2 = __webpack_require__(47);
-  
-  var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-  
-  var _inherits2 = __webpack_require__(48);
-  
-  var _inherits3 = _interopRequireDefault(_inherits2);
-  
-  var _react = __webpack_require__(11);
-  
-  var _react2 = _interopRequireDefault(_react);
-  
-  var _propTypes = __webpack_require__(15);
-  
-  var _propTypes2 = _interopRequireDefault(_propTypes);
-  
-  var _reactRedux = __webpack_require__(52);
-  
-  var _tools = __webpack_require__(73);
-  
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-  
-  var ThreadReplyModal = function (_Component) {
-    (0, _inherits3.default)(ThreadReplyModal, _Component);
-  
-    function ThreadReplyModal(props) {
-      (0, _classCallCheck3.default)(this, ThreadReplyModal);
-      return (0, _possibleConstructorReturn3.default)(this, (ThreadReplyModal.__proto__ || (0, _getPrototypeOf2.default)(ThreadReplyModal)).call(this, props));
-    }
-  
-    (0, _createClass3.default)(ThreadReplyModal, [{
-      key: 'render',
-      value: function render() {
-        var id = this.props.id;
-        var vests = this.props.vests || [];
-        return _react2.default.createElement(
-          _tools.Modal,
-          { key: id, title: '\u5E16\u5B50\u56DE\u590D' },
-          _react2.default.createElement(
-            'form',
-            { name: 'formmove', method: 'post', onSubmit: this.props.submit },
-            _react2.default.createElement(_tools.Alert, { msg: this.props.errorMsg }),
-            _react2.default.createElement('input', { type: 'hidden', name: 'tid', value: id }),
-            _react2.default.createElement(
-              'div',
-              { className: 'form-group row' },
-              _react2.default.createElement(
-                'label',
-                { className: 'col-sm-4 form-control-label text-xs-right' },
-                '\u9009\u62E9\u7528\u6237:'
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'col-sm-6' },
-                _react2.default.createElement(
-                  'select',
-                  { ref: 'select', name: 'user_id', className: 'form-control c-select', defaultValue: vests[0].user_id },
-                  vests.map(function (vest, index) {
-                    return _react2.default.createElement(
-                      'option',
-                      { key: index, value: vest.user_id },
-                      vest.nickname
-                    );
-                  }),
-                  ';'
-                )
-              )
-            ),
-            _react2.default.createElement(_tools.Editor, { name: 'content' }),
-            _react2.default.createElement(_tools.Checkbox, { name: 'comment_type', checked: false, labelName: '\u5B98\u65B9\u8BC4\u8BBA' }),
-            _react2.default.createElement(_tools.Submit, null)
-          )
-        );
-      }
-    }]);
-    return ThreadReplyModal;
-  }(_react.Component);
-  
-  ThreadReplyModal.propTypes = {
-    submit: _propTypes2.default.func.isRequired,
-    id: _propTypes2.default.string.isRequired,
-    errorMsg: _propTypes2.default.string
-  };
-  
-  ThreadReplyModal.defaultProps = {
-    errorMsg: ''
-  };
-  
-  exports.default = ThreadReplyModal;
-
-/***/ }),
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */,
+/* 210 */,
 /* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -31405,7 +29850,7 @@ module.exports =
   
           var next = _ref.next,
               context = _ref.context;
-          return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+          return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
               var component;
               return _regenerator2.default.wrap(function _callee$(_context) {
                   while (1) {
@@ -32775,7 +31220,7 @@ module.exports =
       var _this = this;
   
       var next = _ref.next;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -33362,7 +31807,7 @@ module.exports =
       var _this = this;
   
       var next = _ref.next;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -35029,7 +33474,7 @@ module.exports =
   
   function createGraphqlRequest(fetchKnowingCookie) {
     return function () {
-      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(query, variables) {
+      var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(query, variables) {
         var fetchConfig, resp;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
