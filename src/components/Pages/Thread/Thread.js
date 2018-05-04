@@ -158,7 +158,7 @@ class Thread extends Component {
 
     showUpdateModal(e){
         const index = e.target.dataset.index;
-        this.props.dispatch(showModal(<ThreadAddModal submit={this.updateThread} item={this.items[index]} types={this.sections} update  />));
+        this.props.dispatch(showModal(<ThreadAddModal submit={this.updateThread} item={this.items[index]} admins={this.admins} types={this.sections} update  />));
     }
 
     addThread(e){

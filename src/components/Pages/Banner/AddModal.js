@@ -60,6 +60,12 @@ class AddModal extends Component {
         fileds.push(<Input key="tag" name="tag" labelName="TAG" defaultValue={this.props.item.tag} />);
         fileds.push(<Checkbox key="short_des"  name="short_des" labelName="是否分享" checked={this.props.item.short_des == 1 ? true : false} />);
         break;
+      case 'xcx':
+        fileds.push(<Input key="name" name="name" labelName="名称" defaultValue={this.props.item.name} />);
+        break;
+      case 'xcx_icon':
+        fileds.push(<Input key="name" name="name" labelName="名称" defaultValue={this.props.item.name} />);
+        break;
       default:
         fileds.push(<Input key="share_name" name="name" labelName="埋点说明" defaultValue={this.props.item.name} />);
     }
