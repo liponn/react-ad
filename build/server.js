@@ -206,7 +206,7 @@ module.exports =
   // Register server-side rendering middleware
   // -----------------------------------------------------------------------------
   app.get('*', function () {
-    var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, res, next) {
+    var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, res, next) {
       var css, statusCode, data, store, html;
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
@@ -1062,7 +1062,7 @@ module.exports =
   var _assign2 = _interopRequireDefault(_assign);
   
   var resolveExtension = function () {
-    var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(path, extension) {
+    var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(path, extension) {
       var fileNameBase, ext, fileName;
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
@@ -1117,7 +1117,7 @@ module.exports =
   }();
   
   var resolveFileName = function () {
-    var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(path) {
+    var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(path) {
       var extensions, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, extension, maybeFileName;
   
       return _regenerator2.default.wrap(function _callee2$(_context2) {
@@ -1280,7 +1280,7 @@ module.exports =
   
       var request = _ref3.request;
       var path = _ref4.path;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3() {
         var _ref5, success, fileName, extension, source;
   
         return _regenerator2.default.wrap(function _callee3$(_context3) {
@@ -1750,7 +1750,7 @@ module.exports =
           render = _ref.render,
           context = _ref.context,
           path = _ref.path;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -9120,7 +9120,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -16723,7 +16723,7 @@ module.exports =
     action: function action() {
       var _this = this;
   
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var data;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -16953,7 +16953,7 @@ module.exports =
       var _this = this;
   
       var path = _ref.path;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var resp, _ref2, data;
   
         return _regenerator2.default.wrap(function _callee$(_context) {
@@ -17441,7 +17441,7 @@ module.exports =
       var _this = this;
   
       var next = _ref.next;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -17524,7 +17524,7 @@ module.exports =
       var _this = this;
   
       var next = _ref.next;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -18936,7 +18936,7 @@ module.exports =
       var _this = this;
   
       var next = _ref.next;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -19794,7 +19794,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -20663,7 +20663,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -21217,7 +21217,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -21487,7 +21487,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -22087,7 +22087,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -22616,7 +22616,7 @@ module.exports =
       var _this = this;
   
       var next = _ref.next;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -22681,7 +22681,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -23215,7 +23215,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -23602,7 +23602,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -24163,7 +24163,7 @@ module.exports =
   
       var next = _ref.next,
           context = _ref.context;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -28371,7 +28371,7 @@ module.exports =
                 )
               )
             ),
-            _react2.default.createElement(_tools.Input, { labelName: '\u89C6\u9891\u4EE3\u7801', name: 'video_code', defaultValue: item.video_code }),
+            _react2.default.createElement(_tools.Input, { labelName: '\u89C6\u9891\u4EE3\u7801', name: 'video_code', placeholder: '\u817E\u8BAF\u89C6\u9891\u5206\u4EAB\u4E2D\u901A\u7528\u4EE3\u7801\u91CCsrc\u5730\u5740', defaultValue: item.video_code }),
             _react2.default.createElement(
               'div',
               { className: 'form-group row' },
@@ -31405,7 +31405,7 @@ module.exports =
   
           var next = _ref.next,
               context = _ref.context;
-          return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+          return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
               var component;
               return _regenerator2.default.wrap(function _callee$(_context) {
                   while (1) {
@@ -32775,7 +32775,7 @@ module.exports =
       var _this = this;
   
       var next = _ref.next;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -33362,7 +33362,7 @@ module.exports =
       var _this = this;
   
       var next = _ref.next;
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+      return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
         var component;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -35029,7 +35029,7 @@ module.exports =
   
   function createGraphqlRequest(fetchKnowingCookie) {
     return function () {
-      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(query, variables) {
+      var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(query, variables) {
         var fetchConfig, resp;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {

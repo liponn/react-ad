@@ -177,7 +177,7 @@ class ThreadAddModal extends Component {
         </Upload>
                   </div>
                 </div>
-                <Input labelName="视频代码" name="video_code" defaultValue={item.video_code} />
+                <Input labelName="视频代码" name="video_code" placeholder="腾讯视频分享中通用代码里src地址" defaultValue={item.video_code} />
                 <div className="form-group row">
                   <label className="col-sm-4 form-control-label text-xs-right">帖子内容:</label>
                   <div className="col-sm-8">
