@@ -572,6 +572,9 @@ function getApi(type) {
     case 'yyadmin.wanglibao.com': // 测试环境
       apiHost = 'https://php1.wanglibao.com/yunying';
       break;
+    case 'ttadmin.wanglibao.com': // 测试环境test1
+      apiHost = 'https://test1.wanglibao.com/yunying';
+      break;
     case 'yyadmin3.wanglibao.com': // 预上线环境
       apiHost = 'https://php3.wanglibao.com/yunying';
       break;
