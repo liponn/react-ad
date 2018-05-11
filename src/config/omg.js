@@ -774,6 +774,8 @@ const bannerTypes = {
   annualreport_app: '运营报告_APP',
   jifen: '积分活动',
   index_icon:'首页图标',
+  xcx:'小程序轮播图',
+  xcx_icon:"小程序图标",
 }
 
 const channelStatusTypes = {
@@ -1006,6 +1008,3 @@ function getConfig(type, key = false) {
 }
 
 export { getApi, getConfig };
-
-
-
