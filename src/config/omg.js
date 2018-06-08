@@ -267,6 +267,11 @@ import {
   EXAMINECONFIG_LIST,
   EXAMINECONFIG_UP_STATUS,
 
+  WORLDCUPCONFIG_UPDATE,
+  WORLDCUPCONFIG_LIST,
+  WORLDCUPCONFIG_DEL,
+  WORLDCUPCONFIG_ADD,
+
   USER_LOG,
 
 
@@ -544,6 +549,11 @@ apiList[FEEFLOWCONFIG_ORDER_EXPORT] = '/feeflow/order-export';
 apiList[EXAMINECONFIG_ADD] = '/examine/add';
 apiList[EXAMINECONFIG_LIST] = '/examine/config-list';
 apiList[EXAMINECONFIG_UP_STATUS] = '/examine/update-status';
+
+apiList[WORLDCUPCONFIG_UPDATE] = '/worldcup/dt-update';
+apiList[WORLDCUPCONFIG_LIST] = '/worldcup/dt-list';
+apiList[WORLDCUPCONFIG_DEL] = '/worldcup/dt-delete';
+apiList[WORLDCUPCONFIG_ADD] = '/worldcup/dt-add';
 
 apiList[USER_LOG] = '/log';
 
