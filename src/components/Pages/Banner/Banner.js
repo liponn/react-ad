@@ -209,6 +209,8 @@ class Banner extends Component {
                 {this.props.path !== 'ShareConfig'
                   && this.props.type !== 'pop'
                   && this.props.type !== 'discover_feature'
+                  && this.props.type !== 'xcx'
+                  && this.props.type !== 'xcx_icon'
                   &&  this.props.type !== 'index_icon'
                   && <td>埋点说明</td>
                 }
@@ -219,7 +221,7 @@ class Banner extends Component {
                 {this.props.path === 'ShareConfig' && <th>分享时说明</th>}
                 {this.props.type === 'index_icon' && <th>名称</th>}
                 {this.props.type === 'pop' && <th>标题</th>}
-                {this.props.type === 'discover_feature' && <th>名称</th>}
+                { (this.props.type === 'discover_feature' || this.props.type === 'xcx' || this.props.type === 'xcx_icon') && <th>名称</th>}
                 {this.props.type === 'index_icon' && <th>附标题</th>}
                 {this.props.type === 'pop' && <th>附标题</th>}
                 {this.props.type === 'index_icon' && <th>TAG</th>}
@@ -235,6 +237,7 @@ class Banner extends Component {
                 <th>跳转URL</th>
                 {this.props.type === 'pop' && <th>IOS跳转URL</th>}
                 <th>状态</th>
+                {this.props.type === 'pop' && <th>显示频次</th>}
                 <th>开始时间</th>
                 <th>结束时间</th>
                 <th>操作</th>
@@ -266,6 +269,7 @@ class Banner extends Component {
                 <td><a hidden={!item.url} title={item.url} href={item.url} target="_blank">查看</a></td>
                 {this.props.type === 'pop' && <td><a hidden={!item.url_ios} title={item.url_ios} href={item.url_ios} target="_blank">查看</a></td>}
                 <td><Status status={+item.can_use} /></td>
+                {this.props.type === 'pop' && <td>{getConfig('bannerPopFrequencyTypes', item.view_frequency)}</td>}
                 <td>{item.start === null ? '不限制' : item.start}</td>
                 <td>{item.end === null ? '不限制' : item.end}</td>
                 <td>

@@ -786,6 +786,8 @@ const bannerTypes = {
   annualreport_app: '运营报告_APP',
   jifen: '积分活动',
   index_icon:'首页图标',
+  xcx:'小程序轮播图',
+  xcx_icon:"小程序图标",
 }
 
 const channelStatusTypes = {
@@ -879,6 +881,7 @@ const platformTypes = {
 const appUpdateTypes = {
   1: '安卓',
   2: 'IOS',
+  3: 'IOS马甲包',
 }
 
 const castTypes = {
@@ -949,6 +952,12 @@ const examineTypes = {
   0: '否',
   1: '是',
 }
+const bannerPopFrequencyTypes = {
+  0: '不限',
+  1: '每日显示一次',
+  2: '只显示一次',
+  3: '每日三次',
+}
 function getAllRuleTypes() {
   const allRuleTypes = {};
   Object.assign(allRuleTypes, ruleTypes);
@@ -1006,6 +1015,7 @@ const config = {
   feeFlowOrderStatus,
   feeFlowOrderRepairStatus,
   examineTypes,
+  bannerPopFrequencyTypes,
 };
 
 function getConfig(type, key = false) {
@@ -1018,6 +1028,3 @@ function getConfig(type, key = false) {
 }
 
 export { getApi, getConfig };
-
-
-
