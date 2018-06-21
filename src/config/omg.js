@@ -275,6 +275,11 @@ import {
   EXAMINECONFIG_LIST,
   EXAMINECONFIG_UP_STATUS,
 
+  WORLDCUPCONFIG_UPDATE,
+  WORLDCUPCONFIG_LIST,
+  WORLDCUPCONFIG_DEL,
+  WORLDCUPCONFIG_ADD,
+
   USER_LOG,
 
 
@@ -562,6 +567,11 @@ apiList[FEEFLOWCONFIG_ORDER_EXPORT] = '/feeflow/order-export';
 apiList[EXAMINECONFIG_ADD] = '/examine/add';
 apiList[EXAMINECONFIG_LIST] = '/examine/config-list';
 apiList[EXAMINECONFIG_UP_STATUS] = '/examine/update-status';
+
+apiList[WORLDCUPCONFIG_UPDATE] = '/worldcup/dt-update';
+apiList[WORLDCUPCONFIG_LIST] = '/worldcup/dt-list';
+apiList[WORLDCUPCONFIG_DEL] = '/worldcup/dt-delete';
+apiList[WORLDCUPCONFIG_ADD] = '/worldcup/dt-add';
 
 apiList[USER_LOG] = '/log';
 
@@ -887,6 +897,7 @@ const platformTypes = {
 const appUpdateTypes = {
   1: '安卓',
   2: 'IOS',
+  3: 'IOS马甲包',
 }
 
 const castTypes = {
@@ -957,6 +968,12 @@ const examineTypes = {
   0: '否',
   1: '是',
 }
+const bannerPopFrequencyTypes = {
+  0: '不限',
+  1: '每日显示一次',
+  2: '只显示一次',
+  3: '每日三次',
+}
 function getAllRuleTypes() {
   const allRuleTypes = {};
   Object.assign(allRuleTypes, ruleTypes);
@@ -1014,6 +1031,7 @@ const config = {
   feeFlowOrderStatus,
   feeFlowOrderRepairStatus,
   examineTypes,
+  bannerPopFrequencyTypes,
 };
 
 function getConfig(type, key = false) {

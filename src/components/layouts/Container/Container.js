@@ -78,6 +78,12 @@ class Container extends Component {
           tag: 'one',
           fontClass: 'fa-star',
         },
+        {
+          title: '世界杯球队配置',
+          url: '/worldcupconfig',
+          tag: 'worldcupconfig',
+          fontClass: 'fa-star',
+        },
       ],
     }, {
       title: '活动记录',
