@@ -127,5 +127,4 @@ export function commonFetch(type, method = 'GET', formData = false, suffix = '',
         return json;
       });
   };
-
 }
