@@ -321,3 +321,4 @@ export const EXAMINECONFIG_UP_STATUS = 'EXAMINECONFIG_UP_STATUS';
 //后台管理用户log
 
 export const USER_LOG = 'USER_LOG';
+export const USER_LOG_LIST = 'USER_LOG_LIST';

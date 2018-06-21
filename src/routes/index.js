@@ -50,12 +50,14 @@ import bbstask from './bbstask';
 import feeflowconfig from './feeflowconfig';
 import feefloworder from './feefloworder';
 import examine from './examine';
+import log from './log';
 
 export default {
 
   path: '/',
 
   children: [
+    log,
     examine,
     feefloworder,
     feeflowconfig,

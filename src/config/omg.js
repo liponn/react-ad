@@ -274,6 +274,7 @@ import {
   EXAMINECONFIG_UP_STATUS,
 
   USER_LOG,
+  USER_LOG_LIST,
 
 
 } from '../constants/index.js';
@@ -558,6 +559,7 @@ apiList[EXAMINECONFIG_LIST] = '/examine/config-list';
 apiList[EXAMINECONFIG_UP_STATUS] = '/examine/update-status';
 
 apiList[USER_LOG] = '/log';
+apiList[USER_LOG_LIST] = '/log/list';
 
 function getApi(type) {
   let apiHost = '';
