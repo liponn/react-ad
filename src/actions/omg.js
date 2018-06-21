@@ -31,19 +31,18 @@ function fetchError(type, code, msg, key = false) {
     key,
   };
 }
-function userLog(type,params,status,formDatas,queryObj) {
+function userLog(type,params,status,formData,queryObj) {
   // body...
   const logUri = getApi('USER_LOG');
   let logParams = {};
-  if(formDatas != false){
-      for(var pair of formDatas.entries()) {
-      logParams[pair[0]] = pair[1]; 
+  if(formData){
+      for(var pair of formData.entries()) {
+      logParams[pair[0]] = pair[1];
     }
   }else{
 
     logParams = queryObj
   }
-  console.log(type);
   let logFormData =  new FormData();
   logFormData.append('type',type);
   logFormData.append('data',JSON.stringify(logParams));
@@ -68,7 +67,7 @@ export function fetchAction({
 
   const queryArr = keys.map(key => (`${key}=${queryObj[key]}`));
   let queryString = queryArr.join('&');
-  
+
   if (queryString !== '') {
     queryString = `?${queryString}`;
   }
@@ -76,7 +75,7 @@ export function fetchAction({
     method,
     credentials: 'include',
   };
- 
+
   if (method === 'POST') {
     params.body = formData;
   }
@@ -89,10 +88,8 @@ export function fetchAction({
           dispatch(fetchSuccess(type, json.data, key));
         } else {
           dispatch(fetchError(type, json.error_code, json.data.error_msg, key));
-        }   
-        if(type != 'ACCOUNT_PROFILE'){
-          userLog(type,params,json.error_code,formData,queryObj);//日志请求
         }
+        userLog(type,params,json.error_code,formData,queryObj);//日志请求
         return json;
       });
   };

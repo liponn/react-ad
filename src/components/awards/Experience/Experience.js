@@ -13,6 +13,7 @@ class Experience extends Component {
     super(props);
     this.showAddModal = this.showAddModal.bind(this);
     this.showUpdateModal = this.showUpdateModal.bind(this);
+    this.pageSelect = this.pageSelect.bind(this);
     this.add = this.add.bind(this);
     this.update = this.update.bind(this);
     this.fresh = this.fresh.bind(this);

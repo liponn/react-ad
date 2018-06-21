@@ -263,7 +263,7 @@ class AppUpdateAddModal extends Component {
           <Input labelName="版本号" name="version" defaultValue={this.props.item.version || ''} />
           <Select labelName="强制升级" name="force" options={this.state.forceTypes} defaultValue={this.props.item.force || ''} />
           <Input labelName="更新时间" placeholder="YYYY-MM-DD" name="update_time" defaultValue={this.props.item.update_time || ''} />
-          {this.props.type === 2 ? false : <Input labelName="下载链接" name="url" defaultValue={this.props.item.url || ''} />}
+          <Input labelName="下载链接" name="url" defaultValue={this.props.item.url || ''} />
           <Input labelName="安装包大小" name="size" defaultValue={this.props.item.size || ''}/>
           <Textarea labelName="升级描述" name="description" defaultValue={this.props.item.description || ''} />
           <Submit />
