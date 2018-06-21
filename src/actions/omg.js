@@ -43,7 +43,7 @@ function userLog(type,params,status,formData,queryObj) {
 
     logParams = queryObj
   }
-  let logFormData =  new FormData();
+  let logFormData =  new window.FormData();
   logFormData.append('type',type);
   logFormData.append('data',JSON.stringify(logParams));
   const param = {
