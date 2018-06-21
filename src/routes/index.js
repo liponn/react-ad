@@ -50,7 +50,11 @@ import bbstask from './bbstask';
 import feeflowconfig from './feeflowconfig';
 import feefloworder from './feefloworder';
 import examine from './examine';
+<<<<<<< HEAD
 import worldcupconfig from './worldcupconfig';
+=======
+import log from './log';
+>>>>>>> feature-log
 
 export default {
 
@@ -58,6 +62,7 @@ export default {
 
   children: [
     worldcupconfig,
+    log,
     examine,
     feefloworder,
     feeflowconfig,

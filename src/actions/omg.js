@@ -88,7 +88,9 @@ export function fetchAction({
         } else {
           dispatch(fetchError(type, json.error_code, json.data.error_msg, key));
         }
-        userLog(type,params,json.error_code,formData,queryObj);//日志请求
+        if (method === 'POST') {
+          userLog(type,params,json.error_code,formData,queryObj);//日志请求
+        }
         return json;
       });
   };
@@ -124,5 +126,4 @@ export function commonFetch(type, method = 'GET', formData = false, suffix = '',
         return json;
       });
   };
-
 }

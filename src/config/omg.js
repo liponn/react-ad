@@ -281,6 +281,7 @@ import {
   WORLDCUPCONFIG_ADD,
 
   USER_LOG,
+  USER_LOG_LIST,
 
 
 } from '../constants/index.js';
@@ -574,6 +575,7 @@ apiList[WORLDCUPCONFIG_DEL] = '/worldcup/dt-delete';
 apiList[WORLDCUPCONFIG_ADD] = '/worldcup/dt-add';
 
 apiList[USER_LOG] = '/log';
+apiList[USER_LOG_LIST] = '/log/list';
 
 function getApi(type) {
   let apiHost = '';
