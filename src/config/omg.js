@@ -1026,6 +1026,3 @@ function getConfig(type, key = false) {
 }
 
 export { getApi, getConfig };
-
-
-
