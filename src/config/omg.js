@@ -282,6 +282,22 @@ import {
 
   USER_LOG,
   USER_LOG_LIST,
+  AD_LIST,
+  INFOLINK_LIST,
+  QUESTION_LIST, 
+  QUESTION_ADD,
+  QUESTION_PUT,
+  QUESTION_DEL,
+  QUESTION_ENABLE, 
+  QUESTION_DISABLE,
+  QUESTION_INFO,
+  CATEGORY_LIST, 
+  CATEGORY_ADD,
+  CATEGORY_PUT,
+  CATEGORY_DEL,
+  CATEGORY_ENABLE, 
+  CATEGORY_DISABLE,
+  CATEGORY_INFO,
 
 
 } from '../constants/index.js';
@@ -577,6 +593,22 @@ apiList[WORLDCUPCONFIG_ADD] = '/worldcup/dt-add';
 apiList[USER_LOG] = '/log';
 apiList[USER_LOG_LIST] = '/log/list';
 
+apiList[AD_LIST] = '/img/banner-list';
+apiList[INFOLINK_LIST] = '/img/banner-list';
+apiList[QUESTION_LIST] = '/question/list';
+apiList[QUESTION_ADD] = '/question/add';
+apiList[QUESTION_PUT] = '/question/update';
+apiList[QUESTION_DEL] = '/question/delete';
+apiList[QUESTION_ENABLE] = '/question/on-line';
+apiList[QUESTION_DISABLE] = '/question/off-line';
+apiList[QUESTION_INFO] = '/question/edit';
+apiList[CATEGORY_LIST] = '/category/list';
+apiList[CATEGORY_ADD] = '/category/add';
+apiList[CATEGORY_PUT] = '/category/update';
+apiList[CATEGORY_DEL] = '/category/delete';
+apiList[CATEGORY_ENABLE] = '/category/on-line';
+apiList[CATEGORY_DISABLE] = '/category/off-line';
+apiList[CATEGORY_INFO] = '/category/edit';
 function getApi(type) {
   let apiHost = '';
   const host = typeof window !== 'undefined' ? window.location.hostname : hostname;

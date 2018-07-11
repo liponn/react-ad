@@ -52,12 +52,20 @@ import feefloworder from './feefloworder';
 import examine from './examine';
 import worldcupconfig from './worldcupconfig';
 import log from './log';
+import ad from './ad';
+import infolink from './infolink';
+import question from './question';
+import category from './category';
 
 export default {
 
   path: '/',
 
   children: [
+    category,
+    question,
+    infolink,
+    ad,
     worldcupconfig,
     log,
     examine,
