@@ -47,7 +47,7 @@ class AttachmentInput extends Component {
           </div>
           <div className="col-sm-3">
             <UploadBtn callback={this.imgUpload} position={this.props.position} />
-            <button hidden className="btn btn-sm btn-info" onCick={this.showImgSelect} type="button">选择</button>
+            <button hidden className="btn btn-sm btn-info" onClick={this.showImgSelect} type="button">选择</button>
           </div>
         </div>
         <div>
