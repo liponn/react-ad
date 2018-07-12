@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Status, ImgBox, Card, } from '../../tools';
+import { Status, ImgBox, Card, Pagination} from '../../tools';
 import { CATEGORY_LIST, CATEGORY_ADD, CATEGORY_PUT, CATEGORY_DEL, CATEGORY_ENABLE, CATEGORY_DISABLE, CATEGORY_INFO } from '../../../constants';
 import { showModal, hideModal } from '../../../actions/modal';
 import { fetchAction } from '../../../actions/omg';
@@ -130,14 +130,14 @@ class Category extends Component {
   }
 
   render() {
-    const { banners } = this.props;
+    const { banners } = this.props
     const btn = (
       <button
         className="btn btn-info btn-sm pull-xs-right"
         onClick={this.showAdd.bind(this)}
       >添加</button>
     );
-    const items = banners || [];
+    const items = banners.data || [];
     this.items = items;
     return (
       <div>
@@ -175,6 +175,7 @@ class Category extends Component {
             </tbody>
           </table>
         </Card>
+        <Pagination currentPage={banners.current_page} lastPage={banners.last_page} />
       </div>
     );
   }
