@@ -39,7 +39,7 @@ class Container extends Component {
         },
         {
           title: '兑换码生成',
-          url: '/redeem',
+          url: '/redeem/0',
           tag: 'redeem',
           fontClass: 'fa-money',
         },
@@ -144,7 +144,7 @@ class Container extends Component {
         },
         {
           title: 'ios过审配置',
-          url: '/examine',
+          url: '/examine/1',
           tag: 'app',
           fontClass: 'fa-level-up',
         },

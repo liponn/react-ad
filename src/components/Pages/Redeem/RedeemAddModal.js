@@ -42,10 +42,11 @@ class RedeemAddModal extends Component {
   }
   render() {
     return (
-      <Modal title="添加兑换码" className="modal-lg">
+      <Modal title={this.props.typeId == 1 ? '添加口令红包' : '添加兑换码'} className="modal-lg">
         <Alert msg={this.props.addErrorMsg} />
         <form onSubmit={this.props.submit}>
-          <Input name="name" labelName="兑换码名称" />
+          <input type="hidden" name="type" defaultValue={this.props.typeId} />
+          <Input name="name" labelName={this.props.typeId == 1 ? '口令' : '兑换码名称'} />
           <Select onChange={this.changeSelect} name="award_type" labelName="奖品类型" options={getConfig('awardTypes')} value={this.state.awardType} />
           <Input name="award_id" labelName="奖品Id" value={this.state.awardId} />
           <div className="form-group row">
@@ -53,7 +54,7 @@ class RedeemAddModal extends Component {
               <a className="btn btn-info-outline" onClick={this.showAward}>选择奖品</a>
             </div>
           </div>
-          <Input type="number" name="number" labelName="生成数量" />
+          <Input type="number" name="number" labelName={this.props.typeId == 1 ? '个数' : '生成数量'} />
           <DateTimeInput name="expire_time" labelName="过期时间" />
           <Submit value="添加" />
         </form>

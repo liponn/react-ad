@@ -7,7 +7,7 @@ import { REDEEM_LIST, REDEEM_ADD, REDEEM_EXPORT, REDEEM_DOWNLOAD } from '../../.
 import RedeemAddModal from './RedeemAddModal';
 import { hideModal, showModal } from '../../../actions/modal';
 import { getConfig, getApi } from '../../../config/omg';
-
+import hisotry from '../../../core/history';
 
 class Redeem extends Component {
   constructor(props) {
@@ -17,27 +17,33 @@ class Redeem extends Component {
     this.add = this.add.bind(this);
     this.list = this.list.bind(this);
     this.export = this.export.bind(this);
+    this.selectChange = this.selectChange.bind(this);
+    this.pageSelect = this.pageSelect.bind(this);
+    const page = props.page || 1;
+    const redeemTypes  = getConfig("redeemTypes");
     this.state = {
+      redeemTypes,
+      page,
       errorMsg: '',
     };
   }
   componentDidMount() {
-    this.fresh(this.props.page);
+    this.fresh(this.props.typeId,this.props.page);
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.page !== this.props.page) {
-      this.list(nextProps.page);
+    if (this.props.typeId !== nextProps.typeId || nextProps.page !== this.props.page) {
+      this.list(this.props.typeId,nextProps.page);
     }
   }
-  list(page) {
+  list(type,page) {
     this.props.dispatch(fetchAction({
       type: REDEEM_LIST,
-      queryObj: { page },
-      key: page,
+      queryObj: { type,page },
+      key: `${type}_${page}`,
     }));
   }
   fresh() {
-    this.list(this.props.page);
+    this.list(this.props.typeId,this.props.page);
   }
   add(e) {
     e.preventDefault();
@@ -63,11 +69,19 @@ class Redeem extends Component {
     ));
   }
   showAddModal() {
-    const modalView = <RedeemAddModal submit={this.add} />;
+    const modalView = <RedeemAddModal typeId={this.props.typeId} submit={this.add} />;
     this.props.dispatch(showModal(modalView));
   }
+  selectChange(e) {
+    const value = e.target.value;
+    hisotry.push(`/redeem/${value}`);
+  }
+  pageSelect() {
+    this.fresh()
+  }
   render() {
-    const redeem = this.props.redeemList[this.props.page] || {};
+    const key = `${this.props.typeId}_${this.props.page}`;
+    const redeem = this.props.redeemList[key] || {};
     const items = redeem.data || [];
     const btn = (
       <button
@@ -75,21 +89,38 @@ class Redeem extends Component {
         onClick={this.showAddModal}
       >添加</button>
     );
+    const { redeemTypes } = this.state;
     return (
       <div>
+        <div>
+          {Object.keys(redeemTypes).map(key => (
+              <label key={`redio-${key}`} className="c-input c-radio">
+                <input
+                    checked={key == this.props.typeId}
+                    name="main_type"
+                    value={key}
+                    type="radio"
+                    onChange={this.selectChange}
+                />
+                <span className="c-indicator"></span>
+                {redeemTypes[key]}
+              </label>
+          ))}
+        </div>
         <Card title="兑换码列表" btn={btn}>
           <table className="table m-b-0 table-bordered">
             <thead>
               <tr>
                 <th>ID</th>
-                <th>名称</th>
+                <th>{this.props.typeId == 1 ? '口令': '名称'}</th>
                 <th>奖品类型</th>
                 <th>奖品ID</th>
                 <th>数量</th>
-                <th>兑换码文件</th>
+                <th hidden={this.props.typeId == 1 ? '': 'hidden'}>已领取数量</th>
+                <th hidden={this.props.typeId == 1 ? 'hidden': ''}>兑换码文件</th>
                 <th>状态</th>
                 <th>过期时间</th>
-                <th>操作</th>
+                <th hidden={this.props.typeId == 1 ? 'hidden': ''}>操作</th>
               </tr>
             </thead>
             <tbody>
@@ -100,10 +131,11 @@ class Redeem extends Component {
                 <td>{getConfig('awardTypes', item.award_type)}</td>
                 <td>{item.award_id}</td>
                 <td>{item.number}</td>
-                <td><span hidden={item.export_status !== 1}>生成中</span><a hidden={item.file_name === '' || item.export_status === 1} href={`${getApi(REDEEM_DOWNLOAD)}?file=${item.file_name}`} target="_blank" >下载</a></td>
+                <td hidden={this.props.typeId == 1 ? '': 'hidden'}>{item.use_num}</td>
+                <td hidden={this.props.typeId == 1 ? 'hidden': ''}><span hidden={item.export_status !== 1}>生成中</span><a hidden={item.file_name === '' || item.export_status === 1} href={`${getApi(REDEEM_DOWNLOAD)}?file=${item.file_name}`} target="_blank" >下载</a></td>
                 <td>{getConfig('redeemStatus', item.status)}</td>
                 <td>{item.expire_time}</td>
-                <td>
+                <td hidden={this.props.typeId == 1 ? 'hidden': ''}>
                   <button hidden={item.export_status === 1 || item.status !== 2} className="btn btn-sm btn-primary-outline" data-id={item.id} onClick={this.export}>{item.export_status === 0 ? '生成下载文件' : '重新生成下载文件'}</button>
                   <button className="btn btn-sm btn-info-outline" data-id={item.id} onClick={this.fresh}>刷新</button>
                 </td>
