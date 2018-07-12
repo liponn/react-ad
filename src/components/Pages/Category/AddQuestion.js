@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Status, Card, } from '../../tools';
+import { Status, Card, Pagination} from '../../tools';
 import { QUESTION_LIST } from '../../../constants';
 import { showModal, hideModal } from '../../../actions/modal';
 import { fetchAction } from '../../../actions/omg';
@@ -11,30 +11,38 @@ class AddQuestion extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: []
+      page: 1
     }
   }
 
   componentDidMount() {
-    this.props.dispatch(fetchAction({
-      type: QUESTION_LIST,
-    }));
-
-    // const { questions } = this.props;
-    // if (questions.data) {
-    //   this.setState({items: questions.data});
-    // }
+    this.freshData(this.state.page)
   } 
 
-  componentWillReceiveProps(nextProps) {
-    // console.log(nextProps)
-    const { questions } = nextProps;
-    if (questions.data) {
-      this.setState({items: questions.data});
-    }
+  // componentWillReceiveProps(nextProps) {
+  //   console.log(nextProps)
+  //   if (nextProps.page !== this.state.page) {
+  //     this.freshData(nextProps.page);
+  //   }
+  // }
+
+  freshData(page) {
+    const queryObj = {}
+    queryObj.page = page;
+    this.props.dispatch(fetchAction({
+      type: QUESTION_LIST,
+      queryObj,
+      key:page
+    }));
+    this.state = {page:page}
+  }
+
+  handleClick (page) {
+    this.freshData(page)
   }
   render() {
-    const items = this.state.items
+    const questions = this.props.questions[this.state.page] || {};
+    const items = questions.data || [];
     const qids = this.props.qids ? this.props.qids.split(',') : [];
     return (
       <div>
@@ -70,6 +78,7 @@ class AddQuestion extends Component {
             </tbody>
           </table>
         </Card>
+        <Pagination currentPage={questions.current_page} lastPage={questions.last_page} unurl={true} onClick={this.handleClick.bind(this)} />
       </div>
     );
   }
@@ -81,6 +90,7 @@ AddQuestion.propTypes = {
 }
 
 AddQuestion.defaultProps = {
+
 }
 
 export default connect(state => {

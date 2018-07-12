@@ -65,7 +65,6 @@ class AddModal extends Component {
       this.setState({qids: qids});
     }
   }
-
   render() {
     const qids_str = this.state.qids.join(',')
     return (

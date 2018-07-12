@@ -52,7 +52,7 @@ class Pagination extends Component {
             </button>
           </li>
           {arr.map((index) => (
-            <li className={currentPage === index ? 'page-item active' : 'page-item'}><button onClick={this.jump} className="page-link" data-page={index}>{index}</button></li>
+            <li key={index} className={currentPage === index ? 'page-item active' : 'page-item'}><button onClick={this.jump} className="page-link" data-page={index}>{index}</button></li>
           ))}
           <li className="page-item">
             <button className="page-link" onClick={this.jump} data-page={currentPage < lastPage ? currentPage + 1 : lastPage} aria-label="Next">

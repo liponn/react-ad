@@ -8,7 +8,7 @@ export default {
     {
       path: '/',
       action(context) {
-        return <Question path="Question" />;
+        return <Question path="Question" page={+context.query.page || 1}/>;
       },
     },
   ],
