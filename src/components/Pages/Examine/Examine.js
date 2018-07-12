@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import { fetchAction } from '../../../actions/omg';
 import { showModal, hideModal} from '../../../actions/modal';
 import { EXAMINECONFIG_ADD, EXAMINECONFIG_LIST, EXAMINECONFIG_UP_STATUS } from '../../../constants';
-import { Card, Pagination, ImgBox, Status} from '../../tools';
+import { Card, Pagination, ImgBox, Status, Radio} from '../../tools';
 import AddModal from './AddModal';
+import hisotry from '../../../core/history';
 import { getConfig } from '../../../config/omg';
 
 
@@ -19,10 +20,15 @@ class Examine extends Component {
         this.list = this.list.bind(this);
         this.enable = this.enable.bind(this);
         this.disable = this.disable.bind(this);
-
+        const examineAppTypes = getConfig('examineAppTypes');
         this.showAddModal = this.showAddModal.bind(this);
         this.showUpdateModal = this.showUpdateModal.bind(this);
+        this.selectChange = this.selectChange.bind(this);
+        this.pageSelect = this.pageSelect.bind(this);
+        const page = props.page || 1;
         this.state = {
+            page,
+            examineAppTypes,
             name: '',
             alias_name: '',
             pre: '',
@@ -34,8 +40,11 @@ class Examine extends Component {
         this.fresh();
     }
     componentWillReceiveProps(nextProps) {
-        if (nextProps.page !== this.props.page) {
-            this.list(nextProps.page);
+        if (this.props.typeId !== nextProps.typeId || nextProps.page !== this.props.page) {
+            this.setState({
+                page: nextProps.page,
+            })
+            this.list(nextProps.typeId,nextProps.page);
         }
     }
     handleChange(e) {
@@ -46,13 +55,13 @@ class Examine extends Component {
         });
     }
     fresh() {
-        this.list(this.props.page);
+        this.list(this.props.typeId,this.props.page);
     }
-    list(page) {
+    list(type,page) {
         this.props.dispatch(fetchAction({
             type: EXAMINECONFIG_LIST,
-            queryObj: { page },
-            key: page,
+            queryObj: { type,page },
+            key: `${type}_${page}`,
         }));
     }
     add(e) {
@@ -92,12 +101,12 @@ class Examine extends Component {
         });
     }
     showAddModal() {
-        this.props.dispatch(showModal(<AddModal submit={this.add} errorMsg={this.state.addErrorMsg} />));
+        this.props.dispatch(showModal(<AddModal typeId={this.props.typeId} submit={this.add} errorMsg={this.state.addErrorMsg} />));
     }
     showUpdateModal(e) {
         const index = e.target.dataset.index;
         const item = this.items[index];
-        this.props.dispatch(showModal(<AddModal update item={item} submit={this.update} errorMsg={this.state.addErrorMsg} />));
+        this.props.dispatch(showModal(<AddModal update typeId={this.props.typeId} item={item} submit={this.update} errorMsg={this.state.addErrorMsg} />));
     }
     enable(e) {
         const id = e.target.dataset.id;
@@ -125,14 +134,22 @@ class Examine extends Component {
             this.fresh();
         });
     }
-
+    selectChange(e) {
+        const value = e.target.value;
+        hisotry.push(`/examine/${value}`);
+    }
+    pageSelect(page) {
+        this.setState({
+            page,
+        });
+        this.fresh(this.props.typeId,page)
+    }
     render() {
-        const itemObj = this.props.itemList[this.props.page] || {};
-        console.log(itemObj,111);
+        const key = `${this.props.typeId}_${this.props.page}`;
+        const itemObj = this.props.itemList[key] || {};
         const items = itemObj.data || [];
-        console.log(items,222);
+        const { examineAppTypes } = this.state;
         this.items = items;
-        console.log(typeof (items),4444);
         const addBtn = (
             <button
                 onClick={this.showAddModal}
@@ -143,10 +160,26 @@ class Examine extends Component {
         );
         return (
             <div>
-                <Card title='分享配置' btn={addBtn}>
+                <div>
+                    {Object.keys(examineAppTypes).map(key => (
+                        <label key={`redio-${key}`} className="c-input c-radio">
+                            <input
+                                checked={key == this.props.typeId}
+                                name="main_type"
+                                value={key}
+                                type="radio"
+                                onChange={this.selectChange}
+                            />
+                            <span className="c-indicator"></span>
+                            {examineAppTypes[key]}
+                        </label>
+                    ))}
+                </div>
+                <Card title='过审配置' btn={addBtn}>
                     <table className="table m-b-0 table-bordered">
                         <thead>
                         <tr>
+                            <th hidden={this.props.typeId == 1 ? 'hidden': ''}>包名</th>
                             <th>版本号</th>
                             <th>现公司名称显示</th>
                             <th>信息披露是否可点</th>
@@ -161,6 +194,7 @@ class Examine extends Component {
                         <tbody>
                         {items.map((item, index) => (
                             <tr key={item.id}>
+                                <td hidden={this.props.typeId == 1 ? 'hidden': ''}>{item.app_name}</td>
                                 <td>{item.versions}</td>
                                 <td>{item.company_name}</td>
                                 <td>{item.disclosure_click === 0 ? '否' : '是' }</td>
@@ -179,6 +213,7 @@ class Examine extends Component {
                         </tbody>
                     </table>
                 </Card>
+                <Pagination currentPage={itemObj.current_page} lastPage={itemObj.last_page} onClick={this.pageSelect} unurl={true} />
             </div>
         );
     }

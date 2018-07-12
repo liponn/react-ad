@@ -24,6 +24,7 @@ class StartupAddModal extends Component {
           <AttachmentInput labelName={getConfig('startupImages', `${this.props.type}:2`)} name="img2" defaultValue={item.img2 || ''}/>
           <AttachmentInput labelName={getConfig('startupImages', `${this.props.type}:3`)} name="img3" defaultValue={item.img3 || ''} />
           <AttachmentInput labelName={getConfig('startupImages', `${this.props.type}:4`)} name="img4" defaultValue={item.img4 || ''} />
+          <AttachmentInput labelName={getConfig('startupImages', `${this.props.type}:5`)} name="img5" defaultValue={item.img5 || ''} />
           <Input hidden labelName="图片跳转链接" name="target_url" defaultVlaue={item.target_url} />
           <DateTimeInput labelName="开始时间" defaultValue={item.online_time} name="online_time" />
           <DateTimeInput labelName="结束时间" defaultValue={item.offline_time} name="offline_time" />

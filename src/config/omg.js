@@ -872,10 +872,12 @@ const startupImages = {
   '1:2': '750x1334',
   '1:3': '640x1136',
   '1:4': '640x960',
+  '1:5': '1125x2436',
   '2:1': '1080x1920',
   '2:2': '720x1280',
   '2:3': '480x800',
   '2:4': '无',
+  '2:5': '1125x2436',
 }
 
 
@@ -1008,6 +1010,14 @@ const bannerPopFrequencyTypes = {
   2: '只显示一次',
   3: '每日三次',
 }
+const examineAppTypes = {
+  1: 'IOS主包',
+  2: 'IOS马甲包',
+}
+const redeemTypes = {
+  0: '兑换码',
+  1: '口令红包',
+}
 function getAllRuleTypes() {
   const allRuleTypes = {};
   Object.assign(allRuleTypes, ruleTypes);
@@ -1066,6 +1076,8 @@ const config = {
   feeFlowOrderRepairStatus,
   examineTypes,
   bannerPopFrequencyTypes,
+  examineAppTypes,
+  redeemTypes
 };
 
 function getConfig(type, key = false) {

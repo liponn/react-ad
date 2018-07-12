@@ -6,9 +6,10 @@ export default {
   path: '/Redeem',
   children: [
     {
-      path: '/',
+      path: '/:typeId',
       action(context) {
-        return <Redeem page={+context.query.page || 1} />;
+        const typeId = +context.params.typeId;
+        return <Redeem typeId={typeId} page={+context.query.page || 1} />;
       },
     },
   ],
