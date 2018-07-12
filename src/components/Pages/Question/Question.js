@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Status, ImgBox, Card, } from '../../tools';
+import { Status, ImgBox, Card, Pagination} from '../../tools';
 import { QUESTION_LIST, QUESTION_ADD, QUESTION_PUT, QUESTION_DEL, QUESTION_ENABLE, QUESTION_DISABLE, QUESTION_INFO } from '../../../constants';
 import { showModal, hideModal } from '../../../actions/modal';
 import { fetchAction } from '../../../actions/omg';
@@ -22,28 +22,28 @@ class Question extends Component {
   }
   static items = [];
   componentDidMount() {
-    this.freshData(this.props.type);
+    this.freshData(this.props.page);
   }
 
   componentWillReceiveProps(nextProps) {
     // if (this.props.type !== nextProps.type) {
     //   this.freshData(nextProps.type);
     // }
-    // if (this.props.type !== nextProps.type) {
-    //   const bannerTypes = (nextProps.path === 'Banner' ? getConfig('bannerTypes') : getConfig('shareConfigTypes') );
-    //   this.setState({
-    //     bannerTypes,
-    //   });
-    // }
+    if (nextProps.page !== this.props.page) {
+      this.freshData(nextProps.page);
+    }
   }
-  freshData(type) {
+  freshData(page) {
+    const queryObj = {}
+    queryObj.page = page;
     this.props.dispatch(fetchAction({
       type: QUESTION_LIST,
-      key: type,
+      queryObj,
+      key: page,
     }));
   }
   showAdd() {
-    const modalView = <AddModal type={this.props.type} submit={this.add} />;
+    const modalView = <AddModal type={this.props.type} submit={this.add}/>;
     this.props.dispatch(showModal(modalView));
   }
   enable(e) {
@@ -55,7 +55,7 @@ class Question extends Component {
       method: 'POST',
       formData,
     })).then(() => {
-      this.freshData(this.props.type);
+      this.freshData(this.props.page);
     });
   }
   disable(e) {
@@ -67,7 +67,7 @@ class Question extends Component {
       method: 'POST',
       formData,
     })).then(() => {
-      this.freshData(this.props.type);
+      this.freshData(this.props.page);
     });
   }
   add(e) {
@@ -80,7 +80,7 @@ class Question extends Component {
     })).then((json) => {
       if (json.error_code === 0) {
         this.props.dispatch(hideModal(true));
-        this.freshData(this.props.type);
+        this.freshData(this.props.page);
       } else {
         this.setState({
           addErrorMsg: json.data.error_msg,
@@ -99,7 +99,7 @@ class Question extends Component {
     })).then((json) => {
       if (json.error_code === 0) {
         this.props.dispatch(hideModal(true));
-        this.freshData(this.props.type);
+        this.freshData(this.props.page);
       } else {
         this.setState({
           addErrorMsg: json.data.error_msg,
@@ -125,11 +125,11 @@ class Question extends Component {
       type: QUESTION_DEL,
       method: 'POST',
       formData,
-    })).then(() => (this.freshData(this.props.type)));
+    })).then(() => (this.freshData(this.props.page)));
   }
 
   render() {
-    const { questions } = this.props;
+    const questions = this.props.questions[this.props.page] || {};
     const btn = (
       <button
         hidden={this.props.modal}
@@ -176,6 +176,7 @@ class Question extends Component {
             </tbody>
           </table>
         </Card>
+        <Pagination currentPage={questions.current_page} lastPage={questions.last_page} />
       </div>
     );
   }
@@ -184,6 +185,7 @@ class Question extends Component {
 Question.propTypes = {
   questions: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
+  page: PropTypes.number.isRequired,
 }
 
 Question.defaultProps = {

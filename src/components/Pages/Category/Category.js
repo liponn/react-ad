@@ -137,7 +137,7 @@ class Category extends Component {
         onClick={this.showAdd.bind(this)}
       >添加</button>
     );
-    const items = banners.data || [];
+    const items = banners || [];
     this.items = items;
     return (
       <div>
@@ -145,6 +145,7 @@ class Category extends Component {
           <table className="table m-b-0 table-bordered">
             <thead>
               <tr>
+                <th>ID</th>
                 <th>名称</th>
                 <th>icon</th>
                 <th>问题</th>
@@ -155,6 +156,7 @@ class Category extends Component {
             <tbody>
             {items.map((item, index) => (
               <tr key={item.id}>
+                <td>{item.id}</td>
                 <td>{item.title}</td>
                 <td><ImgBox src={item.icon} /></td>
                 <td>{item.questions.map((_item,_index)=>(
