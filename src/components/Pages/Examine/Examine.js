@@ -219,7 +219,7 @@ class Examine extends Component {
     }
 }
 Examine.propTypes = {
-    itemList: PropTypes.array.isRequired,
+    itemList: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
     page: PropTypes.number.isRequired,
 }
