@@ -1,6 +1,7 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Modal, Alert, Input, Checkbox, AttachmentInput, Submit, Editor } from '../../tools';
+import { Modal, Alert, Input, Checkbox, AttachmentInput, Submit, Editor, Select } from '../../tools';
 import { getConfig } from '../../../config/omg';
 import AddQuestion from '../Category/AddQuestion';
 
@@ -10,7 +11,8 @@ class AddModal extends Component {
     super(props);
     this.state = {
       awardHidden:true,
-      qids:[]
+      qids:[],
+      questionType: 0,
     };
   }
   static propTypes = {
@@ -62,8 +64,16 @@ class AddModal extends Component {
     const { item } = this.props;
     if (item.relative) {
       const qids =  JSON.parse(item.relative)
-      this.setState({qids: qids});
+      this.setState({qids: qids, questionType: item.type});
+    } else {
+      this.setState({questionType: item.type});
     }
+  }
+
+  handleChangeSelect(e) {
+    this.setState({
+      questionType: e.target.value,
+    });
   }
   render() {
     const qids_str = this.state.qids.join(',')
@@ -74,6 +84,8 @@ class AddModal extends Component {
           <input type="hidden" name="id" value={this.props.item.id} />
           <Input labelName="标题" name="title" defaultValue={this.props.item.title} />
           <Editor name="content" defaultValue={this.props.item.content} />
+          <AttachmentInput labelName="icon" position={`banner_${this.props.item.icon}`} name="icon" defaultValue={this.props.item.icon || ''} />
+          <Select onChange={this.handleChangeSelect.bind(this)} name="type" labelName="类型" options={getConfig('questionType')} value={this.state.questionType} />
           <div className="form-group row">
           <label className="col-sm-4 form-control-label text-xs-right">关联问题Id:</label>
           <div className="col-sm-6">
