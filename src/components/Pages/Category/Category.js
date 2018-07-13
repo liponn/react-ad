@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Status, ImgBox, Card, Pagination} from '../../tools';
 import { CATEGORY_LIST, CATEGORY_ADD, CATEGORY_PUT, CATEGORY_DEL, CATEGORY_ENABLE, CATEGORY_DISABLE, CATEGORY_INFO } from '../../../constants';
