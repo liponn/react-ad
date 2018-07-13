@@ -1,0 +1,6 @@
+{
+  "name": "ThreadAddModal",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ThreadAddModal.js"
+}

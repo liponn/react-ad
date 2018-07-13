@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Input, Alert, Submit, Modal, Select, Success, Textarea, Checkbox } from '../../tools';
 import { BATCH_AWARD } from '../../../constants';

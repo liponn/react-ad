@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Status, ImgBox,Pagination, Card, } from '../../tools';
 import { FEEFLOWCONFIG_LIST ,FEEFLOWCONFIG_ADD,FEEFLOWCONFIG_UP_STATUS} from '../../../constants';

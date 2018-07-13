@@ -1,637 +1,559 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchAction } from '../../../actions/omg';
 import { showModal, hideModal } from '../../../actions/modal';
-import {
-  BBS_SECTION_LIST,
-  BBS_USER_ADMIN_LIST,
-  BBS_THREAD_RESTORE,
-  BBS_THREAD_TOGGLE_STATUS,
-  BBS_THREAD_DT_UPDATE,
-  BBS_THREAD_DT_DEL,
-  BBS_THREAD_DT_ADD,
-  BBS_THREAD_DT_LIST,
-  BBS_THREAD_UNVERIFY,
-  BBS_COMMENT_DT_ADD,
-  BBS_COMMENT_VERIFY,
-  BBS_THREAD_VERIFY,
-} from '../../../constants';
-import { DataTable, Radio } from '../../tools';
-import UnVerifyModal from './UnVerifyModal';
-import ReplayModal from './ReplayModal';
-
-
+import { BBS_THREAD_LIST,BBS_SECTION_LIST,BBS_COMMENT_ADD,BBS_THREAD_TOGGLE_STATUS,BBS_THREAD_DT_DEL,BBS_THREAD_UPDATE,BBS_THREAD_DT_UPDATE,BBS_USER_VEST_LIST,BBS_USER_ADMIN_LIST,BBS_THREAD_ADD } from '../../../constants';
+import { Radio,Pagination } from '../../tools';
+import ThreadAddModal from '../../modals/ThreadAddModal';
+import ThreadMoveModal from '../../modals/ThreadMoveModal';
+import ThreadReplyModal from '../../modals/ThreadReplyModal';
+import { DatePicker,Select,Form } from "antd";
 
 class Thread extends Component {
-  constructor(props) {
-    super(props);
-    this.typeChange = this.typeChange.bind(this);
-    this.verify = this.verify.bind(this);
-    this.toggleStatus = this.toggleStatus.bind(this);
-    this.getBtns = this.getBtns.bind(this);
-    this.getSections = this.getSections.bind(this);
-    this.fetchSections = this.fetchSections.bind(this);
-    this.getAdmins = this.getAdmins.bind(this);
-    this.fetchAdmins = this.fetchAdmins.bind(this);
-    this.unVerify = this.unVerify.bind(this);
-    this.restore = this.restore.bind(this);
-    this.showUnVerifyModal = this.showUnVerifyModal.bind(this);
-    this.showReplayModal = this.showReplayModal.bind(this);
-    this.replay = this.replay.bind(this);
-    this.verifyReplay = this.verifyReplay.bind(this);
-    this.state = {
-      name: '',
-      alias_name: '',
-      pre: '',
-      errorMsg: '',
-      admins: {},
-      sections: {},
-      addErrorMsg: '',
-      dataTable: {
-        title: '帖子管理',
-        listType: BBS_THREAD_DT_LIST,
-        updateType: BBS_THREAD_DT_UPDATE,
-        addType: BBS_THREAD_DT_ADD,
-        deleteType: BBS_THREAD_DT_DEL,
-        timeStamp: (new Date).getTime(),
-        getBtns: this.getBtns,
-        forbiddenDefaultBtns: false,
-        noDelete: true,
-        onlyTrashed: false,
-        identify: 0,
-        withs: ['section', 'user'],
-        order: {
-          column: 0,
-          dir: 'desc',
-        },
-        start: 0,
-        length: 20,
-        search: {
-          value: '',
-          regex: false,
-        },
-        customSearch: {
-          name: 'isverify',
-          pattern: 'equal',
-          value: 0,
-        },
-        idColumn: 0,
-        columns: [
-          {
-            name: 'id',
-            cname: 'id',
-            type: 'hidden',
-            searchable: false,
-            orderable: true,
-            search: {
-              value: '',
-              regex: false,
-            },
-          },
-          {
-            name: 'user_id',
-            cname: '用户ID',
-            type: 'select',
-            updateType: 'text',
-            getOptions: this.getAdmins,
-            searchable: true,
-            orderable: true,
-            search: {
-              value: '',
-              regex: false,
-            },
-          },
-          {
-            name: 'title',
-            cname: '帖子标题',
-            type: 'text',
-            searchable: true,
-            orderable: true,
-            search: {
-              value: '',
-              regex: false,
-            },
-          },
-          {
-            name: 'content',
-            cname: '帖子内容',
-            type: 'textarea',
-            searchable: true,
-            orderable: true,
-            search: {
-              value: '',
-              regex: false,
-            },
-          },
-          {
-            name: 'type_id',
-            cname: '板块id',
-            type: 'select',
-            getOptions: this.getSections,
-            searchable: false,
-            orderable: true,
-            search: {
-              value: '',
-              regex: false,
-            },
-          },
-            {
-                name: 'video_code',
-                cname: '视频链接',
-                type: 'text',
-                searchable: false,
-                orderable: true,
-                search: {
-                    value: '',
-                    regex: false,
-                },
-            },
-          /*{
-            name: 'url',
-            cname: '跳转地址',
-            type: 'text',
-            searchable: true,
-            orderable: true,
-            search: {
-              value: '',
-              regex: false,
-            },
-          },
-          {
-            name: 'cover',
-            cname: '封面',
-            tableType: 'img_box',
-            type: 'attachment',
-            searchable: true,
-            orderable: true,
-            search: {
-              value: '',
-              regex: false,
-            },
-          },*/
-          {
-            name: 'created_at',
-            cname: '创建时间',
-            type: 'none',
-            searchable: false,
-            orderable: true,
-            search: {
-              value: '',
-              regex: false,
-            },
-          },
-          {
-            name: 'istop',
-            cname: '置顶',
-            type: 'check',
-            searchable: false,
-            orderable: true,
-            search: {
-              value: '',
-              regex: false,
-            },
-          },
-          {
-            name: 'isgreat',
-            cname: '加精',
-            type: 'none',
-            searchable: false,
-            orderable: true,
-            search: {
-              value: '',
-              regex: false,
-            },
-          },
-          {
-            name: 'ishot',
-            cname: '最热',
-            type: 'none',
-            searchable: false,
-            orderable: true,
-            search: {
-              value: '',
-              regex: false,
-            },
-          },
-          {
-            name: 'isverify',
-            cname: '审核',
-            type: 'check',
-            searchable: false,
-            orderable: true,
-            search: {
-              value: '',
-              regex: false,
-            },
-          },
-            {
-                name: 'isofficial',
-                cname: '官方帖',
-                type: 'check',
-                searchable: false,
-                orderable: true,
-                search: {
-                    value: '',
-                    regex: false,
-                },
-            },
-          {
-            name: 'comment_num',
-            cname: '评论数',
-            type: 'none',
-            searchable: false,
-            orderable: true,
-            search: {
-              value: '',
-              regex: false,
-            },
-          },
-            {
-                name: 'zan_num',
-                cname: '点赞数',
-                type: 'none',
-                searchable: false,
-                orderable: true,
-                search: {
-                    value: '',
-                    regex: false,
-                },
-            },
-            {
-                name: 'collection_num',
-                cname: '收藏数',
-                type: 'none',
-                searchable: false,
-                orderable: true,
-                search: {
-                    value: '',
-                    regex: false,
-                },
-            },
-          {
-            name: 'section',
-            cname: '板块',
-            type: 'none',
-            tableType: 'object',
-            tableShow: (object) => (object && object.name),
-            searchable: false,
-            orderable: false,
-            search: {
-              value: '',
-              regex: false,
-            },
-          },
-          {
-            name: 'user',
-            cname: '用户',
-            type: 'none',
-            tableType: 'object',
-            tableShow: (object) => (object && object.nickname),
-            searchable: false,
-            orderable: false,
-            search: {
-              value: '',
-              regex: false,
-            },
-          },
-        ],
-      },
-    };
-  }
-  componentDidMount() {
-    this.fetchAdmins();
-    this.fetchSections();
-  }
-  getBtns(item, callback) {
-    if (!this.list) {
-      this.list = callback;
-    }
-    if (this.state.dataTable.onlyTrashed) {
-      return [
-        <button
-          key="btn-"
-          className={'btn btn-success-outline btn-sm'}
-          data-id={item.id}
-          onClick={this.restore}
-        >恢复</button>
-      ];
-    }
-    if (this.state.dataTable.customSearch.value === 2) {
-      return [
-        <button
-          key="btn-verify"
-          className={'btn btn-success-outline btn-sm'}
-          data-id={item.id}
-          data-type="isverify"
-          data-tvalue={1}
-          onClick={this.verify}
-        >恢复</button>,
-      ];
-    }
-    if (!this.state.dataTable.customSearch.value) {
-      return [
-        <button
-          key="btn-verify"
-          className={'btn btn-success-outline btn-sm'}
-          data-id={item.id}
-          data-type="isverify"
-          data-tvalue={1}
-          onClick={this.verify}
-        >通过</button>,
-        <button
-          key="btn-unverify"
-          className={'btn btn-warning-outline btn-sm'}
-          data-id={item.id}
-          data-type="isverify"
-          data-tvalue={2}
-          onClick={this.verify}
-        >拒绝</button>];
-    }
-
-    return [
-      <button
-        key="btn-replay"
-        className="btn btn-success-outline btn-sm"
-        data-id={item.id}
-        onClick={this.showReplayModal}
-      >回复</button>,
-      <button
-        key="btn-top"
-        className={`btn ${item.istop ? 'btn-warning-outline' : 'btn-success-outline'} btn-sm`}
-        data-id={item.id}
-        data-type="istop"
-        data-tvalue={item.istop ? 0 : 1}
-        onClick={this.toggleStatus}
-      >置顶</button>,
-      <button
-        key="btn-great"
-        className={`btn ${item.isgreat ? 'btn-warning-outline' : 'btn-success-outline'} btn-sm`}
-        data-id={item.id}
-        data-type="isgreat"
-        data-tvalue={item.isgreat ? 0 : 1}
-        onClick={this.toggleStatus}
-      >加精</button>,
-      <button
-        key="btn-hot"
-        className={`btn ${item.ishot ? 'btn-warning-outline' : 'btn-success-outline'} btn-sm`}
-        data-id={item.id}
-        data-type="ishot"
-        data-tvalue={item.ishot ? 0 : 1}
-        onClick={this.toggleStatus}
-      >最热</button>,
-      <button
-        key="btn-unverify"
-        className={'btn btn-warning-outline btn-sm'}
-        data-id={item.id}
-        data-type="isverify"
-        data-tvalue={2}
-        onClick={this.verify}
-      >拒绝</button>,
-    ];
-  }
-
-  getAdmins() {
-    return this.state.admins;
-  }
-  getSections() {
-    return this.state.sections;
-  }
-  fetchAdmins() {
-    this.props.dispatch(fetchAction({
-      type: BBS_USER_ADMIN_LIST,
-      method: 'GET',
-    })).then(json => {
-      if (json.error_code === 0) {
-        const admins = {};
-        for (let i = 0; i < json.data.length; i++) {
-          admins[json.data[i].user_id] = json.data[i].nickname;
+    constructor(props) {
+        super(props);
+        this.freshSectionList = this.freshSectionList.bind(this);
+        this.list = this.list.bind(this);
+        this.typeChange = this.typeChange.bind(this);
+        this.changeLength = this.changeLength.bind(this);
+        this.changePage = this.changePage.bind(this);
+        this.changeSearch= this.changeSearch.bind(this);
+        this.passThread = this.passThread.bind(this);
+        this.holdThread = this.holdThread.bind(this);
+        this.delThread = this.delThread.bind(this);
+        this.updateThread = this.updateThread.bind(this);
+        this.showUpdateModal = this.showUpdateModal.bind(this);
+        this.showAddModal = this.showAddModal.bind(this);
+        this.addThread = this.addThread.bind(this);
+        this.getAdminList = this.getAdminList.bind(this);
+        this.getVestList = this.getVestList.bind(this);
+        this.showReplyModal = this.showReplyModal.bind(this);
+        this.replyThread = this.replyThread.bind(this);
+        this.showMoveModal = this.showMoveModal.bind(this);
+        this.topThread = this.topThread.bind(this);
+        this.superTopThread = this.superTopThread.bind(this);
+        this.greatThread = this.greatThread.bind(this);
+        this.hotThread = this.hotThread.bind(this);
+        this.moveThread = this.moveThread.bind(this);
+        this.componentDidMount = this.componentDidMount.bind(this);
+        this.state = {
+            isVerify:0,
         }
+    }
+
+    componentDidMount() {
+        this.freshSectionList();
+        this.getAdminList();
+        this.getVestList();
+        this.list();
+    }
+
+    list(){
+        const queryObj = {};
+        const page = this.state.page || 1;
+        const isVerify = this.state.isVerify || 0;
+        const pageNum = this.state.pageNum || 20;
+        const searchParams = this.state.formData || [];
+        queryObj[`page`] = page;
+        queryObj[`data[filter][isverify]`] = isVerify;
+        if(pageNum !== 20){
+            queryObj[`data[pagenum]`] = pageNum;
+        }
+        if(searchParams.type_id){
+            queryObj[`data[filter][type_id]`] = searchParams.type_id;
+        }
+        if(searchParams.created_at){
+            queryObj[`data[filter][created_at]`] = searchParams.created_at.format('YYYY-MM-DD');
+            queryObj[`data[filter][created_at_pattern]`] = "min_equal_max";
+        }
+        if(searchParams.end_at){
+            queryObj[`data[filter][end_at]`] = searchParams.end_at.format('YYYY-MM-DD');
+        }
+        const request = {
+            type:BBS_THREAD_LIST,
+            key:isVerify,
+            queryObj
+        }
+        this.props.dispatch(fetchAction(request));
+    }
+
+    typeChange(e){
+        const isVerify = e.target.value;
         this.setState({
-          admins,
-        });
-      } else {
-        alert(json.error_msg);
-      }
-    });
-  }
-  fetchSections() {
-    this.props.dispatch(fetchAction({
-      type: BBS_SECTION_LIST,
-      method: 'GET',
-    })).then(json => {
-      if (json.error_code === 0) {
-        const sections = {};
-        for (let i = 0; i < json.data.length; i++) {
-          sections[json.data[i].id] = json.data[i].name;
-        }
-        this.setState({
-          sections,
-        });
-      } else {
-        alert(json.error_msg);
-      }
-    });
-  }
+            formData:{},
+            isVerify:isVerify,
+            page:1,
+        },() => {this.list()});
 
-  restore(e) {
-    const id = e.currentTarget.dataset.id;
-    const formData = new FormData;
-    formData.append('id', id);
-    this.props.dispatch(fetchAction({
-      type: BBS_THREAD_RESTORE,
-      method: 'POST',
-      formData,
-    })).then(json => {
-      if (json.error_code === 0) {
-        this.list();
-      } else {
-        alert(json.error_msg);
-      }
-    });
-  }
-  verify(e) {
-    const id = e.currentTarget.dataset.id;
-    const type = e.currentTarget.dataset.type;
-    const typeValue = +e.currentTarget.dataset.tvalue;
-    const formData = new FormData;
-    formData.append('id', id);
-    formData.append(type, typeValue);
-    this.props.dispatch(fetchAction({
-      type: BBS_THREAD_VERIFY,
-      method: 'POST',
-      formData,
-    })).then(json => {
-      if (json.error_code === 0) {
-        this.list();
-      } else {
-        alert(json.error_msg);
-      }
-    });
-  }
-  toggleStatus(e) {
-    const id = e.currentTarget.dataset.id;
-    const type = e.currentTarget.dataset.type;
-    const typeValue = +e.currentTarget.dataset.tvalue;
-    const formData = new FormData;
-    formData.append('id', id);
-    formData.append(type, typeValue);
-    this.props.dispatch(fetchAction({
-      type: BBS_THREAD_TOGGLE_STATUS,
-      method: 'POST',
-      formData,
-    })).then(json => {
-      if (json.error_code === 0) {
-        this.list();
-      } else {
-        alert(json.error_msg);
-      }
-    });
-  }
-  showReplayModal(e) {
-    const id = e.currentTarget.dataset.id;
-    this.props.dispatch(
-      showModal(
-        <ReplayModal
-          submit={this.replay}
-          getAdmins={this.getAdmins}
-          id={id}
-        />
-      )
-    );
-  }
-  replay(e) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    this.props.dispatch(fetchAction({
-      type: BBS_COMMENT_DT_ADD,
-      method: 'POST',
-      formData,
-    })).then((json) => {
-      if (json.error_code === 0) {
-        this.props.dispatch(hideModal(true));
-        if (json.data.id) {
-          this.verifyReplay(json.data.id);
-        }
-      } else {
-        alert(json.data.error_msg);
-      }
-    });
-  }
-  verifyReplay(id) {
-    const formData = new FormData;
-    formData.append('id', id);
-    formData.append('isverify', 1);
-    this.props.dispatch(fetchAction({
-      type: BBS_COMMENT_VERIFY,
-      method: 'POST',
-      formData,
-    })).then(json => {
-      if (json.error_code === 0) {
-        this.list();
-      } else {
-        alert(json.error_msg);
-      }
-    });
-  }
-  showUnVerifyModal(e) {
-    const id = e.currentTarget.dataset.id;
-    this.props.dispatch(
-      showModal(
-        <UnVerifyModal
-          submit={this.unVerify}
-          id={id}
-        />
-      )
-    );
-  }
-  unVerify(e) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    this.props.dispatch(fetchAction({
-      type: BBS_THREAD_UNVERIFY,
-      method: 'POST',
-      formData,
-    })).then((json) => {
-      if (json.error_code === 0) {
-        this.props.dispatch(hideModal(true));
-        this.list();
-      } else {
-        alert(json.data.error_msg);
-      }
-    });
-  }
-  typeChange(e) {
-    const value = +e.currentTarget.value;
-    let dataTable = {};
-    if (value !== 3) {
-      const customSearch = Object.assign({}, this.state.dataTable.customSearch, {
-        name: 'isverify',
-        pattern: 'equal',
-        value,
-      });
-      dataTable = Object.assign({}, this.state.dataTable, {
-        forbiddenDefaultBtns: false,
-        customSearch,
-        onlyTrashed: false,
-        identify: value,
-        timeStamp: (new Date).getTime(),
-      });
-    } else {
-        dataTable = Object.assign({}, this.state.dataTable, {
-        forbiddenDefaultBtns: true,
-        customSearch: false,
-        onlyTrashed: true,
-        identify: value,
-        timeStamp: (new Date).getTime(),
-      });
     }
 
-    this.setState({
-      dataTable,
-    });
-  }
-  render() {
-    const customSearch = this.state.dataTable.customSearch;
-    const onlyTrashed = this.state.dataTable.onlyTrashed;
-    return (
-      <div>
-        <Radio
-          labelName="未审核"
-          name="isVerify"
-          value="0"
-          checked={customSearch.value === 0}
-          onChange={this.typeChange}
-        />
-        <Radio
-          labelName="已审核"
-          name="isVerify"
-          value="1"
-          checked={customSearch.value === 1}
-          onChange={this.typeChange}
-        />
-        <Radio
-          labelName="已拒绝"
-          name="isVerify"
-          value="2"
-          checked={customSearch.value === 2}
-          onChange={this.typeChange}
-        />
-        <hr />
-        <DataTable
-          config={this.state.dataTable}
-        />
-      </div>
-    );
-  }
+    getVestList(){
+        this.props.dispatch(fetchAction({
+            type: BBS_USER_VEST_LIST,
+        }));
+    }
+
+    getAdminList(){
+        this.props.dispatch(fetchAction({
+            type: BBS_USER_ADMIN_LIST,
+        }));
+    }
+
+    changeLength(e){
+        const length = e.target.value;
+        this.setState({
+            pageNum:length
+        },()=>{this.list()});
+    }
+
+    changePage(page){
+        this.setState({
+            page:page
+        },()=>{this.list()});
+
+    }
+
+    changeSearch(e){
+        e.preventDefault();
+        const  formData = this.props.form.getFieldsValue();
+        this.setState({
+            formData:formData,
+        },()=>{this.list()});
+    }
+
+    freshSectionList() {
+        this.props.dispatch(fetchAction({
+            type: BBS_SECTION_LIST,
+        }));
+    }
+
+    delThread(e){
+        if (!confirm('确定删除吗?')) {
+            return false;
+        }
+        const id = e.target.dataset.id;
+        const formData = new FormData;
+        formData.append('id', id);
+        this.props.dispatch(fetchAction({type:BBS_THREAD_DT_DEL, method:'POST',formData:formData}))
+            .then(() => (this.list()));
+    }
+
+    passThread(e){
+        const id = e.target.dataset.id;
+        const formData = new FormData;
+        formData.append('id', id);
+        formData.append('isverify',1);
+        this.props.dispatch(fetchAction({type:BBS_THREAD_DT_UPDATE, method:'POST',formData:formData}))
+            .then(() => (this.list()));
+    }
+
+    holdThread(e){
+        const id = e.target.dataset.id;
+        const formData = new FormData;
+        formData.append('id', id);
+        formData.append('isverify',2);
+        this.props.dispatch(fetchAction({type:BBS_THREAD_DT_UPDATE, method:'POST',formData:formData}))
+            .then(() => (this.list()));
+    }
+
+    showUpdateModal(e){
+        const index = e.target.dataset.index;
+        this.props.dispatch(showModal(<ThreadAddModal submit={this.updateThread} item={this.items[index]} types={this.sections} admins={this.admins} vests={this.vests} update  />));
+    }
+
+    addThread(e){
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const { dispatch } = this.props;
+        dispatch(fetchAction({type:BBS_THREAD_ADD,method:'POST',formData:formData}))
+        .then(json=>{
+            if(json.error_code === 0){
+                dispatch(hideModal(true));
+                this.list();
+            }else{
+                alert(json.error_msg);
+            }
+        })
+    }
+
+    updateThread(e){
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const { dispatch } = this.props;
+        dispatch(fetchAction({type:BBS_THREAD_UPDATE,method:'POST',formData:formData}))
+        .then(json =>{
+            if (json.error_code === 0) {
+                dispatch(hideModal(true));
+                this.list();
+            } else {
+                alert(json.data.error_msg);
+            }
+        });
+    }
+
+    replyThread(e){
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        this.props.dispatch(fetchAction({type:BBS_COMMENT_ADD,method:'POST',formData:formData}))
+        .then(json =>{
+            if (json.error_code === 0) {
+                this.props.dispatch(hideModal(true));
+                this.list();
+            } else {
+                alert(json.data.error_msg);
+            }
+        });
+        
+    }
+
+    showReplyModal(e){
+        const id = e.target.dataset.id;
+        this.props.dispatch(showModal(<ThreadReplyModal vests={this.vests} id={id} submit={this.replyThread}/>));
+    }
+
+    moveThread(e){
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        this.props.dispatch(fetchAction({type:BBS_THREAD_DT_UPDATE, method:'POST',formData:formData}))
+            .then(json=>{
+                if(json.error_code === 0){
+                    this.props.dispatch(hideModal(true));
+                    this.list();
+                }else{
+                    alert(json.error_msg);
+                }
+            });
+    }
+
+    topThread(e){
+        const id = e.target.dataset.id;
+        const formData = new FormData;
+        formData.append('id', id);
+        formData.append('istop',1);
+        this.props.dispatch(fetchAction({type:BBS_THREAD_TOGGLE_STATUS, method:'POST',formData:formData}))
+            .then(() => (this.list()));
+    }
+
+    superTopThread(e){
+        const id = e.target.dataset.id;
+        const formData = new FormData;
+        formData.append('id', id);
+        formData.append('is_special',1);
+        this.props.dispatch(fetchAction({type:BBS_THREAD_TOGGLE_STATUS, method:'POST',formData:formData}))
+            .then(() => (this.list()));
+    }
+
+    greatThread(e){
+        const id = e.target.dataset.id;
+        const formData = new FormData;
+        formData.append('id', id);
+        formData.append('isgreat',1);
+        this.props.dispatch(fetchAction({type:BBS_THREAD_TOGGLE_STATUS, method:'POST',formData:formData}))
+            .then(() => (this.list()));
+    }
+
+    hotThread(e){
+        const id = e.target.dataset.id;
+        const formData = new FormData;
+        formData.append('id', id);
+        formData.append('ishot',1);
+        this.props.dispatch(fetchAction({type:BBS_THREAD_TOGGLE_STATUS, method:'POST',formData:formData}))
+            .then(() => (this.list()));
+    }
+
+    showMoveModal(e){
+        const index = e.target.dataset.index;
+        this.props.dispatch(showModal(<ThreadMoveModal types={this.sections} currentType={this.items[index].type_id} item={this.items[index]} submit={this.moveThread}/>));
+    }
+
+    showAddModal(e){
+        this.props.dispatch(showModal(<ThreadAddModal admins={this.admins} vests={this.vests} types={this.sections} submit={this.addThread} /> ))
+    }
+   
+    render() {
+        const threadList = this.props.threadList[this.state.isVerify] || {};
+        const sectionList = this.props.sectionList || [];
+        const sections = sectionList || [];
+        const items = threadList.data || [];
+        const appUrl = threadList.app_url || '';
+        this.items = items;
+        this.sections = sections;
+        this.admins = this.props.adminList || [];
+        this.vests = this.props.vestList || [];
+        const Option = Select.Option;
+        const { getFieldDecorator,getFieldsValue } = this.props.form;
+       
+        return (
+            <div>
+                <Radio
+                    labelName="未审核"
+                    name="userfilter"
+                    checked={parseInt(this.state.isVerify) === 0 }
+                    onChange={this.typeChange}
+                    value={0}
+                />
+                <Radio
+                    labelName="已审核"
+                    name="userfilter"
+                    checked={parseInt(this.state.isVerify) === 1}
+                    onChange={this.typeChange}
+                    value={1}
+                />
+                <Radio
+                    labelName="已拒绝"
+                    name="userfilter"
+                    value={2}
+                    checked={parseInt(this.state.isVerify) === 2}
+                    onChange={this.typeChange}
+                />
+                <hr />
+                <div>
+                    <div className="card clearfix ">
+                        <div className="clearfix m-t-1">
+                            <h4 className="card-title">
+                                <div className="pull-left m-l-1">
+                                    帖子管理
+                                    <span className="total">
+                                    ({threadList.total}/{threadList.per_page})
+                                </span>
+                                </div>
+                                <div className="pull-left m-l-1">
+                                    <select className="custom-select" onChange={this.changeLength}>
+                                        <option value="20">20</option>
+                                        <option value="50">50</option>
+                                        <option value="80">80</option>
+                                    </select>
+                                </div>
+                                <div className="pull-left">
+                                    <Pagination
+                                        onClick={this.changePage}
+                                        currentPage={threadList.current_page}
+                                        lastPage={threadList.last_page}
+                                        unurl
+                                    />
+                                </div>
+
+                                <Form className="form-inline pull-right" onSubmit={this.changeSearch}>
+                                    <div className="pull-left m-l-1 m-b-1">
+                                        {getFieldDecorator('type_id', {
+                                            rules: [],
+                                        })(
+                                            <Select style={{ width: 120 }}>
+                                                {sections.map((item,index) => (
+                                                    <Option key={index} value={item.id}>{item.name}</Option>
+                                                ))}
+                                            </Select>
+                                        )}
+                                        &nbsp;
+                                        {getFieldDecorator('created_at',
+                                            {rules:[]},
+                                        )(
+                                            <DatePicker placeholder="START"/>
+                                        )}
+
+
+                                        {getFieldDecorator("end_at",
+                                            {rules:[]},
+                                        )(
+                                            <DatePicker placeholder="END"/>
+                                        )}
+                                    </div>
+                                    &nbsp;
+                                    <button type="submit"
+                                            className="btn btn-sm btn-info-outline pull-right"
+                                    >
+                                        <i className="fa fa-search">搜索</i>
+                                    </button>
+                                </Form>
+                                { this.state.isVerify == 1 ? <button
+                                onClick={this.showAddModal}
+                                className="btn btn-sm btn-info pull-right"
+                            >
+                                <i className="fa fa-plus">添加</i>
+                            </button> : ""}
+                                
+                            </h4>
+                        </div>
+                        <table className="table table-bordered m-b-0 table-hover data-table">
+                            <thead>
+                            {
+                                this.state.isVerify == 0 ? 
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>所属版块</th>
+                                        <th>贴子标题</th>
+                                        <th>贴子内容</th>
+                                        <th>用户ID</th>
+                                        <th>用户昵称</th>
+                                        <th>操作</th>
+                                    </tr> :
+                                this.state.isVerify == 1 ?
+                                     <tr>
+                                        <th>ID</th>
+                                        <th>所属版块</th>
+                                        <th>贴子标题</th>
+                                        <th>贴子内容</th>
+                                        <th>用户ID</th>
+                                        <th>用户昵称</th>
+                                        <th>评论数</th>
+                                        <th>点赞数</th>
+                                        <th>收藏数</th>
+                                        <th>视频链接</th>
+                                        <th>图片</th>
+                                        <th>是否置顶</th>
+                                        <th>是否加精</th>
+                                        <th>是否最热</th>
+                                        <th>官方帖</th>
+                                        <th>操作</th>
+                                    </tr> :
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>所属版块</th>
+                                        <th>贴子标题</th>
+                                        <th>贴子内容</th>
+                                        <th>用户ID</th>
+                                        <th>用户昵称</th>
+                                        <th>操作</th>
+                                    </tr>
+                            }
+                            
+                            </thead>
+                            <tbody>
+                            { items.map((item,index) => (
+                                <tr key={`group-${index}`}>
+                                    <td>{item.id}</td>
+                                    <td>{item.section.name}</td>
+                                    <td>{item.title}</td>
+                                    <td>{item.content}</td>
+                                    <td>{item.user_id}</td>
+                                    <td>{item.user.nickname}</td>
+                                    { this.state.isVerify == 1 ? <td>{item.comment_num}</td> : "" }
+                                    { this.state.isVerify == 1 ? <td>{item.zan_num}</td> : ""}
+                                    { this.state.isVerify == 1 ? <td>{item.collection_num}</td> : "" }
+                                    { this.state.isVerify == 1 ? <td>{item.video_code ? item.video_code : "无"}</td> : "" }
+                                    { this.state.isVerify == 1 ? <td>{ item.cover ? <a href={appUrl+"/thread/img/"+item.id} target="_blank">查看</a> : "—"}</td> : "" }
+                                    { this.state.isVerify == 1 ? <td>{item.istop ? "是" : "否"}</td> : "" }
+                                    { this.state.isVerify == 1 ? <td>{item.isgreat ? "是" : "否"}</td> : "" }
+                                    { this.state.isVerify == 1 ? <td>{item.ishot ? "是" : "否"}</td> : "" }
+                                    { this.state.isVerify == 1 ? <td>{item.isofficial ? "是" : "否"}</td> : "" }
+                                   
+                                    { 
+                                        this.state.isVerify == 0 ? 
+                                            <td>
+                                                <button data-id={item.id} onClick={this.passThread}
+                                                        className="btn btn-success-outline btn-sm"
+                                                >通过</button>
+                                                <button data-id={item.id} onClick={this.holdThread}
+                                                        className="btn btn-sm btn-warning-outline"
+                                                >拒绝</button>
+                                                <button data-index={index} data-id={item.id} onClick={this.showUpdateModal}
+                                                        className="btn btn-info-outline btn-sm"
+                                                >编辑</button>
+                                                <button data-id={item.id} onClick={this.delThread}
+                                                        className="btn btn-danger-outline btn-sm"
+                                                >删除</button>
+                                            </td> 
+                                        : 
+                                        this.state.isVerify == 1 ? 
+                                            <td>
+                                                <button data-id={item.id} onClick={this.showReplyModal}
+                                                        className="btn btn-primary-outline btn-sm"
+                                                >回复</button>
+                                                <button data-index={index} data-id={item.id} onClick={this.showUpdateModal}
+                                                        className="btn btn-warning-outline btn-sm"
+                                                >编辑</button>
+                                                <button data-id={item.id} data-index={index} onClick={this.showMoveModal}
+                                                        className="btn btn-sm btn-info-outline"
+                                                >移动</button>
+                                                <button data-id={item.id} onClick={this.holdThread}
+                                                        className="btn btn-sm btn-secondary-outline"
+                                                >拒绝</button>
+                                                <button data-id={item.id} onClick={this.greatThread}
+                                                        className="btn btn-success-outline btn-sm"
+                                                >{item.isgreat ? "取消" : "加精"}</button>
+                                                <button data-id={item.id} onClick={this.hotThread}
+                                                        className="btn btn-warning-outline btn-sm"
+                                                >{item.ishot ? "取消" : "最热"}</button>
+                                                {
+                                                    item.istop && !item.is_special  ?  
+                                                    <button data-id={item.id} onClick={this.superTopThread}
+                                                        className="btn btn-danger-outline btn-sm"
+                                                    >特定帖</button> : 
+                                                    <button data-id={item.id} data-number={item.istop} onClick={this.topThread}
+                                                        className="btn btn-danger-outline btn-sm"
+                                                    >置顶</button>
+                                                }
+                                            </td> 
+                                        : 
+                                        this.state.isVerify == 2 ? 
+                                             <td>
+                                                <button data-id={item.id} onClick={this.passThread}
+                                                        className="btn btn-success-outline btn-sm"
+                                                >通过</button>
+                                                <button data-index={index} data-id={item.id} onClick={this.showUpdateModal}
+                                                        className="btn btn-info-outline btn-sm"
+                                                >编辑</button>
+                                                <button data-id={item.id} onClick={this.delThread}
+                                                        className="btn btn-danger-outline btn-sm"
+                                                >删除</button>
+                                            </td>  
+                                        : <td>——</td>
+                                    }
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                        <div className="card-block clearfix">
+                            <h4 className="card-title">
+                                <div className="pull-left">
+                                    帖子管理
+                                    <span className="total">
+                                    ({threadList.total}/{threadList.per_page})
+                                </span>
+                                </div>
+                                <div className="pull-left m-l-1">
+                                    <select className="custom-select">
+                                        <option value="20">20</option>
+                                        <option value="50">50</option>
+                                        <option value="80">80</option>
+                                    </select>
+                                </div>
+                                <div className="pull-left">
+                                    <Pagination
+                                        onClick={this.changePage}
+                                        currentPage={threadList.current_page}
+                                        lastPage={threadList.last_page}
+                                        unurl
+                                    />
+                                </div>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 }
+Thread = Form.create()(Thread);
 Thread.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-}
+    dispatch: PropTypes.func.isRequired,
+    sectionList: PropTypes.array.isRequired,
+};
 
 Thread.defaultProps = {
 }
 
-
-export default connect()(Thread);
-
-
+export default connect(state => {
+    const { omg } = state;
+    const threadList = omg[BBS_THREAD_LIST] || {};
+    const sectionList = omg[BBS_SECTION_LIST] || [];
+    const adminList = omg[BBS_USER_ADMIN_LIST] || [];
+    const vestList = omg[BBS_USER_VEST_LIST] || [];
+    return {
+        sectionList,
+        threadList,
+        adminList,
+        vestList,
+    };
+})(Thread);

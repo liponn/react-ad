@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { WORLDCUPCONFIG_UPDATE, WORLDCUPCONFIG_ADD, WORLDCUPCONFIG_LIST, WORLDCUPCONFIG_DEL } from '../../../constants';
 import { DataTable } from '../../tools';

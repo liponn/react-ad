@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { commonFetch, fetchAction } from '../../../actions/omg';
 import { showModal, hideModal } from '../../../actions/modal';
@@ -244,6 +245,7 @@ class Activity extends Component {
     ), { priority: 0 });
     const inviteAwards = this.props.inviteAwardList[this.props.activityId] || [];
     const rules = this.props.ruleList[this.props.activityId] || [];
+    console.log(rules);
     const updateActivityBtn = (
       <button
         onClick={this.showUpdateActivity}

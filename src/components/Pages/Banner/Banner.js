@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Status, ImgBox, Card, } from '../../tools';
 import { BANNER_LIST, BANNER_DEL, BANNER_DISABLE, BANNER_ENABLE, BANNER_UP, BANNER_DOWN, BANNER_ADD, BANNER_PUT } from '../../../constants';

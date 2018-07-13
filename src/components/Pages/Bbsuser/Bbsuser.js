@@ -1,8 +1,10 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchAction } from '../../../actions/omg';
-import { BBS_USER_ADMIN, BBS_USER_UNADMIN, BBS_USER_BLOCK, BBS_USER_UNBLOCK, BBS_USER_DT_UPDATE, BBS_USER_DT_DEL, BBS_USER_DT_ADD , BBS_USER_DT_LIST } from '../../../constants';
-import { DataTable, Radio } from '../../tools';
+import { BBS_USER_ADMIN,BBS_USER_UPDATE, BBS_USER_UNADMIN, BBS_USER_BLOCK, BBS_USER_UNBLOCK, BBS_USER_DT_UPDATE, BBS_USER_DT_DEL, BBS_USER_DT_ADD , BBS_USER_DT_LIST, BBS_USER_SEARCH_LIST
+} from '../../../constants';
+import { BbsUserDataTable, Radio } from '../../tools';
 
 
 class Bbsuser extends Component {
@@ -12,6 +14,7 @@ class Bbsuser extends Component {
     this.toggleBlock = this.toggleBlock.bind(this);
     this.toggleAdmin = this.toggleAdmin.bind(this);
     this.getBtns = this.getBtns.bind(this);
+    this.getUserTypes = this.getUserTypes.bind(this);
     this.state = {
       name: '',
       alias_name: '',
@@ -21,8 +24,8 @@ class Bbsuser extends Component {
       dataTable: {
         title: '论坛用户',
         identify: 0,
-        listType: BBS_USER_DT_LIST,
-        updateType: BBS_USER_DT_UPDATE,
+        listType: BBS_USER_SEARCH_LIST,
+        updateType: BBS_USER_UPDATE,
         addType: BBS_USER_DT_ADD,
         deleteType: BBS_USER_DT_DEL,
         timeStamp: (new Date).getTime(),
@@ -37,7 +40,8 @@ class Bbsuser extends Component {
           value: '',
           regex: false,
         },
-        customSearch: false,
+        customSearch:[],
+        defaultSearch:[],
         idColumn: 0,
         columns: [
           {
@@ -55,8 +59,8 @@ class Bbsuser extends Component {
             name: 'user_id',
             cname: '用户ID',
             type: 'text',
-            searchable: true,
-            orderable: true,
+            searchable: false,
+            orderable: false,
             search: {
               value: '',
               regex: false,
@@ -67,8 +71,8 @@ class Bbsuser extends Component {
             cname: '头像',
             type: 'attachment',
             tableType: 'img_box',
-            searchable: true,
-            orderable: true,
+            searchable: false,
+            orderable: false,
             search: {
               value: '',
               regex: false,
@@ -79,7 +83,7 @@ class Bbsuser extends Component {
             cname: '手机号',
             type: 'text',
             searchable: true,
-            orderable: true,
+            orderable: false,
             search: {
               value: '',
               regex: false,
@@ -89,8 +93,8 @@ class Bbsuser extends Component {
             name: 'nickname',
             cname: '昵称',
             type: 'text',
-            searchable: true,
-            orderable: true,
+            searchable: false,
+            orderable: false,
             search: {
               value: '',
               regex: false,
@@ -98,10 +102,11 @@ class Bbsuser extends Component {
           },
           {
             name: 'isblack',
-            cname: '是否拉黑',
+            cname: '用户状态',
             type: 'none',
+            tableType:'radio',
             searchable: false,
-            orderable: true,
+            orderable: false,
             search: {
               value: '',
               regex: false,
@@ -120,10 +125,12 @@ class Bbsuser extends Component {
           },
           {
             name: 'isadmin',
-            cname: '是否马甲',
-            type: 'none',
+            cname: '用户类型',
+            type: 'select',
+            tableType:'radio3',
             searchable: false,
-            orderable: true,
+            getOptions:this.getUserTypes,
+            orderable: false,
             search: {
               value: '',
               regex: false,
@@ -156,6 +163,15 @@ class Bbsuser extends Component {
       >马甲</button>,
     ];
   }
+
+  getUserTypes() {
+      return {
+          0:"普通用户",
+          1:"官方号",
+          2:"马甲号"
+      };
+  }
+
   toggleBlock(e) {
     const id = e.currentTarget.dataset.id;
     const typeValue = +e.currentTarget.dataset.tvalue;
@@ -194,36 +210,32 @@ class Bbsuser extends Component {
   }
   typeChange(e) {
     const value = e.currentTarget.value;
-    let customSearch = {};
+    let defaultSearch = [];
     let identify = 0;
     switch (value) {
       case 'all':
-        customSearch = false;
+       defaultSearch = [];
         identify = 0;
         break;
       case 'admin':
-        customSearch = Object.assign({}, this.state.dataTable.customSearch, {
-          name: 'isadmin',
-          pattern: 'equal',
-          value: 1,
-        });
+          defaultSearch = [
+                {name:'isadmin',pattern:'equal',value:2}
+              ];
         identify = 1;
         break;
       case 'black':
-        customSearch = Object.assign({}, this.state.dataTable.customSearch, {
-          name: 'isblack',
-          pattern: 'equal',
-          value: 1,
-        });
+          defaultSearch = [
+              {name:'isblack',pattern:'equal',value:1}
+          ];
         identify = 2;
         break;
       default:
         identify = 0;
-        customSearch = false;
+        defaultSearch = [];
         break;
     }
     const dataTable = Object.assign({}, this.state.dataTable, {
-      customSearch,
+      defaultSearch,
       identify,
       timeStamp: (new Date).getTime(),
     });
@@ -232,32 +244,32 @@ class Bbsuser extends Component {
     });
   }
   render() {
-    const customSearch = this.state.dataTable.customSearch;
+    const defaultSearch = this.state.dataTable.defaultSearch;
     return (
       <div>
         <Radio
           labelName="全部"
           name="userfilter"
           value="all"
-          checked={!customSearch}
+          checked={defaultSearch.length == 0}
           onChange={this.typeChange}
         />
         <Radio
           labelName="马甲"
           name="userfilter"
           value="admin"
-          checked={customSearch && customSearch.name === 'isadmin'}
+          checked={defaultSearch.length>0 && defaultSearch[0].name === 'isadmin'}
           onChange={this.typeChange}
         />
         <Radio
           labelName="已拉黑"
           name="userfilter"
           value="black"
-          checked={customSearch && customSearch.name === 'isblack'}
+          checked={defaultSearch.length>0 && defaultSearch[0].name === 'isblack'}
           onChange={this.typeChange}
         />
         <hr />
-        <DataTable
+        <BbsUserDataTable
           config={this.state.dataTable}
         />
       </div>

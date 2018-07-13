@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { commonFetch, fetchAction } from '../../../actions/omg';
 import { getConfig } from '../../../config/omg';
@@ -236,9 +237,7 @@ class Article extends Component {
           />
         ))}
         <Link
-          className="btn btn-sm  btn-info-outline pull-right"
-          to="/article/type"
-        >
+          className="btn btn-sm  btn-info-outline pull-right" to="/article/type">
           <i className="fa fa-pencil">类型管理</i>
         </Link>
         <hr />
@@ -325,7 +324,6 @@ class Article extends Component {
         </div>
         <Pagination currentPage={articlesObj.current_page} lastPage={articlesObj.last_page} />
       </div>
-
     );
   }
 }
