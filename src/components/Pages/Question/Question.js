@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Status, ImgBox, Card, Pagination} from '../../tools';
 import { QUESTION_LIST, QUESTION_ADD, QUESTION_PUT, QUESTION_DEL, QUESTION_ENABLE, QUESTION_DISABLE, QUESTION_INFO } from '../../../constants';
