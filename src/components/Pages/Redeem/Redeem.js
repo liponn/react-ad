@@ -32,7 +32,10 @@ class Redeem extends Component {
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.typeId !== nextProps.typeId || nextProps.page !== this.props.page) {
-      this.list(this.props.typeId,nextProps.page);
+      this.setState({
+        page: nextProps.page,
+      })
+      this.list(nextProps.typeId,nextProps.page);
     }
   }
   list(type,page) {
