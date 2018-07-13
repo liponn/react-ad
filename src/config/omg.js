@@ -1010,6 +1010,7 @@ const bannerPopFrequencyTypes = {
   2: '只显示一次',
   3: '每日三次',
 }
+
 const examineAppTypes = {
   1: 'IOS主包',
   2: 'IOS马甲包',
@@ -1017,6 +1018,17 @@ const examineAppTypes = {
 const redeemTypes = {
   0: '兑换码',
   1: '口令红包',
+}
+
+const questionType = {
+  0: '请选择',
+  1: '实名绑卡',
+  2: '充值直通车',
+  3: '提现直通车',
+  4: '出借标的',
+  5: '忘记交易密码',
+  6: '修改交易密码',
+  7: '修改登录密码',
 }
 function getAllRuleTypes() {
   const allRuleTypes = {};
@@ -1077,7 +1089,8 @@ const config = {
   examineTypes,
   bannerPopFrequencyTypes,
   examineAppTypes,
-  redeemTypes
+  redeemTypes,
+  questionType,
 };
 
 function getConfig(type, key = false) {
