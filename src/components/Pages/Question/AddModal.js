@@ -77,6 +77,7 @@ class AddModal extends Component {
   }
   render() {
     const qids_str = this.state.qids.join(',')
+    // <AttachmentInput labelName="icon" position={`banner_${this.props.item.icon}`} name="icon" defaultValue={this.props.item.icon || ''} />
     return (
       <Modal className="modal-lg" title={this.props.title || "添加"}>
         <form id="add-article-form" method="post" onSubmit={this.props.submit}>
@@ -84,7 +85,6 @@ class AddModal extends Component {
           <input type="hidden" name="id" value={this.props.item.id} />
           <Input labelName="标题" name="title" defaultValue={this.props.item.title} />
           <Editor name="content" defaultValue={this.props.item.content} />
-          <AttachmentInput labelName="icon" position={`banner_${this.props.item.icon}`} name="icon" defaultValue={this.props.item.icon || ''} />
           <Select onChange={this.handleChangeSelect.bind(this)} name="type" labelName="类型" options={getConfig('questionType')} value={this.state.questionType} />
           <div className="form-group row">
           <label className="col-sm-4 form-control-label text-xs-right">关联问题Id:</label>
