@@ -33,7 +33,7 @@ class AddModal extends Component {
             <input type="hidden" name="id" defaultValue={item.id} />
             <input type="hidden" name="status" defaultValue={item.status} />
             <input type="hidden" name="type" defaultValue={this.props.typeId} />
-            <Input labelName="包名" name="app_name" defaultValue={item.app_name} hidden={this.props.typeId == 1 ? 'hidden': ''} />
+            <Input labelName="包名" name="app_name" defaultValue={item.app_name} />
             <Input labelName="版本号" name="versions" defaultValue={item.versions} />
             <Input labelName="现公司名称显示" name="company_name" defaultValue={item.company_name} />
             <Fieldset>
