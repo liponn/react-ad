@@ -179,7 +179,7 @@ class Examine extends Component {
                     <table className="table m-b-0 table-bordered">
                         <thead>
                         <tr>
-                            <th hidden={this.props.typeId == 1 ? 'hidden': ''}>包名</th>
+                            <th>包名</th>
                             <th>版本号</th>
                             <th>现公司名称显示</th>
                             <th>信息披露是否可点</th>
@@ -194,7 +194,7 @@ class Examine extends Component {
                         <tbody>
                         {items.map((item, index) => (
                             <tr key={item.id}>
-                                <td hidden={this.props.typeId == 1 ? 'hidden': ''}>{item.app_name}</td>
+                                <td>{item.app_name}</td>
                                 <td>{item.versions}</td>
                                 <td>{item.company_name}</td>
                                 <td>{item.disclosure_click === 0 ? '否' : '是' }</td>
