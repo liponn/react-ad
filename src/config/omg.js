@@ -1016,6 +1016,7 @@ const questionType = {
   5: '忘记交易密码',
   6: '修改交易密码',
   7: '修改登录密码',
+  8: '查看银行卡',
 }
 function getAllRuleTypes() {
   const allRuleTypes = {};
