@@ -1008,7 +1008,6 @@ const bannerPopFrequencyTypes = {
   2: '只显示一次',
   3: '每日三次',
 }
-<<<<<<< HEAD
 const examineAppTypes = {
   1: 'IOS主包',
   2: 'IOS马甲包',
@@ -1016,8 +1015,7 @@ const examineAppTypes = {
 const redeemTypes = {
   0: '兑换码',
   1: '口令红包',
-=======
-
+}
 const questionType = {
   0: '请选择',
   1: '实名绑卡',
@@ -1028,7 +1026,6 @@ const questionType = {
   6: '修改交易密码',
   7: '修改登录密码',
   8: '查看银行卡',
->>>>>>> feature-service
 }
 function getAllRuleTypes() {
   const allRuleTypes = {};
@@ -1088,12 +1085,9 @@ const config = {
   feeFlowOrderRepairStatus,
   examineTypes,
   bannerPopFrequencyTypes,
-<<<<<<< HEAD
   examineAppTypes,
   redeemTypes
-=======
   questionType,
->>>>>>> feature-service
 };
 
 function getConfig(type, key = false) {
