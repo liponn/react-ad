@@ -1086,8 +1086,8 @@ const config = {
   examineTypes,
   bannerPopFrequencyTypes,
   examineAppTypes,
-  redeemTypes
-  questionType,
+  redeemTypes,
+  questionType
 };
 
 function getConfig(type, key = false) {
