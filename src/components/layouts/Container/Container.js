@@ -260,6 +260,35 @@ class Container extends Component {
         },
       ],
     }, {
+      title: '我的客服',
+      isFold: true,
+      subItems: [
+        {
+          title: '常见问题',
+          url: '/category',
+          tag: 'admin',
+          fontClass: 'fa-users',
+        },
+        {
+          title: '问题列表',
+          url: '/question',
+          tag: 'admin',
+          fontClass: 'fa-users',
+        },
+        {
+          title: '广告位',
+          url: '/ad/ad',
+          tag: 'admin',
+          fontClass: 'fa-map',
+        },
+        {
+          title: '信息链接',
+          url: '/infolink/infolink',
+          tag: 'admin',
+          fontClass: 'fa-info'
+        },
+      ],
+    }, {
       title: '后台管理',
       isFold: true,
       subItems: [

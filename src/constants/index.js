@@ -331,3 +331,23 @@ export const WORLDCUPCONFIG_UPDATE = 'WORLDCUPCONFIG_UPDATE';
 //后台管理用户log
 
 export const USER_LOG = 'USER_LOG';
+
+//我的客服菜单
+//广告位
+export const AD_LIST = 'AD_LIST';
+//信息链接
+export const INFOLINK_LIST = 'INFOLINK_LIST';
+export const QUESTION_LIST = 'QUESTION_LIST';
+export const QUESTION_ADD = 'QUESTION_ADD';
+export const QUESTION_PUT = 'QUESTION_PUT';
+export const QUESTION_DEL = 'QUESTION_DEL';
+export const QUESTION_ENABLE = 'QUESTION_ENABLE';
+export const QUESTION_DISABLE = 'QUESTION_DISABLE';
+export const QUESTION_INFO = 'QUESTION_INFO';
+export const CATEGORY_LIST = 'CATEGORY_LIST';
+export const CATEGORY_ADD = 'CATEGORY_ADD';
+export const CATEGORY_PUT = 'CATEGORY_PUT';
+export const CATEGORY_DEL = 'CATEGORY_DEL';
+export const CATEGORY_ENABLE = 'CATEGORY_ENABLE';
+export const CATEGORY_DISABLE = 'CATEGORY_DISABLE';
+export const CATEGORY_INFO = 'CATEGORY_INFO';
