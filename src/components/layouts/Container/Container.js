@@ -266,25 +266,25 @@ class Container extends Component {
         {
           title: '常见问题',
           url: '/category',
-          tag: 'admin',
+          tag: 'myservice',
           fontClass: 'fa-users',
         },
         {
           title: '问题列表',
           url: '/question',
-          tag: 'admin',
+          tag: 'myservice',
           fontClass: 'fa-users',
         },
         {
           title: '广告位',
           url: '/ad/ad',
-          tag: 'admin',
+          tag: 'myservice',
           fontClass: 'fa-map',
         },
         {
           title: '信息链接',
           url: '/infolink/infolink',
-          tag: 'admin',
+          tag: 'myservice',
           fontClass: 'fa-info'
         },
       ],
