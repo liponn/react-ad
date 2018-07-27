@@ -40,6 +40,8 @@ class AddQuestion extends Component {
 
   handleClick (page) {
     this.freshData(page)
+    this.setState({page:page})
+
   }
   render() {
     const questions = this.props.questions[this.state.page] || {};
