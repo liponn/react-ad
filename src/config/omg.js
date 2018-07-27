@@ -297,6 +297,14 @@ import {
   CATEGORY_ENABLE, 
   CATEGORY_DISABLE,
   CATEGORY_INFO,
+  MYSERVICE_DEL,
+  MYSERVICE_PUT,
+  MYSERVICE_ADD,
+  MYSERVICE_UP,
+  MYSERVICE_DOWN,
+  MYSERVICE_ENABLE,
+  MYSERVICE_DISABLE,
+  MYSERVICE_INFO,
 
 
 } from '../constants/index.js';
@@ -591,8 +599,16 @@ apiList[WORLDCUPCONFIG_ADD] = '/worldcup/dt-add';
 
 apiList[USER_LOG] = '/log';
 
-apiList[AD_LIST] = '/img/banner-list';
-apiList[INFOLINK_LIST] = '/img/banner-list';
+apiList[AD_LIST] = '/myservice/banner-list';
+apiList[INFOLINK_LIST] = '/myservice/banner-list';
+apiList[MYSERVICE_DEL] = '/myservice/banner-del';
+apiList[MYSERVICE_PUT] = '/myservice/banner-edit';
+apiList[MYSERVICE_ADD] = '/myservice/banner-add';
+apiList[MYSERVICE_UP] = '/myservice/sort-up';
+apiList[MYSERVICE_DOWN] = '/myservice/sort-down';
+apiList[MYSERVICE_ENABLE] = '/myservice/banner-release';
+apiList[MYSERVICE_DISABLE] = '/myservice/banner-offline';
+apiList[MYSERVICE_INFO] = '/myservice/banner-info';
 apiList[QUESTION_LIST] = '/question/list';
 apiList[QUESTION_ADD] = '/question/add';
 apiList[QUESTION_PUT] = '/question/update';

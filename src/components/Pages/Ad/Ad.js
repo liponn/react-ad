@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Status, ImgBox, Card, } from '../../tools';
-import { BANNER_LIST, BANNER_DEL, BANNER_DISABLE, BANNER_ENABLE, BANNER_UP, BANNER_DOWN, BANNER_ADD, BANNER_PUT } from '../../../constants';
+import { AD_LIST, MYSERVICE_DEL,MYSERVICE_PUT,MYSERVICE_ADD,MYSERVICE_UP,MYSERVICE_DOWN,MYSERVICE_ENABLE,MYSERVICE_DISABLE,MYSERVICE_INFO } from '../../../constants';
 import { showModal, hideModal } from '../../../actions/modal';
 import { fetchAction } from '../../../actions/omg';
 import { getConfig } from '../../../config/omg';
@@ -42,7 +42,7 @@ class Ad extends Component {
   freshData(type) {
     const queryObj = { position: type };
     this.props.dispatch(fetchAction({
-      type: BANNER_LIST,
+      type: AD_LIST,
       key: type,
       queryObj,
     }));
@@ -56,7 +56,7 @@ class Ad extends Component {
     const formData = new FormData;
     formData.append('id', id);
     this.props.dispatch(fetchAction({
-      type: BANNER_ENABLE,
+      type: MYSERVICE_ENABLE,
       method: 'POST',
       formData,
     })).then(() => {
@@ -68,7 +68,7 @@ class Ad extends Component {
     const formData = new FormData;
     formData.append('id', id);
     this.props.dispatch(fetchAction({
-      type: BANNER_DISABLE,
+      type: MYSERVICE_DISABLE,
       method: 'POST',
       formData,
     })).then(() => {
@@ -79,7 +79,7 @@ class Ad extends Component {
     e.preventDefault();
     const formData = new FormData(e.target);
     this.props.dispatch(fetchAction({
-      type: BANNER_ADD,
+      type: MYSERVICE_ADD,
       method: 'POST',
       formData,
     })).then((json) => {
@@ -99,7 +99,7 @@ class Ad extends Component {
     formData.append('id', id);
     formData.append('position', this.props.type)
     this.props.dispatch(fetchAction({
-      type: BANNER_UP,
+      type: MYSERVICE_UP,
       method: 'POST',
       formData,
     })).then(() => {
@@ -112,7 +112,7 @@ class Ad extends Component {
     formData.append('id', id);
     formData.append('position', this.props.type)
     this.props.dispatch(fetchAction({
-      type: BANNER_DOWN,
+      type: MYSERVICE_DOWN,
       method: 'POST',
       formData,
     })).then(() => {
@@ -123,7 +123,7 @@ class Ad extends Component {
     e.preventDefault();
     const formData = new FormData(e.target);
     this.props.dispatch(fetchAction({
-      type: BANNER_PUT,
+      type: MYSERVICE_PUT,
       method: 'POST',
       formData,
     })).then((json) => {
@@ -152,7 +152,7 @@ class Ad extends Component {
     const formData = new FormData;
     formData.append('id', id);
     this.props.dispatch(fetchAction({
-      type: BANNER_DEL,
+      type: MYSERVICE_DEL,
       method: 'POST',
       formData,
     })).then(() => (this.freshData(this.props.type)));
@@ -225,7 +225,7 @@ Ad.defaultProps = {
 
 export default connect(state => {
   const { omg } = state;
-  const banners = omg[BANNER_LIST] || {};
+  const banners = omg[AD_LIST] || {};
   return {
     banners,
   };
