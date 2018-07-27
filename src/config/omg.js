@@ -591,8 +591,8 @@ apiList[WORLDCUPCONFIG_ADD] = '/worldcup/dt-add';
 
 apiList[USER_LOG] = '/log';
 
-apiList[AD_LIST] = '/img/banner-list';
-apiList[INFOLINK_LIST] = '/img/banner-list';
+apiList[AD_LIST] = '/myservice/banner-list';
+apiList[INFOLINK_LIST] = '/myservice/banner-list';
 apiList[QUESTION_LIST] = '/question/list';
 apiList[QUESTION_ADD] = '/question/add';
 apiList[QUESTION_PUT] = '/question/update';
