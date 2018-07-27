@@ -121,19 +121,19 @@ class Container extends Component {
         {
           title: 'banner图',
           url: '/banner/mobile',
-          tag: 'img',
+          tag: 'pic',
           fontClass: 'fa-map',
         },
         {
           title: '分享配置',
           url: '/shareconfig/taojin',
-          tag: 'img',
+          tag: 'pic',
           fontClass: 'fa-share',
         },
         {
           title: '启动页',
           url: '/startup/1',
-          tag: 'img',
+          tag: 'pic',
           fontClass: 'fa-play-circle',
         },
         {
