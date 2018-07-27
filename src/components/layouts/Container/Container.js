@@ -304,6 +304,12 @@ class Container extends Component {
           tag: 'privilege',
           fontClass: 'fa-user-secret',
         },
+        {
+          title: '日志',
+          url: '/log',
+          tag: 'log',
+          fontClass: 'fa-user-secret',
+        },
       ],
     },
     ];

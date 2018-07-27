@@ -305,6 +305,7 @@ import {
   MYSERVICE_ENABLE,
   MYSERVICE_DISABLE,
   MYSERVICE_INFO,
+  USER_LOG_LIST,
 
 
 } from '../constants/index.js';
@@ -598,6 +599,7 @@ apiList[WORLDCUPCONFIG_DEL] = '/worldcup/dt-delete';
 apiList[WORLDCUPCONFIG_ADD] = '/worldcup/dt-add';
 
 apiList[USER_LOG] = '/log';
+apiList[USER_LOG_LIST] = '/log/list';
 
 apiList[AD_LIST] = '/myservice/banner-list';
 apiList[INFOLINK_LIST] = '/myservice/banner-list';
