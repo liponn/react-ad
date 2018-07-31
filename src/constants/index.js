@@ -338,6 +338,7 @@ export const USER_LOG_LIST = 'USER_LOG_LIST';
 export const AD_LIST = 'AD_LIST';
 //信息链接
 export const INFOLINK_LIST = 'INFOLINK_LIST';
+export const QUESTION_ADD_LIST = 'QUESTION_ADD_LIST';
 export const QUESTION_LIST = 'QUESTION_LIST';
 export const QUESTION_ADD = 'QUESTION_ADD';
 export const QUESTION_PUT = 'QUESTION_PUT';

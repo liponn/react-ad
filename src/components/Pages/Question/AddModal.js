@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Modal, Alert, Input, Checkbox, AttachmentInput, Submit, Editor, Select } from '../../tools';
 import { getConfig } from '../../../config/omg';
-import AddQuestion from '../Category/AddQuestion';
+import AddQuestion from './AddQuestion';
 
 
 class AddModal extends Component {
