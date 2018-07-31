@@ -305,6 +305,7 @@ import {
   MYSERVICE_ENABLE,
   MYSERVICE_DISABLE,
   MYSERVICE_INFO,
+  QUESTION_ADD_LIST,
 
 
 } from '../constants/index.js';
@@ -609,6 +610,7 @@ apiList[MYSERVICE_DOWN] = '/myservice/sort-down';
 apiList[MYSERVICE_ENABLE] = '/myservice/banner-release';
 apiList[MYSERVICE_DISABLE] = '/myservice/banner-offline';
 apiList[MYSERVICE_INFO] = '/myservice/banner-info';
+apiList[QUESTION_ADD_LIST] = '/question/list';
 apiList[QUESTION_LIST] = '/question/list';
 apiList[QUESTION_ADD] = '/question/add';
 apiList[QUESTION_PUT] = '/question/update';
