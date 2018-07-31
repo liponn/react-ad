@@ -23,7 +23,7 @@ class Question extends Component {
   }
   static items = [];
   componentDidMount() {
-    this.freshData(this.props.page);
+    this.freshData(this.props.page, this.props.type);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -31,12 +31,15 @@ class Question extends Component {
     //   this.freshData(nextProps.type);
     // }
     if (nextProps.page !== this.props.page) {
-      this.freshData(nextProps.page);
+      this.freshData(nextProps.page, nextProps.type);
     }
   }
-  freshData(page) {
+  freshData(page, type='') {
     const queryObj = {}
     queryObj.page = page;
+    if (type) {
+        queryObj.type = type;
+    }
     this.props.dispatch(fetchAction({
       type: QUESTION_LIST,
       queryObj,
@@ -56,7 +59,7 @@ class Question extends Component {
       method: 'POST',
       formData,
     })).then(() => {
-      this.freshData(this.props.page);
+      this.freshData(this.props.page, this.props.type);
     });
   }
   disable(e) {
@@ -68,7 +71,7 @@ class Question extends Component {
       method: 'POST',
       formData,
     })).then(() => {
-      this.freshData(this.props.page);
+      this.freshData(this.props.page, this.props.type);
     });
   }
   add(e) {
@@ -81,7 +84,7 @@ class Question extends Component {
     })).then((json) => {
       if (json.error_code === 0) {
         this.props.dispatch(hideModal(true));
-        this.freshData(this.props.page);
+        this.freshData(this.props.page, this.props.type);
       } else {
         this.setState({
           addErrorMsg: json.data.error_msg,
@@ -93,14 +96,16 @@ class Question extends Component {
   update(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
+    const type = this.props.type;
     this.props.dispatch(fetchAction({
       type: QUESTION_PUT,
       method: 'POST',
       formData,
+      queryObj:{type:this.props.type}
     })).then((json) => {
       if (json.error_code === 0) {
         this.props.dispatch(hideModal(true));
-        this.freshData(this.props.page);
+        this.freshData(this.props.page, this.props.type);
       } else {
         this.setState({
           addErrorMsg: json.data.error_msg,
@@ -126,7 +131,7 @@ class Question extends Component {
       type: QUESTION_DEL,
       method: 'POST',
       formData,
-    })).then(() => (this.freshData(this.props.page)));
+    })).then(() => (this.freshData(this.props.page, this.props.type)));
   }
 
   render() {

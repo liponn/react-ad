@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Status, ImgBox, Card, Pagination} from '../../tools';
+import { Link,Status, ImgBox, Card, Pagination} from '../../tools';
 import { CATEGORY_LIST, CATEGORY_ADD, CATEGORY_PUT, CATEGORY_DEL, CATEGORY_ENABLE, CATEGORY_DISABLE, CATEGORY_INFO } from '../../../constants';
 import { showModal, hideModal } from '../../../actions/modal';
 import { fetchAction } from '../../../actions/omg';
@@ -130,6 +130,11 @@ class Category extends Component {
     })).then(() => (this.freshData(this.props.page)));
   }
 
+  // handJump (e) {
+  //   const id = $(e.target).data('id');
+  //   window.location.href = "/question";
+  // }
+
   render() {
     const { banners } = this.props
     const btn = (
@@ -155,10 +160,11 @@ class Category extends Component {
               </tr>
             </thead>
             <tbody>
-            {items.map((item, index) => (
-              <tr key={item.id}>
+            {items.map((item, index) => {
+              let jumpUrl = "/question/type/" + item.id
+              return <tr key={item.id}>
                 <td>{item.id}</td>
-                <td>{item.title}</td>
+                <td><Link to={jumpUrl}>{item.title}</Link></td>
                 <td><ImgBox src={item.icon} /></td>
                 <td>{item.questions.map((_item,_index)=>(
                     <span key={_item.id}>{_item.q_id}{item.questions.length -1 == _index ? null: ','}</span>
@@ -172,7 +178,7 @@ class Category extends Component {
                   <button className="btn btn-sm btn-danger-outline" data-id={item.id} onClick={this.del}>删除</button>
                 </td>
               </tr>
-            ))}
+            })}
             </tbody>
           </table>
         </Card>

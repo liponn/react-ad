@@ -8,7 +8,14 @@ export default {
     {
       path: '/',
       action(context) {
-        return <Question path="Question" page={+context.query.page || 1}/>;
+        return <Question type='0' page={+context.query.page || 1}/>;
+      },
+    },
+    {
+      path: '/type/:typeId',
+      action(context) {
+        const typeId = context.params.typeId;
+        return <Question type={typeId} page={+context.query.page || 1} />;
       },
     },
   ],
