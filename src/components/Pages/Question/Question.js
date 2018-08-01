@@ -32,6 +32,8 @@ class Question extends Component {
     // }
     if (nextProps.page !== this.props.page) {
       this.freshData(nextProps.page, nextProps.type);
+    } else if (nextProps.type != this.props.type) {
+        this.freshData(nextProps.page, nextProps.type);
     }
   }
   freshData(page, type='') {
