@@ -56,7 +56,6 @@ import ad from './ad';
 import infolink from './infolink';
 import question from './question';
 import category from './category';
-import log from './log';
 
 export default {
 
