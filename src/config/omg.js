@@ -281,10 +281,6 @@ import {
   WORLDCUPCONFIG_ADD,
 
   USER_LOG,
-<<<<<<< HEAD
-  USER_LOG_LIST,
-=======
->>>>>>> feature-service
   AD_LIST,
   INFOLINK_LIST,
   QUESTION_LIST, 
@@ -310,10 +306,7 @@ import {
   MYSERVICE_DISABLE,
   MYSERVICE_INFO,
   QUESTION_ADD_LIST,
-<<<<<<< HEAD
-=======
   USER_LOG_LIST,
->>>>>>> feature-service
 
 
 } from '../constants/index.js';
@@ -1035,10 +1028,7 @@ const bannerPopFrequencyTypes = {
   2: '只显示一次',
   3: '每日三次',
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> feature-service
 const examineAppTypes = {
   1: 'IOS主包',
   2: 'IOS马甲包',
@@ -1047,10 +1037,6 @@ const redeemTypes = {
   0: '兑换码',
   1: '口令红包',
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> feature-service
 const questionType = {
   0: '请选择',
   1: '实名绑卡',
@@ -1122,11 +1108,7 @@ const config = {
   bannerPopFrequencyTypes,
   examineAppTypes,
   redeemTypes,
-<<<<<<< HEAD
   questionType,
-=======
-  questionType
->>>>>>> feature-service
 };
 
 function getConfig(type, key = false) {

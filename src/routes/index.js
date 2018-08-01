@@ -52,7 +52,6 @@ import feefloworder from './feefloworder';
 import examine from './examine';
 import worldcupconfig from './worldcupconfig';
 import log from './log';
->>>>>>> feature-service
 import ad from './ad';
 import infolink from './infolink';
 import question from './question';
