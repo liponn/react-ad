@@ -90,7 +90,7 @@ class Startup extends Component {
       method: 'POST',
       formData,
     })).then(() => {
-      this.freshData(this.props.type);
+      this.fresh();
     });
   }
   enable(e) {
@@ -102,7 +102,7 @@ class Startup extends Component {
       method: 'POST',
       formData,
     })).then(() => {
-      this.freshData(this.props.type);
+      this.fresh();
     });
   }
   fresh() {
@@ -119,9 +119,11 @@ class Startup extends Component {
     const id = $(e.target).data('id');
     this.props.dispatch(fetchAction({
       type: STARTUP_UP,
-      suffix: `/${id}`,
-    })).then(() => {
-      this.freshData(this.props.type);
+      suffix: `/${id}/${this.props.type}`,
+    })).then((json) => {
+      if (json.error_code === 0) {
+        this.fresh();
+      }
     });  
   }
   down(e) {
@@ -129,8 +131,10 @@ class Startup extends Component {
     this.props.dispatch(fetchAction({
       type: STARTUP_DOWN,
       suffix: `/${id}`,
-    })).then(() => {
-      this.freshData(this.props.type);
+    })).then((json) => {
+      if (json.error_code === 0) {
+        this.fresh();
+      }
     });
   }
   del(e) {
@@ -141,7 +145,7 @@ class Startup extends Component {
       type: STARTUP_DEL,
       method: 'POST',
       formData,
-    })).then(() => (this.freshData(this.props.type)));
+    })).then(() => (this.fresh()));
   }
 
   selectChange(e) {
@@ -185,6 +189,7 @@ class Startup extends Component {
                 <th>{getConfig('startupImages', `${this.props.type}:2`)}</th>
                 <th>{getConfig('startupImages', `${this.props.type}:3`)}</th>
                 <th>{getConfig('startupImages', `${this.props.type}:4`)}</th>
+                <th>{getConfig('startupImages', `${this.props.type}:5`)}</th>
                 <th>开始时间</th>
                 <th>结束时间</th>
                 <th>状态</th>
@@ -201,12 +206,13 @@ class Startup extends Component {
                 <td><ImgBox src={item.img2} /></td>
                 <td><ImgBox src={item.img3} /></td>
                 <td><ImgBox src={item.img4} /></td>
+                <td><ImgBox src={item.img5} /></td>
                 <td>{item.online_time}</td>
                 <td>{item.offline_time}</td>
                 <td><Status status={+item.enable} /></td>
                 <td>
-                  <button hidden={+item.enable === 1} className="btn btn-sm btn-success-outline" data-id={item.id} onClick={this.enable}>上线</button>
-                  <button hidden={+item.enable === 0} className="btn btn-sm btn-warning-outline" data-id={item.id} onClick={this.disable}>下线</button>
+                  <button hidden={+item.enable == 1} className="btn btn-sm btn-success-outline" data-id={item.id} onClick={this.enable}>上线</button>
+                  <button hidden={+item.enable == 0} className="btn btn-sm btn-warning-outline" data-id={item.id} onClick={this.disable}>下线</button>
                   <button className="btn btn-sm btn-info-outline" data-id={item.id} onClick={this.up}>上移</button>
                   <button className="btn btn-sm btn-info-outline" data-id={item.id} onClick={this.down}>下移</button>
                   <button className="btn btn-sm btn-success-outline" data-id={item.id} data-index={index} onClick={this.showUpdateModal}>编辑</button>

@@ -306,6 +306,7 @@ import {
   MYSERVICE_DISABLE,
   MYSERVICE_INFO,
   QUESTION_ADD_LIST,
+  USER_LOG_LIST,
 
 
 } from '../constants/index.js';
@@ -599,6 +600,7 @@ apiList[WORLDCUPCONFIG_DEL] = '/worldcup/dt-delete';
 apiList[WORLDCUPCONFIG_ADD] = '/worldcup/dt-add';
 
 apiList[USER_LOG] = '/log';
+apiList[USER_LOG_LIST] = '/log/list';
 
 apiList[AD_LIST] = '/myservice/banner-list';
 apiList[INFOLINK_LIST] = '/myservice/banner-list';
@@ -888,10 +890,12 @@ const startupImages = {
   '1:2': '750x1334',
   '1:3': '640x1136',
   '1:4': '640x960',
+  '1:5': '1125x2436',
   '2:1': '1080x1920',
   '2:2': '720x1280',
   '2:3': '480x800',
   '2:4': '无',
+  '2:5': '1125x2436',
 }
 
 
@@ -1024,7 +1028,14 @@ const bannerPopFrequencyTypes = {
   2: '只显示一次',
   3: '每日三次',
 }
-
+const examineAppTypes = {
+  1: 'IOS主包',
+  2: 'IOS马甲包',
+}
+const redeemTypes = {
+  0: '兑换码',
+  1: '口令红包',
+}
 const questionType = {
   0: '请选择',
   1: '实名绑卡',
@@ -1094,7 +1105,9 @@ const config = {
   feeFlowOrderRepairStatus,
   examineTypes,
   bannerPopFrequencyTypes,
-  questionType,
+  examineAppTypes,
+  redeemTypes,
+  questionType
 };
 
 function getConfig(type, key = false) {

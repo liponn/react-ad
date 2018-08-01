@@ -9,7 +9,6 @@ class AddModal extends Component {
   constructor(props) {
     super(props);
     const ExamineTypes = getConfig('examineTypes');
-    const item = this.props.item || {};
     this.state = {
       ExamineTypes,
     };
@@ -27,13 +26,14 @@ class AddModal extends Component {
   }
   render() {
     const item = this.props.item || {};
-    console.log(this.state.ExamineTypes,555);
     return (
         <Modal title="添加">
           <form method="post" ref="form" onSubmit={this.props.submit}>
             <Alert msg={this.state.errorMsg} />
             <input type="hidden" name="id" defaultValue={item.id} />
             <input type="hidden" name="status" defaultValue={item.status} />
+            <input type="hidden" name="type" defaultValue={this.props.typeId} />
+            <Input labelName="包名" name="app_name" defaultValue={item.app_name} />
             <Input labelName="版本号" name="versions" defaultValue={item.versions} />
             <Input labelName="现公司名称显示" name="company_name" defaultValue={item.company_name} />
             <Fieldset>

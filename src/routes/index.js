@@ -55,6 +55,7 @@ import ad from './ad';
 import infolink from './infolink';
 import question from './question';
 import category from './category';
+import log from './log';
 
 export default {
 
@@ -66,6 +67,7 @@ export default {
     infolink,
     ad,
     worldcupconfig,
+    log,
     examine,
     feefloworder,
     feeflowconfig,
