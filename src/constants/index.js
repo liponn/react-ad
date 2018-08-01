@@ -331,7 +331,10 @@ export const WORLDCUPCONFIG_UPDATE = 'WORLDCUPCONFIG_UPDATE';
 //后台管理用户log
 
 export const USER_LOG = 'USER_LOG';
+<<<<<<< HEAD
 export const USER_LOG_LIST = 'USER_LOG_LIST';
+=======
+>>>>>>> feature-service
 
 //我的客服菜单
 //广告位
@@ -361,3 +364,7 @@ export const MYSERVICE_DOWN = 'MYSERVICE_DOWN';
 export const MYSERVICE_ENABLE = 'MYSERVICE_ENABLE';
 export const MYSERVICE_DISABLE = 'MYSERVICE_DISABLE';
 export const MYSERVICE_INFO = 'MYSERVICE_INFO';
+<<<<<<< HEAD
+=======
+export const USER_LOG_LIST = 'USER_LOG_LIST';
+>>>>>>> feature-service

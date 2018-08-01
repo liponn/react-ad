@@ -70,7 +70,7 @@ class AddQuestion extends Component {
               return (<tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.title}</td>
-                <td>{item.content}</td>
+                <td style={{wordBreak:'break-all'}}>{item.content}</td>
                 <td><Status status={+item.status} /></td>
                 <td>
                     <button hidden={!item.status || added} className="btn btn-sm btn-info-outline" data-id={item.id} onClick={this.props.handleAdd}>添加</button>
