@@ -85,6 +85,20 @@ class Thread extends Component {
         }
         if(gov){
             queryObj[`data[filter][isofficial]`] = 1;
+        }else{
+            if(searchParams.type_id){
+                queryObj[`data[filter][type_id]`] = searchParams.type_id;
+            }
+            if(searchParams.created_at){
+                queryObj[`data[filter][created_at]`] = searchParams.created_at.format('YYYY-MM-DD');
+                queryObj[`data[filter][created_at_pattern]`] = "min_equal_max";
+            }
+            if(searchParams.end_at){
+                queryObj[`data[filter][end_at]`] = searchParams.end_at.format('YYYY-MM-DD');
+            }
+            if(searchParams.user_id){
+                queryObj[`data[filter][user_id]`] = searchParams.user_id;
+            }
         }
         
         const request = {
