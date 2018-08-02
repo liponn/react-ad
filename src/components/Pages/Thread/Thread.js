@@ -8,7 +8,7 @@ import { Radio,Pagination } from '../../tools';
 import ThreadAddModal from '../../modals/ThreadAddModal';
 import ThreadMoveModal from '../../modals/ThreadMoveModal';
 import ThreadReplyModal from '../../modals/ThreadReplyModal';
-import { DatePicker,Select,Form } from "antd";
+import { DatePicker,Select,Form,Input } from "antd";
 
 class Thread extends Component {
     constructor(props) {
@@ -37,8 +37,14 @@ class Thread extends Component {
         this.hotThread = this.hotThread.bind(this);
         this.moveThread = this.moveThread.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.changeOrder = this.changeOrder.bind(this);
+        this.govThread = this.govThread.bind(this);
         this.state = {
             isVerify:0,
+            order:{
+                col:'id',
+                val:'desc'
+            }
         }
     }
 
@@ -49,11 +55,12 @@ class Thread extends Component {
         this.list();
     }
 
-    list(){
+    list(gov=false){
         const queryObj = {};
         const page = this.state.page || 1;
         const isVerify = this.state.isVerify || 0;
         const pageNum = this.state.pageNum || 20;
+        const order = this.state.order || {};
         const searchParams = this.state.formData || [];
         queryObj[`page`] = page;
         queryObj[`data[filter][isverify]`] = isVerify;
@@ -70,12 +77,26 @@ class Thread extends Component {
         if(searchParams.end_at){
             queryObj[`data[filter][end_at]`] = searchParams.end_at.format('YYYY-MM-DD');
         }
+        if(searchParams.user_id){
+            queryObj[`data[filter][user_id]`] = searchParams.user_id;
+        }
+        if(JSON.stringify(order) != '{}'){
+            queryObj[`data[order][${order.col}]`] = order.val;
+        }
+        if(gov){
+            queryObj[`data[filter][isofficial]`] = 1;
+        }
+        
         const request = {
             type:BBS_THREAD_LIST,
             key:isVerify,
             queryObj
         }
         this.props.dispatch(fetchAction(request));
+    }
+
+    govThread(){
+        this.list(1);
     }
 
     typeChange(e){
@@ -86,6 +107,21 @@ class Thread extends Component {
             page:1,
         },() => {this.list()});
 
+    }
+
+    changeOrder(e){
+        const order = this.state.order;
+        const col = e.target.dataset.value;
+        if(order.col == col){
+            order.val = order.val == 'desc' ? 'asc' : 'desc';
+        }else{
+            order.col = col;
+            order.val = 'desc';
+        }
+        
+        this.setState({
+            order,
+        }, () => {this.list()});
     }
 
     getVestList(){
@@ -336,6 +372,12 @@ class Thread extends Component {
 
                                 <Form className="form-inline pull-right" onSubmit={this.changeSearch}>
                                     <div className="pull-left m-l-1 m-b-1">
+                                        {getFieldDecorator('user_id', {
+                                            rules: [],
+                                        })(
+                                            <Input style={{width:"100px"}} placeholder="userId" />
+                                        )}
+                                         &nbsp;
                                         {getFieldDecorator('type_id', {
                                             rules: [],
                                         })(
@@ -366,13 +408,14 @@ class Thread extends Component {
                                         <i className="fa fa-search">搜索</i>
                                     </button>
                                 </Form>
-                                { this.state.isVerify == 1 ? <button
-                                onClick={this.showAddModal}
-                                className="btn btn-sm btn-info pull-right"
-                            >
-                                <i className="fa fa-plus">添加</i>
-                            </button> : ""}
-                                
+                                { this.state.isVerify == 1 ?
+                                <button onClick={this.govThread} className="btn btn-sm btn-info pull-right">官方帖</button> : "" }
+
+                                { this.state.isVerify == 1 ? 
+                                <button onClick={this.showAddModal} className="btn btn-sm btn-info pull-right">
+                                    <i className="fa fa-plus">添加</i>
+                                </button> : ""}
+
                             </h4>
                         </div>
                         <table className="table table-bordered m-b-0 table-hover data-table">
@@ -386,6 +429,7 @@ class Thread extends Component {
                                         <th>贴子内容</th>
                                         <th>用户ID</th>
                                         <th>用户昵称</th>
+                                        <th>发帖时间</th>
                                         <th>操作</th>
                                     </tr> :
                                 this.state.isVerify == 1 ?
@@ -396,15 +440,53 @@ class Thread extends Component {
                                         <th>贴子内容</th>
                                         <th>用户ID</th>
                                         <th>用户昵称</th>
-                                        <th>评论数</th>
-                                        <th>点赞数</th>
-                                        <th>收藏数</th>
+                                        <th onClick={this.changeOrder} data-value='views'>阅读量
+                                        <span data-value='views'
+                                        className="pull-right arrow"
+                                            disabled={!(this.state.order.col === 'views' && this.state.order.val === 'asc')}
+                                        >↑</span>
+                                        <span data-value='views'
+                                                disabled={!(this.state.order.col === 'views' && this.state.order.val === 'desc')}
+                                            className="pull-right arrow"
+                                        >↓</span>
+                                        </th>
+                                        <th onClick={this.changeOrder} data-value='comment_num'>评论数
+                                        <span data-value='comment_num'
+                                        className="pull-right arrow"
+                                            disabled={!(this.state.order.col === 'comment_num' && this.state.order.val === 'asc')}
+                                        >↑</span>
+                                        <span data-value='comment_num'
+                                                disabled={!(this.state.order.col === 'comment_num' && this.state.order.val === 'desc')}
+                                            className="pull-right arrow"
+                                        >↓</span>
+                                        </th>
+                                        <th onClick={this.changeOrder} data-value='zan_num'>点赞数
+                                        <span data-value='zan_num'
+                                        className="pull-right arrow"
+                                            disabled={!(this.state.order.col === 'zan_num' && this.state.order.val === 'asc')}
+                                        >↑</span>
+                                        <span data-value='zan_num'
+                                                disabled={!(this.state.order.col === 'zan_num' && this.state.order.val === 'desc')}
+                                            className="pull-right arrow"
+                                        >↓</span>
+                                        </th>
+                                        <th onClick={this.changeOrder} data-value='collection_num'>收藏数
+                                        <span data-value='collection_num'
+                                        className="pull-right arrow"
+                                            disabled={!(this.state.order.col === 'collection_num' && this.state.order.val === 'asc')}
+                                        >↑</span>
+                                        <span data-value='collection_num'
+                                                disabled={!(this.state.order.col === 'collection_num' && this.state.order.val === 'desc')}
+                                            className="pull-right arrow"
+                                        >↓</span>
+                                        </th>
                                         <th>视频链接</th>
                                         <th>图片</th>
                                         <th>是否置顶</th>
                                         <th>是否加精</th>
                                         <th>是否最热</th>
                                         <th>官方帖</th>
+                                        <th>发帖时间</th>
                                         <th>操作</th>
                                     </tr> :
                                     <tr>
@@ -414,6 +496,7 @@ class Thread extends Component {
                                         <th>贴子内容</th>
                                         <th>用户ID</th>
                                         <th>用户昵称</th>
+                                        <th>发帖时间</th>
                                         <th>操作</th>
                                     </tr>
                             }
@@ -428,6 +511,7 @@ class Thread extends Component {
                                     <td>{item.content}</td>
                                     <td>{item.user_id}</td>
                                     <td>{item.user.nickname}</td>
+                                    { this.state.isVerify == 1 ? <td>{item.views}</td> : "" }
                                     { this.state.isVerify == 1 ? <td>{item.comment_num}</td> : "" }
                                     { this.state.isVerify == 1 ? <td>{item.zan_num}</td> : ""}
                                     { this.state.isVerify == 1 ? <td>{item.collection_num}</td> : "" }
@@ -437,6 +521,7 @@ class Thread extends Component {
                                     { this.state.isVerify == 1 ? <td>{item.isgreat ? "是" : "否"}</td> : "" }
                                     { this.state.isVerify == 1 ? <td>{item.ishot ? "是" : "否"}</td> : "" }
                                     { this.state.isVerify == 1 ? <td>{item.isofficial ? "是" : "否"}</td> : "" }
+                                    <td>{item.created_at}</td>
                                    
                                     { 
                                         this.state.isVerify == 0 ? 
