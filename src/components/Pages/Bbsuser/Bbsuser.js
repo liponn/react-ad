@@ -22,6 +22,7 @@ class Bbsuser extends Component {
       errorMsg: '',
       addErrorMsg: '',
       dataTable: {
+        route:'bbsuser',
         title: '论坛用户',
         identify: 0,
         listType: BBS_USER_SEARCH_LIST,
@@ -130,6 +131,17 @@ class Bbsuser extends Component {
             tableType:'radio3',
             searchable: false,
             getOptions:this.getUserTypes,
+            orderable: false,
+            search: {
+              value: '',
+              regex: false,
+            },
+          },
+          {
+            name: 'postnum',
+            cname: '发帖数',
+            type: 'none',
+            searchable: false,
             orderable: false,
             search: {
               value: '',
