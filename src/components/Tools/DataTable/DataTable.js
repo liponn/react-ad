@@ -242,7 +242,6 @@ class DataTable extends Component {
 
     render() {
         const omg = this.props.omg;
-        console.log(this.state.route,"111");
         let dtList  = {}
         if (typeof this.state.identify === 'undefined') {
             dtList = omg[this.state.listType] || {};
@@ -320,7 +319,6 @@ class DataTable extends Component {
                                     >↓</span>
                                 </th>
                             ))}
-                            { this.state.route == "bbsuser" ? <th>发帖数</th> : "" }
                             <th>操作</th>
                         </tr>
                         </thead>

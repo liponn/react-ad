@@ -176,6 +176,8 @@ import {
   BBS_THREAD_VERIFY,
   BBS_THREAD_IMG_ADD,
   BBS_THREAD_UPDATE,
+  BBS_THREAD_BATCH_PASS,
+  BBS_THREAD_BATCH_REFUSE,
 
   BBS_SECTION_CLOSE,
   BBS_SECTION_DT_ADD,
@@ -491,6 +493,8 @@ apiList[BBS_THREAD_RESTORE] = '/bbs/thread/restore';
 apiList[BBS_THREAD_VERIFY] = '/bbs/thread/verify-put';
 apiList[BBS_THREAD_IMG_ADD] = '/upload/img';
 apiList[BBS_THREAD_UPDATE] = '/bbs/thread/update';
+apiList[BBS_THREAD_BATCH_PASS] = '/bbs/thread/batch-pass'
+apiList[BBS_THREAD_BATCH_REFUSE] = '/bbs/thread/batch-fail'
 
 
 
