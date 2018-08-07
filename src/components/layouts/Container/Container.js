@@ -84,6 +84,12 @@ class Container extends Component {
           tag: 'worldcupconfig',
           fontClass: 'fa-star',
         },
+        {
+          title: '逢百活动配置',
+          url: '/perhundred',
+          tag: 'perhundred',
+          fontClass: 'fa-star',
+        },
       ],
     }, {
       title: '活动记录',

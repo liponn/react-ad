@@ -56,12 +56,13 @@ import infolink from './infolink';
 import question from './question';
 import category from './category';
 import log from './log';
-
+import perhundred from './perhundred';
 export default {
 
   path: '/',
 
   children: [
+    perhundred,
     category,
     question,
     infolink,
