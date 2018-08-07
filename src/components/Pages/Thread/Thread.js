@@ -3,16 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchAction } from '../../../actions/omg';
 import { showModal, hideModal } from '../../../actions/modal';
-import { BBS_THREAD_LIST,BBS_SECTION_LIST,BBS_COMMENT_ADD,BBS_THREAD_TOGGLE_STATUS,BBS_THREAD_DT_DEL,BBS_THREAD_UPDATE,BBS_THREAD_DT_UPDATE,BBS_USER_VEST_LIST,BBS_USER_ADMIN_LIST,BBS_THREAD_ADD } from '../../../constants';
+import { BBS_THREAD_LIST,BBS_SECTION_LIST,BBS_THREAD_BATCH_REFUSE,BBS_THREAD_BATCH_PASS, BBS_COMMENT_ADD,BBS_THREAD_TOGGLE_STATUS,BBS_THREAD_DT_DEL,BBS_THREAD_UPDATE,BBS_THREAD_DT_UPDATE,BBS_USER_VEST_LIST,BBS_USER_ADMIN_LIST,BBS_THREAD_ADD } from '../../../constants';
 import { Radio,Pagination } from '../../tools';
 import ThreadAddModal from '../../modals/ThreadAddModal';
 import ThreadMoveModal from '../../modals/ThreadMoveModal';
 import ThreadReplyModal from '../../modals/ThreadReplyModal';
-import { DatePicker,Select,Form,Input } from "antd";
+import { DatePicker,Select,Form,Input,Checkbox } from "antd";
+
 
 class Thread extends Component {
     constructor(props) {
         super(props);
+        this.checkArr = [];
         this.freshSectionList = this.freshSectionList.bind(this);
         this.list = this.list.bind(this);
         this.typeChange = this.typeChange.bind(this);
@@ -39,12 +41,16 @@ class Thread extends Component {
         this.componentDidMount = this.componentDidMount.bind(this);
         this.changeOrder = this.changeOrder.bind(this);
         this.govThread = this.govThread.bind(this);
+        this.batchPass = this.batchPass.bind(this);
+        this.batchRefuse = this.batchRefuse.bind(this);
         this.state = {
             isVerify:0,
             order:{
                 col:'id',
-                val:'desc'
-            }
+                val:'desc',
+            },
+            allChecked: false,
+
         }
     }
 
@@ -53,7 +59,9 @@ class Thread extends Component {
         this.getAdminList();
         this.getVestList();
         this.list();
+
     }
+    
 
     list(gov=false){
         const queryObj = {};
@@ -94,6 +102,48 @@ class Thread extends Component {
             queryObj
         }
         this.props.dispatch(fetchAction(request));
+    }
+
+
+    batchRefuse(e){
+        const isAll = e.target.dataset.type;
+        const tidArr = document.getElementsByName('all_tid');
+        let tidStr = '';
+        const formData = new FormData;
+        for(var i=0;i<tidArr.length;i++){
+                if(isAll == 'all'){
+                    tidStr+= '-'+tidArr[i].value;
+                } else {
+                    if(tidArr[i].checked == true){
+                        tidStr+= '-'+tidArr[i].value;
+                    }
+                }
+               
+        }
+        formData.append('id',tidStr);
+        this.props.dispatch(fetchAction({type:BBS_THREAD_BATCH_REFUSE, method:'POST',formData:formData}))
+            .then(() => (this.list()));
+        
+    }
+
+    batchPass(e){
+        const isAll = e.target.dataset.type;
+        const tidArr = document.getElementsByName('all_tid');
+        let tidStr = '';
+        const formData = new FormData;
+        for(var i=0;i<tidArr.length;i++){
+                if(isAll == 'all'){
+                    tidStr+= '-'+tidArr[i].value;
+                } else {
+                    if(tidArr[i].checked == true){
+                        tidStr+= '-'+tidArr[i].value;
+                    }
+                }
+               
+        }
+        formData.append('id',tidStr);
+        this.props.dispatch(fetchAction({type:BBS_THREAD_BATCH_PASS, method:'POST',formData:formData}))
+            .then(() => (this.list()));
     }
 
     govThread(){
@@ -315,6 +365,9 @@ class Thread extends Component {
         const items = threadList.data || [];
         const appUrl = threadList.app_url || '';
         this.items = items;
+        for(var i=0; i<items.length;i++){
+            this.checkArr[items[i].id] = false;
+        }
         this.sections = sections;
         this.admins = this.props.adminList || [];
         this.vests = this.props.vestList || [];
@@ -409,13 +462,17 @@ class Thread extends Component {
                                         <i className="fa fa-search">搜索</i>
                                     </button>
                                 </Form>
-                                { this.state.isVerify == 1 ?
-                                <button onClick={this.govThread} className="btn btn-sm btn-info pull-right">官方帖</button> : "" }
+                                { this.state.isVerify == 0 ?
+                                <button onClick={this.batchPass} data-type="some" className="btn btn-sm btn-info pull-right">通过</button> : "" }
 
-                                { this.state.isVerify == 1 ? 
-                                <button onClick={this.showAddModal} className="btn btn-sm btn-info pull-right">
-                                    <i className="fa fa-plus">添加</i>
-                                </button> : ""}
+                                { this.state.isVerify == 1 ?
+                                <button onClick={this.batchRefuse} data-type="some" className="btn btn-sm btn-info pull-right">拒绝</button>  : "" }
+                                { this.state.isVerify == 1 ?
+                                <button onClick={this.govThread} className="btn btn-sm btn-info pull-right">官方帖</button>   : "" }
+                                { this.state.isVerify == 1 ?
+                                <button onClick={this.showAddModal} className="btn btn-sm btn-info pull-right"><i className="fa fa-plus">添加</i></button>   : "" }
+                                 
+                                
 
                             </h4>
                         </div>
@@ -424,6 +481,7 @@ class Thread extends Component {
                             {
                                 this.state.isVerify == 0 ? 
                                     <tr>
+                                        <th><button onClick={this.batchPass} data-type="all"  className="btn btn-success-outline btn-sm">全部通过</button></th>
                                         <th>ID</th>
                                         <th>所属版块</th>
                                         <th>贴子标题</th>
@@ -435,6 +493,7 @@ class Thread extends Component {
                                     </tr> :
                                 this.state.isVerify == 1 ?
                                      <tr>
+                                        <th><button onClick={this.batchRefuse} data-type="all" className="btn btn-sm btn-secondary-outline">全部拒绝</button></th>
                                         <th>ID</th>
                                         <th>所属版块</th>
                                         <th>贴子标题</th>
@@ -506,6 +565,9 @@ class Thread extends Component {
                             <tbody>
                             { items.map((item,index) => (
                                 <tr key={`group-${index}`}>
+                                    { this.state.isVerify == 1 || this.state.isVerify == 0 ?  
+                                        <td><Checkbox value={item.id} name="all_tid" ></Checkbox></td>
+                                    : "" }
                                     <td>{item.id}</td>
                                     <td>{item.section.name}</td>
                                     <td>{item.title}</td>
