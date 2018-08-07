@@ -312,7 +312,9 @@ import {
   MYSERVICE_INFO,
   QUESTION_ADD_LIST,
   USER_LOG_LIST,
-
+  PERHUNDRED_LIST,
+  PERHUNDRED_OPERATION,
+  PERHUNDRED_STATUS,
 
 } from '../constants/index.js';
 
@@ -639,6 +641,9 @@ apiList[CATEGORY_DEL] = '/category/delete';
 apiList[CATEGORY_ENABLE] = '/category/on-line';
 apiList[CATEGORY_DISABLE] = '/category/off-line';
 apiList[CATEGORY_INFO] = '/category/edit';
+apiList[PERHUNDRED_LIST] = '/perhundred/list';
+apiList[PERHUNDRED_OPERATION] = '/perhundred/operation';
+apiList[PERHUNDRED_STATUS] = '/perhundred/up-status';
 function getApi(type) {
   let apiHost = '';
   const host = typeof window !== 'undefined' ? window.location.hostname : hostname;
