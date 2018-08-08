@@ -43,6 +43,9 @@ class Thread extends Component {
         this.govThread = this.govThread.bind(this);
         this.batchPass = this.batchPass.bind(this);
         this.batchRefuse = this.batchRefuse.bind(this);
+        this.topScreen = this.topScreen.bind(this);
+        this.greatScreen = this.greatScreen.bind(this);
+        this.hotScreen = this.hotScreen.bind(this);
         this.state = {
             isVerify:0,
             order:{
@@ -50,7 +53,10 @@ class Thread extends Component {
                 val:'desc',
             },
             allChecked: false,
-
+            gov:0,
+            top:0,
+            great:0,
+            hot:0,
         }
     }
 
@@ -63,7 +69,7 @@ class Thread extends Component {
     }
     
 
-    list(gov=false){
+    list(gov=false,top=false,great=false,hot=false){
         const queryObj = {};
         const page = this.state.page || 1;
         const isVerify = this.state.isVerify || 0;
@@ -79,7 +85,29 @@ class Thread extends Component {
             queryObj[`data[order][${order.col}]`] = order.val;
         }
         if(gov){
-            queryObj[`data[filter][isofficial]`] = 1;
+            let govVal = this.state.gov ? 0 :1
+            queryObj[`data[filter][isofficial]`] = govVal;
+            this.setState({
+                gov:govVal,
+            })
+        }else if(top){
+            let topVal = this.state.top ? 0 :1
+            queryObj[`data[filter][istop]`] = topVal;
+            this.setState({
+                top:topVal,
+            })
+        }else if(great){
+            let greatVal = this.state.great ? 0 :1
+            queryObj[`data[filter][isgreat]`] = greatVal;
+            this.setState({
+                great:greatVal,
+            })
+        }else if(hot){
+            let hotVal = this.state.hot ? 0 :1
+            queryObj[`data[filter][ishot]`] = hotVal;
+            this.setState({
+                hot:hotVal,
+            })
         }else{
             if(searchParams.type_id){
                 queryObj[`data[filter][type_id]`] = searchParams.type_id;
@@ -147,7 +175,19 @@ class Thread extends Component {
     }
 
     govThread(){
-        this.list(1);
+        this.list(true);
+    }
+
+    topScreen(){
+        this.list(false,true)
+    }
+
+    greatScreen(){
+        this.list(false,false,true)
+    }
+
+    hotScreen(){
+        this.list(false,false,false,true)
     }
 
     typeChange(e){
@@ -542,9 +582,9 @@ class Thread extends Component {
                                         </th>
                                         <th>视频链接</th>
                                         <th>图片</th>
-                                        <th>是否置顶</th>
-                                        <th>是否加精</th>
-                                        <th>是否最热</th>
+                                        <th onClick={this.topScreen}>是否置顶</th>
+                                        <th onClick={this.greatScreen}>是否加精</th>
+                                        <th onClick={this.hotScreen}>是否最热</th>
                                         <th>官方帖</th>
                                         <th>发帖时间</th>
                                         <th>操作</th>
