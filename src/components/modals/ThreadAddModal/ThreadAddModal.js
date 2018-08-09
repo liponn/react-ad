@@ -179,9 +179,9 @@ class ThreadAddModal extends Component {
                 </div>
                 <Input labelName="视频代码" name="video_code" placeholder="腾讯视频分享中通用代码里src地址" defaultValue={item.video_code} />
                 <div className="form-group row">
-                  <label className="col-sm-4 form-control-label text-xs-right">帖子内容:</label>
-                  <div className="col-sm-8">
-                     <textarea cols='38' rows='15' name="content" defaultValue={item.content}></textarea>
+                  <label className="col-sm-2   form-control-label text-xs-right">帖子内容:</label>
+                  <div className="col-sm-10">
+                     <Editor name="content" defaultValue={item.content} />
                   </div>
                 </div>
                 <Checkbox className="pull-left" key="isofficial"  name="isofficial" labelName="官方帖" checked={item.isofficial == 1 ? true : false} />
@@ -195,7 +195,6 @@ class ThreadAddModal extends Component {
 ThreadAddModal.propTypes = {
   submit: PropTypes.func.isRequired,
   errorMsg: PropTypes.string,
-  update: PropTypes.bool.isRequired,
 }
 
 ThreadAddModal.defaultProps = {
