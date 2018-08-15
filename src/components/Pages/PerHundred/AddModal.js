@@ -15,9 +15,9 @@ class AddModal extends Component {
           <input type="hidden" name="id" defaultValue={this.props.item.id || ''} />
           <Input labelName="终极大奖名称" name="ultimate_award" type="text" required defaultValue={this.props.item.ultimate_award || ''} />
           <AttachmentInput labelName="终极大奖配图（小）" name="ultimate_img1" position={`banner_${this.props.item.ultimate_img1}`} defaultValue={this.props.item.ultimate_img1} />
-          <AttachmentInput labelName="终极大奖配图（大）" name="ultimate_img2" position={`banner_${this.props.item.ultimate_img1}`} defaultValue={this.props.item.ultimate_img1} />
+          <AttachmentInput labelName="终极大奖配图（大）" name="ultimate_img2" position={`banner_${this.props.item.ultimate_img2}`} defaultValue={this.props.item.ultimate_img2} />
           <AttachmentInput labelName="PC终极大奖配图（小）" name="ultimate_pc1" position={`banner_${this.props.item.ultimate_pc1}`} defaultValue={this.props.item.ultimate_pc1} />
-          <AttachmentInput labelName="PC终极大奖配图（大）" name="ultimate_pc2" position={`banner_${this.props.item.ultimate_pc1}`} defaultValue={this.props.item.ultimate_pc1} />
+          <AttachmentInput labelName="PC终极大奖配图（大）" name="ultimate_pc2" position={`banner_${this.props.item.ultimate_pc2}`} defaultValue={this.props.item.ultimate_pc2} />
           <Input labelName="一马当先奖名称" name="first_award" type="text" required defaultValue={this.props.item.first_award || ''} />
           <AttachmentInput labelName="一马当先奖配图（小）" name="first_img1" position={`banner_${this.props.item.first_img1}`} defaultValue={this.props.item.first_img1} />
           <AttachmentInput labelName="一马当先奖配图（大）" name="first_img2" position={`banner_${this.props.item.first_img2}`} defaultValue={this.props.item.first_img2} />
