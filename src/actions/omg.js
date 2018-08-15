@@ -122,6 +122,7 @@ export function commonFetch(type, method = 'GET', formData = false, suffix = '',
         } else {
           dispatch(fetchError(type, json.error_code, json.data.error_msg));
         }
+        userLog(type,params,json.error_code,formData,queryObj);//日志请求
         return json;
       });
   };
