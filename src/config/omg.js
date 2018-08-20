@@ -176,6 +176,8 @@ import {
   BBS_THREAD_VERIFY,
   BBS_THREAD_IMG_ADD,
   BBS_THREAD_UPDATE,
+  BBS_THREAD_BATCH_PASS,
+  BBS_THREAD_BATCH_REFUSE,
 
   BBS_SECTION_CLOSE,
   BBS_SECTION_DT_ADD,
@@ -204,9 +206,12 @@ import {
   BBS_COMMENT_DT_LIST,
   BBS_COMMENT_DT_UPDATE,
   BBS_COMMENT_VERIFY,
-  BBS_COMMENT_UNVERIFY,
   BBS_COMMENT_REPLY,
   BBS_COMMENT_ADD,
+  BBS_COMMENT_LIST,
+  BBS_COMMENT_BATCH_PASS,
+  BBS_COMMENT_BATCH_REFUSE,
+
 
   BBS_MESSAGE_DT_ADD,
   BBS_MESSAGE_DT_DEL,
@@ -493,6 +498,8 @@ apiList[BBS_THREAD_RESTORE] = '/bbs/thread/restore';
 apiList[BBS_THREAD_VERIFY] = '/bbs/thread/verify-put';
 apiList[BBS_THREAD_IMG_ADD] = '/upload/img';
 apiList[BBS_THREAD_UPDATE] = '/bbs/thread/update';
+apiList[BBS_THREAD_BATCH_PASS] = '/bbs/thread/batch-pass'
+apiList[BBS_THREAD_BATCH_REFUSE] = '/bbs/thread/batch-fail'
 
 
 
@@ -524,6 +531,11 @@ apiList[BBS_COMMENT_DT_LIST] = '/bbs/comment/dt-list';
 apiList[BBS_COMMENT_VERIFY] = '/bbs/comment/verify-put';
 apiList[BBS_COMMENT_REPLY] = '/bbs/comment/admin-reply';
 apiList[BBS_COMMENT_ADD] = '/bbs/comment/add';
+apiList[BBS_COMMENT_LIST] = '/bbs/comment/list';
+apiList[BBS_COMMENT_BATCH_REFUSE] = '/bbs/comment/batch-refuse';
+apiList[BBS_COMMENT_BATCH_PASS] = '/bbs/comment/batch-pass';
+
+ 
 
 
 apiList[BBS_MESSAGE_DT_DEL] = '/bbs/pm/dt-delete';
