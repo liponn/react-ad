@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchAction } from '../../../actions/omg';
 import { showModal, hideModal } from '../../../actions/modal';
-import { BBS_THREAD_LIST,BBS_SECTION_LIST,BBS_THREAD_BATCH_REFUSE,BBS_THREAD_BATCH_PASS, BBS_COMMENT_ADD,BBS_THREAD_TOGGLE_STATUS,BBS_THREAD_DT_DEL,BBS_THREAD_UPDATE,BBS_THREAD_DT_UPDATE,BBS_USER_VEST_LIST,BBS_USER_ADMIN_LIST,BBS_THREAD_ADD } from '../../../constants';
+import { BBS_THREAD_DELETE,BBS_THREAD_LIST,BBS_SECTION_LIST,BBS_THREAD_BATCH_REFUSE,BBS_THREAD_BATCH_PASS, BBS_COMMENT_ADD,BBS_THREAD_TOGGLE_STATUS,BBS_THREAD_DT_DEL,BBS_THREAD_UPDATE,BBS_THREAD_DT_UPDATE,BBS_USER_VEST_LIST,BBS_USER_ADMIN_LIST,BBS_THREAD_ADD } from '../../../constants';
 import { Radio,Pagination } from '../../tools';
 import ThreadAddModal from '../../modals/ThreadAddModal';
 import ThreadMoveModal from '../../modals/ThreadMoveModal';
@@ -262,7 +262,7 @@ class Thread extends Component {
         const id = e.target.dataset.id;
         const formData = new FormData;
         formData.append('id', id);
-        this.props.dispatch(fetchAction({type:BBS_THREAD_DT_DEL, method:'POST',formData:formData}))
+        this.props.dispatch(fetchAction({type:BBS_THREAD_DELETE, method:'POST',formData:formData}))
             .then(() => (this.list()));
     }
 

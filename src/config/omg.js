@@ -178,6 +178,7 @@ import {
   BBS_THREAD_UPDATE,
   BBS_THREAD_BATCH_PASS,
   BBS_THREAD_BATCH_REFUSE,
+  BBS_THREAD_DELETE,
 
   BBS_SECTION_CLOSE,
   BBS_SECTION_DT_ADD,
@@ -500,6 +501,7 @@ apiList[BBS_THREAD_IMG_ADD] = '/upload/img';
 apiList[BBS_THREAD_UPDATE] = '/bbs/thread/update';
 apiList[BBS_THREAD_BATCH_PASS] = '/bbs/thread/batch-pass'
 apiList[BBS_THREAD_BATCH_REFUSE] = '/bbs/thread/batch-fail'
+apiList[BBS_THREAD_DELETE] = '/bbs/thread/delete';
 
 
 
@@ -535,7 +537,7 @@ apiList[BBS_COMMENT_LIST] = '/bbs/comment/list';
 apiList[BBS_COMMENT_BATCH_REFUSE] = '/bbs/comment/batch-refuse';
 apiList[BBS_COMMENT_BATCH_PASS] = '/bbs/comment/batch-pass';
 
- 
+
 
 
 apiList[BBS_MESSAGE_DT_DEL] = '/bbs/pm/dt-delete';
