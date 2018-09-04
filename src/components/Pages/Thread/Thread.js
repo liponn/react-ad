@@ -663,15 +663,9 @@ class Thread extends Component {
                                                 <button data-id={item.id} onClick={this.hotThread}
                                                         className="btn btn-warning-outline btn-sm"
                                                 >{item.ishot ? "取消" : "最热"}</button>
-                                                {
-                                                    item.istop && !item.is_special  ?  
-                                                    <button data-id={item.id} onClick={this.superTopThread}
-                                                        className="btn btn-danger-outline btn-sm"
-                                                    >特定帖</button> : 
-                                                    <button data-id={item.id} data-number={item.istop} onClick={this.topThread}
-                                                        className="btn btn-danger-outline btn-sm"
-                                                    >置顶</button>
-                                                }
+                                                <button data-id={item.id} data-number={item.istop} onClick={this.topThread}
+                                                    className="btn btn-danger-outline btn-sm"
+                                                >{item.istop ? "取消" : "置顶"}</button>
                                             </td> 
                                         : 
                                         this.state.isVerify == 2 ? 
