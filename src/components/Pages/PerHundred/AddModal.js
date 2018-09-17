@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Modal, Input, Submit, DateTimeInput, Textarea, AttachmentInput, Select } from '../../tools';
+import { Modal, Input, Submit, DateTimeInput, Textarea, AttachmentInput, Select, Editor } from '../../tools';
 import { getConfig } from '../../../config/omg';
 
 class AddModal extends Component {
@@ -35,6 +35,17 @@ class AddModal extends Component {
           <AttachmentInput labelName="PC阳光普照奖配图（大）" name="sunshine_pc2" position={`banner_${this.props.item.sunshine_pc2}`} defaultValue={this.props.item.sunshine_pc2} />
           <Input hidden={this.props.update ? 'hidden' : ''} labelName="开奖号数量" name="numbers" type="number" required defaultValue={this.props.item.numbers || ''} />
           <DateTimeInput required labelName="开始时间" name="start_time" defaultValue={this.props.item.start_time} />
+          <Input labelName="奖品专场文字" name="award_text" type="text" defaultValue={this.props.item.award_text || ''} />
+          终极大奖规则：
+          <Editor name="ultimate_rule" defaultValue={this.props.item.ultimate_rule}/>
+          一马当先规则：
+          <Editor name="first_rule" defaultValue={this.props.item.first_rule}/>
+          一锤定音规则：
+          <Editor name="last_rule" defaultValue={this.props.item.last_rule}/>
+          阳光普照规则：
+          <Editor name="sunshine_rule" defaultValue={this.props.item.sunshine_rule}/>
+          活动规则：
+          <Editor name="activity_rule" defaultValue={this.props.item.activity_rule}/>
           <Submit />
         </form>
       </Modal>
