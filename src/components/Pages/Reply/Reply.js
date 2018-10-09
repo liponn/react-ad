@@ -393,13 +393,11 @@ class Reply extends Component {
                         <table className="table table-bordered m-b-0 table-hover data-table">
                             <thead>
                                     <tr>
-                                        <th>
                                         {
-                                          this.state.isVerify == 0 ? <button onClick={this.batchPass} data-type="all"  className="btn btn-success-outline btn-sm">全部通过</button> : 
-                                          this.state.isVerify == 1 ? <button onClick={this.batchRefuse} data-type="all"  className="btn btn-sm btn-secondary-outline">全部拒绝</button> :
+                                          this.state.isVerify == 0 ? <th><button onClick={this.batchPass} data-type="all"  className="btn btn-success-outline btn-sm">全部通过</button></th> : 
+                                          this.state.isVerify == 1 ?  <th><button onClick={this.batchRefuse} data-type="all"  className="btn btn-sm btn-secondary-outline">全部拒绝</button></th> :
                                           ""
                                         }
-                                        </th>
                                         <th>ID</th>
                                         <th>用户ID</th>
                                         <th>帖子ID</th>
@@ -422,7 +420,7 @@ class Reply extends Component {
                                     <td>{item.content}</td>
                                     <td>{item.isverify}</td>
                                     <td>{item.created_at}</td>
-                                    <td>{item.thread.content}</td>
+                                    <td>{item.thread != null ? item.thread.content : "帖子被删除"}</td>
                                    
                                     { 
                                         this.state.isVerify == 0 ? 
