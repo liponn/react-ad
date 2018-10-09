@@ -12,7 +12,7 @@ export default {
     {
       path: '/:type',
       action(context) {
-        return <AppUpdate type={+context.params.type} />;
+        return <AppUpdate type={+context.params.type} page={+context.query.page || 1} />;
       },
     },
   ],

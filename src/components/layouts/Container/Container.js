@@ -313,7 +313,7 @@ class Container extends Component {
         {
           title: '日志',
           url: '/log',
-          tag: 'log',
+          tag: 'menulog',
           fontClass: 'fa-user-secret',
         },
       ],
