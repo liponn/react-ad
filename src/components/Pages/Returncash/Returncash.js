@@ -5,7 +5,6 @@ import { RETURNCASH_LIST ,RETURNCASH_ADD, RETURNCASH_UPDATE, RETURNCASH_DELETE, 
 import { getConfig } from '../../../config/omg';
 import history from '../../../core/history';
 import { fetchAction } from '../../../actions/omg';
-import AddModal from './AddModal';
 import { ReturncashDataTable } from '../../tools';
 
 class Returncash extends Component {
