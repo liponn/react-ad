@@ -49,6 +49,12 @@ class Container extends Component {
           tag: 'channel',
           fontClass: 'fa-trello',
         },
+        {
+          title: '返现',
+          url: '/returncash/1',
+          tag: 'returncash',
+          fontClass: 'fa-usd',
+        },
       ],
     }, {
       title: '定制化活动',

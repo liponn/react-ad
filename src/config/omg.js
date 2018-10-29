@@ -316,6 +316,11 @@ import {
   PERHUNDRED_LIST,
   PERHUNDRED_OPERATION,
   PERHUNDRED_STATUS,
+  RETURNCASH_LIST,
+  RETURNCASH_ADD,
+  RETURNCASH_UPDATE,
+  RETURNCASH_DELETE,
+  RETURNCASH_BATCH_UPDATE,
 
 } from '../constants/index.js';
 
@@ -646,6 +651,11 @@ apiList[CATEGORY_INFO] = '/category/edit';
 apiList[PERHUNDRED_LIST] = '/perhundred/list';
 apiList[PERHUNDRED_OPERATION] = '/perhundred/operation';
 apiList[PERHUNDRED_STATUS] = '/perhundred/up-status';
+apiList[RETURNCASH_LIST] = '/returncash/dt-list';
+apiList[RETURNCASH_ADD] = '/returncash/add';
+apiList[RETURNCASH_UPDATE] = '/returncash/send';
+apiList[RETURNCASH_DELETE] = '/returncash/dt-delete';
+apiList[RETURNCASH_BATCH_UPDATE] = '/returncash/batch-send';
 function getApi(type) {
   let apiHost = '';
   const host = typeof window !== 'undefined' ? window.location.hostname : hostname;
@@ -1066,6 +1076,12 @@ const questionType = {
   7: '修改登录密码',
   8: '查看银行卡',
 }
+const returncashType = {
+  0: '未发送',
+  1: '处理中',
+  3: '成功',
+  5: '失败',
+}
 function getAllRuleTypes() {
   const allRuleTypes = {};
   Object.assign(allRuleTypes, ruleTypes);
@@ -1126,7 +1142,8 @@ const config = {
   bannerPopFrequencyTypes,
   examineAppTypes,
   redeemTypes,
-  questionType
+  questionType,
+  returncashType
 };
 
 function getConfig(type, key = false) {

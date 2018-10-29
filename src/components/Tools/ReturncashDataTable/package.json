@@ -1,0 +1,6 @@
+{
+  "name": "ReturncashDataTable",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ReturncashDataTable.js"
+}
