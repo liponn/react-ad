@@ -51,7 +51,7 @@ class Container extends Component {
         },
         {
           title: '返现',
-          url: '/returncash/1',
+          url: '/returncash/0',
           tag: 'returncash',
           fontClass: 'fa-usd',
         },
