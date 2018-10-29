@@ -1,39 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Modal, Alert, Input, AttachmentInput, DateTimeInput, Submit,Fieldset, Select, FileInput } from '../../tools';
-import { getConfig } from '../../../config/omg';
+import { Modal, Alert, Submit, FileInput } from '../../tools';
 
 
 class AddModal extends Component {
   constructor(props) {
     super(props);
-    this.typeChange = this.typeChange.bind(this);
-    const feeFlowConfigChildTypes = getConfig('feeFlowConfigChildTypes');
-    const feeFlowConfigChildOperator = getConfig('feeFlowConfigChildOperator');
-    const item = this.props.item || {};
-    this.state = {
-      type: item.type || 1,
-      feeFlowConfigChildTypes,
-      feeFlowConfigChildOperator,
-    };
-  }
-  typeChange(e) {
-    const value = $(e.target).val();
-    this.setState({
-      type: +value,
-    });
   }
   static propTypes = {
     submit: PropTypes.func.isRequired,
-    type: PropTypes.string.isRequired,
     errorMsg: PropTypes.string,
-    item: PropTypes.object,
   }
   static defaultProps = {
     dispatch: PropTypes.func.isRequired,
     submit: PropTypes.func.isRequired,
-    item: {},
   }
   render() {
     return (
