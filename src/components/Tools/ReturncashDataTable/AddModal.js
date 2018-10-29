@@ -9,7 +9,7 @@ class AddModal extends Component {
   }
   render() {
     return (
-      <Modal title={this.props.update ? '编辑' : '添加'}>
+      <Modal title="添加">
         <form onSubmit={this.props.submit}>
           <div className="form-group row">
             <FileInput labelName="文件" name="file" />
@@ -23,14 +23,6 @@ class AddModal extends Component {
 
 AddModal.propTypes = {
   submit: PropTypes.func.isRequired,
-  columns: PropTypes.array.isRequired,
-  item: PropTypes.object,
-  update: PropTypes.bool,
-}
-
-AddModal.defaultProps = {
-  item: {},
-  update: false,
 }
 
 
