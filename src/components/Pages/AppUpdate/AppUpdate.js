@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ImgBox, Card, Radio, Status, Modal, Alert, DateTimeInput, Input, Submit, Textarea, Select, Popover } from '../../tools';
+import { ImgBox, Card, Radio, Status, Modal, Alert, DateTimeInput, Input, Submit, Textarea, Select, Popover,Pagination } from '../../tools';
 import { showModal, hideModal } from '../../../actions/modal';
 import { fetchAction } from '../../../actions/omg';
 import {APP_DISABLE, APP_ENABLE, APP_ADD, APP_PUT, APP_INFO, APP_UPDATE_LOG, APP_DEL } from '../../../constants';
@@ -21,19 +21,24 @@ class AppUpdate extends Component {
     this.add = this.add.bind(this);
     this.update = this.update.bind(this);
     const types = getConfig('appUpdateTypes');
+    const page = props.page || 1;
     this.state = {
+      page,
       types,
       errorMsg: '',
       addErrorMsg: '',
     };
   }
   componentDidMount() {
-    this.freshData(this.props.type);
+    this.freshData(this.props.type,this.props.page);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.type !== nextProps.type) {
-      this.freshData(nextProps.type);
+    if (this.props.type !== nextProps.type || nextProps.page !== this.props.page) {
+      this.setState({
+        page: nextProps.page,
+      })
+      this.freshData(nextProps.type,nextProps.page);
     }
   }
 
@@ -70,7 +75,7 @@ class AppUpdate extends Component {
       method: 'POST',
       formData,
     })).then(() => {
-      this.freshData(this.props.type);
+      this.freshData(this.props.type,this.props.page);
     });
   }
   enable(e) {
@@ -82,14 +87,15 @@ class AppUpdate extends Component {
       method: 'POST',
       formData,
     })).then(() => {
-      this.freshData(this.props.type);
+      this.freshData(this.props.type,this.props.page);
     });
   }
-  freshData(type) {
+  freshData(type,page) {
     this.props.dispatch(fetchAction({
       type: APP_UPDATE_LOG,
+      queryObj: { page },
       suffix: `/${type}`,
-      key: type,
+      key: `${type}_${page}`,
     }));
   }
   del(e) {
@@ -103,7 +109,7 @@ class AppUpdate extends Component {
       type: APP_DEL,
       method: 'POST',
       formData,
-    })).then(() => (this.freshData(this.props.type)));
+    })).then(() => (this.freshData(this.props.type,this.props.page)));
   }
   add(e) {
     e.preventDefault();
@@ -115,7 +121,7 @@ class AppUpdate extends Component {
     })).then(json => {
       if (json.error_code === 0) {
         this.props.dispatch(hideModal(true));
-        this.freshData(this.props.type);
+        this.freshData(this.props.type,this.props.page);
       } else {
         this.setState({
           addErrorMsg: json.data.error_msg,
@@ -135,7 +141,7 @@ class AppUpdate extends Component {
     })).then(json => {
       if (json.error_code === 0) {
         this.props.dispatch(hideModal(true));
-        this.freshData(this.props.type);
+        this.freshData(this.props.type,this.props.page);
       } else {
         this.setState({
           addErrorMsg: json.data.error_msg,
@@ -149,6 +155,12 @@ class AppUpdate extends Component {
     const value = e.target.value;
     hisotry.push(`/appupdate/${value}`);
   }
+  pageSelect(page) {
+    this.setState({
+      page,
+    });
+    this.freshData(this.props.type,page);
+  }
   render() {
     const { updates, type } = this.props;
     const { types } = this.state;
@@ -158,7 +170,8 @@ class AppUpdate extends Component {
         onClick={this.showAddModal}
       >添加</button>
     );
-    const updatesList = updates[type] || {};
+    const key = `${type}_${this.props.page}`;
+    const updatesList = updates[key] || {};
     const items = updatesList.data || [];
     this.items = items;
     return (
@@ -213,6 +226,7 @@ class AppUpdate extends Component {
             </tbody>
           </table>
         </Card>
+        <Pagination currentPage={updatesList.current_page} lastPage={updatesList.last_page} />
       </div>
     );
   }

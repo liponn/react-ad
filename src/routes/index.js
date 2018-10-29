@@ -57,11 +57,13 @@ import infolink from './infolink';
 import question from './question';
 import category from './category';
 import perhundred from './perhundred';
+import returncash from './returncash';
 export default {
 
   path: '/',
 
   children: [
+    returncash,
     perhundred,
     category,
     question,

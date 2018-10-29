@@ -178,6 +178,7 @@ import {
   BBS_THREAD_UPDATE,
   BBS_THREAD_BATCH_PASS,
   BBS_THREAD_BATCH_REFUSE,
+  BBS_THREAD_DELETE,
 
   BBS_SECTION_CLOSE,
   BBS_SECTION_DT_ADD,
@@ -315,6 +316,11 @@ import {
   PERHUNDRED_LIST,
   PERHUNDRED_OPERATION,
   PERHUNDRED_STATUS,
+  RETURNCASH_LIST,
+  RETURNCASH_ADD,
+  RETURNCASH_UPDATE,
+  RETURNCASH_DELETE,
+  RETURNCASH_BATCH_UPDATE,
 
 } from '../constants/index.js';
 
@@ -500,6 +506,7 @@ apiList[BBS_THREAD_IMG_ADD] = '/upload/img';
 apiList[BBS_THREAD_UPDATE] = '/bbs/thread/update';
 apiList[BBS_THREAD_BATCH_PASS] = '/bbs/thread/batch-pass'
 apiList[BBS_THREAD_BATCH_REFUSE] = '/bbs/thread/batch-fail'
+apiList[BBS_THREAD_DELETE] = '/bbs/thread/delete';
 
 
 
@@ -535,7 +542,7 @@ apiList[BBS_COMMENT_LIST] = '/bbs/comment/list';
 apiList[BBS_COMMENT_BATCH_REFUSE] = '/bbs/comment/batch-refuse';
 apiList[BBS_COMMENT_BATCH_PASS] = '/bbs/comment/batch-pass';
 
- 
+
 
 
 apiList[BBS_MESSAGE_DT_DEL] = '/bbs/pm/dt-delete';
@@ -644,6 +651,11 @@ apiList[CATEGORY_INFO] = '/category/edit';
 apiList[PERHUNDRED_LIST] = '/perhundred/list';
 apiList[PERHUNDRED_OPERATION] = '/perhundred/operation';
 apiList[PERHUNDRED_STATUS] = '/perhundred/up-status';
+apiList[RETURNCASH_LIST] = '/returncash/dt-list';
+apiList[RETURNCASH_ADD] = '/returncash/add';
+apiList[RETURNCASH_UPDATE] = '/returncash/send';
+apiList[RETURNCASH_DELETE] = '/returncash/dt-delete';
+apiList[RETURNCASH_BATCH_UPDATE] = '/returncash/batch-send';
 function getApi(type) {
   let apiHost = '';
   const host = typeof window !== 'undefined' ? window.location.hostname : hostname;
@@ -1065,6 +1077,12 @@ const questionType = {
   7: '修改登录密码',
   8: '查看银行卡',
 }
+const returncashType = {
+  0: '未发送',
+  1: '处理中',
+  3: '成功',
+  5: '失败',
+}
 function getAllRuleTypes() {
   const allRuleTypes = {};
   Object.assign(allRuleTypes, ruleTypes);
@@ -1126,6 +1144,7 @@ const config = {
   examineAppTypes,
   redeemTypes,
   questionType,
+  returncashType
 };
 
 function getConfig(type, key = false) {
