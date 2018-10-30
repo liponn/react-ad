@@ -67,6 +67,13 @@ class AddModal extends Component {
       case 'xcx_icon':
         fileds.push(<Input key="name" name="name" labelName="名称" defaultValue={this.props.item.name} />);
         break;
+      case 'mobile_pop':
+        fileds.push(<Input key="name" name="name" labelName="标题" defaultValue={this.props.item.name} />);
+        fileds.push(<Input key="share_name" name="short_desc" labelName="版本号" defaultValue={this.props.item.short_desc} />);
+        fileds.push(<Select key="pop_type" labelName="跳转类型" name="type" defaultValue={this.props.item.type} options={this.state.popTypes} />);
+        fileds.push(<Input labelName="IOS跳转链接(下面跳转链接为安卓)" name="url_ios" defaultValue={this.props.item.url_ios} />);
+        fileds.push(<Select key="view_frequency"  name="view_frequency" labelName="显示频次" options={getConfig('bannerPopFrequencyTypes')}  defaultValue={this.props.item.view_frequency} />);
+      break;
       default:
         fileds.push(<Input key="share_name" name="name" labelName="埋点说明" defaultValue={this.props.item.name} />);
     }

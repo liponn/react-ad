@@ -212,6 +212,7 @@ class Banner extends Component {
                   && this.props.type !== 'xcx'
                   && this.props.type !== 'xcx_icon'
                   &&  this.props.type !== 'index_icon'
+                  &&  this.props.type !== 'mobile_pop'
                   && <td>埋点说明</td>
                 }
 
@@ -220,24 +221,25 @@ class Banner extends Component {
                 {this.props.path === 'ShareConfig' && <th>分享内容</th>}
                 {this.props.path === 'ShareConfig' && <th>分享时说明</th>}
                 {this.props.type === 'index_icon' && <th>名称</th>}
-                {this.props.type === 'pop' && <th>标题</th>}
+                { (this.props.type === 'pop' || this.props.type === 'mobile_pop') && <th>标题</th>}
                 { (this.props.type === 'discover_feature' || this.props.type === 'xcx' || this.props.type === 'xcx_icon') && <th>名称</th>}
                 {this.props.type === 'index_icon' && <th>附标题</th>}
                 {this.props.type === 'pop' && <th>附标题</th>}
+                {this.props.type === 'mobile_pop' && <th>版本号</th>}
                 {this.props.type === 'index_icon' && <th>TAG</th>}
                 {this.props.type === 'index_icon' && <th>是否分享</th>}
                 {this.props.type !== 'index_icon' && <th>图片预览</th>}
                 {this.props.type === 'index_icon' && <th>未选中图</th>}
                 {this.props.type === 'index_icon' && <th>选中图</th>}
                 {this.props.type === 'cast_finish' && <th>跳转类型</th>}
-                {this.props.type === 'pop' && <th>跳转类型</th>}
+                {(this.props.type === 'pop' || this.props.type === 'mobile_pop') && <th>跳转类型</th>}
                 {this.props.type === 'discover' && <th>tag</th>}
                 {this.props.type === 'channel' && <th>渠道</th>}
                 {this.props.type === 'pc_channel' && <th>渠道</th>}
                 <th>跳转URL</th>
-                {this.props.type === 'pop' && <th>IOS跳转URL</th>}
+                {(this.props.type === 'pop' || this.props.type === 'mobile_pop') && <th>IOS跳转URL</th>}
                 <th>状态</th>
-                {this.props.type === 'pop' && <th>显示频次</th>}
+                {(this.props.type === 'pop' || this.props.type === 'mobile_pop') && <th>显示频次</th>}
                 <th>开始时间</th>
                 <th>结束时间</th>
                 <th>操作</th>
@@ -247,7 +249,7 @@ class Banner extends Component {
             {items.map((item, index) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
-                {this.props.path !== 'ShareConfig' && this.props.type !== 'pop' && this.props.type !== 'index_icon' && <td>{item.name}</td>}
+                {this.props.path !== 'ShareConfig' && this.props.type !== 'pop' && this.props.type !== 'index_icon' && this.props.type !== 'mobile_pop' && <td>{item.name}</td>}
                 {this.props.path === 'ShareConfig' && this.props.type === 'share' && <td>{item.tag}</td>}
                 {this.props.path === 'ShareConfig' && <td>{item.name}</td>}
                 {this.props.path === 'ShareConfig' && <td>{item.desc}</td>}
@@ -256,20 +258,20 @@ class Banner extends Component {
                 {this.props.type === 'index_icon' && <td>{item.short_desc}</td>}
                 {this.props.type === 'index_icon' && <td>{item.tag}</td>}
                 {this.props.type === 'index_icon' && <td>{item.short_des == 1 ? "是" : "否"}</td>}
-                {this.props.type === 'pop' && <td>{item.name}</td>}
-                {this.props.type === 'pop' && <td>{item.short_desc}</td>}
+                {(this.props.type === 'pop' || this.props.type === 'mobile_pop') && <td>{item.name}</td>}
+                {(this.props.type === 'pop' || this.props.type === 'mobile_pop') && <td>{item.short_desc}</td>}
 
                 <td><ImgBox src={item.img_path} /></td>
                 {this.props.type === 'index_icon' && <td><ImgBox src={item.desc} /></td>}
                 {this.props.type === 'discover' && <td>{getConfig('discoverTypes', item.type) || '——'}</td>}
                 {this.props.type === 'cast_finish' && <td>{getConfig('popTypes', item.type) || '不跳转'}</td>}
-                {this.props.type === 'pop' && <td>{getConfig('popTypes', item.type) || '不跳转'}</td>}
+                {(this.props.type === 'pop' || this.props.type === 'mobile_pop') && <td>{getConfig('popTypes', item.type) || '不跳转'}</td>}
                 {this.props.type === 'channel' && <td>{item.name}</td>}
                 {this.props.type === 'pc_channel' && <td>{item.name}</td>}
                 <td><a hidden={!item.url} title={item.url} href={item.url} target="_blank">查看</a></td>
-                {this.props.type === 'pop' && <td><a hidden={!item.url_ios} title={item.url_ios} href={item.url_ios} target="_blank">查看</a></td>}
+                {(this.props.type === 'pop' || this.props.type === 'mobile_pop') && <td><a hidden={!item.url_ios} title={item.url_ios} href={item.url_ios} target="_blank">查看</a></td>}
                 <td><Status status={+item.can_use} /></td>
-                {this.props.type === 'pop' && <td>{getConfig('bannerPopFrequencyTypes', item.view_frequency)}</td>}
+                {(this.props.type === 'pop' || this.props.type === 'mobile_pop') && <td>{getConfig('bannerPopFrequencyTypes', item.view_frequency)}</td>}
                 <td>{item.start === null ? '不限制' : item.start}</td>
                 <td>{item.end === null ? '不限制' : item.end}</td>
                 <td>
