@@ -321,6 +321,11 @@ import {
   RETURNCASH_UPDATE,
   RETURNCASH_DELETE,
   RETURNCASH_BATCH_UPDATE,
+  HOCKEYCONFIG_LIST,
+  HOCKEYCARD_OPERATION,
+  HOCKEYGUESS_ADD,
+  HOCKEYGUESS_OPERATION,
+  HOCKEYGUESS_SENDOPENRESULT,
 
 } from '../constants/index.js';
 
@@ -656,6 +661,11 @@ apiList[RETURNCASH_ADD] = '/returncash/add';
 apiList[RETURNCASH_UPDATE] = '/returncash/send';
 apiList[RETURNCASH_DELETE] = '/returncash/dt-delete';
 apiList[RETURNCASH_BATCH_UPDATE] = '/returncash/batch-send';
+apiList[HOCKEYCONFIG_LIST] = '/hockey/config-list';
+apiList[HOCKEYCARD_OPERATION] = '/hockey/card-operation';
+apiList[HOCKEYGUESS_ADD] = '/hockey/guess-add';
+apiList[HOCKEYGUESS_OPERATION] = '/hockey/guess-operation';
+apiList[HOCKEYGUESS_SENDOPENRESULT] = '/hockey/guess-send-open-result';
 function getApi(type) {
   let apiHost = '';
   const host = typeof window !== 'undefined' ? window.location.hostname : hostname;
@@ -1079,10 +1089,22 @@ const questionType = {
   8: '查看银行卡',
 }
 const returncashType = {
-  0: '未发送',
-  1: '处理中',
-  3: '成功',
-  5: '失败',
+    0: '未发送',
+    1: '处理中',
+    3: '成功',
+    5: '失败',
+}
+const hockeyTypes = {
+  1:"集卡配置",
+  2:"竞猜配置",
+}
+const hockeyTeamTypes = {
+    1:"中国",
+    2:"荷兰",
+    3:"阿根廷",
+    4:"澳大利亚",
+    5:"英国",
+    6:"日本",
 }
 function getAllRuleTypes() {
   const allRuleTypes = {};
@@ -1145,7 +1167,9 @@ const config = {
   examineAppTypes,
   redeemTypes,
   questionType,
-  returncashType
+  returncashType,
+  hockeyTypes,
+  hockeyTeamTypes,
 };
 
 function getConfig(type, key = false) {

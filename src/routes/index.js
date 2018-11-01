@@ -58,12 +58,14 @@ import question from './question';
 import category from './category';
 import perhundred from './perhundred';
 import returncash from './returncash';
+import hockey from './hockey';
 export default {
 
   path: '/',
 
   children: [
     returncash,
+    hockey,
     perhundred,
     category,
     question,
