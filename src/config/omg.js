@@ -316,6 +316,11 @@ import {
   PERHUNDRED_LIST,
   PERHUNDRED_OPERATION,
   PERHUNDRED_STATUS,
+  HOCKEYCONFIG_LIST,
+  HOCKEYCARD_OPERATION,
+  HOCKEYGUESS_ADD,
+  HOCKEYGUESS_OPERATION,
+  HOCKEYGUESS_SENDOPENRESULT,
 
 } from '../constants/index.js';
 
@@ -646,6 +651,11 @@ apiList[CATEGORY_INFO] = '/category/edit';
 apiList[PERHUNDRED_LIST] = '/perhundred/list';
 apiList[PERHUNDRED_OPERATION] = '/perhundred/operation';
 apiList[PERHUNDRED_STATUS] = '/perhundred/up-status';
+apiList[HOCKEYCONFIG_LIST] = '/hockey/config-list';
+apiList[HOCKEYCARD_OPERATION] = '/hockey/card-operation';
+apiList[HOCKEYGUESS_ADD] = '/hockey/guess-add';
+apiList[HOCKEYGUESS_OPERATION] = '/hockey/guess-operation';
+apiList[HOCKEYGUESS_SENDOPENRESULT] = '/hockey/guess-send-open-result';
 function getApi(type) {
   let apiHost = '';
   const host = typeof window !== 'undefined' ? window.location.hostname : hostname;
@@ -1066,6 +1076,18 @@ const questionType = {
   7: '修改登录密码',
   8: '查看银行卡',
 }
+const hockeyTypes = {
+  1:"集卡配置",
+  2:"竞猜配置",
+}
+const hockeyTeamTypes = {
+    1:"中国",
+    2:"荷兰",
+    3:"阿根廷",
+    4:"澳大利亚",
+    5:"英国",
+    6:"日本",
+}
 function getAllRuleTypes() {
   const allRuleTypes = {};
   Object.assign(allRuleTypes, ruleTypes);
@@ -1126,7 +1148,9 @@ const config = {
   bannerPopFrequencyTypes,
   examineAppTypes,
   redeemTypes,
-  questionType
+  questionType,
+  hockeyTypes,
+  hockeyTeamTypes,
 };
 
 function getConfig(type, key = false) {
