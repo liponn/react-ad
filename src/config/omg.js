@@ -1106,6 +1106,11 @@ const hockeyTeamTypes = {
     5:"英国",
     6:"日本",
 }
+const hockeyResultTypes = {
+    1:"主胜",
+    2:"平",
+    3:"客胜",
+}
 function getAllRuleTypes() {
   const allRuleTypes = {};
   Object.assign(allRuleTypes, ruleTypes);
@@ -1170,6 +1175,7 @@ const config = {
   returncashType,
   hockeyTypes,
   hockeyTeamTypes,
+  hockeyResultTypes,
 };
 
 function getConfig(type, key = false) {
