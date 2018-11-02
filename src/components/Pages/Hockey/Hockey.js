@@ -249,13 +249,13 @@ class Hockey extends Component {
                                 <td>{item.match_date}</td>
                                 <td>{item.first_master}-{item.first_visiting}</td>
                                 <td>{item.first_score}</td>
-                                <td>{item.first_result == 1 ? '主胜' : item.first_result == 2 ? '平' : item.first_result == 3 ? '客胜': '--'}</td>
+                                <td>{item.first_result == 1 ? '主胜' : item.first_result == 2 ? '平' : item.first_result == 3 ? '主负': '--'}</td>
                                 <td>{item.second_master}-{item.second_visiting}</td>
                                 <td>{item.second_score}</td>
-                                <td>{item.second_result == 1 ? '主胜' : item.second_result == 2 ? '平' : item.second_result == 3 ? '客胜': '--'}</td>
+                                <td>{item.second_result == 1 ? '主胜' : item.second_result == 2 ? '平' : item.second_result == 3 ? '主负': '--'}</td>
                                 <td>{item.third_master}-{item.third_visiting}</td>
                                 <td>{item.third_score}</td>
-                                <td>{item.third_result == 1 ? '主胜' : item.third_result == 2 ? '平' : item.third_result == 3 ? '客胜': '--'}</td>
+                                <td>{item.third_result == 1 ? '主胜' : item.third_result == 2 ? '平' : item.third_result == 3 ? '主负': '--'}</td>
                                 <td>{item.open_status == 0 ? '未开奖' : item.open_status == 1 ? '已公布结果' : item.open_status == 2 ? '发奖中': item.open_status == 3 ? '发奖完成' : item.open_status == 4 ? '已发送有未猜中' : '--'}</td>
                                 <td>
                                     <button hidden={+item.open_status != 1} className="btn btn-sm btn-success-outline" data-today={item.match_date} data-id={item.id} onClick={this.enable}>开奖</button>
