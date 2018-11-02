@@ -1109,7 +1109,7 @@ const hockeyTeamTypes = {
 const hockeyResultTypes = {
     1:"主胜",
     2:"平",
-    3:"客胜",
+    3:"主负",
 }
 function getAllRuleTypes() {
   const allRuleTypes = {};
