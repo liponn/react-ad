@@ -1081,6 +1081,7 @@ const hockeyTypes = {
   2:"竞猜配置",
 }
 const hockeyTeamTypes = {
+    0:"--请选择--",
     1:"中国",
     2:"荷兰",
     3:"阿根廷",
@@ -1089,6 +1090,7 @@ const hockeyTeamTypes = {
     6:"日本",
 }
 const hockeyResultTypes = {
+    0:"--请选择--",
     1:"主胜",
     2:"平",
     3:"主负",
