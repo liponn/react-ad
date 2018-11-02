@@ -7,6 +7,7 @@ import { HOCKEYCONFIG_LIST, HOCKEYCARD_OPERATION, HOCKEYGUESS_ADD, HOCKEYGUESS_O
 import { Card, Pagination, ImgBox, Status, Radio} from '../../tools';
 import AddCardModal from './AddCardModal';
 import AddGuessModal from './AddGuessModal';
+import UpdateGuessModal from './UpdateGuessModal';
 import hisotry from '../../../core/history';
 import { getConfig } from '../../../config/omg';
 
@@ -21,7 +22,6 @@ class Hockey extends Component {
         this.fresh = this.fresh.bind(this);
         this.list = this.list.bind(this);
         this.enable = this.enable.bind(this);
-        this.disable = this.disable.bind(this);
         const hockeyTypes = getConfig('hockeyTypes');
         this.showAddModal = this.showAddModal.bind(this);
         this.showUpdateGuessModal = this.showUpdateGuessModal.bind(this);
@@ -118,9 +118,11 @@ class Hockey extends Component {
 
         });
     }
-    showAddModal() {
+    showAddModal(e) {
         if(this.props.typeId == 1) {
-            this.props.dispatch(showModal(<AddCardModal typeId={this.props.typeId} submit={this.opCard} errorMsg={this.state.addErrorMsg}/>));
+            const index = e.target.dataset.index;
+            const item = this.items[index];
+            this.props.dispatch(showModal(<AddCardModal typeId={this.props.typeId}  item={item} submit={this.opCard} errorMsg={this.state.addErrorMsg}/>));
         }
         if(this.props.typeId == 2) {
             this.props.dispatch(showModal(<AddGuessModal typeId={this.props.typeId} submit={this.addGuess} errorMsg={this.state.addErrorMsg} />));
@@ -129,32 +131,28 @@ class Hockey extends Component {
     showUpdateGuessModal(e) {//竞猜修改
         const index = e.target.dataset.index;
         const item = this.items[index];
-        this.props.dispatch(showModal(<AddGuessModal update typeId={this.props.typeId} item={item} submit={this.update} errorMsg={this.state.addErrorMsg} />));
+        this.props.dispatch(showModal(<UpdateGuessModal update typeId={this.props.typeId} item={item} submit={this.update} errorMsg={this.state.addErrorMsg} />));
     }
     enable(e) {
         const id = e.target.dataset.id;
+        const today = e.target.dataset.today;
         const formData = new FormData;
         formData.append('id', id);
-        formData.append('status', 1);
+        if (!confirm(`确认发送开奖 日期：${today} 吗?`)) {
+            return;
+        }
         this.props.dispatch(fetchAction({
-            type: EXAMINECONFIG_UP_STATUS,
+            type: HOCKEYGUESS_SENDOPENRESULT,
             method: 'POST',
             formData,
-        })).then(() => {
-            this.fresh();
-        });
-    }
-    disable(e) {
-        const id = e.target.dataset.id;
-        const formData = new FormData;
-        formData.append('id', id);
-        formData.append('status', 0);
-        this.props.dispatch(fetchAction({
-            type: EXAMINECONFIG_UP_STATUS,
-            method: 'POST',
-            formData,
-        })).then(() => {
-            this.fresh();
+        })).then(json => {
+            if (json.error_code === 0) {
+                alert("开奖成功，正在发送");
+                this.props.dispatch(hideModal(true));
+                this.fresh();
+            } else {
+                alert(json.data.error_msg);
+            }
         });
     }
     selectChange(e) {
@@ -216,11 +214,9 @@ class Hockey extends Component {
                                 <td>{item.id}</td>
                                 <td>{item.award_name}</td>
                                 <td>{item.info}</td>
-                                <td>{item.img}</td>
+                                <td><ImgBox src={item.img} /></td>
                                 <td>
-                                    <button hidden={+item.status === 1} className="btn btn-sm btn-success-outline" data-id={item.id} data-status="1" onClick={this.enable}>启用</button>
-                                    <button hidden={+item.status == 0} className="btn btn-sm btn-warning-outline" data-id={item.id}  data-status="2" onClick={this.disable}>禁用</button>
-                                    <button className="btn btn-sm btn-success-outline" data-id={item.id} data-index={index} onClick={this.showAddCardModal}>编辑</button>
+                                    <button className="btn btn-sm btn-success-outline" data-id={item.id} data-index={index} onClick={this.showAddModal}>编辑</button>
                                 </td>
                             </tr>
                         ))}
@@ -253,18 +249,17 @@ class Hockey extends Component {
                                 <td>{item.match_date}</td>
                                 <td>{item.first_master}-{item.first_visiting}</td>
                                 <td>{item.first_score}</td>
-                                <td>{item.first_result}</td>
+                                <td>{item.first_result == 1 ? '主胜' : item.first_result == 2 ? '平' : item.first_result == 3 ? '客胜': '--'}</td>
                                 <td>{item.second_master}-{item.second_visiting}</td>
                                 <td>{item.second_score}</td>
-                                <td>{item.second_result}</td>
+                                <td>{item.second_result == 1 ? '主胜' : item.second_result == 2 ? '平' : item.second_result == 3 ? '客胜': '--'}</td>
                                 <td>{item.third_master}-{item.third_visiting}</td>
                                 <td>{item.third_score}</td>
-                                <td>{item.third_relsult == 1 ? '主胜' : item.third_relsult == 1 ? '平' : item.third_relsult == 2 ? '发送完成':'--'}</td>
-                                <td>{item.open_status == 0 ? '未开奖' : item.open_status == 1 ? '发奖中' : item.open_status == 2 ? '发送完成':'--'}</td>
+                                <td>{item.third_result == 1 ? '主胜' : item.third_result == 2 ? '平' : item.third_result == 3 ? '客胜': '--'}</td>
+                                <td>{item.open_status == 0 ? '未开奖' : item.open_status == 1 ? '已公布结果' : item.open_status == 2 ? '发奖中': item.open_status == 3 ? '发奖完成' : item.open_status == 4 ? '已发送有未猜中' : '--'}</td>
                                 <td>
-                                    <button hidden={+item.status === 1} className="btn btn-sm btn-success-outline" data-id={item.id} data-status="1" onClick={this.enable}>启用</button>
-                                    <button hidden={+item.status == 0} className="btn btn-sm btn-warning-outline" data-id={item.id}  data-status="2" onClick={this.disable}>禁用</button>
-                                    <button className="btn btn-sm btn-success-outline" data-id={item.id} data-index={index} onClick={this.showUpdateGuessModal}>编辑</button>
+                                    <button hidden={+item.open_status != 1} className="btn btn-sm btn-success-outline" data-today={item.match_date} data-id={item.id} onClick={this.enable}>开奖</button>
+                                    <button hidden={+item.open_status >= 1} className="btn btn-sm btn-success-outline" data-id={item.id} data-index={index} onClick={this.showUpdateGuessModal}>编辑</button>
                                 </td>
                             </tr>
                         ))}
@@ -272,8 +267,6 @@ class Hockey extends Component {
                     </table>
                 </Card>
                 }
-                <Pagination currentPage={itemObj.current_page} lastPage={itemObj.last_page} onClick={this.pageSelect} unurl={true} />
-
             </div>
         );
     }
