@@ -896,6 +896,7 @@ const bannerTypes = {
   xcx:'小程序轮播图',
   xcx_icon:"小程序图标",
   mobile_pop:"移动端锁定页",
+  put_forward_icon:"提现页图标",
 }
 
 const channelStatusTypes = {

@@ -74,6 +74,9 @@ class AddModal extends Component {
         fileds.push(<Input labelName="IOS跳转链接(下面跳转链接为安卓)" name="url_ios" defaultValue={this.props.item.url_ios} />);
         fileds.push(<Select key="view_frequency"  name="view_frequency" labelName="显示频次" options={getConfig('bannerPopFrequencyTypes')}  defaultValue={this.props.item.view_frequency} />);
       break;
+    case 'put_forward_icon':
+        fileds.push(<Input key="name" name="name" labelName="标题" defaultValue={this.props.item.name} />);
+        break;
       default:
         fileds.push(<Input key="share_name" name="name" labelName="埋点说明" defaultValue={this.props.item.name} />);
     }
@@ -84,7 +87,7 @@ class AddModal extends Component {
           <input type="hidden" name="id" value={this.props.item.id} />
           <input type="hidden" name="position" value={this.props.item.position || this.props.type} />
           {fileds}
-          <AttachmentInput labelName={this.props.type === 'index_icon' ? "未选中图" : "banner图片" } position={`banner_${this.props.item.position}`} name="img_path" defaultValue={this.props.item.img_path} />
+          <AttachmentInput labelName={this.props.type === 'index_icon' ? "未选中图" : this.props.type === 'put_forward_icon' ? "悬浮图标" :"banner图片" } position={`banner_${this.props.item.position}`} name="img_path" defaultValue={this.props.item.img_path} />
           {this.props.type === 'index_icon' && <AttachmentInput labelName="选中图" position={`banner_${this.props.item.position}`} name="desc" defaultValue={this.props.item.desc} />}
 
           <Input labelName="跳转链接" name="url" defaultValue={this.props.item.url} />
