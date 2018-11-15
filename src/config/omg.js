@@ -885,6 +885,7 @@ const bannerTypes = {
   index_icon:'首页图标',
   xcx:'小程序轮播图',
   xcx_icon:"小程序图标",
+  put_forward_icon:"提现页图标",
 }
 
 const channelStatusTypes = {

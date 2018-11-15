@@ -212,6 +212,7 @@ class Banner extends Component {
                   && this.props.type !== 'xcx'
                   && this.props.type !== 'xcx_icon'
                   &&  this.props.type !== 'index_icon'
+                  &&  this.props.type !== 'put_forward_icon'
                   && <td>埋点说明</td>
                 }
 
@@ -220,7 +221,7 @@ class Banner extends Component {
                 {this.props.path === 'ShareConfig' && <th>分享内容</th>}
                 {this.props.path === 'ShareConfig' && <th>分享时说明</th>}
                 {this.props.type === 'index_icon' && <th>名称</th>}
-                {this.props.type === 'pop' && <th>标题</th>}
+                {this.props.type === 'pop' || this.props.type === 'put_forward_icon' && <th>标题</th>}
                 { (this.props.type === 'discover_feature' || this.props.type === 'xcx' || this.props.type === 'xcx_icon') && <th>名称</th>}
                 {this.props.type === 'index_icon' && <th>附标题</th>}
                 {this.props.type === 'pop' && <th>附标题</th>}
