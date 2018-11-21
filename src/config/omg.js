@@ -149,6 +149,25 @@ import {
   INTEGRAL_DEL,
   INTEGRAL_ENABLE,
   INTEGRAL_DISABLE,
+  PRIZETYPE_DT_ADD,
+  PRIZETYPE_DT_UPDATE,
+  PRIZETYPE_DT_LIST,
+  PRIZETYPE_DEL,
+  PRIZETYPE_CHANGE_STATUS,
+  PRIZETYPE_UP,
+  PRIZETYPE_DOWN,
+  PRIZE_LIST,
+  PRIZE_TYPE_LIST,
+  PRIZE_OPERATION,
+  PRIZE_CHANGE_STATUS,
+  PRIZE_UP,
+  PRIZE_DOWN,
+  PRIZE_DT_DEL,
+  PRIZE_BATCH_DEL,
+  EXCHANGE_LIST,
+  EXCHANGE_DT_UPDATE,
+  EXCHANGE_EXPORT,
+  EXCHANGE_IMPORT,
 
   ONEYUAN_LIST,
   ONEYUAN_OPERATION,
@@ -472,6 +491,29 @@ apiList[INTEGRAL_UP] = '/integral/up';
 apiList[INTEGRAL_DEL] = '/integral/delete';
 apiList[INTEGRAL_ENABLE] = '/integral/up-status';
 apiList[INTEGRAL_DISABLE] = '/integral/down-status';
+apiList[PRIZETYPE_DT_ADD] = '/integral/dt-add';
+apiList[PRIZETYPE_DT_UPDATE] = '/integral/dt-update';
+apiList[PRIZETYPE_DT_LIST] = '/integral/in-dt-list';
+apiList[PRIZETYPE_DEL] = '/integral/pt-delete';
+apiList[PRIZETYPE_CHANGE_STATUS] = '/integral/change-status';
+apiList[PRIZETYPE_UP] = '/integral/up';
+apiList[PRIZETYPE_DOWN] = '/integral/down';
+apiList[PRIZE_LIST] = '/prize/list';
+apiList[PRIZE_TYPE_LIST] = '/prize/typelist';
+apiList[PRIZE_OPERATION] = '/prize/operation';
+apiList[PRIZE_CHANGE_STATUS] = '/prize/change-status';
+apiList[PRIZE_UP] = '/prize/up';
+apiList[PRIZE_DOWN] = '/prize/down';
+apiList[PRIZE_DT_DEL] = '/prize/dt-del';
+apiList[PRIZE_BATCH_DEL] = '/prize/batch-del';
+apiList[EXCHANGE_LIST] = '/exchange/list';
+apiList[EXCHANGE_DT_UPDATE] = '/exchange/dt-update';
+apiList[EXCHANGE_EXPORT] = '/exchange/export';
+apiList[EXCHANGE_IMPORT] = '/exchange/import';
+
+
+
+
 
 apiList[ONEYUAN_LIST] = '/one/list';
 apiList[ONEYUAN_OPERATION] = '/one/operation';
@@ -765,7 +807,7 @@ const awardTypes = {
   2: '红包',
   3: '体验金',
   4: '用户积分',
-  // 5: '实物',
+  5: '实物',
   6: '优惠券',
   7: '现金',
 }
@@ -875,6 +917,8 @@ const bannerTypes = {
   index_icon:'首页图标',
   xcx:'小程序轮播图',
   xcx_icon:"小程序图标",
+  jifen_banner:"积分商城BANNER",
+  share_img:"APP分享图片"
 }
 
 const channelStatusTypes = {

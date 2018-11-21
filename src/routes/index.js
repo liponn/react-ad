@@ -57,11 +57,17 @@ import question from './question';
 import category from './category';
 import log from './log';
 import perhundred from './perhundred';
+import prizetype from './prizetype';
+import prize from './prize';
+import exchange from './exchange';
 export default {
 
   path: '/',
 
   children: [
+    exchange,
+    prize,
+    prizetype,
     perhundred,
     category,
     question,
