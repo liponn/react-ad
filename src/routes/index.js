@@ -57,11 +57,13 @@ import question from './question';
 import category from './category';
 import log from './log';
 import perhundred from './perhundred';
+import hockey from './hockey';
 export default {
 
   path: '/',
 
   children: [
+    hockey,
     perhundred,
     category,
     question,

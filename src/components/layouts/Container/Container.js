@@ -90,6 +90,12 @@ class Container extends Component {
           tag: 'perhundred',
           fontClass: 'fa-star',
         },
+        {
+          title: '曲棍球活动配置',
+          url: '/hockey/1',
+          tag: 'hockey',
+          fontClass: 'fa-star',
+        },
       ],
     }, {
       title: '活动记录',

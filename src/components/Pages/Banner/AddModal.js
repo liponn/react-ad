@@ -61,6 +61,9 @@ class AddModal extends Component {
         fileds.push(<Input key="tag" name="tag" labelName="TAG" defaultValue={this.props.item.tag} />);
         fileds.push(<Checkbox key="short_des"  name="short_des" labelName="是否分享" checked={this.props.item.short_des == 1 ? true : false} />);
         break;
+    case 'put_forward_icon':
+        fileds.push(<Input key="name" name="name" labelName="标题" defaultValue={this.props.item.name} />);
+        break;
       default:
         fileds.push(<Input key="share_name" name="name" labelName="埋点说明" defaultValue={this.props.item.name} />);
     }
@@ -71,7 +74,7 @@ class AddModal extends Component {
           <input type="hidden" name="id" value={this.props.item.id} />
           <input type="hidden" name="position" value={this.props.item.position || this.props.type} />
           {fileds}
-          <AttachmentInput labelName={this.props.type === 'index_icon' ? "未选中图" : "banner图片" } position={`banner_${this.props.item.position}`} name="img_path" defaultValue={this.props.item.img_path} />
+          <AttachmentInput labelName={this.props.type === 'index_icon' ? "未选中图" : this.props.type === 'put_forward_icon' ? "悬浮图标" :"banner图片" } position={`banner_${this.props.item.position}`} name="img_path" defaultValue={this.props.item.img_path} />
           {this.props.type === 'index_icon' && <AttachmentInput labelName="选中图" position={`banner_${this.props.item.position}`} name="desc" defaultValue={this.props.item.desc} />}
 
           <Input labelName="跳转链接" name="url" defaultValue={this.props.item.url} />
