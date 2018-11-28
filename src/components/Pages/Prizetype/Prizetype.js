@@ -82,18 +82,6 @@ class Prizetype extends Component {
             },
           },
           {
-            name: 'banner',
-            cname: 'BANNER',
-            type: 'attachment',
-            tableType: 'img_box',
-            searchable: false,
-            orderable: true,
-            search: {
-              value: '',
-              regex: false,
-            },
-          },
-          {
             name: 'is_online',
             cname: '状态',
             type: 'none',
