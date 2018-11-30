@@ -82,6 +82,28 @@ class Prizetype extends Component {
             },
           },
           {
+            name: 'start_time',
+            cname: '开始时间',
+            type: 'text',
+            searchable: true,
+            orderable: true,
+            search: {
+              value: '',
+              regex: false,
+            },
+          },
+          {
+            name: 'end_time',
+            cname: '结束时间',
+            type: 'text',
+            searchable: true,
+            orderable: true,
+            search: {
+              value: '',
+              regex: false,
+            },
+          },
+          {
             name: 'is_online',
             cname: '状态',
             type: 'none',
