@@ -59,6 +59,9 @@ import category from './category';
 import perhundred from './perhundred';
 import returncash from './returncash';
 import hockey from './hockey';
+import prizetype from './prizetype';
+import prize from './prize';
+import exchange from './exchange';
 export default {
 
   path: '/',
@@ -66,6 +69,9 @@ export default {
   children: [
     returncash,
     hockey,
+    exchange,
+    prize,
+    prizetype,
     perhundred,
     category,
     question,

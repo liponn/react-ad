@@ -67,12 +67,6 @@ class Container extends Component {
           fontClass: 'fa-star',
         },
         {
-          title: '积分商城',
-          url: '/integral',
-          tag: 'integral',
-          fontClass: 'fa-diamond',
-        },
-        {
           title: '瓜分体验金',
           url: '/hongbao',
           tag: 'money',
@@ -184,7 +178,32 @@ class Container extends Component {
           fontClass: 'fa-envelope',
         },
       ],
-    }, {
+    },
+     {
+        title: '积分商城',
+        isFold: true,
+         subItems: [
+        {
+          title: '奖品类型',
+          url: '/prizetype',
+          tag: 'bbs',
+          fontClass: 'fa-comment',
+        },
+        {
+          title: '奖品配置',
+          url: '/prize',
+          tag: 'bbs',
+          fontClass: 'fa-comment',
+        },
+        {
+          title: '兑换管理',
+          url: '/exchange',
+          tag: 'bbs',
+          fontClass: 'fa-comment',
+        }
+      ],
+    }, 
+      {
       title: '社区',
       isFold: true,
       subItems: [

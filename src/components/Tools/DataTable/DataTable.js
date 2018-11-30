@@ -69,8 +69,10 @@ class DataTable extends Component {
                 queryObj[`withs[${i}]`] = withs[i];
             }
         }
-        queryObj['order[0][column]'] = order.column;
-        queryObj['order[0][dir]'] = order.dir;
+        if(order){
+            queryObj['order[0][column]'] = order.column;
+            queryObj['order[0][dir]'] = order.dir;
+        }
         queryObj.start = this.state.start;
         queryObj.length = this.state.length;
         queryObj['search[value]'] = this.state.search.value;
@@ -342,6 +344,10 @@ class DataTable extends Component {
                                             return (<td key={`fileld_${index}_${index2}`}>
                                                 {value ? "是" : "否"}
                                             </td>);
+                                        case 'line':
+                                        return (<td key={`fileld_${index}_${index2}`}>
+                                            {value ? "上线" : "下线"}
+                                        </td>);
                                         default:
                                             return <td key={`fileld_${index}_${index2}`}>{value}</td>;
                                     }

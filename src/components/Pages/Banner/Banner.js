@@ -214,6 +214,8 @@ class Banner extends Component {
                   &&  this.props.type !== 'index_icon'
                   &&  this.props.type !== 'mobile_pop'
                   &&  this.props.type !== 'put_forward_icon'
+                  &&  this.props.type !== 'jifen_banner'
+                  &&  this.props.type !== 'share_img'
                   && <td>埋点说明</td>
                 }
 
@@ -224,6 +226,8 @@ class Banner extends Component {
                 {this.props.type === 'index_icon' && <th>名称</th>}
                 { (this.props.type === 'pop' || this.props.type === 'mobile_pop') && <th>标题</th>}
                 {this.props.type === 'pop' || this.props.type === 'put_forward_icon' && <th>标题</th>}
+                {this.props.type === 'pop' && <th>标题</th>}
+                {this.props.type === 'share_img' && <th>分享文案</th>}
                 { (this.props.type === 'discover_feature' || this.props.type === 'xcx' || this.props.type === 'xcx_icon') && <th>名称</th>}
                 {this.props.type === 'index_icon' && <th>附标题</th>}
                 {this.props.type === 'pop' && <th>附标题</th>}
@@ -264,6 +268,7 @@ class Banner extends Component {
                 {(this.props.type === 'pop' || this.props.type === 'mobile_pop') && <td>{item.short_desc}</td>}
 
                 <td><ImgBox src={item.img_path} /></td>
+                {this.props.type === 'share_img' && <td>{item.short_desc}</td>}
                 {this.props.type === 'index_icon' && <td><ImgBox src={item.desc} /></td>}
                 {this.props.type === 'discover' && <td>{getConfig('discoverTypes', item.type) || '——'}</td>}
                 {this.props.type === 'cast_finish' && <td>{getConfig('popTypes', item.type) || '不跳转'}</td>}
