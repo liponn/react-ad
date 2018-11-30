@@ -28,7 +28,7 @@ class PrizeAddModal extends Component {
           <Select labelName="商品类型" name="type_id" options={prizeTypes} defaultValue={item.type_id} />
           <Input required labelName="奖品名称" name="name" defaultValue={item.name} />
           <Input required labelName="所需积分" name="price" defaultValue={item.price} />
-          <Input required labelName="折扣积分" name="kill_price" defaultValue={item.kill_price} />
+          <Input labelName="折扣积分" name="kill_price" defaultValue={item.kill_price} />
           <Select labelName="奖品类型" name="award_type" options={this.state.awardTypes} defaultValue={item.award_type} />
           <Input labelName="奖品ID" name="award_id" placeholder="奖品ID" defaultValue={item.award_id} />
           <Input  name="stock" labelName="库存" defaultValue={item.stock}/>
