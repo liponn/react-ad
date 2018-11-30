@@ -941,7 +941,6 @@ const bannerTypes = {
   put_forward_icon:"提现页图标",
   jifen_banner:"积分商城BANNER",
   share_img:"APP分享图片"
->>>>>>> feature-app-3.7.1
 }
 
 const channelStatusTypes = {
