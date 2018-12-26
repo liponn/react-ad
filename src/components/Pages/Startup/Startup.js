@@ -190,6 +190,8 @@ class Startup extends Component {
                 <th>{getConfig('startupImages', `${this.props.type}:3`)}</th>
                 <th>{getConfig('startupImages', `${this.props.type}:4`)}</th>
                 <th>{getConfig('startupImages', `${this.props.type}:5`)}</th>
+                <th>{getConfig('startupImages', `${this.props.type}:6`)}</th>
+                <th>{getConfig('startupImages', `${this.props.type}:7`)}</th>
                 <th>开始时间</th>
                 <th>结束时间</th>
                 <th>状态</th>
@@ -207,6 +209,8 @@ class Startup extends Component {
                 <td><ImgBox src={item.img3} /></td>
                 <td><ImgBox src={item.img4} /></td>
                 <td><ImgBox src={item.img5} /></td>
+                <td><ImgBox src={item.img6} /></td>
+                <td><ImgBox src={item.img7} /></td>
                 <td>{item.online_time}</td>
                 <td>{item.offline_time}</td>
                 <td><Status status={+item.enable} /></td>
