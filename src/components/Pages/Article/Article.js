@@ -295,6 +295,7 @@ class Article extends Component {
                 <th>标题</th>
                 <th>配图</th>
                 <th>内容</th>
+                <th>+发布时间</th>
                 <th>发布状态</th>
                 {(aliasName === 'questions' || aliasName === 'pc_questions') ? [<th>常见问题</th>] : false}
                 <th>操作</th>
@@ -307,6 +308,7 @@ class Article extends Component {
                 <td>{item.title}</td>
                 <td>{item.cover ? <ImgBox src={item.cover} /> : '—'}</td>
                 <td><Popover title={item.title} content={item.content} /></td>
+                <td>{item.display_at.slice(0, 10)}</td>
                 <td><Status status={+item.release} /></td>
                 {(aliasName === 'questions' || aliasName === 'pc_questions') ? [<td>{item.platform === 1 ? '√️' : '—'}</td>] : false}
                 <td>
