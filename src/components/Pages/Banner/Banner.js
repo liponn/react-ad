@@ -255,7 +255,7 @@ class Banner extends Component {
             {items.map((item, index) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
-                {this.props.path !== 'ShareConfig' && this.props.type !== 'pop' && this.props.type !== 'index_icon' && this.props.type !== 'mobile_pop' && <td>{item.name}</td>}
+                {this.props.path !== 'ShareConfig' && this.props.type !== 'pop' && this.props.type !== 'index_icon' && this.props.type !== 'mobile_pop' && this.props.type !== 'share_img' &&<td>{item.name}</td>}
                 {this.props.path === 'ShareConfig' && this.props.type === 'share' && <td>{item.tag}</td>}
                 {this.props.path === 'ShareConfig' && <td>{item.name}</td>}
                 {this.props.path === 'ShareConfig' && <td>{item.desc}</td>}
@@ -267,8 +267,8 @@ class Banner extends Component {
                 {(this.props.type === 'pop' || this.props.type === 'mobile_pop') && <td>{item.name}</td>}
                 {(this.props.type === 'pop' || this.props.type === 'mobile_pop') && <td>{item.short_desc}</td>}
 
-                <td><ImgBox src={item.img_path} /></td>
                 {this.props.type === 'share_img' && <td>{item.short_desc}</td>}
+                <td><ImgBox src={item.img_path} /></td>
                 {this.props.type === 'index_icon' && <td><ImgBox src={item.desc} /></td>}
                 {this.props.type === 'discover' && <td>{getConfig('discoverTypes', item.type) || '——'}</td>}
                 {this.props.type === 'cast_finish' && <td>{getConfig('popTypes', item.type) || '不跳转'}</td>}
