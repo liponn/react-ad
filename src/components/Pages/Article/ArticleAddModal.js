@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Input, Editor, AttachmentInput, Alert, Submit, Modal, Checkbox } from '../../tools';
+import { Input, Editor, DateTimeInput, AttachmentInput, Alert, Submit, Modal, Checkbox } from '../../tools';
 import { ARTICLE_ADD} from '../../../constants'
 
 class ArticleAddModal extends Component {
@@ -22,6 +22,8 @@ class ArticleAddModal extends Component {
           <div>
             <AttachmentInput labelName="封面" defaultValue={this.props.item.cover} position={`article_${this.props.typeId}`} name="cover" />
           </div>
+          <DateTimeInput withoutTime required labelName="显示时间" name="display_at" defaultValue={this.props.item.display_at} />
+          <p>*  如果不写。将以实际发布时间为准</p>
           <div hidden={this.props.aliasName !== 'questions' && this.props.aliasName !== 'pc_questions'}>
             <Checkbox labelName="常见问题" name="platform" value="1" checked={this.props.item.platform} />
           </div>
