@@ -309,7 +309,7 @@ class Article extends Component {
                 <td>{item.title}</td>
                 <td>{item.cover ? <ImgBox src={item.cover} /> : '—'}</td>
                 <td><Popover title={item.title} content={item.content} /></td>
-                { (aliasName === 'classroom') ? [<td>{item.display_at}</td>] : false}
+                { (aliasName === 'classroom' && Object.keys(item.display_at).length != 0) ? [<td>{item.display_at.slice(0,10)}</td>] : false}
                 
                 <td><Status status={+item.release} /></td>
                 {(aliasName === 'questions' || aliasName === 'pc_questions') ? [<td>{item.platform === 1 ? '√️' : '—'}</td>] : false}
