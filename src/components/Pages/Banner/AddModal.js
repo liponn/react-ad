@@ -27,6 +27,11 @@ class AddModal extends Component {
   render() {
     const fileds = [];
     switch (this.props.type) {
+      case 'share_img':
+        fileds.push(<Input key="share_short_des" name="short_desc" labelName="分享文案" defaultValue={this.props.item.short_desc} />);
+            break;
+      case 'jifen_banner':
+            break;
       case 'channel':
       case 'pc_channel':
         fileds.push(<Input key="share_name" name="name" labelName="渠道名" placeholder="不填则为默认渠道" defaultValue={this.props.item.name} />);

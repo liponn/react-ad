@@ -58,12 +58,18 @@ import category from './category';
 import log from './log';
 import perhundred from './perhundred';
 import hockey from './hockey';
+import prizetype from './prizetype';
+import prize from './prize';
+import exchange from './exchange';
 export default {
 
   path: '/',
 
   children: [
     hockey,
+    exchange,
+    prize,
+    prizetype,
     perhundred,
     category,
     question,

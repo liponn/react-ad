@@ -149,6 +149,25 @@ import {
   INTEGRAL_DEL,
   INTEGRAL_ENABLE,
   INTEGRAL_DISABLE,
+  PRIZETYPE_DT_ADD,
+  PRIZETYPE_DT_UPDATE,
+  PRIZETYPE_DT_LIST,
+  PRIZETYPE_DEL,
+  PRIZETYPE_CHANGE_STATUS,
+  PRIZETYPE_UP,
+  PRIZETYPE_DOWN,
+  PRIZE_LIST,
+  PRIZE_TYPE_LIST,
+  PRIZE_OPERATION,
+  PRIZE_CHANGE_STATUS,
+  PRIZE_UP,
+  PRIZE_DOWN,
+  PRIZE_DT_DEL,
+  PRIZE_BATCH_DEL,
+  EXCHANGE_LIST,
+  EXCHANGE_DT_UPDATE,
+  EXCHANGE_EXPORT,
+  EXCHANGE_IMPORT,
 
   ONEYUAN_LIST,
   ONEYUAN_OPERATION,
@@ -477,6 +496,29 @@ apiList[INTEGRAL_UP] = '/integral/up';
 apiList[INTEGRAL_DEL] = '/integral/delete';
 apiList[INTEGRAL_ENABLE] = '/integral/up-status';
 apiList[INTEGRAL_DISABLE] = '/integral/down-status';
+apiList[PRIZETYPE_DT_ADD] = '/integral/dt-add';
+apiList[PRIZETYPE_DT_UPDATE] = '/integral/dt-update';
+apiList[PRIZETYPE_DT_LIST] = '/integral/in-dt-list';
+apiList[PRIZETYPE_DEL] = '/integral/pt-delete';
+apiList[PRIZETYPE_CHANGE_STATUS] = '/integral/change-status';
+apiList[PRIZETYPE_UP] = '/integral/up';
+apiList[PRIZETYPE_DOWN] = '/integral/down';
+apiList[PRIZE_LIST] = '/prize/list';
+apiList[PRIZE_TYPE_LIST] = '/prize/typelist';
+apiList[PRIZE_OPERATION] = '/prize/operation';
+apiList[PRIZE_CHANGE_STATUS] = '/prize/change-status';
+apiList[PRIZE_UP] = '/prize/up';
+apiList[PRIZE_DOWN] = '/prize/down';
+apiList[PRIZE_DT_DEL] = '/prize/dt-delete';
+apiList[PRIZE_BATCH_DEL] = '/prize/batch-del';
+apiList[EXCHANGE_LIST] = '/exchange/list';
+apiList[EXCHANGE_DT_UPDATE] = '/exchange/dt-update';
+apiList[EXCHANGE_EXPORT] = '/exchange/export';
+apiList[EXCHANGE_IMPORT] = '/exchange/import';
+
+
+
+
 
 apiList[ONEYUAN_LIST] = '/one/list';
 apiList[ONEYUAN_OPERATION] = '/one/operation';
@@ -775,7 +817,7 @@ const awardTypes = {
   2: '红包',
   3: '体验金',
   4: '用户积分',
-  // 5: '实物',
+  5: '实物',
   6: '优惠券',
   7: '现金',
 }
@@ -886,6 +928,8 @@ const bannerTypes = {
   xcx:'小程序轮播图',
   xcx_icon:"小程序图标",
   put_forward_icon:"提现页图标",
+  jifen_banner:"积分商城BANNER",
+  share_img:"APP分享图片"
 }
 
 const channelStatusTypes = {
@@ -921,11 +965,15 @@ const startupImages = {
   '1:3': '640x1136',
   '1:4': '640x960',
   '1:5': '1125x2436',
+  '1:6': '1242x2688',
+  '1:7': '828x1792',
   '2:1': '1080x1920',
   '2:2': '720x1280',
   '2:3': '480x800',
   '2:4': '无',
   '2:5': '1125x2436',
+  '2:6': '无',
+  '2:7': '无',
 }
 
 
