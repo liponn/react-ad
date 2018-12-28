@@ -85,7 +85,7 @@ class DateTimeInput extends Component {
             placeholder="YYYY-MM-DD"
           />
         </div>
-        <div className="col-sm-3">
+        <div hidden={this.props.withoutTime} className="col-sm-3">
           <input
             required={this.props.required}
             onChange={this.timeChange}
@@ -110,12 +110,14 @@ DateTimeInput.propTypes = {
   labelName: PropTypes.string.isRequired,
   required: PropTypes.bool,
   limit: PropTypes.bool,
+  withoutTime: PropTypes.bool,
   defaultValue: PropTypes.string,
 }
 
 DateTimeInput.defaultProps = {
   required: false,
   limit: false,
+  withoutTime: false,
 }
 
 export default DateTimeInput;
