@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Card, Popover } from '../../tools';
+import { Card, Popover, Pagination } from '../../tools';
 import { AWARD_LIST, AWARD_UPDATE, AWARD_ADD, AWARD_COUPON_TOTAL, AWARD_COUPON_EXPORT, AWARD_COUPON_DOWNLOAD, AWARD_INVALIDE_COUPON } from '../../../constants';
 import { fetchAction } from '../../../actions/omg';
 import CouponAddModal from './CouponAddModal';
@@ -175,6 +175,7 @@ class Coupon extends Component {
     const items = award.data || [];
     this.items = items;
     return (
+      <div>
       <Card title="优惠券" btn={btn}>
         <table className="table m-b-0 table-bordered">
           <thead>
@@ -224,6 +225,8 @@ class Coupon extends Component {
           </tbody>
         </table>
       </Card>
+    <Pagination currentPage={award.current_page} lastPage={award.last_page} onClick={this.pageSelect} unurl={modal} />
+    </div>
     );
   }
 }
