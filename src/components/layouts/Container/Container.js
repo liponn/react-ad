@@ -90,6 +90,12 @@ class Container extends Component {
           tag: 'hockey',
           fontClass: 'fa-star',
         },
+        {
+          title: '周末竞猜活动配置',
+          url: '/weeksguess',
+          tag: 'weeksguess',
+          fontClass: 'fa-star',
+        },
       ],
     }, {
       title: '活动记录',
