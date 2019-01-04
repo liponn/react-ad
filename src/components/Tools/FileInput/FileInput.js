@@ -15,7 +15,7 @@ class Input extends Component {
   render() {
     return (
       <div ref="fileInput" className="form-group row">
-        <label className="col-sm-4 form-control-label text-sm-right">文件:</label>
+        <label className="col-sm-4 form-control-label text-sm-right">{this.props.labelName}:</label>
         <div className="col-sm-6">
           <label className="file">
             <input type="file" name="file" id="coupon-file" onChange={this.fileChange} />

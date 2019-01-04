@@ -345,6 +345,10 @@ import {
   HOCKEYGUESS_ADD,
   HOCKEYGUESS_OPERATION,
   HOCKEYGUESS_SENDOPENRESULT,
+  WEEKSGUESS_LIST,
+  WEEKSGUESS_OPERATION,
+  WEEKSGUESS_STATUS,
+  WEEKSGUESS_DRAW_STATUS,
 
 } from '../constants/index.js';
 
@@ -708,6 +712,10 @@ apiList[HOCKEYCARD_OPERATION] = '/hockey/card-operation';
 apiList[HOCKEYGUESS_ADD] = '/hockey/guess-add';
 apiList[HOCKEYGUESS_OPERATION] = '/hockey/guess-operation';
 apiList[HOCKEYGUESS_SENDOPENRESULT] = '/hockey/guess-send-open-result';
+apiList[WEEKSGUESS_LIST] = '/weeksguess/list';
+apiList[WEEKSGUESS_OPERATION] = '/weeksguess/operation';
+apiList[WEEKSGUESS_STATUS] = '/weeksguess/up-status';
+apiList[WEEKSGUESS_DRAW_STATUS] = '/weeksguess/draw-status';
 function getApi(type) {
   let apiHost = '';
   const host = typeof window !== 'undefined' ? window.location.hostname : hostname;

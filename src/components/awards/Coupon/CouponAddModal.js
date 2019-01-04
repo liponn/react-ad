@@ -24,6 +24,7 @@ class CouponAddModal extends Component {
           <div hidden={this.props.update}>
             <FileInput labelName="优惠券文件" name="file" />
           </div>
+          {this.props.update && <font color="#FF0000"><FileInput labelName="优惠券续增文件（可不填）" name="file" /></font>}
           <Textarea labelName="优惠券介绍" name="desc" defaultValue={item.desc} />
           <hr style={{ borderStyle: 'dashed' }} />
           <Textarea labelName="站内信模板" defaultValue={typeof item.mail !== 'undefined' ? item.mail : getConfig('templateTypes', this.state.type)} name="mail" />
