@@ -35,7 +35,6 @@ class AddModal extends Component {
           <Input labelName="近期赛况" name="recent" type="text" required defaultValue={this.props.item.recent || ''} />
           { this.props.update && <Input labelName="主队得分" name="home_score" type="text" required defaultValue={this.props.item.home_score} />}
           { this.props.update && <Input labelName="客队得分" name="guest_score" type="text" required defaultValue={this.props.item.guest_score} />}
-          : ''}
           {this.props.update && <Select onChange={this.changeSelect.bind(this)} name="result" labelName="比赛结果" options={getConfig('hockeyResultTypes')} defaultValue={this.props.item.result} />}
           <Submit />
         </form>
