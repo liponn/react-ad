@@ -156,6 +156,7 @@ class ActivityList extends Component {
                 <th>ID</th>
                 <th>活动别名</th>
                 <th>触发类型</th>
+                <th>发奖频次</th>
                 <th>开始时间</th>
                 <th>结束时间</th>
                 <th>状态</th>
@@ -199,6 +200,7 @@ class ActivityList extends Component {
                     <td>{activity.id ? activity.id : '—'}</td>
                     <td>{activity.alias_name ? activity.alias_name : '—'}</td>
                     <td>{getConfig('activityTriggers', activity.trigger_type)}</td>
+                    <td>{getConfig('frequencyTypes', activity.frequency)}</td>
                     <td>{activity.start_at ? activity.start_at : '不限制'}</td>
                     <td>{activity.end_at ? activity.end_at : '不限制'}</td>
                     <td>
