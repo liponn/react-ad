@@ -36,6 +36,8 @@ class AddModal extends Component {
           { this.props.update && <Input labelName="主队得分" name="home_score" type="text" required defaultValue={this.props.item.home_score} />}
           { this.props.update && <Input labelName="客队得分" name="guest_score" type="text" required defaultValue={this.props.item.guest_score} />}
           {this.props.update && <Select onChange={this.changeSelect.bind(this)} name="result" labelName="比赛结果" options={getConfig('hockeyResultTypes')} defaultValue={this.props.item.result} />}
+          活动规则：
+          <Editor name="activity_rule" defaultValue={this.props.item.activity_rule}/>
           <Submit />
         </form>
       </Modal>
