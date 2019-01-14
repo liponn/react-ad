@@ -340,6 +340,8 @@ import {
   HOCKEYGUESS_ADD,
   HOCKEYGUESS_OPERATION,
   HOCKEYGUESS_SENDOPENRESULT,
+  NEW_YEAR_AMOUNT_SHARE,
+  NEW_YEAR_AMOUNT_SHARE_EXPORT,
 
 } from '../constants/index.js';
 
@@ -698,6 +700,8 @@ apiList[HOCKEYCARD_OPERATION] = '/hockey/card-operation';
 apiList[HOCKEYGUESS_ADD] = '/hockey/guess-add';
 apiList[HOCKEYGUESS_OPERATION] = '/hockey/guess-operation';
 apiList[HOCKEYGUESS_SENDOPENRESULT] = '/hockey/guess-send-open-result';
+apiList[NEW_YEAR_AMOUNT_SHARE] = '/new_year_amount_share/statistics';
+apiList[NEW_YEAR_AMOUNT_SHARE_EXPORT] = '/new_year_amount_share/export';
 function getApi(type) {
   let apiHost = '';
   const host = typeof window !== 'undefined' ? window.location.hostname : hostname;

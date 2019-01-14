@@ -90,6 +90,12 @@ class Container extends Component {
           tag: 'hockey',
           fontClass: 'fa-star',
         },
+        {
+          title: '19年分享红包数据',
+          url: '/newyearamountshare',
+          tag: 'new_year_amount_share',
+          fontClass: 'fa-star',
+        },
       ],
     }, {
       title: '活动记录',
