@@ -63,13 +63,15 @@ import prizetype from './prizetype';
 import prize from './prize';
 import exchange from './exchange';
 import weeksguess from './weeksguess';
+import newyearamountshare from './newyearamountshare';
 export default {
 
   path: '/',
 
   children: [
     returncash,
-   weeksguess,
+    weeksguess,
+    newyearamountshare,
     hockey,
     exchange,
     prize,
@@ -123,6 +125,7 @@ export default {
   ],
 
   async action({ next, render, context, path }) {
+
     const component = await next();
     if (component === undefined) return component;
     return render(

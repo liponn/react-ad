@@ -349,6 +349,8 @@ import {
   WEEKSGUESS_OPERATION,
   WEEKSGUESS_STATUS,
   WEEKSGUESS_DRAW_STATUS,
+  NEW_YEAR_AMOUNT_SHARE,
+  NEW_YEAR_AMOUNT_SHARE_EXPORT,
 
 } from '../constants/index.js';
 
@@ -716,6 +718,8 @@ apiList[WEEKSGUESS_LIST] = '/weeksguess/list';
 apiList[WEEKSGUESS_OPERATION] = '/weeksguess/operation';
 apiList[WEEKSGUESS_STATUS] = '/weeksguess/up-status';
 apiList[WEEKSGUESS_DRAW_STATUS] = '/weeksguess/draw-status';
+apiList[NEW_YEAR_AMOUNT_SHARE] = '/new_year_amount_share/statistics';
+apiList[NEW_YEAR_AMOUNT_SHARE_EXPORT] = '/new_year_amount_share/export';
 function getApi(type) {
   let apiHost = '';
   const host = typeof window !== 'undefined' ? window.location.hostname : hostname;
