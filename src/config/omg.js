@@ -929,7 +929,9 @@ const bannerTypes = {
   xcx_icon:"小程序图标",
   put_forward_icon:"提现页图标",
   jifen_banner:"积分商城BANNER",
-  share_img:"APP分享图片"
+  share_img:"APP分享图片",
+  large_recharge:"大额充值"
+
 }
 
 const channelStatusTypes = {
