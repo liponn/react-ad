@@ -234,7 +234,7 @@ class Banner extends Component {
                 {this.props.type === 'mobile_pop' && <th>版本号</th>}
                 {this.props.type === 'index_icon' && <th>TAG</th>}
                 {this.props.type === 'index_icon' && <th>是否分享</th>}
-                {this.props.type !== 'index_icon' && <th>图片预览</th>}
+                {this.props.type !== 'index_icon' && this.props.type !== 'large_recharge' && <th>图片预览</th>}
                 {this.props.type === 'index_icon' && <th>未选中图</th>}
                 {this.props.type === 'index_icon' && <th>选中图</th>}
                 {this.props.type === 'cast_finish' && <th>跳转类型</th>}
@@ -268,7 +268,7 @@ class Banner extends Component {
                 {(this.props.type === 'pop' || this.props.type === 'mobile_pop') && <td>{item.short_desc}</td>}
 
                 {this.props.type === 'share_img' && <td>{item.short_desc}</td>}
-                <td><ImgBox src={item.img_path} /></td>
+                {this.props.type !== 'large_recharge' && <td><ImgBox src={item.img_path} /></td>}
                 {this.props.type === 'index_icon' && <td><ImgBox src={item.desc} /></td>}
                 {this.props.type === 'discover' && <td>{getConfig('discoverTypes', item.type) || '——'}</td>}
                 {this.props.type === 'cast_finish' && <td>{getConfig('popTypes', item.type) || '不跳转'}</td>}
