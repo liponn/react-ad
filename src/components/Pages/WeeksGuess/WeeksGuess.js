@@ -122,6 +122,9 @@ class WeeksGuess extends Component {
   }
 
 draw(e) {
+    if (!confirm('你确定开奖吗？该操作不可逆')){
+      return false;
+    }
     const id = e.target.dataset.id;
     const formData = new FormData;
     formData.append('id', id);
