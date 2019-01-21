@@ -32,7 +32,7 @@ class AddModal extends Component {
           <AttachmentInput labelName="主队logo" name="home_img" position={`banner_${this.props.item.home_img}`} defaultValue={this.props.item.home_img} />
           <Input labelName="客队名称" name="guest_team" type="text" required defaultValue={this.props.item.guest_team || ''} />
           <AttachmentInput labelName="客队logo" name="guest_img" position={`banner_${this.props.item.guest_img}`} defaultValue={this.props.item.guest_img} />
-          <Input labelName="近期赛况" name="recent" type="text" required defaultValue={this.props.item.recent || ''} />
+          <Input labelName="近期赛况" name="recent" type="text" defaultValue={this.props.item.recent || ''} />
           { this.props.update && <Input labelName="主队得分" name="home_score" type="text" required defaultValue={this.props.item.home_score} />}
           { this.props.update && <Input labelName="客队得分" name="guest_score" type="text" required defaultValue={this.props.item.guest_score} />}
           {this.props.update && <Select onChange={this.changeSelect.bind(this)} name="result" labelName="比赛结果" options={getConfig('hockeyResultTypes')} defaultValue={this.props.item.result} />}
