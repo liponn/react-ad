@@ -340,8 +340,15 @@ import {
   HOCKEYGUESS_ADD,
   HOCKEYGUESS_OPERATION,
   HOCKEYGUESS_SENDOPENRESULT,
+
+  WEEKSGUESS_LIST,
+  WEEKSGUESS_OPERATION,
+  WEEKSGUESS_STATUS,
+  WEEKSGUESS_DRAW_STATUS,
+
   NEW_YEAR_AMOUNT_SHARE,
   NEW_YEAR_AMOUNT_SHARE_EXPORT,
+
 
 } from '../constants/index.js';
 
@@ -700,6 +707,10 @@ apiList[HOCKEYCARD_OPERATION] = '/hockey/card-operation';
 apiList[HOCKEYGUESS_ADD] = '/hockey/guess-add';
 apiList[HOCKEYGUESS_OPERATION] = '/hockey/guess-operation';
 apiList[HOCKEYGUESS_SENDOPENRESULT] = '/hockey/guess-send-open-result';
+apiList[WEEKSGUESS_LIST] = '/weeksguess/list';
+apiList[WEEKSGUESS_OPERATION] = '/weeksguess/operation';
+apiList[WEEKSGUESS_STATUS] = '/weeksguess/up-status';
+apiList[WEEKSGUESS_DRAW_STATUS] = '/weeksguess/draw-status';
 apiList[NEW_YEAR_AMOUNT_SHARE] = '/new_year_amount_share/statistics';
 apiList[NEW_YEAR_AMOUNT_SHARE_EXPORT] = '/new_year_amount_share/export';
 function getApi(type) {
@@ -933,7 +944,9 @@ const bannerTypes = {
   xcx_icon:"小程序图标",
   put_forward_icon:"提现页图标",
   jifen_banner:"积分商城BANNER",
-  share_img:"APP分享图片"
+  share_img:"APP分享图片",
+  large_recharge:"大额充值"
+
 }
 
 const channelStatusTypes = {

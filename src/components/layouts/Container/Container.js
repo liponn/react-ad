@@ -91,6 +91,12 @@ class Container extends Component {
           fontClass: 'fa-star',
         },
         {
+          title: '周末竞猜活动配置',
+          url: '/weeksguess',
+          tag: 'weeksguess',
+          fontClass: 'fa-star',
+        },
+        {
           title: '19年分享红包数据',
           url: '/newyearamountshare',
           tag: 'new_year_amount_share',

@@ -61,13 +61,16 @@ import hockey from './hockey';
 import prizetype from './prizetype';
 import prize from './prize';
 import exchange from './exchange';
+import weeksguess from './weeksguess';
 import newyearamountshare from './newyearamountshare';
+
 export default {
 
   path: '/',
 
   children: [
     newyearamountshare,
+    weeksguess,
     hockey,
     exchange,
     prize,
